@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join</title>
+    <link rel="icon" type="image/png" href="./assets/icons/favicon.png" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="app-body">
+    <div class="app-frame">
+      <aside class="app-sidebar">
+        <a class="sidebar-logo-link" href="#summary" aria-label="Zur Summary">
+          <img
+            class="sidebar-logo"
+            src="./assets/img/join_logo_white.png"
+            alt="Join"
+          />
+        </a>
+
+        <nav class="sidebar-nav app-navigation" aria-label="Hauptnavigation">
+          <a class="sidebar-link" href="#summary" data-view-link="summary">Summary</a>
+          <a class="sidebar-link" href="#add-task" data-view-link="add-task">Add Task</a>
+          <a class="sidebar-link" href="#board" data-view-link="board">Board</a>
+          <a class="sidebar-link" href="#contacts" data-view-link="contacts">Contacts</a>
+        </nav>
+
+        <nav class="sidebar-nav external-navigation" aria-label="Login">
+          <a class="sidebar-link" href="./index.html">Log in</a>
+        </nav>
+
+        <footer class="sidebar-footer">
+          <a class="sidebar-footer-link" href="#privacy" data-view-link="privacy">
+            Privacy Policy
+          </a>
+          <a class="sidebar-footer-link" href="#legal" data-view-link="legal">
+            Legal notice
+          </a>
+        </footer>
+      </aside>
+
+      <div class="app-page">
+        <header class="app-header">
+          <div class="app-header-content">
+            <span class="app-title">Kanban Project Management Tool</span>
+
+            <div class="app-header-actions">
+              <a class="help-button" id="helpButton" href="#help" aria-label="Hilfe">
+                <img src="./assets/icons/help.svg" alt="" aria-hidden="true" />
+              </a>
+
+              <button class="user-placeholder" type="button" aria-label="Benutzerprofil">
+                <span class="user-initials" id="userInitials" aria-hidden="true"></span>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <main class="app-main">
+          <div class="app-content" id="appContent"></div>
+        </main>
+      </div>
+    </div>
+
+    <script src="./scripts/app.js"></script>
+  </body>
+</html>

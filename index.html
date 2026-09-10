@@ -2,9 +2,10 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Join</title>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="icon" type="image/png" href="./assets/icons/favicon.png" />
+    <link rel="stylesheet" href="./style.css"/>
   </head>
   <body>
     <div class="page-frame">
@@ -18,16 +19,18 @@
       </header>
 
       <main class="site-main">
+        <h1>
         <img
           class="join-logo"
           src="./assets/img/join_logo.png"
-          alt="Join Logo"
+          alt="Join"
         />
+        </h1>
 
         <dialog class="login-dialog" id="loginDialog" aria-labelledby="loginTitle">
           <form class="login-form" id="loginForm">
             <div class="login-heading">
-              <h1 id="loginTitle">Log in</h1>
+              <h2 id="loginTitle">Log in</h2>
               <span class="heading-line" aria-hidden="true"></span>
             </div>
 
@@ -41,10 +44,12 @@
                 autocomplete="email"
                 required
               />
-              <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M4 6h16v12H4z"></path>
-                <path d="m4 7 8 6 8-6"></path>
-              </svg>
+              <img
+                class="input-icon"
+                src="./assets/icons/mail.png"
+                alt=""
+                aria-hidden="true"
+              />
             </div>
 
             <div class="input-group">
@@ -57,15 +62,17 @@
                 autocomplete="current-password"
                 required
               />
-              <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="5" y="10" width="14" height="10" rx="2"></rect>
-                <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
-              </svg>
+              <img
+                class="input-icon"
+                src="./assets/icons/lock.png"
+                alt=""
+                aria-hidden="true"
+              />
             </div>
 
             <div class="login-actions">
               <button class="button button-dark" type="submit">Log in</button>
-              <button class="button button-light" type="button">Guest Log in</button>
+              <button class="button button-light" id="guestLoginButton" type="button">Guest Log in</button>
             </div>
           </form>
         </dialog>
@@ -73,8 +80,8 @@
 
       <footer class="site-footer">
         <div class="content-width footer-content">
-          <a href="./cookies.html">Privacy Policy</a>
-          <a href="./imprint.html">Legal notice</a>
+          <a href="./app.html#privacy">Privacy Policy</a>
+          <a href="./app.html#legal">Legal notice</a>
         </div>
       </footer>
     </div>
