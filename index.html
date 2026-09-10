@@ -3,31 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Titel</title>
-    <!-- bootstrap - Inhalte sind zu entfernen, wenn es nicht genutzt wird ... -->
-    <link
-      rel="stylesheet"
-      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
-      crossorigin="anonymous"
-    />
-    <!-- Eigenes CSS -->
-    <link rel="stylesheet" href="" />
+    <title>Join</title>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
+    <div class="page-frame">
+      <header class="site-header">
+        <div class="content-width header-content">
+          <div class="signup-area" aria-label="Registrierung">
+            <span>Not a Join user?</span>
+            <button class="button button-dark button-signup" type="button">Sign up</button>
+          </div>
+        </div>
+      </header>
 
-    <!-- Website-Inhalt -->
+      <main class="site-main">
+        <img
+          class="join-logo"
+          src="./assets/img/join_logo.png"
+          alt="Join Logo"
+        />
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
-      crossorigin="anonymous"
-    ></script>
-    <script src=""></script>
-    <script src=""></script>
+        <dialog class="login-dialog" id="loginDialog" aria-labelledby="loginTitle">
+          <form class="login-form" id="loginForm">
+            <div class="login-heading">
+              <h1 id="loginTitle">Log in</h1>
+              <span class="heading-line" aria-hidden="true"></span>
+            </div>
+
+            <div class="input-group">
+              <label class="sr-only" for="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Email"
+                autocomplete="email"
+                required
+              />
+              <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 6h16v12H4z"></path>
+                <path d="m4 7 8 6 8-6"></path>
+              </svg>
+            </div>
+
+            <div class="input-group">
+              <label class="sr-only" for="password">Password</label>
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Password"
+                autocomplete="current-password"
+                required
+              />
+              <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="5" y="10" width="14" height="10" rx="2"></rect>
+                <path d="M8 10V7a4 4 0 0 1 8 0v3"></path>
+              </svg>
+            </div>
+
+            <div class="login-actions">
+              <button class="button button-dark" type="submit">Log in</button>
+              <button class="button button-light" type="button">Guest Log in</button>
+            </div>
+          </form>
+        </dialog>
+      </main>
+
+      <footer class="site-footer">
+        <div class="content-width footer-content">
+          <a href="./cookies.html">Privacy Policy</a>
+          <a href="./imprint.html">Legal notice</a>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./script.js"></script>
   </body>
 </html>
