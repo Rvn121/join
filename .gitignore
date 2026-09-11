@@ -8,4 +8,4 @@
 *.cer
 *credentials*
 *secret*
-
+.DS_Store
