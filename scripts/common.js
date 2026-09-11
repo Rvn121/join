@@ -1,4 +1,5 @@
 const USER_MODE_KEY = "joinUserMode";
+const CURRENT_USER_KEY = "joinCurrentUser";
 const userInitials = document.getElementById("userInitials");
 const profileButton = document.getElementById("profileButton");
 const profileMenu = document.getElementById("profileMenu");
@@ -11,6 +12,17 @@ const logoutButton = document.getElementById("logoutButton");
  */
 function getUserMode() {
   return localStorage.getItem(USER_MODE_KEY);
+}
+
+
+/**
+ * DE: Liest den aktuell angemeldeten Benutzer.
+ * EN: Reads the currently logged-in user.
+ * @returns {object|null} DE: Benutzer. EN: User.
+ */
+function getCurrentUser() {
+  const user = localStorage.getItem(CURRENT_USER_KEY);
+  return user ? JSON.parse(user) : null;
 }
 
 
@@ -35,12 +47,26 @@ function protectCurrentPage() {
 
 
 /**
- * DE: Zeigt beim Gast den Buchstaben G.
- * EN: Shows the letter G for guests.
+ * DE: Setzt die Anzeige eines registrierten Benutzers.
+ * EN: Sets the registered user's avatar display.
+ * @param {object} user - DE: Benutzer. EN: User.
+ */
+function showRegisteredUser(user) {
+  if (!user || !profileButton) return;
+  userInitials.textContent = user.initials;
+  profileButton.style.backgroundColor = user.color;
+  profileButton.classList.add("has-user-color");
+}
+
+
+/**
+ * DE: Aktualisiert Initialen und Benutzerfarbe.
+ * EN: Updates initials and user color.
  */
 function updateUserInitials() {
   if (!userInitials) return;
-  userInitials.textContent = getUserMode() === "guest" ? "G" : "";
+  if (getUserMode() === "guest") return userInitials.textContent = "G";
+  showRegisteredUser(getCurrentUser());
 }
 
 
@@ -80,16 +106,19 @@ function toggleProfileMenu() {
  */
 function logoutUser() {
   localStorage.removeItem(USER_MODE_KEY);
+  localStorage.removeItem(CURRENT_USER_KEY);
   window.location.href = "./index.html";
 }
 
 
 /**
- * DE: Entfernt Gaststatus beim Wechsel zum Login.
+ * DE: Entfernt den Gaststatus beim Wechsel zum Login.
  * EN: Clears guest mode when switching to login.
  */
 function clearGuestForLogin() {
-  if (getUserMode() === "guest") localStorage.removeItem(USER_MODE_KEY);
+  if (getUserMode() !== "guest") return;
+  localStorage.removeItem(USER_MODE_KEY);
+  localStorage.removeItem(CURRENT_USER_KEY);
 }
 
 

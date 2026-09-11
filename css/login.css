@@ -1,9 +1,8 @@
 .page-frame {
   position: relative;
   width: 100%;
-  max-width: var(--page-width);
   min-height: 100vh;
-  margin: 0 auto;
+  margin: 0;
   overflow: hidden;
   background: var(--page-background);
 }
