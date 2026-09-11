@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join - Legal Notice</title>
+    <link rel="icon" type="image/png" href="./assets/icons/favicon.png" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="app-body" data-page="legalNotice" data-public-page="true">
+    <div class="app-frame">
+      <aside class="app-sidebar">
+        <a class="sidebar-logo-link" href="./summary.html" aria-label="Zur Summary">
+          <img class="sidebar-logo" src="./assets/img/join_logo_white.png" alt="Join" />
+        </a>
+
+        <nav class="sidebar-nav app-navigation" aria-label="Hauptnavigation">
+          <a class="sidebar-link" href="./summary.html">Summary</a>
+          <a class="sidebar-link" href="./addTask.html">Add Task</a>
+          <a class="sidebar-link" href="./board.html">Board</a>
+          <a class="sidebar-link" href="./contacts.html">Contacts</a>
+        </nav>
+
+        <nav class="sidebar-nav external-navigation" aria-label="Login">
+          <a class="sidebar-link" href="./index.html" data-login-link>Log in</a>
+        </nav>
+
+        <footer class="sidebar-footer">
+          <a class="sidebar-footer-link" href="./privacyPolicy.html">Privacy Policy</a>
+          <a class="sidebar-footer-link sidebar-footer-link-active" href="./legalNotice.html">Legal notice</a>
+        </footer>
+      </aside>
+
+      <div class="app-page">
+        <header class="app-header">
+          <div class="app-header-content">
+            <span class="app-title">Kanban Project Management Tool</span>
+
+            <div class="app-header-actions">
+              <a class="help-button" id="helpButton" href="./help.html" aria-label="Hilfe">
+                <img src="./assets/icons/help.svg" alt="" aria-hidden="true" />
+              </a>
+
+              <button class="user-placeholder" id="profileButton" type="button" aria-label="Benutzerprofil">
+                <span class="user-initials" id="userInitials" aria-hidden="true"></span>
+              </button>
+
+              <div class="profile-menu" id="profileMenu" hidden>
+                <button id="logoutButton" type="button">Log out</button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <main class="app-main">
+          <div class="app-content">
+            <section class="content-page legal-content">
+              <h1>Legal Notice</h1>
+
+              <section>
+                <h2>Imprint</h2>
+                <p>Project operator details will be entered here before submission.</p>
+              </section>
+
+              <section>
+                <h2>Project information</h2>
+                <p>
+                  Join is being implemented as a learning project. Realistic
+                  project and operator information must replace this placeholder
+                  before final submission.
+                </p>
+              </section>
+            </section>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="./scripts/common.js"></script>
+    <script src="./scripts/dataService.js"></script>
+    <script src="./scripts/legalNotice.js"></script>
+  </body>
+</html>

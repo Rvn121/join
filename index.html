@@ -2,10 +2,14 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join</title>
     <link rel="icon" type="image/png" href="./assets/icons/favicon.png" />
-    <link rel="stylesheet" href="./style.css"/>
+    <link rel="stylesheet" href="./style.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
   </head>
   <body>
     <div class="page-frame">
@@ -13,22 +17,17 @@
         <div class="content-width header-content">
           <div class="signup-area" aria-label="Registrierung">
             <span>Not a Join user?</span>
-            <button class="button button-dark button-signup" type="button">Sign up</button>
+            <button class="button button-dark button-signup" id="signUpButton" type="button">Sign up</button>
           </div>
         </div>
       </header>
-      
+
       <main class="site-main">
-        <h1>
-        <img
-          class="join-logo"
-          src="./assets/img/join_logo.png"
-          alt="Join"
-        />
-        </h1>
+        <h1 class="sr-only">Join</h1>
+        <img class="join-logo" src="./assets/img/join_logo.png" alt="Join" />
 
         <dialog class="login-dialog" id="loginDialog" aria-labelledby="loginTitle">
-          <form class="login-form" id="loginForm">
+          <form class="login-form" id="loginForm" novalidate>
             <div class="login-heading">
               <h2 id="loginTitle">Log in</h2>
               <span class="heading-line" aria-hidden="true"></span>
@@ -36,39 +35,19 @@
 
             <div class="input-group">
               <label class="sr-only" for="email">Email</label>
-              <input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="Email"
-                autocomplete="email"
-                required
-              />
-              <img
-                class="input-icon"
-                src="./assets/icons/mail.png"
-                alt=""
-                aria-hidden="true"
-              />
+              <input id="email" name="email" type="email" placeholder="Email" autocomplete="email" />
+              <img class="input-icon" src="./assets/icons/mail.png" alt="" aria-hidden="true" />
+              <span class="field-error" id="emailError"></span>
             </div>
 
             <div class="input-group">
               <label class="sr-only" for="password">Password</label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                placeholder="Password"
-                autocomplete="current-password"
-                required
-              />
-              <img
-                class="input-icon"
-                src="./assets/icons/lock.png"
-                alt=""
-                aria-hidden="true"
-              />
+              <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" />
+              <img class="input-icon" src="./assets/icons/lock.png" alt="" aria-hidden="true" />
+              <span class="field-error" id="passwordError"></span>
             </div>
+
+            <p class="form-message" id="loginMessage" aria-live="polite"></p>
 
             <div class="login-actions">
               <button class="button button-dark" type="submit">Log in</button>
@@ -80,8 +59,8 @@
 
       <footer class="site-footer">
         <div class="content-width footer-content">
-          <a href="./app.html#privacy">Privacy Policy</a>
-          <a href="./app.html#legal">Legal notice</a>
+          <a href="./privacyPolicy.html">Privacy Policy</a>
+          <a href="./legalNotice.html">Legal notice</a>
         </div>
       </footer>
     </div>

@@ -1,73 +1,119 @@
-const GUEST_SESSION_KEY = "joinUserMode";
-const GUEST_DATA_KEY = "joinGuestData";
+const GUEST_MODE_KEY = "joinUserMode";
 const loginDialog = document.getElementById("loginDialog");
 const loginForm = document.getElementById("loginForm");
 const guestLoginButton = document.getElementById("guestLoginButton");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
 
 /**
- * DE: Bewegt das Join-Logo aus der Mitte in die linke obere Ecke.
- * EN: Moves the Join logo from the center to the upper-left corner.
+ * DE: Bewegt das Join-Logo in die linke obere Ecke.
+ * EN: Moves the Join logo to the upper-left corner.
  */
 function moveLogoToCorner() {
   document.body.classList.add("logo-corner");
 }
 
+
 /**
- * DE: Öffnet den Login-Dialog und blendet die Landingpage-Inhalte ein.
- * EN: Opens the login dialog and reveals the landing page content.
+ * DE: Öffnet den Login-Dialog.
+ * EN: Opens the login dialog.
  */
 function showLoginDialog() {
-  if (!loginDialog) return;
   if (!loginDialog.open) loginDialog.show();
   requestAnimationFrame(() => document.body.classList.add("login-visible"));
 }
 
+
 /**
- * DE: Startet die Intro-Animation nur auf der Landingpage.
- * EN: Starts the intro animation only on the landing page.
+ * DE: Startet die Intro-Animation.
+ * EN: Starts the intro animation.
  */
 function startLandingAnimation() {
-  if (!loginDialog) return;
   window.setTimeout(moveLogoToCorner, 1100);
   window.setTimeout(showLoginDialog, 1800);
 }
 
-/**
- * DE: Legt den Gastmodus und einen Speicherbereich im Local Storage an.
- * EN: Creates guest mode and a storage area in local storage.
- */
-function saveGuestSession() {
-  localStorage.setItem(GUEST_SESSION_KEY, "guest");
-  if (localStorage.getItem(GUEST_DATA_KEY)) return;
-  localStorage.setItem(GUEST_DATA_KEY, JSON.stringify({}));
-}
 
 /**
- * DE: Öffnet die App-Summary als Gast.
- * EN: Opens the app summary as a guest.
+ * DE: Prüft eine E-Mail-Adresse.
+ * EN: Checks an email address.
+ * @param {string} email - DE: E-Mail. EN: Email.
+ * @returns {boolean} DE: Gültigkeit. EN: Validity.
  */
-function openGuestSummary() {
-  saveGuestSession();
-  window.location.href = "./app.html#summary";
+function isEmailValid(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+
 /**
- * DE: Verhindert ein Absenden ohne echte Benutzer-Authentifizierung.
- * EN: Prevents submission without real user authentication.
- * @param {SubmitEvent} event - DE: Formularereignis. EN: Form event.
+ * DE: Zeigt einen Feldfehler.
+ * EN: Shows a field error.
+ * @param {HTMLInputElement} input - DE: Eingabe. EN: Input.
+ * @param {string} message - DE: Meldung. EN: Message.
+ */
+function showFieldError(input, message) {
+  input.classList.add("input-error");
+  document.getElementById(`${input.id}Error`).textContent = message;
+}
+
+
+/**
+ * DE: Entfernt einen Feldfehler.
+ * EN: Removes a field error.
+ * @param {HTMLInputElement} input - DE: Eingabe. EN: Input.
+ */
+function clearFieldError(input) {
+  input.classList.remove("input-error");
+  document.getElementById(`${input.id}Error`).textContent = "";
+}
+
+
+/**
+ * DE: Prüft die Login-Felder.
+ * EN: Validates the login fields.
+ * @returns {boolean} DE: Formularstatus. EN: Form status.
+ */
+function validateLoginForm() {
+  clearFieldError(emailInput);
+  clearFieldError(passwordInput);
+  if (!isEmailValid(emailInput.value.trim())) showFieldError(emailInput, "Enter a valid email.");
+  if (!passwordInput.value.trim()) showFieldError(passwordInput, "Enter your password.");
+  return !document.querySelector(".input-error");
+}
+
+
+/**
+ * DE: Behandelt den späteren API-Login.
+ * EN: Handles the future API login.
+ * @param {SubmitEvent} event - DE: Ereignis. EN: Event.
  */
 function handleLoginSubmit(event) {
   event.preventDefault();
+  if (!validateLoginForm()) return;
+  document.getElementById("loginMessage").textContent = "User login will be connected to the API next.";
 }
+
 
 /**
- * DE: Initialisiert die Landingpage.
- * EN: Initializes the landing page.
+ * DE: Öffnet die Summary im Gastmodus.
+ * EN: Opens the summary in guest mode.
  */
-function initializeLandingPage() {
-  startLandingAnimation();
+function openGuestSummary() {
+  localStorage.setItem(GUEST_MODE_KEY, "guest");
+  window.location.href = "./summary.html";
 }
 
-window.addEventListener("DOMContentLoaded", initializeLandingPage);
-if (loginForm) loginForm.addEventListener("submit", handleLoginSubmit);
-if (guestLoginButton) guestLoginButton.addEventListener("click", openGuestSummary);
+
+/**
+ * DE: Öffnet die Registrierung.
+ * EN: Opens the registration page.
+ */
+function openSignUp() {
+  window.location.href = "./signUp.html";
+}
+
+
+window.addEventListener("DOMContentLoaded", startLandingAnimation);
+loginForm.addEventListener("submit", handleLoginSubmit);
+guestLoginButton.addEventListener("click", openGuestSummary);
+document.getElementById("signUpButton").addEventListener("click", openSignUp);
