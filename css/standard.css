@@ -18,7 +18,83 @@
 }
 
 html,
+body {:root {
+  --join-blue: #29abe2;
+  --join-dark: #2a3647;
+  --join-dark-active: #091931;
+  --join-dark-hover: #35475d;
+  --join-text: #000000;
+  --join-muted: #a8a8a8;
+  --page-background: #f6f7f8;
+  --card-background: #ffffff;
+  --content-width: 1440px;
+  --page-width: 1920px;
+  --click-transition: 100ms ease;
+}
+
+* {
+  box-sizing: border-box; 
+  font-family: "Inter", sans-serif;
+}
+
+html,
 body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--page-background);
+  color: var(--join-text);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  border: unset;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button,
+[role="button"] {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+[hidden] {
+  display: none !important;
+}
+
   margin: 0;
   min-height: 100%;
 }
