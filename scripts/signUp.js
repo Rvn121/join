@@ -1,6 +1,6 @@
 const signUpForm = document.getElementById("signUpForm");
 const signUpButton = document.getElementById("registerButton");
-const signUpInputs = [...signUpForm.querySelectorAll("[data-required]")];
+const signUpInputs = signUpForm.querySelectorAll("[data-required]");
 const privacyAccepted = document.getElementById("privacyAccepted");
 const repeatPassword = document.getElementById("repeatPassword");
 const userColors = [
@@ -26,7 +26,8 @@ function isSignUpEmailValid(email) {
  * @returns {boolean} DE: Gültigkeit. EN: Validity.
  */
 function isFullNameValid(name) {
-  return name.trim().split(/\s+/).filter(Boolean).length >= 2;
+  const names = name.trim().split(/\s+/);
+  return names.length >= 2;
 }
 
 
@@ -38,7 +39,9 @@ function isFullNameValid(name) {
  */
 function createInitials(name) {
   const names = name.trim().split(/\s+/);
-  return `${names[0][0]}${names[names.length - 1][0]}`.toUpperCase();
+  const firstLetter = names[0][0];
+  const lastLetter = names[names.length - 1][0];
+  return (firstLetter + lastLetter).toUpperCase();
 }
 
 
@@ -68,12 +71,25 @@ function doPasswordsMatch() {
  * EN: Checks every condition for the sign-up button.
  * @returns {boolean} DE: Formularstatus. EN: Form status.
  */
+function areSignUpFieldsFilled() {
+  for (let i = 0; i < signUpInputs.length; i++) {
+    if (!signUpInputs[i].value.trim()) return false;
+  }
+  return true;
+}
+
+
+/**
+ * DE: Prüft alle Bedingungen für den Sign-up-Button.
+ * EN: Checks every condition for the sign-up button.
+ * @returns {boolean} DE: Formularstatus. EN: Form status.
+ */
 function canRegisterUser() {
   const name = document.getElementById("signUpName").value;
   const email = document.getElementById("signUpEmail").value;
-  const filled = signUpInputs.every((input) => input.value.trim());
-  return filled && isFullNameValid(name) && isSignUpEmailValid(email)
-    && doPasswordsMatch() && privacyAccepted.checked;
+  if (!areSignUpFieldsFilled()) return false;
+  if (!isFullNameValid(name) || !isSignUpEmailValid(email)) return false;
+  return doPasswordsMatch() && privacyAccepted.checked;
 }
 
 
@@ -147,7 +163,21 @@ function validateSignUp() {
 function createUserData() {
   const name = document.getElementById("signUpName").value.trim();
   const email = document.getElementById("signUpEmail").value.trim();
-  return { name, email, initials: createInitials(name), color: getRandomUserColor() };
+  return {
+    name: name,
+    email: email,
+    initials: createInitials(name),
+    color: getRandomUserColor(),
+  };
+}
+
+
+/**
+ * DE: Zeigt die Erfolgsnachricht.
+ * EN: Shows the success message.
+ */
+function hideSignUpSuccess() {
+  document.getElementById("signUpToast").hidden = true;
 }
 
 
@@ -156,9 +186,8 @@ function createUserData() {
  * EN: Shows the success message.
  */
 function showSignUpSuccess() {
-  const toast = document.getElementById("signUpToast");
-  toast.hidden = false;
-  window.setTimeout(() => toast.hidden = true, 1800);
+  document.getElementById("signUpToast").hidden = false;
+  window.setTimeout(hideSignUpSuccess, 1800);
 }
 
 
@@ -173,6 +202,20 @@ function showDuplicateEmailError() {
 
 
 /**
+ * DE: Öffnet nach der Registrierung wieder den Login.
+ * EN: Opens the login again after registration.
+ * @param {object} user - DE: Benutzer. EN: User.
+ */
+function finishRegistration(user) {
+  showSignUpSuccess();
+  const loginEmail = document.getElementById("email");
+  if (!loginEmail) return window.location.href = "./index.html";
+  loginEmail.value = user.email;
+  window.setTimeout(closeSignUp, 900);
+}
+
+
+/**
  * DE: Speichert einen neuen Benutzer.
  * EN: Stores a new user.
  * @returns {Promise<void>}
@@ -180,10 +223,12 @@ function showDuplicateEmailError() {
 async function registerUser() {
   const user = createUserData();
   const existingUser = await getUserByEmail(user.email);
-  if (existingUser) return showDuplicateEmailError();
+  if (existingUser) {
+    showDuplicateEmailError();
+    return;
+  }
   await createUser(user, document.getElementById("signUpPassword").value);
-  showSignUpSuccess();
-  document.dispatchEvent(new CustomEvent("joinSignUpSuccess", { detail: user }));
+  finishRegistration(user);
 }
 
 
@@ -212,9 +257,13 @@ async function handleSignUpSubmit(event) {
  * @param {HTMLImageElement} icon - DE: Icon. EN: Icon.
  */
 function updatePasswordIcon(input, icon) {
-  if (!input.value) return icon.src = "./assets/icons/lock.png";
-  icon.src = input.type === "password"
-    ? "./assets/icons/visibilityOff.png" : "./assets/icons/visibility.png";
+  if (!input.value) {
+    icon.src = "./assets/icons/lock.png";
+  } else if (input.type === "password") {
+    icon.src = "./assets/icons/visibilityOff.png";
+  } else {
+    icon.src = "./assets/icons/visibility.png";
+  }
 }
 
 
@@ -224,8 +273,10 @@ function updatePasswordIcon(input, icon) {
  * @param {HTMLButtonElement} button - DE: Schaltfläche. EN: Button.
  */
 function togglePasswordVisibility(button) {
-  const input = document.getElementById(button.dataset.target);
-  input.type = input.type === "password" ? "text" : "password";
+  const inputId = button.getAttribute("data-target");
+  const input = document.getElementById(inputId);
+  if (input.type === "password") input.type = "text";
+  else input.type = "password";
   updatePasswordIcon(input, button.querySelector("img"));
 }
 
@@ -236,8 +287,8 @@ function togglePasswordVisibility(button) {
  */
 function updatePrivacyCheckboxIcon() {
   const icon = document.getElementById("privacyCheckboxIcon");
-  icon.src = privacyAccepted.checked
-    ? "./assets/icons/checkboxActive.png" : "./assets/icons/checkbox.png";
+  if (privacyAccepted.checked) icon.src = "./assets/icons/checkboxActive.png";
+  else icon.src = "./assets/icons/checkbox.png";
 }
 
 
@@ -246,11 +297,13 @@ function updatePrivacyCheckboxIcon() {
  * EN: Initializes password buttons.
  */
 function initializePasswordToggles() {
-  document.querySelectorAll("[data-password-toggle]").forEach((button) => {
-    const input = document.getElementById(button.dataset.target);
-    button.addEventListener("click", () => togglePasswordVisibility(button));
-    input.addEventListener("input", () => updatePasswordIcon(input, button.querySelector("img")));
-  });
+  const buttons = document.querySelectorAll("[data-password-toggle]");
+  for (let i = 0; i < buttons.length; i++) {
+    const button = buttons[i];
+    button.addEventListener("click", function () {
+      togglePasswordVisibility(button);
+    });
+  }
 }
 
 
@@ -262,7 +315,9 @@ function initializeSignUp() {
   initializePasswordToggles();
   privacyAccepted.addEventListener("change", updatePrivacyCheckboxIcon);
   repeatPassword.addEventListener("input", validatePasswordMatchLive);
-  signUpInputs.forEach((input) => input.addEventListener("input", updateRegisterButton));
+  for (let i = 0; i < signUpInputs.length; i++) {
+    signUpInputs[i].addEventListener("input", updateRegisterButton);
+  }
   privacyAccepted.addEventListener("change", updateRegisterButton);
   signUpForm.addEventListener("submit", handleSignUpSubmit);
   updatePrivacyCheckboxIcon();

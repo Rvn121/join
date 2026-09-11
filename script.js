@@ -23,7 +23,7 @@ function moveLogoToCorner() {
  */
 function showLoginDialog() {
   if (!loginDialog.open) loginDialog.show();
-  requestAnimationFrame(() => document.body.classList.add("login-visible"));
+  document.body.classList.add("login-visible");
 }
 
 
@@ -103,7 +103,8 @@ function saveUserSession(user) {
  */
 function setLoginLoading(loading) {
   loginButton.disabled = loading;
-  loginButton.textContent = loading ? "Logging in..." : "Log in";
+  if (loading) loginButton.textContent = "Logging in...";
+  else loginButton.textContent = "Log in";
 }
 
 
@@ -114,8 +115,11 @@ function setLoginLoading(loading) {
  */
 async function loginRegisteredUser() {
   const user = await verifyUser(emailInput.value, passwordInput.value);
-  if (!user) return document.getElementById("loginMessage").textContent =
-    "Email or password is incorrect.";
+  if (!user) {
+    document.getElementById("loginMessage").textContent =
+      "Email or password is incorrect.";
+    return;
+  }
   saveUserSession(user);
   window.location.href = "./summary.html";
 }
@@ -174,17 +178,6 @@ function closeSignUp() {
 
 
 /**
- * DE: Übernimmt die E-Mail nach erfolgreicher Registrierung.
- * EN: Applies the email after successful registration.
- * @param {CustomEvent} event - DE: Registrierungsereignis. EN: Sign-up event.
- */
-function finishSignUp(event) {
-  emailInput.value = event.detail.email;
-  window.setTimeout(closeSignUp, 900);
-}
-
-
-/**
  * DE: Initialisiert die Landingpage.
  * EN: Initializes the landing page.
  */
@@ -194,7 +187,6 @@ function initializeLandingPage() {
   guestLoginButton.addEventListener("click", openGuestSummary);
   document.getElementById("signUpButton").addEventListener("click", openSignUp);
   document.getElementById("signUpBackButton").addEventListener("click", closeSignUp);
-  document.addEventListener("joinSignUpSuccess", finishSignUp);
 }
 
 
