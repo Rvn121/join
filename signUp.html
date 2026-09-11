@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Join - Sign up</title>
+    <link rel="icon" type="image/png" href="./assets/icons/favicon.png" />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="signup-page">
+      <section class="signup-card">
+        <h1 class="signup-heading">Sign up</h1>
+
+        <form class="signup-form" id="signUpForm" novalidate>
+          <div class="input-group">
+            <label class="sr-only" for="signUpName">Name</label>
+            <input id="signUpName" type="text" placeholder="Name" data-required />
+            <span class="field-error" id="signUpNameError"></span>
+          </div>
+
+          <div class="input-group">
+            <label class="sr-only" for="signUpEmail">Email</label>
+            <input id="signUpEmail" type="email" placeholder="Email" data-required />
+            <span class="field-error" id="signUpEmailError"></span>
+          </div>
+
+          <div class="input-group">
+            <label class="sr-only" for="signUpPassword">Password</label>
+            <input id="signUpPassword" type="password" placeholder="Password" data-required />
+            <span class="field-error" id="signUpPasswordError"></span>
+          </div>
+
+          <div class="input-group">
+            <label class="sr-only" for="repeatPassword">Repeat password</label>
+            <input id="repeatPassword" type="password" placeholder="Repeat password" data-required />
+            <span class="field-error" id="repeatPasswordError"></span>
+          </div>
+
+          <label class="privacy-check">
+            <input id="privacyAccepted" type="checkbox" />
+            <span>I accept the <a href="./privacyPolicy.html">Privacy Policy</a>.</span>
+          </label>
+
+          <p class="form-message" id="signUpMessage" aria-live="polite"></p>
+          <button class="button button-dark" id="registerButton" type="submit" disabled>Sign up</button>
+        </form>
+
+        <a class="signup-back" href="./index.html">Back to log in</a>
+      </section>
+    </main>
+
+    <script src="./scripts/signUp.js"></script>
+  </body>
+</html>

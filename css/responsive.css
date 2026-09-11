@@ -1,0 +1,247 @@
+@media (max-width: 1200px) {
+  .app-sidebar {
+    width: 190px;
+    min-width: 190px;
+  }
+
+  .sidebar-link,
+  .sidebar-footer-link {
+    padding-inline: 30px;
+  }
+
+  .app-header-content {
+    padding-inline: 40px;
+  }
+
+  .app-content {
+    padding-inline: 56px;
+  }
+}
+
+@media (max-width: 900px) {
+  .header-content {
+    height: 150px;
+  }
+
+  .signup-area {
+    top: 42px;
+    right: 32px;
+    gap: 20px;
+    font-size: 16px;
+  }
+
+  body.logo-corner .join-logo {
+    top: 40px;
+    left: 32px;
+    width: 82px;
+  }
+
+  .login-dialog {
+    width: min(660px, calc(100vw - 40px));
+  }
+}
+
+@media (max-width: 850px) {
+  .app-sidebar {
+    width: 150px;
+    min-width: 150px;
+  }
+
+  .sidebar-logo-link {
+    min-height: 160px;
+  }
+
+  .sidebar-logo {
+    width: 64px;
+  }
+
+  .sidebar-link {
+    min-height: 46px;
+    padding-inline: 22px;
+    font-size: 14px;
+  }
+
+  .sidebar-footer-link {
+    padding-inline: 22px;
+  }
+
+  .app-header,
+  .app-header-content {
+    min-height: 80px;
+  }
+
+  .app-header-content {
+    padding-inline: 28px;
+  }
+
+  .app-title {
+    font-size: 16px;
+  }
+
+  .user-placeholder {
+    width: 46px;
+    height: 46px;
+  }
+
+  .app-main,
+  .app-content {
+    min-height: calc(100vh - 80px);
+  }
+
+  .app-content {
+    padding: 52px 40px 72px;
+  }
+
+  .content-page > h1,
+  .content-heading-row h1 {
+    font-size: 42px;
+  }
+}
+
+@media (max-width: 620px) {
+  .signup-area {
+    top: 30px;
+    right: 20px;
+    gap: 12px;
+    font-size: 14px;
+  }
+
+  body.logo-corner .join-logo {
+    top: 28px;
+    left: 20px;
+    width: 64px;
+  }
+
+  .button-signup {
+    min-height: 36px;
+    padding-inline: 14px;
+    font-size: 14px;
+  }
+
+  .login-dialog {
+    top: 52%;
+    width: calc(100vw - 32px);
+    min-height: 390px;
+    border-radius: 24px;
+  }
+
+  .login-form {
+    min-height: 390px;
+    padding: 38px 24px 40px;
+  }
+
+  .login-heading {
+    margin-bottom: 28px;
+  }
+
+  .login-heading h2 {
+    font-size: 47px;
+  }
+
+  .heading-line {
+    width: 116px;
+    margin-top: 12px;
+  }
+
+  .login-actions {
+    gap: 14px;
+  }
+
+  .button {
+    min-height: 44px;
+    padding-inline: 18px;
+    font-size: 17px;
+  }
+
+  .footer-content {
+    min-height: 72px;
+  }
+
+  .footer-content a {
+    font-size: 13px;
+  }
+
+  .app-frame {
+    display: block;
+  }
+
+  .app-sidebar {
+    width: 100%;
+    min-width: 0;
+    min-height: auto;
+  }
+
+  .sidebar-logo-link {
+    min-height: 100px;
+  }
+
+  .sidebar-nav {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  .sidebar-link {
+    min-width: 50%;
+    justify-content: center;
+  }
+
+  .sidebar-footer {
+    flex-direction: row;
+    padding-bottom: 0;
+  }
+
+  .sidebar-footer-link {
+    width: 50%;
+    justify-content: center;
+  }
+
+  .app-content {
+    padding: 36px 20px 64px;
+  }
+
+  .content-heading-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .content-heading-divider {
+    width: 90px;
+    height: 3px;
+  }
+
+  .signup-card {
+    padding: 36px 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .sidebar-link {
+    min-width: 100%;
+  }
+
+  .app-header-content {
+    padding-inline: 18px;
+  }
+
+  .app-title {
+    max-width: 180px;
+    font-size: 14px;
+  }
+
+  .content-page > h1,
+  .content-heading-row h1 {
+    font-size: 36px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signup-area,
+  .login-dialog,
+  .footer-content,
+  .sidebar-link,
+  .sidebar-footer-link,
+  .button {
+    transition-duration: 1ms;
+  }
+}

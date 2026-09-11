@@ -1,0 +1,154 @@
+.content-page {
+  width: min(100%, 1100px);
+}
+
+.content-page > h1,
+.content-heading-row h1 {
+  margin: 0;
+  font-size: 52px;
+  line-height: 1.1;
+}
+
+.content-heading-row {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.content-heading-row p {
+  margin: 0;
+  color: var(--join-dark);
+  font-size: 18px;
+}
+
+.content-heading-divider {
+  width: 3px;
+  height: 52px;
+  background: var(--join-blue);
+}
+
+.content-placeholder {
+  min-height: 280px;
+  margin-top: 42px;
+  border: 2px dashed #d1d1d1;
+  border-radius: 14px;
+}
+
+.content-placeholder p {
+  margin: 24px;
+  color: var(--join-muted);
+}
+
+.help-content,
+.legal-content {
+  max-width: 1000px;
+}
+
+.help-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.help-content h2,
+.legal-content h2 {
+  margin: 28px 0 8px;
+  font-size: 24px;
+}
+
+.help-content p,
+.help-list,
+.legal-content p {
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.help-list {
+  padding-left: 28px;
+}
+
+.help-list li {
+  margin-bottom: 16px;
+  padding-left: 8px;
+}
+
+.content-back-button {
+  color: var(--join-dark);
+  font-size: 34px;
+  text-decoration: none;
+  transition: color var(--click-transition);
+}
+
+.content-back-button:hover,
+.content-back-button:focus-visible {
+  color: var(--join-blue);
+}
+
+.legal-content section {
+  margin-top: 26px;
+}
+
+.legal-content section h2 {
+  margin-bottom: 8px;
+}
+
+.legal-content section p {
+  margin: 4px 0;
+}
+
+.signup-page {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.signup-card {
+  width: min(100%, 660px);
+  padding: 48px 72px 52px;
+  border-radius: 30px;
+  background: #ffffff;
+  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.08);
+}
+
+.signup-heading {
+  margin: 0 0 32px;
+  font-size: 46px;
+  text-align: center;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.privacy-check {
+  display: flex;
+  width: 420px;
+  max-width: 100%;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 4px 0 18px;
+  font-size: 14px;
+}
+
+.privacy-check input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.signup-back {
+  display: inline-block;
+  margin-top: 24px;
+  color: var(--join-dark);
+  text-decoration: none;
+  transition: color var(--click-transition);
+}
+
+.signup-back:hover,
+.signup-back:focus-visible {
+  color: var(--join-blue);
+}
