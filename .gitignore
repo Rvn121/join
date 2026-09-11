@@ -8,5 +8,23 @@
 *.cer
 *credentials*
 *secret*
+
+# OS files
 .DS_Store
-.vscode
+Thumbs.db
+
+# Editor / IDE
+.vscode/*
+!.vscode/settings.json
+.idea/
+
+# Logs
+*.log
+npm-debug.log*
+
+# Dependencies (falls später Tooling dazukommt)
+node_modules/
+
+# Build output
+dist/
+build/
