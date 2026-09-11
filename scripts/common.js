@@ -32,7 +32,7 @@ function getCurrentUser() {
  * @returns {boolean} DE: Schutzstatus. EN: Protection status.
  */
 function isProtectedPage() {
-  return document.body.dataset.protectedPage === "true";
+  return document.body.getAttribute("data-protected-page") === "true";
 }
 
 
@@ -65,7 +65,10 @@ function showRegisteredUser(user) {
  */
 function updateUserInitials() {
   if (!userInitials) return;
-  if (getUserMode() === "guest") return userInitials.textContent = "G";
+  if (getUserMode() === "guest") {
+    userInitials.textContent = "G";
+    return;
+  }
   showRegisteredUser(getCurrentUser());
 }
 
@@ -75,7 +78,7 @@ function updateUserInitials() {
  * EN: Switches Privacy and Legal to the external layout.
  */
 function updatePublicLayout() {
-  const publicPage = document.body.dataset.publicPage === "true";
+  const publicPage = document.body.getAttribute("data-public-page") === "true";
   document.body.classList.toggle("external-layout", publicPage && getUserMode() !== "user");
 }
 
@@ -86,7 +89,7 @@ function updatePublicLayout() {
  */
 function updateHelpButton() {
   const helpButton = document.getElementById("helpButton");
-  if (helpButton) helpButton.hidden = document.body.dataset.page === "help";
+  if (helpButton) helpButton.hidden = document.body.getAttribute("data-page") === "help";
 }
 
 
@@ -137,6 +140,7 @@ function initializeCommonApp() {
 document.addEventListener("DOMContentLoaded", initializeCommonApp);
 if (profileButton) profileButton.addEventListener("click", toggleProfileMenu);
 if (logoutButton) logoutButton.addEventListener("click", logoutUser);
-document.querySelectorAll("[data-login-link]").forEach((link) => {
-  link.addEventListener("click", clearGuestForLogin);
-});
+const loginLinks = document.querySelectorAll("[data-login-link]");
+for (let i = 0; i < loginLinks.length; i++) {
+  loginLinks[i].addEventListener("click", clearGuestForLogin);
+}
