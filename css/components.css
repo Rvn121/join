@@ -38,3 +38,100 @@
   background: #ffffff;
   color: var(--join-dark);
 }
+
+.component-button--light:hover,
+.component-button--light:focus-visible {
+  background: #ffffff;
+  color: var(--join-blue);
+}
+
+/* Input */
+.component-input {
+  position: relative;
+  width: 320px;
+  max-width: 100%;
+}
+
+.component-input input {
+  width: 100%;
+  height: 48px;
+  padding: 0 50px 0 20px;
+  border: 1px solid var(--join-border);
+  border-radius: 10px;
+  outline: none;
+  background: #ffffff;
+  color: var(--join-text);
+  font-size: 16px;
+  transition: border-color 160ms ease;
+}
+
+.component-input input:focus {
+  border-color: var(--join-blue);
+}
+
+.component-input img {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  width: 20px;
+  height: 20px;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Avatar */
+.component-avatar {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+/* Badge */
+.component-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 16px;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.component-badge--urgent {
+  background: var(--priority-urgent);
+}
+
+.component-badge--medium {
+  background: var(--priority-medium);
+}
+
+.component-badge--low {
+  background: var(--priority-low);
+}
+
+.component-badge--user-story {
+  background: var(--category-user-story);
+}
+
+.component-badge--technical-task {
+  background: var(--category-technical-task);
+}
+
+/* Toast */
+.component-toast {
+  display: inline-flex;
+  min-height: 66px;
+  align-items: center;
+  padding: 0 32px;
+  border-radius: 20px;
+  background: var(--join-dark);
+  color: #ffffff;
+  font-size: 20px;
+}
