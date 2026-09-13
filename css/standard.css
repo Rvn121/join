@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+
 :root {
   --join-blue: #29abe2;
   --join-dark: #2a3647;
@@ -29,7 +31,7 @@ body {
   overflow-x: hidden;
   background: var(--page-background);
   color: var(--join-text);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 button,

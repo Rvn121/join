@@ -9,47 +9,71 @@
   </head>
   <body>
     <main class="signup-page">
+      <img class="signup-page-logo" src="./assets/img/join_logo.png" alt="Join" />
+
       <section class="signup-card">
-        <h1 class="signup-heading">Sign up</h1>
+        <a class="signup-back-button" href="./index.html" aria-label="Back to log in">
+          <img src="./assets/icons/arrow.png" alt="" aria-hidden="true" />
+        </a>
+
+        <div class="signup-dialog-heading">
+          <h1 class="signup-heading" id="signUpTitle">Sign up</h1>
+          <span class="heading-line" aria-hidden="true"></span>
+        </div>
 
         <form class="signup-form" id="signUpForm" novalidate>
           <div class="input-group">
             <label class="sr-only" for="signUpName">Name</label>
             <input id="signUpName" type="text" placeholder="Name" data-required />
+            <img class="input-icon" src="./assets/icons/person.png" alt="" aria-hidden="true" />
             <span class="field-error" id="signUpNameError"></span>
           </div>
 
           <div class="input-group">
             <label class="sr-only" for="signUpEmail">Email</label>
             <input id="signUpEmail" type="email" placeholder="Email" data-required />
+            <img class="input-icon" src="./assets/icons/mail.png" alt="" aria-hidden="true" />
             <span class="field-error" id="signUpEmailError"></span>
           </div>
 
           <div class="input-group">
             <label class="sr-only" for="signUpPassword">Password</label>
             <input id="signUpPassword" type="password" placeholder="Password" data-required />
+            <button class="password-toggle" type="button" data-password-toggle data-target="signUpPassword" aria-label="Show password">
+              <img src="./assets/icons/lock.png" alt="" aria-hidden="true" />
+            </button>
             <span class="field-error" id="signUpPasswordError"></span>
           </div>
 
           <div class="input-group">
-            <label class="sr-only" for="repeatPassword">Repeat password</label>
-            <input id="repeatPassword" type="password" placeholder="Repeat password" data-required />
+            <label class="sr-only" for="repeatPassword">Confirm Password</label>
+            <input id="repeatPassword" type="password" placeholder="Confirm Password" data-required />
+            <button class="password-toggle" type="button" data-password-toggle data-target="repeatPassword" aria-label="Show password">
+              <img src="./assets/icons/lock.png" alt="" aria-hidden="true" />
+            </button>
             <span class="field-error" id="repeatPasswordError"></span>
           </div>
 
-          <label class="privacy-check">
+          <label class="privacy-check" for="privacyAccepted">
             <input id="privacyAccepted" type="checkbox" />
-            <span>I accept the <a href="./privacyPolicy.html">Privacy Policy</a>.</span>
+            <img class="privacy-checkbox-icon" id="privacyCheckboxIcon" src="./assets/icons/checkbox.png" alt="" aria-hidden="true" />
+            <span>I accept the <a href="./privacyPolicy.html">Privacy policy</a></span>
           </label>
 
           <p class="form-message" id="signUpMessage" aria-live="polite"></p>
           <button class="button button-dark" id="registerButton" type="submit" disabled>Sign up</button>
         </form>
-
-        <a class="signup-back" href="./index.html">Back to log in</a>
       </section>
+
+      <footer class="signup-footer">
+        <a href="./privacyPolicy.html">Privacy Policy</a>
+        <a href="./legalNotice.html">Legal notice</a>
+      </footer>
+
+      <div class="signup-toast" id="signUpToast" hidden>You Signed Up successfully</div>
     </main>
 
+    <script src="./scripts/dataService.js"></script>
     <script src="./scripts/signUp.js"></script>
   </body>
 </html>

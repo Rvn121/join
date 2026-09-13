@@ -6,10 +6,12 @@
     <title>Join</title>
     <link rel="icon" type="image/png" href="./assets/icons/favicon.png" />
     <link rel="stylesheet" href="./style.css" />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
     <div class="page-frame">
@@ -17,7 +19,9 @@
         <div class="content-width header-content">
           <div class="signup-area" aria-label="Registrierung">
             <span>Not a Join user?</span>
-            <button class="button button-dark button-signup" id="signUpButton" type="button">Sign up</button>
+            <button class="button button-dark button-signup" id="signUpButton" type="button">
+              Sign up
+            </button>
           </div>
         </div>
       </header>
@@ -42,7 +46,13 @@
 
             <div class="input-group">
               <label class="sr-only" for="password">Password</label>
-              <input id="password" name="password" type="password" placeholder="Password" autocomplete="current-password" />
+              <input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Password"
+                autocomplete="current-password"
+              />
               <img class="input-icon" src="./assets/icons/lock.png" alt="" aria-hidden="true" />
               <span class="field-error" id="passwordError"></span>
             </div>
@@ -50,11 +60,94 @@
             <p class="form-message" id="loginMessage" aria-live="polite"></p>
 
             <div class="login-actions">
-              <button class="button button-dark" type="submit">Log in</button>
-              <button class="button button-light" id="guestLoginButton" type="button">Guest Log in</button>
+              <button class="button button-dark" id="loginButton" type="submit">Log in</button>
+              <button class="button button-light" id="guestLoginButton" type="button">
+                Guest Log in
+              </button>
             </div>
           </form>
         </dialog>
+
+        <dialog class="signup-dialog" id="signUpDialog" aria-labelledby="signUpTitle">
+          <form class="signup-form signup-dialog-form" id="signUpForm" novalidate>
+            <button
+              class="signup-back-button"
+              id="signUpBackButton"
+              type="button"
+              aria-label="Back to log in"
+            >
+              <img src="./assets/icons/arrow.png" alt="" aria-hidden="true" />
+            </button>
+
+            <div class="signup-dialog-heading">
+              <h2 id="signUpTitle">Sign up</h2>
+              <span class="heading-line" aria-hidden="true"></span>
+            </div>
+
+            <div class="input-group">
+              <label class="sr-only" for="signUpName">Name</label>
+              <input id="signUpName" type="text" placeholder="Name" data-required />
+              <img class="input-icon" src="./assets/icons/person.png" alt="" aria-hidden="true" />
+              <span class="field-error" id="signUpNameError"></span>
+            </div>
+
+            <div class="input-group">
+              <label class="sr-only" for="signUpEmail">Email</label>
+              <input id="signUpEmail" type="email" placeholder="Email" data-required />
+              <img class="input-icon" src="./assets/icons/mail.png" alt="" aria-hidden="true" />
+              <span class="field-error" id="signUpEmailError"></span>
+            </div>
+
+            <div class="input-group">
+              <label class="sr-only" for="signUpPassword">Password</label>
+              <input id="signUpPassword" type="password" placeholder="Password" data-required />
+              <button
+                class="password-toggle"
+                type="button"
+                data-password-toggle
+                data-target="signUpPassword"
+                aria-label="Show password"
+              >
+                <img src="./assets/icons/lock.png" alt="" aria-hidden="true" />
+              </button>
+              <span class="field-error" id="signUpPasswordError"></span>
+            </div>
+
+            <div class="input-group">
+              <label class="sr-only" for="repeatPassword">Confirm Password</label>
+              <input id="repeatPassword" type="password" placeholder="Confirm Password" data-required />
+              <button
+                class="password-toggle"
+                type="button"
+                data-password-toggle
+                data-target="repeatPassword"
+                aria-label="Show password"
+              >
+                <img src="./assets/icons/lock.png" alt="" aria-hidden="true" />
+              </button>
+              <span class="field-error" id="repeatPasswordError"></span>
+            </div>
+
+            <label class="privacy-check" for="privacyAccepted">
+              <input id="privacyAccepted" type="checkbox" />
+              <img
+                class="privacy-checkbox-icon"
+                id="privacyCheckboxIcon"
+                src="./assets/icons/checkbox.png"
+                alt=""
+                aria-hidden="true"
+              />
+              <span>I accept the <a href="./privacyPolicy.html">Privacy policy</a></span>
+            </label>
+
+            <p class="form-message" id="signUpMessage" aria-live="polite"></p>
+            <button class="button button-dark" id="registerButton" type="submit" disabled>
+              Sign up
+            </button>
+          </form>
+        </dialog>
+
+        <div class="signup-toast" id="signUpToast" hidden>You Signed Up successfully</div>
       </main>
 
       <footer class="site-footer">
@@ -65,6 +158,8 @@
       </footer>
     </div>
 
+    <script src="./scripts/dataService.js"></script>
+    <script src="./scripts/signUp.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>

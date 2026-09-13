@@ -7,9 +7,8 @@
 .app-frame {
   display: flex;
   width: 100%;
-  max-width: var(--page-width);
   min-height: 100vh;
-  margin: 0 auto;
+  margin: 0;
   background: var(--page-background);
 }
 
@@ -177,6 +176,14 @@
   color: var(--join-dark);
   font-size: 20px;
   font-weight: 700;
+}
+
+.user-placeholder.has-user-color {
+  box-shadow: none;
+}
+
+.user-placeholder.has-user-color .user-initials {
+  color: #ffffff;
 }
 
 .profile-menu {

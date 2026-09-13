@@ -1,4 +1,5 @@
 const USER_MODE_KEY = "joinUserMode";
+const CURRENT_USER_KEY = "joinCurrentUser";
 const userInitials = document.getElementById("userInitials");
 const profileButton = document.getElementById("profileButton");
 const profileMenu = document.getElementById("profileMenu");
@@ -15,12 +16,23 @@ function getUserMode() {
 
 
 /**
+ * DE: Liest den aktuell angemeldeten Benutzer.
+ * EN: Reads the currently logged-in user.
+ * @returns {object|null} DE: Benutzer. EN: User.
+ */
+function getCurrentUser() {
+  const user = localStorage.getItem(CURRENT_USER_KEY);
+  return user ? JSON.parse(user) : null;
+}
+
+
+/**
  * DE: Prüft, ob die Seite geschützt ist.
  * EN: Checks whether the page is protected.
  * @returns {boolean} DE: Schutzstatus. EN: Protection status.
  */
 function isProtectedPage() {
-  return document.body.dataset.protectedPage === "true";
+  return document.body.getAttribute("data-protected-page") === "true";
 }
 
 
@@ -35,12 +47,29 @@ function protectCurrentPage() {
 
 
 /**
- * DE: Zeigt beim Gast den Buchstaben G.
- * EN: Shows the letter G for guests.
+ * DE: Setzt die Anzeige eines registrierten Benutzers.
+ * EN: Sets the registered user's avatar display.
+ * @param {object} user - DE: Benutzer. EN: User.
+ */
+function showRegisteredUser(user) {
+  if (!user || !profileButton) return;
+  userInitials.textContent = user.initials;
+  profileButton.style.backgroundColor = user.color;
+  profileButton.classList.add("has-user-color");
+}
+
+
+/**
+ * DE: Aktualisiert Initialen und Benutzerfarbe.
+ * EN: Updates initials and user color.
  */
 function updateUserInitials() {
   if (!userInitials) return;
-  userInitials.textContent = getUserMode() === "guest" ? "G" : "";
+  if (getUserMode() === "guest") {
+    userInitials.textContent = "G";
+    return;
+  }
+  showRegisteredUser(getCurrentUser());
 }
 
 
@@ -49,7 +78,7 @@ function updateUserInitials() {
  * EN: Switches Privacy and Legal to the external layout.
  */
 function updatePublicLayout() {
-  const publicPage = document.body.dataset.publicPage === "true";
+  const publicPage = document.body.getAttribute("data-public-page") === "true";
   document.body.classList.toggle("external-layout", publicPage && getUserMode() !== "user");
 }
 
@@ -60,7 +89,7 @@ function updatePublicLayout() {
  */
 function updateHelpButton() {
   const helpButton = document.getElementById("helpButton");
-  if (helpButton) helpButton.hidden = document.body.dataset.page === "help";
+  if (helpButton) helpButton.hidden = document.body.getAttribute("data-page") === "help";
 }
 
 
@@ -80,16 +109,19 @@ function toggleProfileMenu() {
  */
 function logoutUser() {
   localStorage.removeItem(USER_MODE_KEY);
+  localStorage.removeItem(CURRENT_USER_KEY);
   window.location.href = "./index.html";
 }
 
 
 /**
- * DE: Entfernt Gaststatus beim Wechsel zum Login.
+ * DE: Entfernt den Gaststatus beim Wechsel zum Login.
  * EN: Clears guest mode when switching to login.
  */
 function clearGuestForLogin() {
-  if (getUserMode() === "guest") localStorage.removeItem(USER_MODE_KEY);
+  if (getUserMode() !== "guest") return;
+  localStorage.removeItem(USER_MODE_KEY);
+  localStorage.removeItem(CURRENT_USER_KEY);
 }
 
 
@@ -108,6 +140,7 @@ function initializeCommonApp() {
 document.addEventListener("DOMContentLoaded", initializeCommonApp);
 if (profileButton) profileButton.addEventListener("click", toggleProfileMenu);
 if (logoutButton) logoutButton.addEventListener("click", logoutUser);
-document.querySelectorAll("[data-login-link]").forEach((link) => {
-  link.addEventListener("click", clearGuestForLogin);
-});
+const loginLinks = document.querySelectorAll("[data-login-link]");
+for (let i = 0; i < loginLinks.length; i++) {
+  loginLinks[i].addEventListener("click", clearGuestForLogin);
+}
