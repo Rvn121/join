@@ -1,15 +1,6 @@
-/* Basisfarben */
-  --join-blue: #29abe2;
-  --join-dark: #2a3647;
-  --join-dark-hover: #2a3d59;
-  --join-dark-active: #091931;
-  --join-text: #000000;
-  --join-muted: #a8a8a8;
+/* Erweiterte Farbtoken (ergaenzen die Basisfarben aus standard.css) */
+:root {
   --join-border: #d1d1d1;
-
-  /* Flaechen */
-  --page-background: #f6f7f8;
-  --card-background: #ffffff;
 
   /* Prioritaet */
   --priority-urgent: #ff3d00;
