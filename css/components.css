@@ -28,3 +28,13 @@
     background 150ms ease,
     color 150ms ease;
 }
+.component-button:hover,
+.component-button:focus-visible {
+  border-color: var(--join-blue);
+  background: var(--join-blue);
+}
+
+.component-button--light {
+  background: #ffffff;
+  color: var(--join-dark);
+}
