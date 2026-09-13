@@ -1,0 +1,30 @@
+@import url("colors.css");
+
+.component-section {
+  margin-bottom: 48px;
+}
+
+.component-row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+/* Button */
+.component-button {
+  min-height: 48px;
+  padding: 0 25px;
+  border: 1px solid var(--join-dark);
+  border-radius: 8px;
+  background: var(--join-dark);
+  color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 21px;
+  font-weight: 700;
+  transition:
+    border-color 150ms ease,
+    background 150ms ease,
+    color 150ms ease;
+}

@@ -1,0 +1,36 @@
+/* Basisfarben */
+  --join-blue: #29abe2;
+  --join-dark: #2a3647;
+  --join-dark-hover: #2a3d59;
+  --join-dark-active: #091931;
+  --join-text: #000000;
+  --join-muted: #a8a8a8;
+  --join-border: #d1d1d1;
+
+  /* Flaechen */
+  --page-background: #f6f7f8;
+  --card-background: #ffffff;
+
+  /* Prioritaet */
+  --priority-urgent: #ff3d00;
+  --priority-medium: #ffa800;
+  --priority-low: #7ae229;
+
+  /* Kategorie-Badges */
+  --category-user-story: #0038ff;
+  --category-technical-task: #1fd7c1;
+
+  /* Kontakt-Avatare */
+  --avatar-orange: #ff7a00;
+  --avatar-pink: #ff5eb3;
+  --avatar-indigo: #6e52ff;
+  --avatar-purple: #9327ff;
+  --avatar-cyan: #00bee8;
+  --avatar-teal: #1fd7c1;
+  --avatar-coral: #ff745e;
+  --avatar-apricot: #ffa35e;
+  --avatar-magenta: #fc71ff;
+  --avatar-gold: #ffc701;
+  --avatar-royal: #0038ff;
+  --avatar-lime: #c3ff2b;
+}
