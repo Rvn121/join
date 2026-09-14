@@ -45,7 +45,7 @@
   border-color: var(--priority-urgent);
 }
 
-.component-input img {
+.component-input > img {
   position: absolute;
   top: 24px;
   right: 18px;
