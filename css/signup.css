@@ -108,16 +108,13 @@
   text-decoration: none;
 }
 
+/* Form/Farbe kommen aus components.css (.component-toast), hier nur die Positionierung */
 .signup-toast {
   position: fixed;
   z-index: 20;
   top: 32px;
   left: 50%;
-  padding: 20px 28px;
-  border-radius: 14px;
   transform: translateX(-50%);
-  background: var(--join-dark);
-  color: #ffffff;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
 }
 
