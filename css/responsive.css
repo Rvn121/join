@@ -27,7 +27,7 @@
     top: 42px;
     right: 32px;
     gap: 20px;
-    font-size: 16px;
+    font-size: var(--fs-body);
   }
 
   body.logo-corner .join-logo {
@@ -58,7 +58,7 @@
   .sidebar-link {
     min-height: 46px;
     padding-inline: 22px;
-    font-size: 14px;
+    font-size: var(--fs-small);
   }
 
   .sidebar-footer-link {
@@ -75,7 +75,7 @@
   }
 
   .app-title {
-    font-size: 16px;
+    font-size: var(--fs-body);
   }
 
   .user-placeholder {
@@ -91,11 +91,6 @@
   .app-content {
     padding: 52px 40px 72px;
   }
-
-  .content-page > h1,
-  .content-heading-row h1 {
-    font-size: 42px;
-  }
 }
 
 @media (max-width: 620px) {
@@ -103,7 +98,7 @@
     top: 30px;
     right: 20px;
     gap: 12px;
-    font-size: 14px;
+    font-size: var(--fs-small);
   }
 
   body.logo-corner .join-logo {
@@ -115,7 +110,7 @@
   .btn--sm {
     min-height: 36px;
     padding-inline: 14px;
-    font-size: 14px;
+    font-size: var(--fs-small);
   }
 
   .login-dialog {
@@ -134,10 +129,6 @@
     margin-bottom: 28px;
   }
 
-  .login-heading h2 {
-    font-size: 47px;
-  }
-
   .heading-line {
     width: 116px;
     margin-top: 12px;
@@ -150,7 +141,7 @@
   .btn {
     min-height: 44px;
     padding-inline: 18px;
-    font-size: 17px;
+    font-size: var(--fs-body);
   }
 
   .footer-content {
@@ -158,7 +149,7 @@
   }
 
   .footer-content a {
-    font-size: 13px;
+    font-size: var(--fs-label);
   }
 
   .app-frame {
@@ -226,12 +217,7 @@
 
   .app-title {
     max-width: 180px;
-    font-size: 14px;
-  }
-
-  .content-page > h1,
-  .content-heading-row h1 {
-    font-size: 36px;
+    font-size: var(--fs-small);
   }
 }
 

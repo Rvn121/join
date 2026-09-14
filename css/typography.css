@@ -1,0 +1,56 @@
+body {
+  font-family: "Inter", sans-serif;
+  font-size: var(--fs-body);
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-weight: var(--fw-bold);
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 61px;
+}
+
+h2 {
+  font-size: 27px;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+p {
+  margin: 0;
+  font-size: var(--fs-body);
+}
+
+small {
+  font-size: var(--fs-small);
+}
+
+label {
+  font-size: var(--fs-label);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (max-width: 620px) {
+  h1 {
+    font-size: 47px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+}
