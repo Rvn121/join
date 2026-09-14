@@ -21,8 +21,8 @@
   color: #ffffff;
   cursor: pointer;
   font: inherit;
-  font-size: 21px;
-  font-weight: 700;
+  font-size: var(--fs-button);
+  font-weight: var(--fw-bold);
   transition:
     border-color 150ms ease,
     background 150ms ease,
@@ -61,7 +61,6 @@
   outline: none;
   background: #ffffff;
   color: var(--join-text);
-  font-size: 16px;
   transition: border-color 160ms ease;
 }
 
@@ -89,8 +88,8 @@
   border: 2px solid #ffffff;
   border-radius: 50%;
   color: #ffffff;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-bold);
 }
 
 /* Badge */
@@ -100,8 +99,8 @@
   padding: 4px 16px;
   border-radius: 8px;
   color: #ffffff;
-  font-size: 16px;
-  font-weight: 700;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-bold);
 }
 
 .component-badge--urgent {
@@ -133,5 +132,5 @@
   border-radius: 20px;
   background: var(--join-dark);
   color: #ffffff;
-  font-size: 20px;
+  font-size: var(--fs-lg);
 }
