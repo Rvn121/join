@@ -10,6 +10,14 @@
   --content-width: 1440px;
   --page-width: 1920px;
   --click-transition: 100ms ease;
+
+  --fs-body: 16px;
+  --fs-small: 14px;
+  --fs-label: 13px;
+  --fs-lead: 27px;
+  --fs-lg: 20px;
+  --fs-button: 21px;
+  --fw-bold: 700;
 }
 
 * {

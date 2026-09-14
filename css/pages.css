@@ -2,13 +2,6 @@
   width: min(100%, 1100px);
 }
 
-.content-page > h1,
-.content-heading-row h1 {
-  margin: 0;
-  font-size: 52px;
-  line-height: 1.1;
-}
-
 .content-heading-row {
   display: flex;
   align-items: center;
@@ -18,7 +11,7 @@
 .content-heading-row p {
   margin: 0;
   color: var(--join-dark);
-  font-size: 18px;
+  font-size: var(--fs-lead);
 }
 
 .content-heading-divider {
@@ -53,14 +46,6 @@
 .help-content h2,
 .legal-content h2 {
   margin: 28px 0 8px;
-  font-size: 24px;
-}
-
-.help-content p,
-.help-list,
-.legal-content p {
-  font-size: 16px;
-  line-height: 1.45;
 }
 
 .help-list {
@@ -73,15 +58,25 @@
 }
 
 .content-back-button {
-  color: var(--join-dark);
-  font-size: 34px;
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   text-decoration: none;
-  transition: color var(--click-transition);
+  transition: background var(--click-transition);
 }
 
 .content-back-button:hover,
 .content-back-button:focus-visible {
-  color: var(--join-blue);
+  background: rgba(42, 54, 71, 0.08);
+}
+
+.content-back-button img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
 }
 
 .legal-content section {
@@ -114,7 +109,6 @@
 
 .signup-heading {
   margin: 0 0 32px;
-  font-size: 46px;
   text-align: center;
 }
 
@@ -131,7 +125,7 @@
   align-items: flex-start;
   gap: 10px;
   margin: 4px 0 18px;
-  font-size: 14px;
+  font-size: var(--fs-small);
 }
 
 .privacy-check input {
