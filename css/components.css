@@ -11,45 +11,14 @@
   flex-wrap: wrap;
 }
 
-/* Button */
-.component-button {
-  min-height: 48px;
-  padding: 0 25px;
-  border: 1px solid var(--join-dark);
-  border-radius: 8px;
-  background: var(--join-dark);
-  color: #ffffff;
-  cursor: pointer;
-  font: inherit;
-  font-size: var(--fs-button);
-  font-weight: var(--fw-bold);
-  transition:
-    border-color 150ms ease,
-    background 150ms ease,
-    color 150ms ease;
-}
-.component-button:hover,
-.component-button:focus-visible {
-  border-color: var(--join-blue);
-  background: var(--join-blue);
-}
-
-.component-button--light {
-  background: #ffffff;
-  color: var(--join-dark);
-}
-
-.component-button--light:hover,
-.component-button--light:focus-visible {
-  background: #ffffff;
-  color: var(--join-blue);
-}
+/* Button-Styles kommen aus buttons.css (.btn / .btn--primary / .btn--secondary) */
 
 /* Input */
 .component-input {
   position: relative;
-  width: 320px;
+  width: 420px;
   max-width: 100%;
+  margin-bottom: 22px;
 }
 
 .component-input input {
@@ -64,13 +33,21 @@
   transition: border-color 160ms ease;
 }
 
+.component-input input::placeholder {
+  color: var(--join-muted);
+}
+
 .component-input input:focus {
   border-color: var(--join-blue);
 }
 
+.component-input input.input-error {
+  border-color: var(--priority-urgent);
+}
+
 .component-input img {
   position: absolute;
-  top: 50%;
+  top: 24px;
   right: 18px;
   width: 20px;
   height: 20px;
