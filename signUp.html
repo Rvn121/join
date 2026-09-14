@@ -9,10 +9,18 @@
   </head>
   <body>
     <main class="signup-page">
-      <img class="signup-page-logo" src="./assets/img/join_logo.png" alt="Join" />
+      <img
+        class="signup-page-logo"
+        src="./assets/img/join_logo.png"
+        alt="Join"
+      />
 
       <section class="signup-card">
-        <a class="signup-back-button" href="./index.html" aria-label="Back to log in">
+        <a
+          class="signup-back-button"
+          href="./index.html"
+          aria-label="Back to log in"
+        >
           <img src="./assets/icons/arrow.png" alt="" aria-hidden="true" />
         </a>
 
@@ -24,22 +32,53 @@
         <form class="signup-form" id="signUpForm" novalidate>
           <div class="input-group">
             <label class="sr-only" for="signUpName">Name</label>
-            <input id="signUpName" type="text" placeholder="Name" data-required />
-            <img class="input-icon" src="./assets/icons/person.png" alt="" aria-hidden="true" />
+            <input
+              id="signUpName"
+              type="text"
+              placeholder="Name"
+              data-required
+            />
+            <img
+              class="input-icon"
+              src="./assets/icons/person.png"
+              alt=""
+              aria-hidden="true"
+            />
             <span class="field-error" id="signUpNameError"></span>
           </div>
 
           <div class="input-group">
             <label class="sr-only" for="signUpEmail">Email</label>
-            <input id="signUpEmail" type="email" placeholder="Email" data-required />
-            <img class="input-icon" src="./assets/icons/mail.png" alt="" aria-hidden="true" />
+            <input
+              id="signUpEmail"
+              type="email"
+              placeholder="Email"
+              data-required
+            />
+            <img
+              class="input-icon"
+              src="./assets/icons/mail.png"
+              alt=""
+              aria-hidden="true"
+            />
             <span class="field-error" id="signUpEmailError"></span>
           </div>
 
           <div class="input-group">
             <label class="sr-only" for="signUpPassword">Password</label>
-            <input id="signUpPassword" type="password" placeholder="Password" data-required />
-            <button class="password-toggle" type="button" data-password-toggle data-target="signUpPassword" aria-label="Show password">
+            <input
+              id="signUpPassword"
+              type="password"
+              placeholder="Password"
+              data-required
+            />
+            <button
+              class="password-toggle"
+              type="button"
+              data-password-toggle
+              data-target="signUpPassword"
+              aria-label="Show password"
+            >
               <img src="./assets/icons/lock.png" alt="" aria-hidden="true" />
             </button>
             <span class="field-error" id="signUpPasswordError"></span>
@@ -47,8 +86,19 @@
 
           <div class="input-group">
             <label class="sr-only" for="repeatPassword">Confirm Password</label>
-            <input id="repeatPassword" type="password" placeholder="Confirm Password" data-required />
-            <button class="password-toggle" type="button" data-password-toggle data-target="repeatPassword" aria-label="Show password">
+            <input
+              id="repeatPassword"
+              type="password"
+              placeholder="Confirm Password"
+              data-required
+            />
+            <button
+              class="password-toggle"
+              type="button"
+              data-password-toggle
+              data-target="repeatPassword"
+              aria-label="Show password"
+            >
               <img src="./assets/icons/lock.png" alt="" aria-hidden="true" />
             </button>
             <span class="field-error" id="repeatPasswordError"></span>
@@ -56,12 +106,28 @@
 
           <label class="privacy-check" for="privacyAccepted">
             <input id="privacyAccepted" type="checkbox" />
-            <img class="privacy-checkbox-icon" id="privacyCheckboxIcon" src="./assets/icons/checkbox.png" alt="" aria-hidden="true" />
-            <span>I accept the <a href="./privacyPolicy.html">Privacy policy</a></span>
+            <img
+              class="privacy-checkbox-icon"
+              id="privacyCheckboxIcon"
+              src="./assets/icons/checkbox.png"
+              alt=""
+              aria-hidden="true"
+            />
+            <span
+              >I accept the
+              <a href="./privacyPolicy.html">Privacy policy</a></span
+            >
           </label>
 
           <p class="form-message" id="signUpMessage" aria-live="polite"></p>
-          <button class="button button-dark" id="registerButton" type="submit" disabled>Sign up</button>
+          <button
+            class="btn btn--primary"
+            id="registerButton"
+            type="submit"
+            disabled
+          >
+            Sign up
+          </button>
         </form>
       </section>
 
@@ -70,7 +136,9 @@
         <a href="./legalNotice.html">Legal notice</a>
       </footer>
 
-      <div class="signup-toast" id="signUpToast" hidden>You Signed Up successfully</div>
+      <div class="signup-toast" id="signUpToast" hidden>
+        You Signed Up successfully
+      </div>
     </main>
 
     <script src="./scripts/firebaseConfig.js"></script>
