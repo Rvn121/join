@@ -79,3 +79,9 @@
   border-color: var(--join-blue);
   color: var(--join-blue);
 }
+
+.btn--sm {
+  min-height: 42px;
+  padding-inline: 20px;
+  font-size: 16px;
+}
