@@ -1,6 +1,3 @@
-const FIREBASE_BASE_URL =
-  "https://join-9969f-default-rtdb.europe-west1.firebasedatabase.app";
-
 /**
  * DE: Erstellt eine vollständige Firebase-URL.
  * EN: Creates a complete Firebase URL.
