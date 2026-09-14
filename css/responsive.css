@@ -112,7 +112,7 @@
     width: 64px;
   }
 
-  .button-signup {
+  .btn--sm {
     min-height: 36px;
     padding-inline: 14px;
     font-size: 14px;
@@ -147,7 +147,7 @@
     gap: 14px;
   }
 
-  .button {
+  .btn {
     min-height: 44px;
     padding-inline: 18px;
     font-size: 17px;
@@ -241,7 +241,7 @@
   .footer-content,
   .sidebar-link,
   .sidebar-footer-link,
-  .button {
+  .btn {
     transition-duration: 1ms;
   }
 }
