@@ -148,7 +148,7 @@ body.login-visible .login-dialog {
   position: relative;
   width: 420px;
   max-width: 100%;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
 }
 
 .input-group input {
@@ -169,11 +169,11 @@ body.login-visible .login-dialog {
 }
 
 .input-group input:focus {
-  box-shadow: inset 0 0 0 1px var(--join-blue);
+  box-shadow: inset 0 0 0 1px #124658;
 }
 
 .input-group input.input-error {
-  box-shadow: inset 0 0 0 1px #ff3d00;
+  box-shadow: inset 0 0 0 1px var(--priority-urgent);
 }
 
 .input-icon {
@@ -187,20 +187,20 @@ body.login-visible .login-dialog {
   pointer-events: none;
 }
 
-.field-error {
-  display: block;
-  min-height: 18px;
-  margin-top: 6px;
-  color: #ff3d00;
-  font-size: 13px;
-}
-
 .form-message {
   min-height: 20px;
   margin: 0 0 12px;
   color: var(--join-dark);
   font-size: 14px;
   text-align: center;
+}
+
+.login-form .form-message {
+  width: 420px;
+  max-width: 100%;
+  margin: -14px 0 24px;
+  color: var(--priority-urgent);
+  text-align: left;
 }
 
 .login-actions {
@@ -241,11 +241,15 @@ body.login-visible .footer-content {
 .footer-content a {
   color: var(--join-muted);
   font-size: 16px;
+  font-weight: 400;
   text-decoration: none;
-  transition: color var(--click-transition);
+  transition:
+    color var(--click-transition),
+    font-weight var(--click-transition);
 }
 
 .footer-content a:hover,
 .footer-content a:focus-visible {
-  color: var(--join-blue);
+  color: #124658;
+  font-weight: var(--fw-bold);
 }

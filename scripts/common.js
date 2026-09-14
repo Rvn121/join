@@ -54,14 +54,12 @@ function protectCurrentPage() {
 function showRegisteredUser(user) {
   if (!user || !profileButton) return;
   userInitials.textContent = user.initials;
-  profileButton.style.backgroundColor = user.color;
-  profileButton.classList.add("has-user-color");
 }
 
 
 /**
- * DE: Aktualisiert Initialen und Benutzerfarbe.
- * EN: Updates initials and user color.
+ * DE: Aktualisiert die Initialen des Benutzers.
+ * EN: Updates the user initials.
  */
 function updateUserInitials() {
   if (!userInitials) return;
@@ -90,6 +88,51 @@ function updatePublicLayout() {
 function updateHelpButton() {
   const helpButton = document.getElementById("helpButton");
   if (helpButton) helpButton.hidden = document.body.getAttribute("data-page") === "help";
+}
+
+
+/**
+ * DE: Erstellt einen Link für das Profilmenü.
+ * EN: Creates a link for the profile menu.
+ * @param {string} label - DE: Linktext. EN: Link label.
+ * @param {string} href - DE: Ziel. EN: Target.
+ * @returns {HTMLAnchorElement} DE: Link. EN: Link.
+ */
+function createProfileMenuLink(label, href) {
+  const link = document.createElement("a");
+  link.href = href;
+  link.textContent = label;
+  return link;
+}
+
+
+/**
+ * DE: Ergänzt Legal Notice und Privacy Policy im Profilmenü.
+ * EN: Adds Legal Notice and Privacy Policy to the profile menu.
+ */
+function addProfileMenuLinks() {
+  if (!profileMenu || !logoutButton || profileMenu.querySelector("a")) return;
+  const legalLink = createProfileMenuLink("Legal Notice", "./legalNotice.html");
+  const privacyLink = createProfileMenuLink("Privacy Policy", "./privacyPolicy.html");
+  profileMenu.insertBefore(privacyLink, logoutButton);
+  profileMenu.insertBefore(legalLink, privacyLink);
+}
+
+
+/**
+ * DE: Ergänzt das Login-Icon in der Seitenleiste.
+ * EN: Adds the login icon to the sidebar.
+ */
+function addLoginLinkIcons() {
+  for (let i = 0; i < loginLinks.length; i++) {
+    if (loginLinks[i].querySelector("img")) continue;
+    const icon = document.createElement("img");
+    icon.className = "sidebar-link-icon";
+    icon.src = "./assets/icons/login.png";
+    icon.alt = "";
+    icon.setAttribute("aria-hidden", "true");
+    loginLinks[i].prepend(icon);
+  }
 }
 
 
@@ -134,6 +177,8 @@ function initializeCommonApp() {
   updateUserInitials();
   updatePublicLayout();
   updateHelpButton();
+  addProfileMenuLinks();
+  addLoginLinkIcons();
 }
 
 
