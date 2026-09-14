@@ -342,6 +342,7 @@ function initializePasswordToggles() {
 function initializeSignUp() {
   initializePasswordToggles();
   privacyAccepted.addEventListener("change", updatePrivacyCheckboxIcon);
+  document.getElementById("signUpPassword").addEventListener("input", validatePasswordMatchLive);
   repeatPassword.addEventListener("input", validatePasswordMatchLive);
   for (let i = 0; i < signUpInputs.length; i++) {
     signUpInputs[i].addEventListener("input", updateRegisterButton);

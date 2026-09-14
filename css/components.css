@@ -45,6 +45,10 @@
   border-color: var(--priority-urgent);
 }
 
+.component-input .field-error {
+  color: var(--priority-urgent);
+}
+
 .component-input > img {
   position: absolute;
   top: 24px;
