@@ -37,7 +37,9 @@
   font-size: 20px;
   opacity: 0;
   transform: translateY(-8px);
-  transition: opacity var(--click-transition), transform var(--click-transition);
+  transition:
+    opacity var(--click-transition),
+    transform var(--click-transition);
   pointer-events: none;
 }
 
@@ -92,7 +94,9 @@ body.logo-corner .join-logo {
   box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.08);
   opacity: 0;
   transform: translate(-50%, -46%);
-  transition: opacity var(--click-transition), transform var(--click-transition);
+  transition:
+    opacity var(--click-transition),
+    transform var(--click-transition);
   pointer-events: none;
 }
 
@@ -207,53 +211,7 @@ body.login-visible .login-dialog {
   gap: 35px;
 }
 
-.button {
-  min-height: 48px;
-  padding: 0 25px;
-  border: unset;
-  border-radius: 8px;
-  font-size: 21px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: background var(--click-transition), color var(--click-transition),
-    box-shadow var(--click-transition);
-}
-
-.button-dark {
-  background: var(--join-dark);
-  color: #ffffff;
-}
-
-.button-light {
-  background: #ffffff;
-  color: var(--join-dark);
-  box-shadow: inset 0 0 0 1px var(--join-dark);
-}
-
-.button-dark:hover,
-.button-dark:focus-visible {
-  background: #124658;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.button-light:hover,
-.button-light:focus-visible {
-  color: #124658;
-  box-shadow:
-    inset 0 0 0 2px #124658,
-    0 4px 4px rgba(0, 0, 0, 0.25);
-}
-
-.button:disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.button-signup {
-  min-height: 42px;
-  padding-inline: 20px;
-  font-size: 16px;
-}
+/* Button-Styles kommen jetzt aus buttons.css (.btn / .btn--primary / .btn--secondary / .btn--sm) */
 
 .site-footer {
   position: fixed;
