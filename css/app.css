@@ -44,14 +44,21 @@
   display: flex;
   min-height: 50px;
   align-items: center;
-  padding: 0 40px;
+  padding-inline: max(22px, calc((100% - 136px) / 2));
   color: #ffffff;
+  gap: 10px;
+  text-align: left;
   text-decoration: none;
   transition: background var(--click-transition);
 }
 
-.sidebar-link:hover,
-.sidebar-link:focus-visible {
+.app-navigation .sidebar-link:not(.sidebar-link-active):hover,
+.app-navigation .sidebar-link:not(.sidebar-link-active):focus-visible {
+  background: #2a3d59;
+}
+
+.external-navigation .sidebar-link:hover,
+.external-navigation .sidebar-link:focus-visible {
   background: var(--join-dark-hover);
 }
 
@@ -59,6 +66,14 @@
 .sidebar-link-active:hover,
 .sidebar-link-active:focus-visible {
   background: var(--join-dark-active);
+}
+
+
+.sidebar-link-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  object-fit: contain;
 }
 
 .external-navigation {
@@ -84,16 +99,18 @@
   display: flex;
   min-height: 38px;
   align-items: center;
-  padding: 0 40px;
+  padding-inline: max(22px, calc((100% - 136px) / 2));
   color: #cdcdcd;
   font-size: var(--fs-small);
+  text-align: left;
   text-decoration: none;
   transition: background var(--click-transition), color var(--click-transition);
 }
 
 .sidebar-footer-link:hover,
 .sidebar-footer-link:focus-visible {
-  color: var(--join-blue);
+  color: #124658;
+  font-weight: var(--fw-bold);
 }
 
 .sidebar-footer-link-active,
@@ -165,24 +182,23 @@
 }
 
 .user-placeholder {
-  width: 56px;
-  height: 56px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
+  background: #ffffff;
   box-shadow: inset 0 0 0 3px var(--join-dark);
+  transition: background var(--click-transition);
+}
+
+.user-placeholder:hover,
+.user-placeholder:focus-visible {
+  background: rgba(12, 46, 98, 0.12);
 }
 
 .user-initials {
-  color: var(--join-dark);
+  color: #124658;
   font-size: var(--fs-lg);
   font-weight: var(--fw-bold);
-}
-
-.user-placeholder.has-user-color {
-  box-shadow: none;
-}
-
-.user-placeholder.has-user-color .user-initials {
-  color: #ffffff;
 }
 
 .profile-menu {
@@ -190,27 +206,34 @@
   z-index: 5;
   top: 64px;
   right: 0;
-  min-width: 140px;
+  min-width: 150px;
   padding: 8px;
-  border-radius: 10px;
+  border-radius: 20px 0 20px 20px;
   background: var(--join-dark);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
 }
 
+.profile-menu a,
 .profile-menu button {
+  display: block;
   width: 100%;
   padding: 10px 12px;
   border: unset;
   border-radius: 6px;
   background: transparent;
-  color: #ffffff;
+  color: #cdcdcd;
+  font: inherit;
   text-align: left;
-  transition: background var(--click-transition);
+  text-decoration: none;
+  transition: background var(--click-transition), color var(--click-transition);
 }
 
+.profile-menu a:hover,
+.profile-menu a:focus-visible,
 .profile-menu button:hover,
 .profile-menu button:focus-visible {
   background: var(--join-dark-hover);
+  color: #ffffff;
 }
 
 .external-layout .app-header-actions {

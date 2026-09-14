@@ -258,6 +258,7 @@ async function handleSignUpSubmit(event) {
  */
 function updatePasswordIcon(input, icon) {
   if (!input.value) {
+    input.type = "password";
     icon.src = "./assets/icons/lock.png";
   } else if (input.type === "password") {
     icon.src = "./assets/icons/visibilityOff.png";
@@ -273,11 +274,41 @@ function updatePasswordIcon(input, icon) {
  * @param {HTMLButtonElement} button - DE: Schaltfläche. EN: Button.
  */
 function togglePasswordVisibility(button) {
-  const inputId = button.getAttribute("data-target");
-  const input = document.getElementById(inputId);
+  const input = document.getElementById(button.getAttribute("data-target"));
+  if (!input.value) return;
   if (input.type === "password") input.type = "text";
   else input.type = "password";
+  updatePasswordToggle(button);
+}
+
+
+/**
+ * DE: Aktualisiert Symbol und Beschriftung eines Passwort-Buttons.
+ * EN: Updates a password button icon and label.
+ * @param {HTMLButtonElement} button - DE: Schaltfläche. EN: Button.
+ */
+function updatePasswordToggle(button) {
+  const input = document.getElementById(button.getAttribute("data-target"));
   updatePasswordIcon(input, button.querySelector("img"));
+  const label = input.type === "password" ? "Show password" : "Hide password";
+  button.setAttribute("aria-label", label);
+}
+
+
+/**
+ * DE: Verknüpft ein Passwortfeld mit seinem Sichtbarkeits-Button.
+ * EN: Connects a password field with its visibility button.
+ * @param {HTMLButtonElement} button - DE: Schaltfläche. EN: Button.
+ */
+function initializePasswordToggle(button) {
+  const input = document.getElementById(button.getAttribute("data-target"));
+  updatePasswordToggle(button);
+  input.addEventListener("input", function () {
+    updatePasswordToggle(button);
+  });
+  button.addEventListener("click", function () {
+    togglePasswordVisibility(button);
+  });
 }
 
 
@@ -299,10 +330,7 @@ function updatePrivacyCheckboxIcon() {
 function initializePasswordToggles() {
   const buttons = document.querySelectorAll("[data-password-toggle]");
   for (let i = 0; i < buttons.length; i++) {
-    const button = buttons[i];
-    button.addEventListener("click", function () {
-      togglePasswordVisibility(button);
-    });
+    initializePasswordToggle(buttons[i]);
   }
 }
 

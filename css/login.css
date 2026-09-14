@@ -144,14 +144,47 @@ body.login-visible .login-dialog {
   background: var(--join-blue);
 }
 
-/* Input-Styles kommen aus components.css (.component-input) */
+.input-group {
+  position: relative;
+  width: 420px;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
 
-.field-error {
-  display: block;
-  min-height: 18px;
-  margin-top: 6px;
-  color: var(--priority-urgent);
-  font-size: 13px;
+.input-group input {
+  width: 100%;
+  height: 48px;
+  padding: 0 50px 0 20px;
+  border-radius: 10px;
+  outline: none;
+  background: #ffffff;
+  color: var(--join-text);
+  font-size: 16px;
+  box-shadow: inset 0 0 0 1px #d1d1d1;
+  transition: box-shadow var(--click-transition);
+}
+
+.input-group input::placeholder {
+  color: var(--join-muted);
+}
+
+.input-group input:focus {
+  box-shadow: inset 0 0 0 1px #124658;
+}
+
+.input-group input.input-error {
+  box-shadow: inset 0 0 0 1px var(--priority-urgent);
+}
+
+.input-icon {
+  position: absolute;
+  top: 24px;
+  right: 18px;
+  width: 20px;
+  height: 20px;
+  transform: translateY(-50%);
+  object-fit: contain;
+  pointer-events: none;
 }
 
 .form-message {
@@ -160,6 +193,14 @@ body.login-visible .login-dialog {
   color: var(--join-dark);
   font-size: 14px;
   text-align: center;
+}
+
+.login-form .form-message {
+  width: 420px;
+  max-width: 100%;
+  margin: -14px 0 24px;
+  color: var(--priority-urgent);
+  text-align: left;
 }
 
 .login-actions {
@@ -200,11 +241,15 @@ body.login-visible .footer-content {
 .footer-content a {
   color: var(--join-muted);
   font-size: 16px;
+  font-weight: 400;
   text-decoration: none;
-  transition: color var(--click-transition);
+  transition:
+    color var(--click-transition),
+    font-weight var(--click-transition);
 }
 
 .footer-content a:hover,
 .footer-content a:focus-visible {
-  color: var(--join-blue);
+  color: #124658;
+  font-weight: var(--fw-bold);
 }

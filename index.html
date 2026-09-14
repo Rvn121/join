@@ -53,8 +53,12 @@
                 placeholder="Email"
                 autocomplete="email"
               />
-              <img src="./assets/icons/mail.png" alt="" aria-hidden="true" />
-              <span class="field-error" id="emailError"></span>
+              <img
+                class="input-icon"
+                src="./assets/icons/mail.png"
+                alt=""
+                aria-hidden="true"
+              />
             </div>
 
             <div class="component-input">
@@ -66,8 +70,15 @@
                 placeholder="Password"
                 autocomplete="current-password"
               />
-              <img src="./assets/icons/lock.png" alt="" aria-hidden="true" />
-              <span class="field-error" id="passwordError"></span>
+              <button
+                class="password-toggle"
+                type="button"
+                data-password-toggle
+                data-target="password"
+                aria-label="Show password"
+              >
+                <img src="./assets/icons/lock.png" alt="" aria-hidden="true" />
+              </button>
             </div>
 
             <p class="form-message" id="loginMessage" aria-live="polite"></p>

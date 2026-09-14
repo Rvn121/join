@@ -7,6 +7,8 @@ const guestLoginButton = document.getElementById("guestLoginButton");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const loginButton = document.getElementById("loginButton");
+const loginMessage = document.getElementById("loginMessage");
+const LOGIN_ERROR_MESSAGE = "Check your email and password. Please try again.";
 
 /**
  * DE: Bewegt das Join-Logo in die linke obere Ecke.
@@ -49,39 +51,36 @@ function isEmailValid(email) {
 
 
 /**
- * DE: Zeigt einen Feldfehler.
- * EN: Shows a field error.
- * @param {HTMLInputElement} input - DE: Eingabe. EN: Input.
- * @param {string} message - DE: Meldung. EN: Message.
+ * DE: Zeigt den einheitlichen Login-Fehler an.
+ * EN: Shows the single login error message.
  */
-function showFieldError(input, message) {
-  input.classList.add("input-error");
-  document.getElementById(`${input.id}Error`).textContent = message;
+function showLoginError() {
+  emailInput.classList.add("input-error");
+  passwordInput.classList.add("input-error");
+  loginMessage.textContent = LOGIN_ERROR_MESSAGE;
 }
 
 
 /**
- * DE: Entfernt einen Feldfehler.
- * EN: Removes a field error.
- * @param {HTMLInputElement} input - DE: Eingabe. EN: Input.
+ * DE: Entfernt den Login-Fehler.
+ * EN: Clears the login error state.
  */
-function clearFieldError(input) {
-  input.classList.remove("input-error");
-  document.getElementById(`${input.id}Error`).textContent = "";
+function clearLoginError() {
+  emailInput.classList.remove("input-error");
+  passwordInput.classList.remove("input-error");
+  loginMessage.textContent = "";
 }
 
 
 /**
- * DE: Prüft die Login-Felder.
- * EN: Validates the login fields.
+ * DE: Prüft die Login-Felder ohne einzelne Feldmeldungen.
+ * EN: Validates the login fields without individual field messages.
  * @returns {boolean} DE: Formularstatus. EN: Form status.
  */
 function validateLoginForm() {
-  clearFieldError(emailInput);
-  clearFieldError(passwordInput);
-  if (!isEmailValid(emailInput.value)) showFieldError(emailInput, "Enter a valid email.");
-  if (!passwordInput.value) showFieldError(passwordInput, "Enter your password.");
-  return !document.querySelector("#loginForm .input-error");
+  const valid = isEmailValid(emailInput.value) && Boolean(passwordInput.value);
+  if (!valid) showLoginError();
+  return valid;
 }
 
 
@@ -116,8 +115,7 @@ function setLoginLoading(loading) {
 async function loginRegisteredUser() {
   const user = await verifyUser(emailInput.value, passwordInput.value);
   if (!user) {
-    document.getElementById("loginMessage").textContent =
-      "Email or password is incorrect.";
+    showLoginError();
     return;
   }
   saveUserSession(user);
@@ -132,13 +130,13 @@ async function loginRegisteredUser() {
  */
 async function handleLoginSubmit(event) {
   event.preventDefault();
+  clearLoginError();
   if (!validateLoginForm()) return;
-  document.getElementById("loginMessage").textContent = "";
   setLoginLoading(true);
   try {
     await loginRegisteredUser();
   } catch {
-    document.getElementById("loginMessage").textContent = "Firebase connection failed.";
+    showLoginError();
   }
   setLoginLoading(false);
 }
