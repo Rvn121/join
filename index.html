@@ -59,7 +59,6 @@
                 alt=""
                 aria-hidden="true"
               />
-              <span class="field-error" id="emailError"></span>
             </div>
 
             <div class="input-group">
@@ -71,13 +70,15 @@
                 placeholder="Password"
                 autocomplete="current-password"
               />
-              <img
-                class="input-icon"
-                src="./assets/icons/lock.png"
-                alt=""
-                aria-hidden="true"
-              />
-              <span class="field-error" id="passwordError"></span>
+              <button
+                class="password-toggle"
+                type="button"
+                data-password-toggle
+                data-target="password"
+                aria-label="Show password"
+              >
+                <img src="./assets/icons/lock.png" alt="" aria-hidden="true" />
+              </button>
             </div>
 
             <p class="form-message" id="loginMessage" aria-live="polite"></p>
