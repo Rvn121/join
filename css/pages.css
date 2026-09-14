@@ -23,7 +23,7 @@
 .content-placeholder {
   min-height: 280px;
   margin-top: 42px;
-  border: 2px dashed #d1d1d1;
+  border: 2px dashed var(--join-border);
   border-radius: 14px;
 }
 
