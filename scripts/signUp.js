@@ -196,7 +196,7 @@ function showSignUpSuccess() {
  * EN: Reports an email address that is already in use.
  */
 function showDuplicateEmailError() {
-  showSignUpError("signUpEmail", "This email address is already registered.");
+  showSignUpError("signUpEmail", "This email address is already in use.");
   document.getElementById("signUpEmail").focus();
 }
 
@@ -223,11 +223,9 @@ function finishRegistration(user) {
 async function registerUser() {
   const user = createUserData();
   const existingUser = await getUserByEmail(user.email);
-  if (existingUser) {
-    showDuplicateEmailError();
-    return;
-  }
-  await createUser(user, document.getElementById("signUpPassword").value);
+  if (existingUser) return showDuplicateEmailError();
+  const password = document.getElementById("signUpPassword").value;
+  await registerUserWithContact(user, password);
   finishRegistration(user);
 }
 
