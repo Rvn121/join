@@ -3,6 +3,19 @@
   --join-border: #d1d1d1;
   --join-border-hover: #124658;
 
+  /* Contacts */
+  --contact-list-hover:linear-gradient(
+    180deg,
+    #F9F9F9 0%,
+    #F0F0F0 100%
+  );
+  --contact-link: #007cee;
+  --contact-overlay: rgba(0, 0, 0, 0.22);
+  --contact-shadow-soft: rgba(0, 0, 0, 0.08);
+  --contact-shadow-button: rgba(0, 0, 0, 0.25);
+  --contact-shadow-dialog: rgba(0, 0, 0, 0.14);
+  --contact-dark-hover-soft: rgba(42, 54, 71, 0.08);
+
   /* Prioritaet */
   --priority-urgent: #E60026;
   --priority-medium: #ffa800;
@@ -26,3 +39,5 @@
   --avatar-royal: #0038ff;
   --avatar-lime: #c3ff2b;
 }
+
+

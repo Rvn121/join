@@ -10,7 +10,7 @@ Grundlage ist die Checkliste "Projektabgabe Join" der Developer Akademie. Hier s
 - Fonts und Icons liegen lokal unter `assets/`, wir laden nichts von CDNs.
 - Alle User arbeiten auf denselben Daten – auch der Gast-Login sieht dasselbe Board, dieselben Tasks und Kontakte.
 - Im gemergten Code gibt es kein `console.log` und keine Konsolenfehler.
-- Code, Kommentare und Commit-Messages sind auf Englisch.
+- Code und Commit-Messages sind auf Englisch. Funktionsdokumentationen werden im JSDoc-Format zweisprachig auf Deutsch und Englisch geschrieben.
 
 ## 2. Projektstruktur
 
@@ -92,7 +92,7 @@ Dazu kommen drei Größen, die keinem Element zugeordnet sind und nur als Token 
 - Einrückung mit 2 Leerzeichen, doppelte Anführungszeichen, Semikolons.
 - Zwischen Funktionen stehen 2 Leerzeilen.
 - Maximal 400 Zeilen pro Datei, das gilt für JS und CSS.
-- Jede Funktion ist nach JSDoc dokumentiert: https://jsdoc.app/about-getting-started.html
+- Jede Funktion ist im JSDoc-Format dokumentiert. Die Beschreibung steht immer auf Deutsch (DE) und Englisch (EN): https://jsdoc.app/about-getting-started.html
 
 ## 5. Neue Seite anlegen
 

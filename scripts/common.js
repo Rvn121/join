@@ -120,6 +120,41 @@ function addProfileMenuLinks() {
 
 
 /**
+ * DE: Gibt den Icon-Pfad für einen Navigationslink zurück.
+ * EN: Returns the icon path for a navigation link.
+ * @param {HTMLAnchorElement} link - DE: Navigationslink. EN: Navigation link.
+ * @returns {string} DE: Icon-Pfad. EN: Icon path.
+ */
+function getSidebarIconPath(link) {
+  const href = link.getAttribute("href");
+  if (href === "./summary.html") return "./assets/icons/summary.png";
+  if (href === "./addTask.html") return "./assets/icons/edit_square.png";
+  if (href === "./board.html") return "./assets/icons/board.png";
+  if (href === "./contacts.html") return "./assets/icons/contact.png";
+  return "";
+}
+
+
+/**
+ * DE: Ergänzt die Icons in der Hauptnavigation.
+ * EN: Adds the icons to the main navigation.
+ */
+function addSidebarNavigationIcons() {
+  const links = document.querySelectorAll(".app-navigation .sidebar-link");
+  for (let i = 0; i < links.length; i++) {
+    const iconPath = getSidebarIconPath(links[i]);
+    if (!iconPath || links[i].querySelector("img")) continue;
+    const icon = document.createElement("img");
+    icon.className = "sidebar-link-icon";
+    icon.src = iconPath;
+    icon.alt = "";
+    icon.setAttribute("aria-hidden", "true");
+    links[i].prepend(icon);
+  }
+}
+
+
+/**
  * DE: Ergänzt das Login-Icon in der Seitenleiste.
  * EN: Adds the login icon to the sidebar.
  */
@@ -147,10 +182,21 @@ function toggleProfileMenu() {
 
 
 /**
+ * DE: Entfernt ausschließlich lokale Testdaten des Gastzugangs.
+ * EN: Clears guest-only local test data.
+ */
+function clearGuestLocalData() {
+  localStorage.removeItem("joinGuestContacts");
+  localStorage.removeItem("joinGuestTasks");
+}
+
+
+/**
  * DE: Meldet den aktuellen Zugang ab.
  * EN: Logs out the current access.
  */
 function logoutUser() {
+  clearGuestLocalData();
   localStorage.removeItem(USER_MODE_KEY);
   localStorage.removeItem(CURRENT_USER_KEY);
   window.location.href = "./index.html";
@@ -163,6 +209,7 @@ function logoutUser() {
  */
 function clearGuestForLogin() {
   if (getUserMode() !== "guest") return;
+  clearGuestLocalData();
   localStorage.removeItem(USER_MODE_KEY);
   localStorage.removeItem(CURRENT_USER_KEY);
 }
@@ -178,6 +225,7 @@ function initializeCommonApp() {
   updatePublicLayout();
   updateHelpButton();
   addProfileMenuLinks();
+  addSidebarNavigationIcons();
   addLoginLinkIcons();
 }
 

@@ -1,0 +1,361 @@
+.contacts-main {
+  overflow: hidden;
+}
+
+.contacts-workspace {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 96px);
+  min-height: 0;
+}
+
+.contacts-panel {
+  position: relative;
+  display: flex;
+  width: 300px;
+  min-width: 260px;
+  max-width: 520px;
+  height: 100%;
+  flex: 0 0 auto;
+  flex-direction: column;
+  background: var(--card-background);
+  box-shadow: 4px 0 10px var(--contact-shadow-soft);
+}
+
+.contacts-panel-header {
+  flex: 0 0 auto;
+  padding: 22px 16px 12px;
+}
+
+.contact-add-button {
+  display: flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 18px;
+  border: unset;
+  border-radius: 10px;
+  background: var(--join-dark);
+  color: var(--card-background);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-bold);
+  transition: background var(--click-transition), box-shadow var(--click-transition);
+}
+
+.contact-add-button:hover,
+.contact-add-button:focus-visible {
+  background: var(--join-blue);
+  box-shadow: 0 4px 4px var(--contact-shadow-button);
+}
+
+.contact-add-button:active {
+  background: var(--join-dark-active);
+}
+
+.contact-add-symbol {
+  position: relative;
+  display: inline-flex;
+  width: 27px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-add-symbol img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.contact-add-symbol span {
+  position: absolute;
+  top: -4px;
+  right: -2px;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.contacts-list {
+  min-height: 0;
+  flex: 1;
+  overflow-y: auto;
+  padding: 0 16px 24px;
+  scrollbar-width: thin;
+}
+
+.contact-group-letter {
+  padding: 14px 26px 12px;
+  border-bottom: 1px solid var(--join-border);
+  font-size: var(--fs-body);
+  font-weight: 400;
+}
+
+.contact-group-items {
+  padding: 8px 0 10px;
+}
+
+.contact-list-item {
+  display: flex;
+  width: 100%;
+  min-height: 64px;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 16px;
+  border: unset;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--join-text);
+  text-align: left;
+  transition: background var(--click-transition), color var(--click-transition);
+}
+
+.contact-list-item:not(.contact-list-item--active):hover,
+.contact-list-item:not(.contact-list-item--active):focus-visible {
+  background: var(--contact-list-hover);
+}
+
+.contact-list-item--active,
+.contact-list-item--active:hover,
+.contact-list-item--active:focus-visible {
+  background: var(--join-dark);
+  color: var(--card-background);
+}
+
+.contact-avatar {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--card-background);
+  border-radius: 50%;
+  background: var(--contact-color, var(--join-blue));
+  color: var(--card-background);
+  box-shadow: 0 0 0 1px var(--contact-shadow-soft);
+}
+
+.contact-avatar--small {
+  width: 42px;
+  height: 42px;
+  font-size: var(--fs-small);
+}
+
+.contact-list-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.contact-list-name,
+.contact-list-email {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contact-list-name {
+  margin-bottom: 4px;
+  font-size: var(--fs-body);
+}
+
+.contact-list-email {
+  color: var(--contact-link);
+  font-size: var(--fs-small);
+}
+
+.contact-list-item--active .contact-list-email {
+  color: var(--join-blue);
+}
+
+.contacts-resizer {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: -4px;
+  width: 8px;
+  height: 100%;
+  cursor: ew-resize;
+  touch-action: none;
+}
+
+.contacts-resizer::after {
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  width: 2px;
+  height: 54px;
+  border-radius: 2px;
+  background: transparent;
+  content: "";
+  transform: translateY(-50%);
+  transition: background var(--click-transition);
+}
+
+.contacts-resizer:hover::after,
+.contacts-resizer:focus-visible::after,
+.contacts-resizing .contacts-resizer::after {
+  background: var(--join-blue);
+}
+
+.contacts-resizing {
+  cursor: ew-resize;
+  user-select: none;
+}
+
+.contacts-detail-stage {
+  min-width: 0;
+  flex: 1;
+  overflow: hidden;
+  padding: 74px 56px;
+  background: var(--page-background);
+}
+
+.contacts-heading-row {
+  flex-wrap: wrap;
+}
+
+.contact-detail {
+  margin-top: 46px;
+}
+
+.contact-detail--enter {
+  animation: contact-detail-enter 220ms ease-out;
+}
+
+@keyframes contact-detail-enter {
+  from {
+    opacity: 0;
+    transform: translateX(100vw);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.contact-detail-head {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.contact-avatar--large {
+  width: 120px;
+  height: 120px;
+  font-size: 42px;
+}
+
+.contact-detail-title h2 {
+  margin-bottom: 12px;
+  font-size: 36px;
+}
+
+.contact-detail-actions {
+  display: flex;
+  gap: 20px;
+}
+
+.contact-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  border: unset;
+  background: transparent;
+  color: var(--join-dark);
+  font-size: var(--fs-small);
+  transition: color var(--click-transition);
+}
+
+.contact-action img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.contact-action:hover,
+.contact-action:focus-visible {
+  color: var(--join-border-hover);
+  font-weight: var(--fw-bold);
+}
+
+.contact-information-title {
+  margin: 46px 0 24px;
+  font-weight: 400;
+}
+
+.contact-information {
+  margin: 0;
+}
+
+.contact-information div {
+  margin-bottom: 22px;
+}
+
+.contact-information dt {
+  margin-bottom: 8px;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-bold);
+}
+
+.contact-information dd {
+  margin: 0;
+}
+
+.contact-information a {
+  color: var(--contact-link);
+  text-decoration: none;
+}
+
+@media (max-width: 1000px) {
+  .contacts-detail-stage {
+    padding: 54px 36px;
+  }
+}
+
+@media (max-width: 850px) {
+  .contacts-workspace {
+    height: calc(100vh - 80px);
+  }
+
+  .contact-avatar--large {
+    width: 92px;
+    height: 92px;
+    font-size: 32px;
+  }
+
+  .contact-detail-title h2 {
+    font-size: 30px;
+  }
+}
+
+@media (max-width: 700px) {
+  .contacts-workspace {
+    height: auto;
+    min-height: calc(100vh - 80px);
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .contacts-panel {
+    width: 100% !important;
+    min-width: 0;
+    max-width: none;
+    height: 52vh;
+  }
+
+  .contacts-resizer {
+    display: none;
+  }
+
+  .contacts-detail-stage {
+    min-height: 48vh;
+    padding: 36px 20px 64px;
+  }
+
+  .contact-detail-head {
+    align-items: flex-start;
+    gap: 20px;
+  }
+}
