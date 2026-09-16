@@ -157,9 +157,12 @@
   }
 
   .app-sidebar {
+    position: static;
     width: 100%;
     min-width: 0;
-    min-height: auto;
+    height: auto;
+    min-height: 0;
+    overflow-y: visible;
   }
 
   .sidebar-logo-link {
@@ -203,6 +206,18 @@
 
   .signup-card {
     padding: 36px 20px;
+  }
+
+  .help-heading {
+    align-items: flex-start;
+  }
+
+  .help-step {
+    padding-left: 38px;
+  }
+
+  .help-follow-up {
+    margin-left: 0;
   }
 }
 
