@@ -30,22 +30,7 @@
   position: absolute;
   top: 22px;
   right: 26px;
-  display: inline-flex;
-  width: 36px;
-  height: 36px;
-  align-items: center;
-  justify-content: center;
-  border: unset;
-  border-radius: 50%;
-  background: transparent;
-  color: var(--join-dark);
   font-size: 28px;
-  transition: background var(--click-transition);
-}
-
-.task-dialog-close:hover,
-.task-detail-close:hover {
-  background: var(--join-dark-soft);
 }
 
 .task-form--dialog .task-form-columns {

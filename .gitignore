@@ -31,3 +31,6 @@ build/
 
 # Firebase configuration
 scripts/firebaseConfig.js
+
+# temp data
+temp/

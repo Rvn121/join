@@ -113,7 +113,7 @@ function handleSubtaskKeydown(event) {
 function updateSubtaskInputActions() {
   const hasText = Boolean(taskSubtaskInput.value.trim());
   const clearButton = document.getElementById("taskSubtaskClear");
-  const divider = document.querySelector(".task-inline-divider");
+  const divider = document.querySelector(".task-subtask-input-actions .task-inline-divider");
   const icon = document.querySelector("#taskSubtaskAdd img");
   clearButton.hidden = !hasText;
   divider.hidden = !hasText;

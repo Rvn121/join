@@ -1,18 +1,3 @@
-@import url("colors.css");
-
-.component-section {
-  margin-bottom: 48px;
-}
-
-.component-row {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-/* Button-Styles kommen aus buttons.css (.btn / .btn--primary / .btn--secondary) */
-
 /* Input */
 .component-input {
   position: relative;
@@ -49,28 +34,15 @@
   color: var(--priority-urgent);
 }
 
-.component-input > img {
+.component-input .input-icon {
   position: absolute;
   top: 24px;
   right: 18px;
   width: 20px;
   height: 17px;
+  object-fit: contain;
   transform: translateY(-50%);
   pointer-events: none;
-}
-
-/* Avatar */
-.component-avatar {
-  display: inline-flex;
-  width: 42px;
-  height: 42px;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--join-white);
-  border-radius: 50%;
-  color: var(--join-white);
-  font-size: var(--fs-small);
-  font-weight: var(--fw-bold);
 }
 
 /* Avatar color modifiers – set --avatar-color, consumed by .contact-avatar and .task-avatar */
@@ -87,35 +59,47 @@
 .avatar--royal { --avatar-color: var(--avatar-royal); }
 .avatar--lime { --avatar-color: var(--avatar-lime); }
 
-/* Badge */
-.component-badge {
+/* Icon button – round, transparent, shared hover circle.
+   Also drives the hover circle of a native <select> via .select-wrap::after */
+.icon-button,
+.select-wrap::after {
   display: inline-flex;
+  width: 36px;
+  height: 36px;
   align-items: center;
-  padding: 4px 16px;
-  border-radius: 8px;
-  color: var(--join-white);
-  font-size: var(--fs-body);
-  font-weight: var(--fw-bold);
+  justify-content: center;
+  padding: 0;
+  border: unset;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--join-dark);
+  font-size: 22px;
+  text-decoration: none;
+  transition: background var(--click-transition);
 }
 
-.component-badge--urgent {
-  background: var(--priority-urgent);
+.icon-button:hover,
+.icon-button:focus-visible,
+.select-wrap:hover::after {
+  background: var(--join-dark-soft);
 }
 
-.component-badge--medium {
-  background: var(--priority-medium);
+.icon-button img {
+  width: 16px;
+  height: 16px;
 }
 
-.component-badge--low {
-  background: var(--priority-low);
+.select-wrap {
+  position: relative;
 }
 
-.component-badge--user-story {
-  background: var(--category-user-story);
-}
-
-.component-badge--technical-task {
-  background: var(--category-technical-task);
+.select-wrap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
 /* Toast */

@@ -107,7 +107,7 @@
 
     <dialog class="task-form-dialog" id="taskFormDialog" aria-labelledby="taskFormDialogTitle">
       <div class="task-dialog-shell">
-        <button class="task-dialog-close" id="taskFormDialogClose" type="button" aria-label="Dialog schließen">×</button>
+        <button class="icon-button task-dialog-close" id="taskFormDialogClose" type="button" aria-label="Dialog schließen">×</button>
         <h2 id="taskFormDialogTitle">Add Task</h2>
         <form class="task-form task-form--dialog" id="taskForm" novalidate data-default-status="todo">
           <div class="task-form-columns">
@@ -154,7 +154,7 @@
                 <div class="task-dropdown" id="taskAssignedDropdown">
                   <div class="task-dropdown-input-wrap">
                     <input id="taskAssignedSearch" type="text" placeholder="Select contacts to assign" autocomplete="off" />
-                    <button class="task-dropdown-toggle" id="taskAssignedToggle" type="button" aria-label="Assigned-to-Liste öffnen oder schließen" aria-expanded="false">
+                    <button class="icon-button task-dropdown-toggle" id="taskAssignedToggle" type="button" aria-label="Assigned-to-Liste öffnen oder schließen" aria-expanded="false">
                     <img src="./assets/icons/arrow_drop_down.png" alt="" aria-hidden="true" />
                   </button>
                   </div>
@@ -165,7 +165,7 @@
 
               <label class="task-field" for="taskCategory">
                 <span>Category<span class="task-required">*</span></span>
-                <div class="task-select-wrap">
+                <div class="select-wrap">
                   <select id="taskCategory" name="category">
                     <option value="" disabled hidden>Select task category</option>
                     <option value="Technical Task">Technical Task</option>
@@ -180,9 +180,9 @@
                 <div class="task-subtask-input-wrap">
                   <input id="taskSubtaskInput" type="text" placeholder="Add new subtask" maxlength="30" />
                   <div class="task-subtask-input-actions">
-                    <button class="task-inline-action" id="taskSubtaskClear" type="button" aria-label="Subtask-Feld leeren">×</button>
+                    <button class="icon-button" id="taskSubtaskClear" type="button" aria-label="Subtask-Feld leeren">×</button>
                     <span class="task-inline-divider" aria-hidden="true"></span>
-                    <button class="task-inline-action" id="taskSubtaskAdd" type="button" aria-label="Subtask hinzufügen">
+                    <button class="icon-button" id="taskSubtaskAdd" type="button" aria-label="Subtask hinzufügen">
                       <img src="./assets/icons/check-dark.png" alt="" aria-hidden="true" />
                     </button>
                   </div>

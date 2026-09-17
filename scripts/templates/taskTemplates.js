@@ -190,7 +190,7 @@ function getTaskDetailTemplate(task, contacts) {
   const priority = getPriorityLabel(task.priority);
   const priorityIcon = getPriorityIcon(task.priority);
   return `
-    <button class="task-detail-close" type="button" data-task-detail-close aria-label="Taskdetails schließen">×</button>
+    <button class="icon-button task-detail-close" type="button" data-task-detail-close aria-label="Taskdetails schließen">×</button>
     <span class="task-category ${categoryClass}">${escapeTaskHtml(task.category)}</span>
     <h2 id="taskDetailTitle">${escapeTaskHtml(task.title)}</h2>
     <p class="task-detail-description">${escapeTaskHtml(task.description || "No description")}</p>
@@ -230,5 +230,5 @@ function getAssignedContactTemplate(contact, selected, ownContact) {
  * @returns {string} DE: Subtask-HTML. EN: Subtask HTML.
  */
 function getFormSubtaskTemplate(subtask) {
-  return `<li data-form-subtask-id="${escapeTaskHtml(subtask.id)}"><span class="task-subtask-title">${escapeTaskHtml(subtask.title)}</span><div class="task-subtask-actions"><button type="button" data-edit-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask bearbeiten"><img src="./assets/icons/edit.png" alt="" /></button><span aria-hidden="true"></span><button type="button" data-delete-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask löschen"><img src="./assets/icons/delete.png" alt="" /></button></div></li>`;
+  return `<li data-form-subtask-id="${escapeTaskHtml(subtask.id)}"><span class="task-subtask-title">${escapeTaskHtml(subtask.title)}</span><div class="task-subtask-actions"><button class="icon-button" type="button" data-edit-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask bearbeiten"><img src="./assets/icons/edit.png" alt="" /></button><span class="task-inline-divider" aria-hidden="true"></span><button class="icon-button" type="button" data-delete-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask löschen"><img src="./assets/icons/delete.png" alt="" /></button></div></li>`;
 }

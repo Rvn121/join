@@ -20,18 +20,6 @@
   background: var(--join-blue);
 }
 
-.content-placeholder {
-  min-height: 280px;
-  margin-top: 42px;
-  border: 2px dashed var(--join-border);
-  border-radius: 14px;
-}
-
-.content-placeholder p {
-  margin: 24px;
-  color: var(--join-muted);
-}
-
 .help-content,
 .legal-content {
   max-width: 1000px;
@@ -161,22 +149,6 @@
 
 .legal-highlight {
   color: var(--join-border-hover);
-}
-
-.content-back-button {
-  display: inline-flex;
-  width: 36px;
-  height: 36px;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  text-decoration: none;
-  transition: background var(--click-transition);
-}
-
-.content-back-button:hover,
-.content-back-button:focus-visible {
-  background: var(--join-dark-soft);
 }
 
 .content-back-button img {

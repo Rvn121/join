@@ -1,5 +1,3 @@
-@import url("colors.css");
-
 .btn {
   min-height: 48px;
   padding: 0 24px;
@@ -47,42 +45,6 @@
   box-shadow:
     inset 0 0 0 1px var(--join-accent),
     0 4px 4px var(--shadow-button);
-}
-
-.btn--icon {
-  display: inline-flex;
-  width: 42px;
-  height: 42px;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border-radius: 8px;
-  background: var(--join-dark);
-  color: var(--join-white);
-}
-
-.btn--icon:hover,
-.btn--icon:focus-visible {
-  background: var(--join-blue);
-}
-
-.btn--outline-icon {
-  display: inline-flex;
-  width: 42px;
-  height: 42px;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: 1px solid var(--join-dark);
-  border-radius: 8px;
-  background: var(--card-background);
-  color: var(--join-dark);
-}
-
-.btn--outline-icon:hover,
-.btn--outline-icon:focus-visible {
-  border-color: var(--join-blue);
-  color: var(--join-blue);
 }
 
 .btn--sm {

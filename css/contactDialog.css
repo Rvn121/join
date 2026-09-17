@@ -90,26 +90,6 @@
   z-index: 2;
   top: 48px;
   right: 48px;
-  display: inline-flex;
-  width: 36px;
-  height: 36px;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: unset;
-  border-radius: 50%;
-  background: transparent;
-  transition: background var(--click-transition);
-}
-
-.contact-dialog-close:hover,
-.contact-dialog-close:focus-visible {
-  background: var(--join-dark-soft);
-}
-
-.contact-dialog-close img {
-  width: 18px;
-  height: 18px;
 }
 
 .contact-dialog-avatar {

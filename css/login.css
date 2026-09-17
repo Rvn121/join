@@ -144,49 +144,6 @@ body.login-visible .login-dialog {
   background: var(--join-blue);
 }
 
-.input-group {
-  position: relative;
-  width: 420px;
-  max-width: 100%;
-  margin-bottom: 20px;
-}
-
-.input-group input {
-  width: 100%;
-  height: 48px;
-  padding: 0 50px 0 20px;
-  border-radius: 10px;
-  outline: none;
-  background: var(--card-background);
-  color: var(--join-text);
-  font-size: 16px;
-  box-shadow: inset 0 0 0 1px var(--join-border);
-  transition: box-shadow var(--click-transition);
-}
-
-.input-group input::placeholder {
-  color: var(--join-muted);
-}
-
-.input-group input:focus {
-  box-shadow: inset 0 0 0 1px var(--join-accent);
-}
-
-.input-group input.input-error {
-  box-shadow: inset 0 0 0 1px var(--priority-urgent);
-}
-
-.input-icon {
-  position: absolute;
-  top: 24px;
-  right: 18px;
-  width: 20px;
-  height: 20px;
-  transform: translateY(-50%);
-  object-fit: contain;
-  pointer-events: none;
-}
-
 .form-message {
   min-height: 20px;
   margin: 0 0 12px;
