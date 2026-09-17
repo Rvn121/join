@@ -13,21 +13,6 @@ function createContactInitials(name) {
 
 
 /**
- * DE: Wählt eine feste Farbe anhand des Namens aus.
- * EN: Selects a stable color based on the name.
- * @param {string} name - DE: Name. EN: Name.
- * @returns {string} DE: Farbe. EN: Color.
- */
-function getContactColor(name) {
-  let total = 0;
-  for (let i = 0; i < name.length; i++) {
-    total += name.charCodeAt(i);
-  }
-  return contactColors[total % contactColors.length];
-}
-
-
-/**
  * DE: Prüft, ob Vor- und Nachname eingegeben wurden.
  * EN: Checks whether first and last name were entered.
  * @param {string} name - DE: Name. EN: Name.
@@ -242,7 +227,7 @@ function createBasicContactDraft() {
     email: normalizeEmail(contactEmail.value),
     phone: contactPhone.value ? formatContactPhone(contactPhone.value) : "",
     initials: createContactInitials(contactName.value),
-    color: getContactColor(contactName.value),
+    color: getAvatarColorByName(contactName.value),
     isRegistered: false,
     userId: null,
   };

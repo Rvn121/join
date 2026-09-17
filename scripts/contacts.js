@@ -1,16 +1,5 @@
 const CONTACTS_GUEST_KEY = "joinGuestContacts";
 const ADMIN_EMAIL = "admin@join.com";
-const contactColors = [
-  "#ff7a00",
-  "#9327ff",
-  "#6e52ff",
-  "#fc71ff",
-  "#ffbb2b",
-  "#1fd7c1",
-  "#462f8a",
-  "#ff4646",
-  "#00bee8",
-];
 const contactState = {
   contacts: [],
   selectedId: null,

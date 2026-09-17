@@ -44,7 +44,7 @@
 
 .task-dialog-close:hover,
 .task-detail-close:hover {
-  background: var(--contact-dark-hover-soft);
+  background: var(--join-dark-soft);
 }
 
 .task-form--dialog .task-form-columns {

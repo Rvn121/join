@@ -130,7 +130,7 @@
   justify-content: center;
   border: 2px solid var(--card-background);
   border-radius: 50%;
-  background: var(--contact-color, var(--join-blue));
+  background: var(--avatar-color, var(--join-blue));
   color: var(--card-background);
   box-shadow: 0 0 0 1px var(--contact-shadow-soft);
 }

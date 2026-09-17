@@ -3,10 +3,6 @@ const signUpButton = document.getElementById("registerButton");
 const signUpInputs = signUpForm.querySelectorAll("[data-required]");
 const privacyAccepted = document.getElementById("privacyAccepted");
 const repeatPassword = document.getElementById("repeatPassword");
-const userColors = [
-  "#ff7a00", "#9327ff", "#6e52ff", "#fc71ff", "#ffbb2b",
-  "#1fd7c1", "#462f8a", "#ff4646", "#00bee8",
-];
 
 /**
  * DE: Prüft eine E-Mail-Adresse mit Provider und Endung.
@@ -42,16 +38,6 @@ function createInitials(name) {
   const firstLetter = names[0][0];
   const lastLetter = names[names.length - 1][0];
   return (firstLetter + lastLetter).toUpperCase();
-}
-
-
-/**
- * DE: Wählt zufällig eine Farbe aus der Palette.
- * EN: Selects a random color from the palette.
- * @returns {string} DE: Farbe. EN: Color.
- */
-function getRandomUserColor() {
-  return userColors[Math.floor(Math.random() * userColors.length)];
 }
 
 
@@ -167,7 +153,7 @@ function createUserData() {
     name: name,
     email: email,
     initials: createInitials(name),
-    color: getRandomUserColor(),
+    color: getRandomAvatarColor(),
   };
 }
 

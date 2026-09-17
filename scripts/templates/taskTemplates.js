@@ -35,9 +35,9 @@ function findTaskContact(contacts, reference) {
  */
 function getTaskAvatarTemplate(contact) {
   const initials = escapeTaskHtml(contact.initials || "?");
-  const color = contact.color || "var(--join-blue)";
+  const colorClass = getAvatarColorClass(contact.color);
   const name = escapeTaskHtml(contact.name || "Contact");
-  return `<span class="task-avatar" style="--task-avatar-color:${color}" title="${name}">${initials}</span>`;
+  return `<span class="task-avatar ${colorClass}" title="${name}">${initials}</span>`;
 }
 
 

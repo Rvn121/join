@@ -176,7 +176,7 @@
 
 .content-back-button:hover,
 .content-back-button:focus-visible {
-  background: var(--contact-dark-hover-soft);
+  background: var(--join-dark-soft);
 }
 
 .content-back-button img {

@@ -104,7 +104,7 @@
 
 .contact-dialog-close:hover,
 .contact-dialog-close:focus-visible {
-  background: var(--contact-dark-hover-soft);
+  background: var(--join-dark-soft);
 }
 
 .contact-dialog-close img {

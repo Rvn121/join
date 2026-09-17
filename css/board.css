@@ -107,7 +107,7 @@
 
 .board-column-add:hover,
 .board-column-add:focus-visible {
-  background: var(--contact-dark-hover-soft);
+  background: var(--join-dark-soft);
   transform: scale(1.08);
 }
 

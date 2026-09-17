@@ -5,6 +5,7 @@
   --join-dark: #2a3647;
   --join-dark-hover: #35475d;
   --join-dark-active: #091931;
+  --join-dark-soft: rgba(42, 54, 71, 0.08);
   --join-accent: #124658;
   --join-text: #000000;
   --join-white: #ffffff;
@@ -37,10 +38,9 @@
   --contact-shadow-soft: var(--shadow-soft);
   --contact-shadow-button: var(--shadow-button);
   --contact-shadow-dialog: var(--shadow-dialog);
-  --contact-dark-hover-soft: rgba(42, 54, 71, 0.08);
 
   /* Priority */
-  --priority-urgent: #e60026;
+  --priority-urgent: #ff3d00;
   --priority-medium: #ffa800;
   --priority-low: #7ae229;
 
@@ -49,7 +49,7 @@
   --category-technical-task: #1fd7c1;
 
   /* Task management */
-  --task-urgent: #ff3d00;
+  --task-urgent: var(--priority-urgent);
   --task-medium: var(--priority-medium);
   --task-low: var(--priority-low);
   --task-card-shadow: var(--shadow-soft);

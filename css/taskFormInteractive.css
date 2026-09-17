@@ -35,7 +35,7 @@
 
 .task-dropdown-toggle:hover,
 .task-dropdown-toggle:focus-visible {
-  background: var(--contact-dark-hover-soft);
+  background: var(--join-dark-soft);
 }
 
 .task-dropdown-toggle img {
@@ -116,7 +116,7 @@
   justify-content: center;
   border: 2px solid var(--card-background);
   border-radius: 50%;
-  background: var(--task-avatar-color, var(--join-blue));
+  background: var(--avatar-color, var(--join-blue));
   color: var(--card-background);
   font-size: 11px;
 }
@@ -163,7 +163,7 @@
 }
 
 .task-inline-action:hover {
-  background: var(--contact-dark-hover-soft);
+  background: var(--join-dark-soft);
 }
 
 .task-inline-action img {
@@ -205,7 +205,7 @@
 }
 
 .task-subtask-list li:hover {
-  background: var(--contact-dark-hover-soft);
+  background: var(--join-dark-soft);
 }
 
 .task-subtask-list li > div {

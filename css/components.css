@@ -73,6 +73,20 @@
   font-weight: var(--fw-bold);
 }
 
+/* Avatar color modifiers – set --avatar-color, consumed by .contact-avatar and .task-avatar */
+.avatar--orange { --avatar-color: var(--avatar-orange); }
+.avatar--pink { --avatar-color: var(--avatar-pink); }
+.avatar--indigo { --avatar-color: var(--avatar-indigo); }
+.avatar--purple { --avatar-color: var(--avatar-purple); }
+.avatar--cyan { --avatar-color: var(--avatar-cyan); }
+.avatar--teal { --avatar-color: var(--avatar-teal); }
+.avatar--coral { --avatar-color: var(--avatar-coral); }
+.avatar--apricot { --avatar-color: var(--avatar-apricot); }
+.avatar--magenta { --avatar-color: var(--avatar-magenta); }
+.avatar--gold { --avatar-color: var(--avatar-gold); }
+.avatar--royal { --avatar-color: var(--avatar-royal); }
+.avatar--lime { --avatar-color: var(--avatar-lime); }
+
 /* Badge */
 .component-badge {
   display: inline-flex;
