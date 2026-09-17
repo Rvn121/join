@@ -22,19 +22,28 @@
 
 .task-dialog-shell > h2 {
   margin-bottom: 37px;
-  font-size: 61px;
+  font-size: var(--fs-h1);
 }
 
 .task-dialog-close,
 .task-detail-close {
   position: absolute;
-  top: 62px;
-  right: 38px;
-  font-size: 28px;
+  top: 48px;
+  right: 40px;
+  width: 32px;
+  height: 32px;
 }
 
-.task-detail-close {
-  top: 46px;
+.task-dialog-close img,
+.task-detail-close img {
+  width: 24px;
+  height: 24px;
+  padding: 5px;
+  object-fit: contain;
+}
+
+.task-dialog-close {
+  top: 62px;
   right: 40px;
 }
 
@@ -52,99 +61,127 @@
 
 .task-detail-shell {
   position: relative;
-  width: min(560px, calc(100vw - 32px));
+  display: flex;
+  width: min(525px, calc(100vw - 32px));
   max-height: calc(100vh - 40px);
-  padding: 44px 42px 32px;
+  flex-direction: column;
+  gap: 24px;
+  padding: 48px 40px;
   overflow-y: auto;
-  border-radius: 24px;
+  border-radius: 30px;
   background: var(--card-background);
+  box-shadow: 0 0 4px var(--shadow-medium);
 }
 
 .task-detail-shell .task-category {
+  min-height: 36px;
+  padding: 4px 24px;
   font-size: var(--fs-badge-lg);
+  line-height: 28px;
 }
 
 .task-detail-shell > h2 {
   max-width: 100%;
-  margin: 18px 0 18px;
-  padding-right: 28px;
+  margin: 0;
   overflow-wrap: anywhere;
   word-break: break-word;
+  font-size: var(--fs-h1);
+  line-height: 1.2;
 }
 
 .task-detail-description {
   max-width: 100%;
-  margin-bottom: 22px;
+  margin: 0;
   overflow-wrap: anywhere;
   word-break: break-word;
+  font-size: var(--fs-lg);
   white-space: pre-wrap;
 }
 
 .task-detail-data {
-  margin: 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 0;
 }
 
 .task-detail-data > div {
   display: flex;
   align-items: center;
-  gap: 26px;
-  margin-bottom: 12px;
+  gap: 25px;
 }
 
 .task-detail-data dt {
-  min-width: 76px;
   color: var(--join-dark);
-  font-size: var(--fs-small);
+  font-size: var(--fs-lg);
 }
 
 .task-detail-data dd {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   margin: 0;
+  font-size: var(--fs-lg);
+}
+
+.task-detail-data div:has(img) dd {
+  min-height: 32px;
+  padding: 4px 18px;
+  border-radius: 10px;
 }
 
 .task-detail-data img {
-  width: 18px;
-  height: 14px;
-}
-
-.task-detail-section {
-  margin-top: 22px;
+  width: 17px;
+  height: 12px;
+  object-fit: contain;
 }
 
 .task-detail-section h3 {
-  margin-bottom: 12px;
-  font-size: var(--fs-small);
+  margin-bottom: 8px;
+  color: var(--join-dark);
+  font-size: var(--fs-lg);
   font-weight: 400;
 }
 
 .task-detail-section ul {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .task-detail-section li {
-  max-width: 100%;
   display: flex;
+  min-height: 56px;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 8px;
-  font-size: var(--fs-small);
+  gap: 16px;
+  padding: 7px 16px;
+  border-radius: 10px;
+  font-size: var(--fs-lg);
+}
+
+.task-detail-section li .task-avatar {
+  width: 42px;
+  height: 42px;
+  font-size: var(--fs-body);
 }
 
 .task-detail-subtasks {
-  display: grid;
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .task-detail-subtask {
-  max-width: 100%;
   display: flex;
+  min-height: 32px;
   align-items: center;
-  gap: 10px;
-  font-size: var(--fs-small);
+  gap: 16px;
+  padding: 4px 16px;
+  border-radius: 10px;
+  font-size: var(--fs-body);
   cursor: pointer;
 }
 
@@ -154,9 +191,10 @@
 }
 
 .task-detail-subtask input {
-  width: 20px;
-  height: 20px;
-  flex: 0 0 20px;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  margin: 0;
   border: unset;
   appearance: none;
   background: url("../assets/icons/checkbox.svg") center / contain no-repeat;
@@ -173,16 +211,16 @@
 }
 
 .task-detail-empty {
+  padding: 6px 16px;
   color: var(--join-text-secondary);
-  font-size: var(--fs-small);
+  font-size: var(--fs-body);
 }
 
 .task-detail-actions {
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 12px;
-  margin-top: 28px;
+  gap: 8px;
 }
 
 .task-detail-actions > span {
@@ -194,22 +232,23 @@
 .task-detail-actions button {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 6px;
+  gap: 8px;
+  padding: 0;
   border: unset;
   background: transparent;
   color: var(--join-dark);
+  font-size: var(--fs-body);
   transition: color var(--click-transition);
 }
 
 .task-detail-actions button:hover {
-  color: var(--join-border-hover);
-  font-weight: var(--fw-bold);
+  color: var(--join-blue);
 }
 
 .task-detail-actions img {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
+  object-fit: scale-down;
 }
 
 .task-form-dialog--edit .task-dialog-shell {

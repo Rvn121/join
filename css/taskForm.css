@@ -56,6 +56,10 @@
   padding: 0 16px;
 }
 
+.task-field--title input {
+  padding: 0 21px;
+}
+
 .task-field textarea {
   display: block;
   min-height: 120px;
@@ -70,10 +74,9 @@
   appearance: none;
   background-image: url("../assets/icons/arrow_drop_down.svg");
   background-repeat: no-repeat;
-  background-position: right 24px center;
+  background-position: right 24px top calc(50% + 2px);
   cursor: pointer;
 }
-
 
 .task-field input[type="date"] {
   padding-right: 48px;

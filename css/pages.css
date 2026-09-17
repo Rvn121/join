@@ -5,7 +5,7 @@
 .content-heading-row {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 30px;
 }
 
 .content-heading-row p {
@@ -16,7 +16,7 @@
 
 .content-heading-divider {
   width: 3px;
-  height: 52px;
+  height: 59px;
   background: var(--join-blue);
 }
 
@@ -35,7 +35,7 @@
   margin-bottom: 26px;
 }
 
-.content-back-button img {
+.icon-button.content-back-button img {
   width: 32px;
   height: 32px;
   object-fit: contain;
@@ -93,60 +93,4 @@
 
 .help-follow-up p + p {
   margin-top: 16px;
-}
-
-.signup-page {
-  display: flex;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 20px;
-}
-
-.signup-card {
-  width: min(100%, 660px);
-  padding: 48px 72px 52px;
-  border-radius: 30px;
-  background: var(--card-background);
-  box-shadow: 0 0 14px 3px var(--shadow-soft);
-}
-
-.signup-heading {
-  margin: 0 0 32px;
-  text-align: center;
-}
-
-.signup-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.privacy-check {
-  display: flex;
-  width: 420px;
-  max-width: 100%;
-  align-items: flex-start;
-  gap: 10px;
-  margin: 4px 0 18px;
-  font-size: var(--fs-small);
-}
-
-.privacy-check input {
-  width: 18px;
-  height: 18px;
-  margin: 0;
-}
-
-.signup-back {
-  display: inline-block;
-  margin-top: 24px;
-  color: var(--join-dark);
-  text-decoration: none;
-  transition: color var(--click-transition);
-}
-
-.signup-back:hover,
-.signup-back:focus-visible {
-  color: var(--join-blue);
 }

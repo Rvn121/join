@@ -51,13 +51,24 @@
 
 .component-input {
   position: relative;
-  width: 420px;
+  width: 422px;
   max-width: 100%;
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 
 .component-input input {
-  padding: 0 50px 0 20px;
+  padding: 0 53px 0 21px;
+}
+
+.component-input .field-error {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--fs-error);
+  line-height: 14px;
+}
+
+.component-input .field-error:empty {
+  display: none;
 }
 
 .component-input > img {
@@ -140,10 +151,26 @@
   pointer-events: none;
 }
 
+/* Overlays – shared slide-in for every dialog, page stays put while one is open */
+@keyframes overlay-slide-in {
+  from {
+    transform: translateX(100vw);
+  }
+}
+
+.task-form-dialog[open] .task-dialog-shell,
+.task-detail-dialog[open] .task-detail-shell {
+  animation: overlay-slide-in 220ms ease-out;
+}
+
+body:has(dialog[open]:not(.login-dialog):not(.signup-dialog)) {
+  overflow: hidden;
+}
+
 /* Toast */
 .component-toast {
   display: inline-flex;
-  min-height: 66px;
+  min-height: 74px;
   align-items: center;
   padding: 0 32px;
   border-radius: 20px;

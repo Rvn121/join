@@ -56,7 +56,7 @@
               <form class="task-form task-form--page" id="taskForm" novalidate data-default-status="todo">
                 <div class="task-form-columns">
                   <div class="task-form-column">
-                    <label class="task-field" for="taskTitle">
+                    <label class="task-field task-field--title" for="taskTitle">
                       <span>Title<span class="task-required">*</span></span>
                       <input id="taskTitle" name="title" type="text" placeholder="Enter a title" maxlength="80" />
                       <small class="task-field-error" data-error-for="taskTitle"></small>
@@ -84,17 +84,17 @@
                         <label class="task-priority task-priority--urgent">
                           <input type="radio" name="priority" value="urgent" />
                           <span>Urgent</span>
-                          <img src="./assets/icons/Prio-high.svg" alt="" aria-hidden="true" />
+                          <img src="./assets/icons/prio-high.svg" alt="" aria-hidden="true" />
                         </label>
                         <label class="task-priority task-priority--medium">
                           <input type="radio" name="priority" value="medium" checked />
                           <span>Medium</span>
-                          <img src="./assets/icons/Prio-med.svg" alt="" aria-hidden="true" />
+                          <img src="./assets/icons/prio-medium.svg" alt="" aria-hidden="true" />
                         </label>
                         <label class="task-priority task-priority--low">
                           <input type="radio" name="priority" value="low" />
                           <span>Low</span>
-                          <img src="./assets/icons/Prio-low.svg" alt="" aria-hidden="true" />
+                          <img src="./assets/icons/prio-low.svg" alt="" aria-hidden="true" />
                         </label>
                       </div>
                     </fieldset>
@@ -130,10 +130,10 @@
                       <div class="task-subtask-input-wrap">
                         <input id="taskSubtaskInput" type="text" placeholder="Add new subtask" maxlength="30" />
                         <div class="task-subtask-input-actions">
-                          <button class="icon-button" id="taskSubtaskClear" type="button" aria-label="Subtask-Feld leeren">×</button>
+                          <button class="icon-button" id="taskSubtaskClear" type="button" aria-label="Subtask-Feld leeren"><img src="./assets/icons/close.svg" alt="" aria-hidden="true" /></button>
                           <span class="task-inline-divider" aria-hidden="true"></span>
                           <button class="icon-button" id="taskSubtaskAdd" type="button" aria-label="Subtask hinzufügen">
-                            <img src="./assets/icons/check-dark.svg" alt="" aria-hidden="true" />
+                            <img src="./assets/icons/check.svg" alt="" aria-hidden="true" />
                           </button>
                         </div>
                       </div>
