@@ -31,6 +31,7 @@
   border: unset;
   border-radius: 50%;
   background: transparent;
+  transition: background var(--click-transition);
 }
 
 .task-dropdown-toggle:hover,
@@ -160,6 +161,7 @@
   background: transparent;
   color: var(--join-dark);
   font-size: 22px;
+  transition: background var(--click-transition);
 }
 
 .task-inline-action:hover {
@@ -188,6 +190,7 @@
   padding: 5px 82px 5px 2px;
   border-radius: 8px;
   font-size: var(--fs-small);
+  transition: background var(--click-transition);
 }
 
 .task-subtask-title {

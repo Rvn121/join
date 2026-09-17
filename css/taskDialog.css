@@ -40,6 +40,7 @@
   background: transparent;
   color: var(--join-dark);
   font-size: 28px;
+  transition: background var(--click-transition);
 }
 
 .task-dialog-close:hover,
@@ -200,6 +201,7 @@
   border: unset;
   background: transparent;
   color: var(--join-dark);
+  transition: color var(--click-transition);
 }
 
 .task-detail-actions button:hover {

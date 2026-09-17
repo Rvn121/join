@@ -77,9 +77,32 @@
   appearance: none;
   background-image: url("../assets/icons/arrow_drop_down.png");
   background-repeat: no-repeat;
-  background-position: right 16px center;
+  background-position: right 20px center;
+  cursor: pointer;
 }
 
+/* Native select: mirrors the hover circle of .task-dropdown-toggle behind the arrow */
+.task-select-wrap {
+  position: relative;
+}
+
+.task-select-wrap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 7px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: transparent;
+  transform: translateY(-50%);
+  transition: background var(--click-transition);
+  pointer-events: none;
+}
+
+.task-select-wrap:hover::after {
+  background: var(--join-dark-soft);
+}
 
 
 .task-field input[type="date"] {

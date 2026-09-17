@@ -83,6 +83,7 @@
   width: 69px;
   height: 69px;
   object-fit: contain;
+  transition: opacity var(--click-transition);
 }
 
 .summary-icon-hover {

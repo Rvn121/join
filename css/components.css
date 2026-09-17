@@ -30,7 +30,7 @@
   outline: none;
   background: var(--card-background);
   color: var(--join-text);
-  transition: border-color 160ms ease;
+  transition: border-color var(--click-transition);
 }
 
 .component-input input::placeholder {

@@ -149,7 +149,7 @@
   background: var(--card-background);
   box-shadow: 0 0 10px 3px var(--task-card-shadow);
   cursor: grab;
-  transition: transform 120ms ease, box-shadow 120ms ease;
+  transition: transform var(--click-transition), box-shadow var(--click-transition);
 }
 
 .task-card:hover,

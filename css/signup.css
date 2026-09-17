@@ -151,6 +151,7 @@ body.signup-visible .login-dialog {
 
 .signup-footer a {
   text-decoration: none;
+  transition: color var(--click-transition);
 }
 
 .signup-footer a:hover,

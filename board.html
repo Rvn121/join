@@ -165,11 +165,13 @@
 
               <label class="task-field" for="taskCategory">
                 <span>Category<span class="task-required">*</span></span>
-                <select id="taskCategory" name="category">
-                  <option value="" disabled hidden>Select task category</option>
-                  <option value="Technical Task">Technical Task</option>
-                  <option value="User Story">User Story</option>
-                </select>
+                <div class="task-select-wrap">
+                  <select id="taskCategory" name="category">
+                    <option value="" disabled hidden>Select task category</option>
+                    <option value="Technical Task">Technical Task</option>
+                    <option value="User Story">User Story</option>
+                  </select>
+                </div>
                 <small class="task-field-error" data-error-for="taskCategory"></small>
               </label>
 
