@@ -18,6 +18,7 @@
   border: unset;
   outline: none;
   background: transparent;
+  font-size: var(--fs-lg);
 }
 
 .task-dropdown-toggle {
@@ -95,16 +96,8 @@
 }
 
 .task-avatar {
-  display: inline-flex;
   width: 32px;
   height: 32px;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--card-background);
-  border-radius: 50%;
-  background: var(--avatar-color, var(--join-blue));
-  color: var(--card-background);
   font-size: 11px;
 }
 
@@ -113,6 +106,10 @@
   min-height: 36px;
   align-items: center;
   padding: 6px 4px 0;
+}
+
+.task-selected-contacts:empty {
+  display: none;
 }
 
 .task-selected-contacts .task-avatar + .task-avatar {
@@ -188,7 +185,7 @@
 }
 
 .task-form-footer > p {
-  font-size: var(--fs-small);
+  font-size: var(--fs-lg);
 }
 
 .task-form-actions {
@@ -196,15 +193,7 @@
   gap: 16px;
 }
 
-.task-form-actions .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .task-submit-button img {
-  width: 17px;
-  height: 17px;
   filter: brightness(0) invert(1);
 }
 

@@ -23,18 +23,9 @@
 
 .board-search {
   display: flex;
-  width: 310px;
-  height: 48px;
+  width: 312px;
   align-items: center;
   padding: 0 14px 0 16px;
-  border: 1px solid var(--join-border);
-  border-radius: 10px;
-  background: var(--card-background);
-  transition: border-color var(--click-transition);
-}
-
-.board-search:focus-within {
-  border-color: var(--join-border-hover);
 }
 
 .board-search input {
@@ -42,7 +33,6 @@
   flex: 1;
   outline: none;
   background: transparent;
-  font-size: var(--fs-lg);
 }
 
 .board-search > span {
@@ -57,14 +47,9 @@
   height: 24px;
 }
 
-.board-add-task {
-  display: inline-flex;
-  align-items: center;
-}
-
 .board-add-task img {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   filter: brightness(0) invert(1);
 }
 

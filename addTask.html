@@ -65,6 +65,7 @@
                     <label class="task-field" for="taskDescription">
                       <span>Description</span>
                       <textarea id="taskDescription" name="description" placeholder="Enter a Description" maxlength="1000"></textarea>
+                      <small class="task-field-error" data-error-for="taskDescription"></small>
                     </label>
 
                     <label class="task-field" for="taskDueDate">
@@ -144,9 +145,11 @@
                 <div class="task-form-footer">
                   <p><span class="task-required">*</span>This field is required</p>
                   <div class="task-form-actions">
-                    <button class="btn btn--secondary task-clear-button" id="taskClearButton" type="button">Clear ×</button>
-                    <button class="btn btn--primary task-submit-button" id="taskSubmitButton" type="submit">
-                      <span>Create Task</span><img src="./assets/icons/check-dark.png" alt="" aria-hidden="true" />
+                    <button class="btn btn--secondary btn--form task-clear-button" id="taskClearButton" type="button">
+                      <span>Clear</span><img src="./assets/icons/close.png" alt="" aria-hidden="true" />
+                    </button>
+                    <button class="btn btn--primary btn--form task-submit-button" id="taskSubmitButton" type="submit">
+                      <span>Create Task</span><img src="./assets/icons/check.png" alt="" aria-hidden="true" />
                     </button>
                   </div>
                 </div>

@@ -139,7 +139,6 @@
 
 .contact-form-message {
   margin-top: 12px;
-  color: var(--priority-urgent);
   font-size: var(--fs-small);
 }
 
@@ -147,33 +146,6 @@
   display: flex;
   gap: 24px;
   margin-top: 44px;
-}
-
-.contact-form-actions .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  border-radius: 10px;
-  white-space: nowrap;
-}
-
-#contactCancelButton {
-  width: 126px;
-  min-width: 126px;
-  height: 56px;
-}
-
-#contactSubmitButton {
-  width: 214px;
-  min-width: 214px;
-  height: 57px;
-}
-
-.contact-form-actions .btn img {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
 }
 
 .contacts-toast {
@@ -197,7 +169,6 @@
   display: block;
   min-height: 16px;
   margin-top: 4px;
-  color: var(--priority-urgent);
   font-size: var(--fs-label);
 }
 

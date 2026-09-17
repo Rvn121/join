@@ -28,51 +28,30 @@
 }
 
 .contact-add-button {
-  display: flex;
   width: 100%;
-  min-height: 48px;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  padding: 0 18px;
-  border: unset;
-  border-radius: 10px;
-  background: var(--join-dark);
-  color: var(--card-background);
-  font-size: var(--fs-body);
-  font-weight: var(--fw-bold);
-  transition: background var(--click-transition), box-shadow var(--click-transition);
+  min-height: 56px;
 }
 
-.contact-add-button:hover,
-.contact-add-button:focus-visible {
-  background: var(--join-blue);
-  box-shadow: 0 4px 4px var(--contact-shadow-button);
-}
-
-.contact-add-button:active {
-  background: var(--join-dark-active);
-}
-
+/* person_add icon composed from person icon + plus until the SVG icon set exists */
 .contact-add-symbol {
   position: relative;
   display: inline-flex;
-  width: 27px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   align-items: center;
   justify-content: center;
 }
 
 .contact-add-symbol img {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   filter: brightness(0) invert(1);
 }
 
 .contact-add-symbol span {
   position: absolute;
-  top: -4px;
-  right: -2px;
+  top: -2px;
+  right: 0;
   font-size: 18px;
   line-height: 1;
 }
@@ -124,14 +103,6 @@
 }
 
 .contact-avatar {
-  display: inline-flex;
-  flex: 0 0 auto;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--card-background);
-  border-radius: 50%;
-  background: var(--avatar-color, var(--join-blue));
-  color: var(--card-background);
   box-shadow: 0 0 0 1px var(--contact-shadow-soft);
 }
 

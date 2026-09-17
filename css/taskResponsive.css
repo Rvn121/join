@@ -30,6 +30,12 @@
   .task-form--dialog .task-form-columns {
     gap: 0;
   }
+
+  /* Single column: the large desktop footer offset no longer applies */
+  .task-form--page .task-form-footer,
+  .task-form--dialog .task-form-footer {
+    margin-top: 32px;
+  }
 }
 
 @media (max-width: 850px) {
@@ -69,6 +75,11 @@
     width: calc(100vw - 24px);
     padding: 42px 22px 28px;
     border-radius: 22px;
+  }
+
+  .task-dialog-close {
+    top: 20px;
+    right: 18px;
   }
 
   .task-form-dialog--edit .task-dialog-shell {

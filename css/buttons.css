@@ -47,6 +47,62 @@
     0 4px 4px var(--shadow-button);
 }
 
+.btn--primary:active {
+  border-color: var(--join-dark-active);
+  background: var(--join-dark-active);
+}
+
+.btn--secondary:active {
+  border-color: var(--join-dark-active);
+  color: var(--join-dark-active);
+  box-shadow: none;
+}
+
+/* Form buttons (Create Task / Cancel / Create contact): 56px, radius 10, icon 24px */
+.btn--form {
+  display: inline-flex;
+  min-height: 56px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 16px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.btn--form.btn--secondary {
+  font-size: var(--fs-lg);
+  font-weight: 400;
+}
+
+/* 24px icon box like Figma; small glyphs stay at their intrinsic size instead of being blown up */
+.btn--form img {
+  width: 24px;
+  height: 24px;
+  object-fit: scale-down;
+}
+
+/* Action buttons (Add task / Add new contact): radius 10, hover light blue, icon 32px */
+.btn--action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border-radius: 10px;
+}
+
+.btn--action:hover,
+.btn--action:focus-visible {
+  border-color: var(--join-blue);
+  background: var(--join-blue);
+  box-shadow: none;
+}
+
+.btn--action:active {
+  border-color: var(--join-dark-active);
+  background: var(--join-dark-active);
+}
+
 .btn--sm {
   min-height: 42px;
   padding-inline: 20px;

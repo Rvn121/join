@@ -2,10 +2,11 @@
   color: var(--task-form-text);
 }
 
+/* Figma: two 440px columns, 48px on each side of the divider */
 .task-form-columns {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
-  gap: 44px;
+  gap: 48px;
 }
 
 .task-form-column {
@@ -14,16 +15,31 @@
 
 .task-form-divider {
   width: 1px;
-  min-height: 410px;
+  min-height: 424px;
   background: var(--join-border);
 }
 
+/* Left column: 16px between fields, each field reserves an error line (Figma "Frame 203": 48 + 4 + 12) */
 .task-field,
 .task-priority-field {
+  position: relative;
   display: block;
-  margin: 0 0 22px;
+  margin: 0 0 16px;
   padding: 0;
   border: unset;
+}
+
+/* Right column (Figma "Frame 39"): 24px between fields, no reserved error line */
+.task-priority-field,
+.task-form-divider ~ .task-form-column .task-field {
+  margin-bottom: 24px;
+}
+
+.task-form-divider ~ .task-form-column .task-field-error {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  margin-top: 0;
 }
 
 .task-field > span,
@@ -31,45 +47,25 @@
 .task-priority-field legend {
   display: block;
   margin-bottom: 8px;
-  font-size: var(--fs-body);
+  font-size: var(--fs-lg);
 }
 
 .task-required {
-  color: var(--priority-urgent);
-}
-
-.task-field input,
-.task-field textarea,
-.task-field select,
-.task-dropdown-input-wrap {
-  width: 100%;
-  border: 1px solid var(--join-border);
-  border-radius: 10px;
-  background: var(--card-background);
-  transition: border-color var(--click-transition), box-shadow var(--click-transition);
+  color: var(--join-error-soft);
 }
 
 .task-field input,
 .task-field select {
-  height: 48px;
   padding: 0 16px;
-  outline: none;
 }
 
 .task-field textarea {
+  display: block;
   min-height: 120px;
   max-height: 184px;
-  padding: 14px 16px;
+  padding: 18px 16px;
   overflow-y: auto;
-  outline: none;
   resize: vertical;
-}
-
-.task-field input:focus,
-.task-field textarea:focus,
-.task-field select:focus,
-.task-dropdown-input-wrap:focus-within {
-  border-color: var(--join-border-hover);
 }
 
 .task-field select {
@@ -95,21 +91,22 @@
   cursor: pointer;
 }
 .task-input-error {
-  border-color: var(--priority-urgent) !important;
+  border-color: var(--join-error) !important;
 }
 
+/* Reserved error line below the field (Figma: 12px text, 4px gap) so the layout does not jump */
 .task-field-error {
   display: block;
-  min-height: 17px;
+  min-height: 12px;
   margin-top: 4px;
-  color: var(--priority-urgent);
   font-size: var(--fs-label);
+  line-height: 12px;
 }
 
 .task-priority-options {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  gap: 16px;
 }
 
 .task-priority {
@@ -117,17 +114,13 @@
   height: 56px;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 8px;
   border-radius: 10px;
   background: var(--card-background);
-  box-shadow: 0 4px 4px var(--task-card-shadow);
+  box-shadow: 0 0 4px var(--shadow-button);
   cursor: pointer;
   font-size: var(--fs-lg);
-  transition: transform var(--click-transition), background var(--click-transition), color var(--click-transition);
-}
-
-.task-priority:hover {
-  transform: translateY(-1px);
+  transition: background var(--click-transition), color var(--click-transition), box-shadow var(--click-transition);
 }
 
 .task-priority input {
@@ -138,13 +131,15 @@
 }
 
 .task-priority img {
-  width: 22px;
-  height: 16px;
+  width: 20px;
+  height: 15px;
   object-fit: contain;
 }
 
 .task-priority:has(input:checked) {
+  box-shadow: none;
   color: var(--card-background);
+  font-size: var(--fs-button);
   font-weight: var(--fw-bold);
 }
 
@@ -162,4 +157,10 @@
 
 .task-priority:has(input:checked) img {
   filter: brightness(0) invert(1);
+}
+
+/* Hover shadow for idle and checked buttons – placed after the checked rule so it wins */
+.task-priority:hover,
+.task-priority:has(input:checked):hover {
+  box-shadow: 0 4px 4px var(--shadow-button);
 }

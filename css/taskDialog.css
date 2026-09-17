@@ -12,33 +12,44 @@
 
 .task-dialog-shell {
   position: relative;
-  width: min(1120px, calc(100vw - 48px));
+  width: min(1116px, calc(100vw - 48px));
   max-height: calc(100vh - 48px);
-  padding: 48px 54px 38px;
+  padding: 64px 66px 64px 74px;
   overflow-y: auto;
   border-radius: 30px;
   background: var(--card-background);
 }
 
+/* Figma: headline at y=64, form starts at y=174 */
 .task-dialog-shell > h2 {
-  margin-bottom: 30px;
-  font-size: 44px;
+  margin-bottom: 37px;
+  font-size: 61px;
 }
 
 .task-dialog-close,
 .task-detail-close {
   position: absolute;
-  top: 22px;
-  right: 26px;
+  top: 62px;
+  right: 38px;
   font-size: 28px;
 }
 
-.task-form--dialog .task-form-columns {
-  gap: 34px;
+.task-detail-close {
+  top: 46px;
+  right: 40px;
 }
 
-.task-form--dialog .task-form-divider {
-  min-height: 390px;
+.task-form--dialog .task-form-columns {
+  gap: 47px;
+}
+
+.task-form--dialog .task-form-actions {
+  gap: 25px;
+}
+
+/* Figma "Floating add task": footer buttons start 152px below the column divider */
+.task-form--dialog .task-form-footer {
+  margin-top: 152px;
 }
 
 .task-detail-shell {
@@ -208,6 +219,11 @@
   display: none;
 }
 
+.task-form-dialog--edit .task-dialog-close {
+  top: 22px;
+  right: 26px;
+}
+
 .task-form-dialog--edit .task-form-columns {
   display: block;
 }
@@ -216,7 +232,7 @@
   display: none;
 }
 
-.task-form-dialog--edit .task-form-footer {
+.task-form-dialog--edit .task-form--dialog .task-form-footer {
   justify-content: flex-end;
   margin-top: 10px;
 }

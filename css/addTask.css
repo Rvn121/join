@@ -1,11 +1,17 @@
+/* Figma "Add task" (1440): headline at y=220 / x=328, form 976px wide, footer 79px above the frame bottom */
 .add-task-content {
-  padding-top: 64px;
+  padding: 124px 136px 79px 96px;
 }
 
 .add-task-page {
-  width: min(100%, 980px);
+  width: min(100%, 976px);
 }
 
 .add-task-page > h1 {
-  margin-bottom: 42px;
+  margin-bottom: 48px;
+}
+
+/* Figma: footer buttons start 124px below the column divider */
+.task-form--page .task-form-footer {
+  margin-top: 124px;
 }

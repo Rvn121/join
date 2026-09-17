@@ -242,7 +242,6 @@ function updateTaskFormButtons(editing) {
   const submitText = taskSubmitButton.querySelector("span");
   submitText.textContent = editing ? "Ok" : "Create Task";
   taskClearButton.hidden = editing;
-  taskClearButton.textContent = "Clear ×";
   const title = document.getElementById("taskFormDialogTitle");
   if (title) title.textContent = editing ? "Edit Task" : "Add Task";
 }
