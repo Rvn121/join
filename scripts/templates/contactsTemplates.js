@@ -38,8 +38,12 @@ function getContactDialogAvatarTemplate(contact) {
  * @returns {string} DE: HTML-Inhalt. EN: HTML content.
  */
 function getContactListItemTemplate(contact, selectedId) {
-  const selectedClass = contact.id === selectedId ? " contact-list-item--active" : "";
-  const current = contact.id === selectedId ? ' aria-current="true"' : "";
+  let selectedClass = "";
+  let current = "";
+  if (contact.id === selectedId) {
+    selectedClass = " contact-list-item--active";
+    current = ' aria-current="true"';
+  }
   return `
     <button class="contact-list-item${selectedClass}" type="button"
       data-contact-id="${escapeContactHtml(contact.id)}"${current}>

@@ -50,4 +50,21 @@
   --avatar-lime: #c3ff2b;
 }
 
-
+/* Design tokens */
+:root {
+  --join-accent: #124658;
+  --join-error: #e60026;
+  --join-error-soft: #ff8190;
+  --join-text-secondary: #686868;
+  --join-nav-text: #e7e7e7;
+  --join-muted-light: #cdcdcd;
+  --join-surface-muted: #e7e7e7;
+  --join-surface-hover: #eeeeee;
+  --sidebar-link-hover: #2a3d59;
+  --board-column-title: #42526e;
+  --progress-fill: #4589ff;
+  --shadow-header: rgba(0, 0, 0, 0.10);
+  --shadow-dialog: rgba(0, 0, 0, 0.14);
+  --shadow-medium: rgba(0, 0, 0, 0.18);
+  --shadow-strong: rgba(0, 0, 0, 0.40);
+}

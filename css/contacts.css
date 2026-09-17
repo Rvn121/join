@@ -12,34 +12,34 @@
 .contacts-panel {
   position: relative;
   display: flex;
-  width: 300px;
-  min-width: 260px;
-  max-width: 520px;
+  width: 424px;
+  min-width: 424px;
+  max-width: 424px;
   height: 100%;
   flex: 0 0 auto;
   flex-direction: column;
   background: var(--card-background);
-  box-shadow: 4px 0 10px var(--contact-shadow-soft);
+  box-shadow: 4px 0 6px var(--contact-shadow-soft);
 }
 
 .contacts-panel-header {
   flex: 0 0 auto;
-  padding: 22px 16px 12px;
+  padding: 32px 24px 12px;
 }
 
 .contact-add-button {
   display: flex;
   width: 100%;
-  min-height: 48px;
+  min-height: 56px;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 16px;
   padding: 0 18px;
   border: unset;
   border-radius: 10px;
   background: var(--join-dark);
   color: var(--card-background);
-  font-size: var(--fs-body);
+  font-size: 21px;
   font-weight: var(--fw-bold);
   transition: background var(--click-transition), box-shadow var(--click-transition);
 }
@@ -64,8 +64,8 @@
 }
 
 .contact-add-symbol img {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   filter: brightness(0) invert(1);
 }
 
@@ -81,14 +81,15 @@
   min-height: 0;
   flex: 1;
   overflow-y: auto;
-  padding: 0 16px 24px;
+  padding: 0 24px 24px;
   scrollbar-width: thin;
 }
 
 .contact-group-letter {
-  padding: 14px 26px 12px;
+  min-height: 58px;
+  padding: 17px 36px;
   border-bottom: 1px solid var(--join-border);
-  font-size: var(--fs-body);
+  font-size: 20px;
   font-weight: 400;
 }
 
@@ -99,10 +100,10 @@
 .contact-list-item {
   display: flex;
   width: 100%;
-  min-height: 64px;
+  min-height: 78px;
   align-items: center;
-  gap: 16px;
-  padding: 10px 16px;
+  gap: 35px;
+  padding: 15px 24px;
   border: unset;
   border-radius: 10px;
   background: transparent;
@@ -156,58 +157,23 @@
 
 .contact-list-name {
   margin-bottom: 4px;
-  font-size: var(--fs-body);
+  font-size: 20px;
 }
 
 .contact-list-email {
   color: var(--contact-link);
-  font-size: var(--fs-small);
+  font-size: 16px;
 }
 
 .contact-list-item--active .contact-list-email {
   color: var(--join-blue);
 }
 
-.contacts-resizer {
-  position: absolute;
-  z-index: 3;
-  top: 0;
-  right: -4px;
-  width: 8px;
-  height: 100%;
-  cursor: ew-resize;
-  touch-action: none;
-}
-
-.contacts-resizer::after {
-  position: absolute;
-  top: 50%;
-  left: 3px;
-  width: 2px;
-  height: 54px;
-  border-radius: 2px;
-  background: transparent;
-  content: "";
-  transform: translateY(-50%);
-  transition: background var(--click-transition);
-}
-
-.contacts-resizer:hover::after,
-.contacts-resizer:focus-visible::after,
-.contacts-resizing .contacts-resizer::after {
-  background: var(--join-blue);
-}
-
-.contacts-resizing {
-  cursor: ew-resize;
-  user-select: none;
-}
-
 .contacts-detail-stage {
   min-width: 0;
   flex: 1;
   overflow: hidden;
-  padding: 74px 56px;
+  padding: 116px 96px 96px 55px;
   background: var(--page-background);
 }
 
@@ -216,20 +182,18 @@
 }
 
 .contact-detail {
-  margin-top: 46px;
+  margin-top: 32px;
 }
 
 .contact-detail--enter {
-  animation: contact-detail-enter 220ms ease-out;
+  animation: contact-detail-enter var(--floating-duration) var(--floating-easing);
 }
 
 @keyframes contact-detail-enter {
   from {
-    opacity: 0;
     transform: translateX(100vw);
   }
   to {
-    opacity: 1;
     transform: translateX(0);
   }
 }
@@ -243,12 +207,16 @@
 .contact-avatar--large {
   width: 120px;
   height: 120px;
-  font-size: 42px;
+  font-size: 47px;
+  font-weight: 500;
+  box-shadow: 0 0 4px var(--shadow-strong);
 }
 
 .contact-detail-title h2 {
   margin-bottom: 12px;
-  font-size: 36px;
+  font-size: 47px;
+  font-weight: 500;
+  line-height: 1.2;
 }
 
 .contact-detail-actions {
@@ -264,7 +232,7 @@
   border: unset;
   background: transparent;
   color: var(--join-dark);
-  font-size: var(--fs-small);
+  font-size: 16px;
   transition: color var(--click-transition);
 }
 
@@ -281,7 +249,8 @@
 }
 
 .contact-information-title {
-  margin: 46px 0 24px;
+  margin: 45px 0;
+  font-size: 20px;
   font-weight: 400;
 }
 
@@ -294,13 +263,14 @@
 }
 
 .contact-information dt {
-  margin-bottom: 8px;
-  font-size: var(--fs-small);
+  margin-bottom: 15px;
+  font-size: 16px;
   font-weight: var(--fw-bold);
 }
 
 .contact-information dd {
   margin: 0;
+  font-size: 16px;
 }
 
 .contact-information a {
@@ -345,9 +315,6 @@
     height: 52vh;
   }
 
-  .contacts-resizer {
-    display: none;
-  }
 
   .contacts-detail-stage {
     min-height: 48vh;

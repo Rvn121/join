@@ -21,7 +21,8 @@ join/
 ├── script.js             # Script der Startseite (Login)
 ├── scripts/
 │   ├── common.js         # seitenübergreifende UI- und Session-Logik
-│   ├── dataService.js    # gesamter Datenzugriff (Firebase)
+│   ├── dataService.js    # allgemeiner Firebase-, User- und Task-Datenzugriff
+│   ├── contactService.js # kontaktbezogene Datenfunktionen auf Basis von dataService.js
 │   ├── templates/        # Funktionen, die HTML-Strings zurückgeben
 │   └── <seite>.js        # eine Datei pro Seite
 ├── css/
@@ -38,7 +39,7 @@ join/
 ### JavaScript
 
 - Jede Seite bekommt eine eigene JS-Datei, benannt wie die HTML-Datei (`board.html` → `board.js`).
-- Was mehrere Seiten brauchen, kommt in `common.js` (UI, Session) oder `dataService.js` (Daten). Seiten-Scripts machen kein eigenes `fetch`.
+- Was mehrere Seiten brauchen, kommt in `common.js` (UI, Session) oder in die Service-Dateien. `dataService.js` enthält den allgemeinen Firebase-Zugriff, `contactService.js` die Kontaktlogik. Seiten-Scripts machen kein eigenes `fetch`.
 
 ### CSS
 

@@ -157,7 +157,7 @@ function updateTaskContactSelection(contactId, checked) {
  * @param {Event} event - DE: Änderungsereignis. EN: Change event.
  */
 function handleTaskContactChange(event) {
-  const checkbox = event.target.closest("[data-contact-id]");
+  const checkbox = findParentWithAttribute(event.target, "data-contact-id");
   if (!checkbox) return;
   updateTaskContactSelection(checkbox.getAttribute("data-contact-id"), checkbox.checked);
 }

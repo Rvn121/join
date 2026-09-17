@@ -14,7 +14,7 @@ function finishHideContactToast() {
 function hideContactToast() {
   const toast = document.getElementById("contactsToast");
   toast.classList.remove("contacts-toast--visible");
-  window.setTimeout(finishHideContactToast, 120);
+  hideContactToast.timer = window.setTimeout(finishHideContactToast, getFloatingDuration());
 }
 
 
@@ -24,10 +24,13 @@ function hideContactToast() {
  * @param {string} message - DE: Meldung. EN: Message.
  * @param {number} duration - DE: Anzeigedauer. EN: Display duration.
  */
-function showContactToast(message, duration = 2200) {
+function showContactToast(message, duration = 1500) {
   const toast = document.getElementById("contactsToast");
+  window.clearTimeout(hideContactToast.timer);
   toast.textContent = message;
+  const wasHidden = toast.hidden;
   toast.hidden = false;
+  if (wasHidden) void toast.offsetWidth;
   toast.classList.add("contacts-toast--visible");
   window.clearTimeout(showContactToast.timer);
   showContactToast.timer = window.setTimeout(hideContactToast, duration);
@@ -139,7 +142,8 @@ function editSelectedContact() {
 function setContactActionIcon(button, useHover) {
   const image = button.querySelector("img[data-hover-icon]");
   if (!image) return;
-  const attribute = useHover ? "data-hover-icon" : "data-default-icon";
+  let attribute = "data-default-icon";
+  if (useHover) attribute = "data-hover-icon";
   image.src = image.getAttribute(attribute);
 }
 

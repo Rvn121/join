@@ -88,8 +88,8 @@ function deleteFormSubtask(subtaskId) {
  * @param {MouseEvent} event - DE: Mausereignis. EN: Mouse event.
  */
 function handleFormSubtaskAction(event) {
-  const editButton = event.target.closest("[data-edit-subtask]");
-  const deleteButton = event.target.closest("[data-delete-subtask]");
+  const editButton = findParentWithAttribute(event.target, "data-edit-subtask");
+  const deleteButton = findParentWithAttribute(event.target, "data-delete-subtask");
   if (editButton) editFormSubtask(editButton.getAttribute("data-edit-subtask"));
   if (deleteButton) deleteFormSubtask(deleteButton.getAttribute("data-delete-subtask"));
 }
@@ -113,10 +113,12 @@ function handleSubtaskKeydown(event) {
 function updateSubtaskInputActions() {
   const hasText = Boolean(taskSubtaskInput.value.trim());
   const clearButton = document.getElementById("taskSubtaskClear");
+  const addButton = document.getElementById("taskSubtaskAdd");
   const divider = document.querySelector(".task-inline-divider");
-  const icon = document.querySelector("#taskSubtaskAdd img");
+  const wrapper = taskSubtaskInput.parentElement;
   clearButton.hidden = !hasText;
+  addButton.hidden = !hasText;
   divider.hidden = !hasText;
-  icon.src = hasText ? "./assets/icons/check-dark.png" : "./assets/icons/add.png";
+  wrapper.classList.toggle("task-subtask-input-wrap--active", hasText);
 }
 

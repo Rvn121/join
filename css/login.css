@@ -8,7 +8,8 @@
 }
 
 .content-width {
-  width: min(100%, var(--content-width));
+  width: 100%;
+  max-width: var(--content-width);
   margin: 0 auto;
 }
 
@@ -252,4 +253,28 @@ body.login-visible .footer-content {
 .footer-content a:focus-visible {
   color: #124658;
   font-weight: var(--fw-bold);
+}
+
+/* DE: Design-Anpassungen für den Login. EN: Design adjustments for login. */
+.login-dialog {
+  width: 652px;
+  min-height: 449px;
+  box-shadow: 0 0 14px var(--shadow-dialog);
+}
+.login-form {
+  min-height: 449px;
+  padding: 48px 115px;
+}
+.login-form .input-group {
+  width: 422px;
+}
+.signup-area {
+  right: 122px;
+  gap: 35px;
+}
+.footer-content {
+  gap: 16px;
+}
+.footer-content a {
+  color: var(--join-text-secondary);
 }

@@ -76,12 +76,35 @@ function getSummaryGreeting() {
 function renderSummaryGreeting() {
   const container = document.getElementById("summaryGreeting");
   const greetingLine = document.createElement("span");
-  greetingLine.textContent = getSummaryGreeting() + (getUserMode() === "guest" ? "!" : ",");
-  container.replaceChildren(greetingLine);
+  greetingLine.textContent = getSummaryGreetingText();
+  container.innerHTML = "";
+  container.appendChild(greetingLine);
   if (getUserMode() === "guest") return;
+  appendSummaryUserName(container);
+}
+
+
+/**
+ * DE: Erstellt den sichtbaren Begrüßungstext.
+ * EN: Creates the visible greeting text.
+ * @returns {string} DE: Begrüßung. EN: Greeting.
+ */
+function getSummaryGreetingText() {
+  if (getUserMode() === "guest") return getSummaryGreeting() + "!";
+  return getSummaryGreeting() + ",";
+}
+
+
+/**
+ * DE: Fügt den Namen des angemeldeten Benutzers zur Begrüßung hinzu.
+ * EN: Adds the logged-in user's name to the greeting.
+ * @param {HTMLElement} container - DE: Begrüßungsbereich. EN: Greeting container.
+ */
+function appendSummaryUserName(container) {
   const user = getCurrentUser();
   const nameLine = document.createElement("strong");
-  nameLine.textContent = user && user.name ? user.name : "";
+  nameLine.textContent = "";
+  if (user && user.name) nameLine.textContent = user.name;
   container.appendChild(nameLine);
 }
 
@@ -108,7 +131,8 @@ function renderSummaryNumbers(tasks) {
  */
 function renderSummaryDeadline(tasks) {
   const deadlineTask = getNextDeadlineTask(tasks);
-  const value = deadlineTask ? formatSummaryDate(deadlineTask.dueDate) : "No deadline";
+  let value = "No deadline";
+  if (deadlineTask) value = formatSummaryDate(deadlineTask.dueDate);
   document.getElementById("summaryDeadline").textContent = value;
 }
 

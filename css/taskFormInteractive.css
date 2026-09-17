@@ -83,23 +83,21 @@
 }
 
 .task-contact-option input {
-  width: 20px;
-  height: 20px;
-  flex: 0 0 20px;
-  border: 2px solid var(--join-dark);
-  border-radius: 4px;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  margin: 0;
+  padding: 0;
+  border: unset;
+  border-radius: 0;
   appearance: none;
-  background: var(--card-background);
+  background: transparent url("../assets/icons/Checkbox.png") center / 18px 18px no-repeat;
   cursor: pointer;
 }
 
 .task-contact-option input:checked {
-  background-color: var(--card-background);
-  background-image: url("../assets/icons/check-dark.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 13px;
-  filter: none;
+  background-image: url("../assets/icons/checkboxActive.png");
+  background-size: 24px 24px;
 }
 
 .task-contact-option input:focus-visible {
@@ -121,15 +119,19 @@
   font-size: 11px;
 }
 
-.task-selected-contacts {
-  display: flex;
-  min-height: 36px;
-  align-items: center;
-  padding: 6px 4px 0;
+.task-selected-contacts:empty {
+  display: none;
 }
 
-.task-selected-contacts .task-avatar + .task-avatar {
-  margin-left: -7px;
+.task-selected-contacts {
+  display: flex;
+  height: 64px;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 0 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
 }
 
 .task-subtask-input-wrap {
@@ -155,6 +157,7 @@
   height: 30px;
   align-items: center;
   justify-content: center;
+  padding: 0;
   border: unset;
   border-radius: 50%;
   background: transparent;
@@ -179,7 +182,8 @@
 
 .task-subtask-list {
   margin: 8px 0 0;
-  padding: 0 0 0 22px;
+  padding: 0;
+  list-style: none;
 }
 
 .task-subtask-list li {
@@ -191,7 +195,14 @@
 }
 
 .task-subtask-title {
+  min-width: 0;
+  flex: 1;
   overflow-wrap: anywhere;
+}
+
+.task-subtask-list li::before {
+  content: "•";
+  flex-shrink: 0;
 }
 
 .task-subtask-actions {
@@ -209,10 +220,9 @@
 }
 
 .task-subtask-list li > div {
-  position: absolute;
-  top: 2px;
-  right: 4px;
-  display: none;
+  display: flex;
+  flex-shrink: 0;
+  gap: 4px;
 }
 
 .task-subtask-list li:hover > div,
@@ -266,14 +276,104 @@
   position: fixed;
   z-index: 40;
   top: 50%;
-  right: 0;
-  opacity: 0;
-  transform: translate(110%, -50%);
-  transition: transform 220ms ease-out, opacity 220ms ease-out;
+  right: 50%;
+  max-width: calc(100vw - 32px);
+  transform: translate(calc(50vw + 100% + 16px), -50%);
+  transition: transform var(--floating-duration) var(--floating-easing);
 }
 
 .task-toast--show {
-  right: 50%;
-  opacity: 1;
   transform: translate(50%, -50%);
+}
+
+/* DE: Design-Anpassungen für interaktive Task-Formulare. EN: Design adjustments for interactive task forms. */
+.task-contact-dropdown {
+  top: 100%;
+  max-height: 297px;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 0 14px var(--shadow-dialog);
+}
+.task-contact-option {
+  min-height: 56px;
+  margin: 2px 0;
+  padding: 7px 16px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+.task-contact-option:hover {
+  background: var(--join-surface-hover);
+}
+.task-contact-option .task-avatar {
+  width: 42px;
+  height: 42px;
+  font-size: 16px;
+}
+.task-selected-contacts .task-avatar {
+  width: 42px;
+  height: 42px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.task-subtask-input-actions {
+  right: 16px;
+  gap: 4px;
+}
+.task-inline-action {
+  width: 24px;
+  height: 24px;
+  font-size: 20px;
+}
+.task-inline-action img {
+  width: auto;
+  height: auto;
+  max-width: 16px;
+  max-height: 14px;
+  object-fit: contain;
+}
+.task-inline-divider {
+  height: 24px;
+}
+.task-subtask-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 4px 16px;
+  background: var(--join-surface-hover);
+  font-size: 16px;
+}
+.task-subtask-list li:hover {
+  background: var(--join-surface-hover);
+}
+.task-subtask-list button {
+  width: 24px;
+  height: 24px;
+  padding: 3px;
+}
+.task-form-footer {
+  margin-top: 18px;
+}
+.task-form--page .task-form-footer {
+  margin-top: 124px;
+}
+.task-form-actions {
+  gap: 16px;
+}
+.task-form-actions .btn {
+  min-height: 56px;
+  border-radius: 10px;
+}
+.task-clear-button {
+  min-width: 110px;
+  font-size: 20px;
+  font-weight: 400;
+}
+.task-submit-button {
+  min-width: 183px;
+  font-size: 21px;
+}
+.task-submit-button img {
+  width: 24px;
+  height: 24px;
 }

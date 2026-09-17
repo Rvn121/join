@@ -37,7 +37,8 @@
   }
 
   .login-dialog {
-    width: min(660px, calc(100vw - 40px));
+    width: calc(100vw - 40px);
+    max-width: 660px;
   }
 }
 

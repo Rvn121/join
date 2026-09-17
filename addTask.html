@@ -69,7 +69,13 @@
 
                     <label class="task-field" for="taskDueDate">
                       <span>Due date<span class="task-required">*</span></span>
-                      <input id="taskDueDate" name="dueDate" type="date" lang="en-GB" />
+                      <div class="task-date-input-wrap">
+                        <input id="taskDueDate" name="dueDateDisplay" type="text" placeholder="dd/mm/yyyy" maxlength="10" inputmode="numeric" autocomplete="off" />
+                        <button class="task-date-button" id="taskDueDateButton" type="button" aria-label="Kalender öffnen">
+                          <img src="./assets/icons/event.png" alt="" aria-hidden="true" />
+                        </button>
+                        <input class="task-date-picker" id="taskDueDatePicker" name="dueDate" type="date" tabindex="-1" aria-hidden="true" />
+                      </div>
                       <small class="task-field-error" data-error-for="taskDueDate"></small>
                     </label>
                   </div>
@@ -115,7 +121,7 @@
                     <label class="task-field" for="taskCategory">
                       <span>Category<span class="task-required">*</span></span>
                       <select id="taskCategory" name="category">
-                        <option value="" disabled hidden>Select task category</option>
+                        <option value="" selected disabled hidden>Select task category</option>
                         <option value="Technical Task">Technical Task</option>
                         <option value="User Story">User Story</option>
                       </select>
@@ -127,10 +133,12 @@
                       <div class="task-subtask-input-wrap">
                         <input id="taskSubtaskInput" type="text" placeholder="Add new subtask" maxlength="30" />
                         <div class="task-subtask-input-actions">
-                          <button class="task-inline-action" id="taskSubtaskClear" type="button" aria-label="Subtask-Feld leeren">×</button>
-                          <span class="task-inline-divider" aria-hidden="true"></span>
-                          <button class="task-inline-action" id="taskSubtaskAdd" type="button" aria-label="Subtask hinzufügen">
-                            <img src="./assets/icons/check-dark.png" alt="" aria-hidden="true" />
+                          <button class="task-inline-action" id="taskSubtaskClear" type="button" aria-label="Subtask-Feld leeren" hidden>
+                            <img src="./assets/icons/close.png" alt="" aria-hidden="true" />
+                          </button>
+                          <span class="task-inline-divider" aria-hidden="true" hidden></span>
+                          <button class="task-inline-action" id="taskSubtaskAdd" type="button" aria-label="Subtask hinzufügen" hidden>
+                            <img src="./assets/icons/check-dark-solo.png" alt="" aria-hidden="true" />
                           </button>
                         </div>
                       </div>
@@ -142,9 +150,14 @@
                 <div class="task-form-footer">
                   <p><span class="task-required">*</span>This field is required</p>
                   <div class="task-form-actions">
-                    <button class="btn btn--secondary task-clear-button" id="taskClearButton" type="button">Clear ×</button>
+                    <button class="btn btn--secondary task-clear-button" id="taskClearButton" type="button">
+                      <span>Clear</span>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true" focusable="false">
+                        <path d="M6.76 6.76L17.25 17.25M17.25 6.76L6.76 17.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                      </svg>
+                    </button>
                     <button class="btn btn--primary task-submit-button" id="taskSubmitButton" type="submit">
-                      <span>Create Task</span><img src="./assets/icons/check-dark.png" alt="" aria-hidden="true" />
+                      <span>Create Task</span><img src="./assets/icons/check.png" alt="" aria-hidden="true" />
                     </button>
                   </div>
                 </div>
@@ -158,11 +171,15 @@
     <div class="component-toast task-toast" id="taskToast" hidden></div>
 
     <script src="./scripts/common.js"></script>
+    <script src="./scripts/floating.js"></script>
     <script src="./scripts/firebaseConfig.js"></script>
     <script src="./scripts/dataService.js"></script>
+    <script src="./scripts/contactService.js"></script>
     <script src="./scripts/taskUtils.js"></script>
+    <script src="./scripts/taskFormDate.js"></script>
     <script src="./scripts/templates/taskTemplates.js"></script>
     <script src="./scripts/taskForm.js"></script>
+    <script src="./scripts/taskFormPriority.js"></script>
     <script src="./scripts/taskFormContacts.js"></script>
     <script src="./scripts/taskFormSubtasks.js"></script>
     <script src="./scripts/addTask.js"></script>

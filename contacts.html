@@ -65,8 +65,6 @@
                 </button>
               </div>
               <div class="contacts-list" id="contactsList" aria-live="polite"></div>
-              <div class="contacts-resizer" id="contactsResizer" role="separator" tabindex="0"
-                aria-label="Resize contact list" aria-orientation="vertical"></div>
             </aside>
 
             <section class="contacts-detail-stage" aria-labelledby="contactsHeading">
@@ -141,11 +139,12 @@
     <div class="component-toast contacts-toast" id="contactsToast" hidden aria-live="polite"></div>
 
     <script src="./scripts/common.js"></script>
+    <script src="./scripts/floating.js"></script>
     <script src="./scripts/firebaseConfig.js"></script>
     <script src="./scripts/dataService.js"></script>
+    <script src="./scripts/contactService.js"></script>
     <script src="./scripts/templates/contactsTemplates.js"></script>
     <script src="./scripts/contacts.js"></script>
-    <script src="./scripts/contactsPanel.js"></script>
     <script src="./scripts/contactsActions.js"></script>
     <script src="./scripts/contactsForm.js"></script>
     <script src="./scripts/contactsValidation.js"></script>

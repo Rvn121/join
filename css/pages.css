@@ -1,5 +1,6 @@
 .content-page {
-  width: min(100%, 1100px);
+  width: 100%;
+  max-width: 1100px;
 }
 
 .content-heading-row {
@@ -202,7 +203,8 @@
 }
 
 .signup-card {
-  width: min(100%, 660px);
+  width: 100%;
+  max-width: 660px;
   padding: 48px 72px 52px;
   border-radius: 30px;
   background: #ffffff;
@@ -247,4 +249,41 @@
 .signup-back:hover,
 .signup-back:focus-visible {
   color: var(--join-blue);
+}
+
+/* DE: Design-Anpassungen für Textseiten. EN: Design adjustments for text pages. */
+.content-heading-row {
+  gap: 30px;
+}
+.content-heading-divider {
+  height: 59px;
+}
+.content-page {
+  width: 100%;
+  max-width: 1016px;
+}
+.help-content, .legal-content {
+  max-width: none;
+}
+.help-page-content, .legal-page-content {
+  padding-top: 0;
+}
+.help-content p, .legal-content p, .legal-content li {
+  font-size: 16px;
+  line-height: 1.2;
+}
+.help-highlight, .legal-highlight {
+  color: var(--join-accent);
+}
+.help-step {
+  padding-left: 61px;
+}
+.help-step::before {
+  font-size: 27px;
+}
+.help-step h3 {
+  font-size: 20px;
+}
+.help-section h2, .legal-content h2 {
+  margin: 24px 0 16px;
 }

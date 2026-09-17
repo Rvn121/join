@@ -160,7 +160,8 @@ function getTaskDetailContactsTemplate(task, contacts) {
  * @returns {string} DE: Subtask-HTML. EN: Subtask HTML.
  */
 function getTaskDetailSubtaskTemplate(subtask) {
-  const checked = subtask.done ? " checked" : "";
+  let checked = "";
+  if (subtask.done) checked = " checked";
   return `<label class="task-detail-subtask"><input type="checkbox" data-detail-subtask-id="${escapeTaskHtml(subtask.id)}"${checked} /><span>${escapeTaskHtml(subtask.title)}</span></label>`;
 }
 
@@ -217,8 +218,10 @@ function getTaskDetailTemplate(task, contacts) {
  * @returns {string} DE: Options-HTML. EN: Option HTML.
  */
 function getAssignedContactTemplate(contact, selected, ownContact) {
-  const checked = selected ? " checked" : "";
-  const you = ownContact ? " (You)" : "";
+  let checked = "";
+  let you = "";
+  if (selected) checked = " checked";
+  if (ownContact) you = " (You)";
   return `<label class="task-contact-option" data-contact-name="${escapeTaskHtml(contact.name).toLowerCase()}">${getTaskAvatarTemplate(contact)}<span>${escapeTaskHtml(contact.name)}${you}</span><input type="checkbox" data-contact-id="${escapeTaskHtml(contact.id)}"${checked} /></label>`;
 }
 

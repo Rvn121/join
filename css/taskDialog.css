@@ -9,10 +9,16 @@
 .task-detail-dialog::backdrop {
   background: var(--task-overlay);
 }
-
+.task-detail-dialog {
+  width: min(525px, calc(100vw - 32px));
+  max-width: none;
+  max-height: none;
+  overflow: hidden;
+}
 .task-dialog-shell {
   position: relative;
-  width: min(1120px, calc(100vw - 48px));
+  width: calc(100vw - 48px);
+  max-width: 1120px;
   max-height: calc(100vh - 48px);
   padding: 48px 54px 38px;
   overflow-y: auto;
@@ -40,11 +46,14 @@
   background: transparent;
   color: var(--join-dark);
   font-size: 28px;
+  transition: background var(--click-transition);
 }
 
 .task-dialog-close:hover,
-.task-detail-close:hover {
-  background: var(--contact-dark-hover-soft);
+.task-dialog-close:focus-visible,
+.task-detail-close:hover,
+.task-detail-close:focus-visible {
+  background-color: var(--contact-dark-hover-soft);
 }
 
 .task-form--dialog .task-form-columns {
@@ -57,39 +66,40 @@
 
 .task-detail-shell {
   position: relative;
-  width: min(560px, calc(100vw - 32px));
-  max-height: calc(100vh - 40px);
-  padding: 44px 42px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-height: calc(100dvh - 32px);
   overflow-y: auto;
-  border-radius: 24px;
+  overflow-x: hidden;
+  scrollbar-width: thin;
   background: var(--card-background);
 }
 
 .task-detail-shell > h2 {
   max-width: 100%;
-  margin: 18px 0 18px;
-  padding-right: 28px;
+  padding-right: 0;
   overflow-wrap: anywhere;
   word-break: break-word;
 }
 
 .task-detail-description {
   max-width: 100%;
-  margin-bottom: 22px;
+  margin: 0;
   overflow-wrap: anywhere;
   word-break: break-word;
   white-space: pre-wrap;
 }
-
 .task-detail-data {
-  margin: 0 0 24px;
+  margin: 0;
+  display: grid;
+  gap: 24px;
 }
-
 .task-detail-data > div {
   display: flex;
   align-items: center;
   gap: 26px;
-  margin-bottom: 12px;
+  margin-bottom: 0;
 }
 
 .task-detail-data dt {
@@ -111,9 +121,8 @@
 }
 
 .task-detail-section {
-  margin-top: 22px;
+  margin-top: 0;
 }
-
 .task-detail-section h3 {
   margin-bottom: 12px;
   font-size: var(--fs-small);
@@ -131,7 +140,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 8px;
+  margin-bottom: 0;
   font-size: var(--fs-small);
 }
 
@@ -183,7 +192,7 @@
   align-items: center;
   justify-content: flex-end;
   gap: 12px;
-  margin-top: 28px;
+  margin-top: 0;
 }
 
 .task-detail-actions > span {
@@ -212,9 +221,11 @@
   height: 18px;
 }
 
-.task-form-dialog--edit .task-dialog-shell {
-  width: min(500px, calc(100vw - 32px));
-  padding: 62px 32px 30px;
+.task-form-dialog--edit {
+  width: min(525px, calc(100vw - 32px));
+  max-width: none;
+  max-height: none;
+  overflow: hidden;
 }
 
 .task-form-dialog--edit .task-dialog-shell > h2 {
@@ -242,6 +253,148 @@
   width: auto;
 }
 
+/* DE: Design-Anpassungen für Task-Dialoge. EN: Design adjustments for task dialogs. */
+.task-dialog-shell {
+  width: calc(100vw - 48px);
+  max-width: 1116px;
+  min-height: 870px;
+  padding: 64px 66px 64px 74px;
+  box-shadow: 0 0 4px var(--shadow-strong);
+}
+.task-dialog-shell > h2 {
+  margin-bottom: 37px;
+  font-size: 61px;
+}
+.task-dialog-close, .task-detail-close {
+  width: 32px;
+  height: 32px;
+  background-image: url("../assets/icons/close.png");
+  background-position: center;
+  background-size: 14px 14px;
+  background-repeat: no-repeat;
+  font-size: 0;
+}
+
+.task-form-dialog:not(.task-form-dialog--edit) .task-dialog-close {
+  top: 64px;
+  right: 40px;
+}
+.task-form--dialog .task-form-columns {
+  gap: 48px;
+}
+.task-form--dialog .task-form-footer {
+  margin-top: 152px;
+}
+.task-detail-dialog .task-detail-shell {
+  width: 100%;
+  max-width: 525px;
+  padding: 48px 40px;
+  border-radius: 30px;
+  box-shadow: 0 0 4px var(--shadow-medium);
+}
+.task-detail-shell > h2 {
+  margin: 0;
+  font-size: 61px;
+  line-height: 1.2;
+}
+.task-detail-shell .task-category {
+  align-self: flex-start;
+  min-height: 36px;
+  padding: 4px 24px;
+  font-size: 23px;
+}
+.task-detail-close {
+  top: 48px;
+  right: 40px;
+}
+.task-detail-description,
+.task-detail-data dt,
+.task-detail-data dd,
+.task-detail-section h3 {
+  font-size: 20px;
+}
+.task-detail-data > div {
+  gap: 25px;
+}
+.task-detail-section li {
+  min-height: 56px;
+  font-size: 20px;
+}
+.task-detail-section .task-avatar {
+  width: 42px;
+  height: 42px;
+  font-size: 16px;
+}
+.task-detail-subtask {
+  min-height: 32px;
+  font-size: 16px;
+}
+.task-detail-subtask input {
+  width: 24px;
+  height: 24px;
+  flex-basis: 24px;
+  background-image: url("../assets/icons/Rectangle.png");
+}
+.task-detail-subtask input:checked {
+  background-image: url("../assets/icons/checked.png");
+}
+.task-detail-actions button {
+  gap: 8px;
+  font-size: 16px;
+}
+.task-detail-actions img {
+  width: 24px;
+  height: 24px;
+}
+.task-form-dialog--edit .task-dialog-shell {
+  width: 100%;
+  max-width: 525px;
+  height: 930px;
+  max-height: calc(100dvh - 32px);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  padding: 48px 40px;
+  overflow: hidden;
+}
+.task-form-dialog--edit .task-dialog-close {
+  position: static;
+  align-self: flex-end;
+  flex: 0 0 32px;
+  margin-bottom: 24px;
+}
+.task-form-dialog--edit .task-form {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  gap: 24px;
+}
+.task-form-dialog--edit .task-form-columns {
+  flex: 1;
+  min-height: 0;
+  min-width: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  margin-right: -16px;
+  padding-right: 20px;
+}
+.task-form-dialog--edit .task-form-footer {
+  flex: 0 0 auto;
+  margin-top: 0;
+  align-items: flex-end;
+}
+.task-form-dialog--edit .task-field-error:empty {
+  display: none;
+}
 .task-form-dialog--edit .task-submit-button {
-  min-width: 72px;
+  min-width: 89px;
+  height: 56px;
+  padding: 0 16px;
+  gap: 8px;
+}
+.task-form-dialog--edit .task-submit-button img {
+  width: 15.49px;
+  height: 11.22px;
 }

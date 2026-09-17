@@ -115,3 +115,22 @@
   color: #ffffff;
   font-size: var(--fs-lg);
 }
+
+/* DE: Gemeinsame Input- und Fehlerdarstellung. EN: Shared input and error styling. */
+.component-input input {
+  border-color: var(--join-text-secondary);
+  font-size: 20px;
+}
+.component-input input::placeholder {
+  color: var(--join-text-secondary);
+}
+.component-input input:focus {
+  border-color: var(--join-accent);
+}
+.input-error, .component-input input.input-error {
+  border-color: var(--join-error) !important;
+}
+.field-error, .form-message, .contact-form-message {
+  color: var(--join-error);
+  font-size: var(--fs-error);
+}

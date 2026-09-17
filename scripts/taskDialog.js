@@ -13,7 +13,7 @@ function openTaskFormDialog(status, task) {
   if (!taskFormDialog) return;
   setTaskFormDialogMode(Boolean(task));
   prepareTaskForm(status, task || null);
-  taskFormDialog.showModal();
+  showFloatingDialog(taskFormDialog);
   taskTitle.focus();
 }
 
@@ -33,7 +33,7 @@ function setTaskFormDialogMode(editing) {
  * EN: Closes the task form dialog.
  */
 function closeTaskFormDialog() {
-  if (taskFormDialog && taskFormDialog.open) taskFormDialog.close();
+  return closeFloatingDialog(taskFormDialog);
 }
 
 
@@ -68,7 +68,7 @@ function openTaskDetail(taskId) {
   if (!task || !taskDetailDialog) return;
   activeTaskDetailId = task.id;
   renderActiveTaskDetail();
-  taskDetailDialog.showModal();
+  showFloatingDialog(taskDetailDialog);
 }
 
 
@@ -77,8 +77,8 @@ function openTaskDetail(taskId) {
  * EN: Closes the detail view.
  */
 function closeTaskDetail() {
-  if (taskDetailDialog && taskDetailDialog.open) taskDetailDialog.close();
   activeTaskDetailId = null;
+  return closeFloatingDialog(taskDetailDialog);
 }
 
 
@@ -114,7 +114,7 @@ function findDetailSubtask(task, subtaskId) {
  * @returns {Promise<void>}
  */
 async function changeDetailSubtask(event) {
-  const checkbox = event.target.closest("[data-detail-subtask-id]");
+  const checkbox = findParentWithAttribute(event.target, "data-detail-subtask-id");
   if (!checkbox) return;
   const task = getBoardTask(activeTaskDetailId);
   const subtask = findDetailSubtask(task, checkbox.getAttribute("data-detail-subtask-id"));
@@ -164,10 +164,10 @@ async function deleteActiveTask() {
  * DE: Öffnet den aktuell sichtbaren Task zum Bearbeiten.
  * EN: Opens the currently visible task for editing.
  */
-function editActiveTask() {
+async function editActiveTask() {
   const task = getBoardTask(activeTaskDetailId);
   if (!task) return;
-  closeTaskDetail();
+  await closeTaskDetail();
   openTaskFormDialog(task.status, task);
 }
 
@@ -178,9 +178,9 @@ function editActiveTask() {
  * @param {MouseEvent} event - DE: Mausereignis. EN: Mouse event.
  */
 function handleTaskDetailClick(event) {
-  if (event.target.closest("[data-task-detail-close]")) closeTaskDetail();
-  if (event.target.closest("[data-task-delete]")) deleteActiveTask();
-  if (event.target.closest("[data-task-edit]")) editActiveTask();
+  if (findParentWithAttribute(event.target, "data-task-detail-close")) closeTaskDetail();
+  if (findParentWithAttribute(event.target, "data-task-delete")) deleteActiveTask();
+  if (findParentWithAttribute(event.target, "data-task-edit")) editActiveTask();
 }
 
 
@@ -189,6 +189,8 @@ function handleTaskDetailClick(event) {
  * EN: Initializes the events of both task dialogs.
  */
 function initializeTaskDialogs() {
+  if (taskFormDialog) taskFormDialog.addEventListener("cancel", cancelFloatingDialog);
+  if (taskDetailDialog) taskDetailDialog.addEventListener("cancel", cancelFloatingDialog);
   if (taskFormDialog) taskFormDialog.addEventListener("click", closeTaskFormBackdrop);
   if (taskDetailDialog) taskDetailDialog.addEventListener("click", closeTaskDetailBackdrop);
   if (taskDetailContent) taskDetailContent.addEventListener("click", handleTaskDetailClick);
