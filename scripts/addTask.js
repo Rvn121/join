@@ -1,9 +1,11 @@
 /**
- * DE: Initialisiert die Add-Task-Seite für die weitere Umsetzung.
- * EN: Initializes the Add Task page for further implementation.
+ * DE: Initialisiert die Seite zum Hinzufügen eines Tasks.
+ * EN: Initializes the Add Task page.
+ * @returns {Promise<void>}
  */
-function initializeAddTask() {
-  getContacts();
+async function initializeAddTask() {
+  await initializeTaskForm();
+  prepareTaskForm(TASK_STATUS_TODO, null);
 }
 
 

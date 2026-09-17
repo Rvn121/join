@@ -1,0 +1,341 @@
+const taskForm = document.getElementById("taskForm");
+const taskTitle = document.getElementById("taskTitle");
+const taskDescription = document.getElementById("taskDescription");
+const taskDueDate = document.getElementById("taskDueDate");
+const taskCategory = document.getElementById("taskCategory");
+const taskAssignedSearch = document.getElementById("taskAssignedSearch");
+const taskContactDropdown = document.getElementById("taskContactDropdown");
+const taskAssignedToggle = document.getElementById("taskAssignedToggle");
+const taskSelectedContacts = document.getElementById("taskSelectedContacts");
+const taskSubtaskInput = document.getElementById("taskSubtaskInput");
+const taskSubtaskList = document.getElementById("taskSubtaskList");
+const taskSubmitButton = document.getElementById("taskSubmitButton");
+const taskClearButton = document.getElementById("taskClearButton");
+const taskToast = document.getElementById("taskToast");
+const taskFormState = {
+  contacts: [],
+  selectedContactIds: [],
+  subtasks: [],
+  editingTaskId: null,
+  editingSubtaskId: null,
+  status: TASK_STATUS_TODO,
+};
+
+/**
+ * DE: Entfernt die Fehlermarkierung eines Feldes.
+ * EN: Removes the error state of a field.
+ * @param {HTMLElement} field - DE: Eingabefeld. EN: Input field.
+ */
+function clearTaskFieldError(field) {
+  field.classList.remove("task-input-error");
+  const error = taskForm.querySelector('[data-error-for="' + field.id + '"]');
+  if (error) error.textContent = "";
+}
+
+
+/**
+ * DE: Zeigt eine Fehlermeldung an einem Pflichtfeld.
+ * EN: Shows an error message on a required field.
+ * @param {HTMLElement} field - DE: Eingabefeld. EN: Input field.
+ * @param {string} message - DE: Meldung. EN: Message.
+ */
+function showTaskFieldError(field, message) {
+  field.classList.add("task-input-error");
+  const error = taskForm.querySelector('[data-error-for="' + field.id + '"]');
+  if (error) error.textContent = message;
+}
+
+
+/**
+ * DE: Prüft ein einzelnes Pflichtfeld.
+ * EN: Validates one required field.
+ * @param {HTMLElement} field - DE: Eingabefeld. EN: Input field.
+ * @param {string} message - DE: Meldung. EN: Message.
+ * @returns {boolean} DE: Gültigkeitsstatus. EN: Validation state.
+ */
+function validateRequiredTaskField(field, message) {
+  clearTaskFieldError(field);
+  if (field.value.trim()) return true;
+  showTaskFieldError(field, message);
+  return false;
+}
+
+
+/**
+ * DE: Prüft alle Pflichtfelder des Taskformulars.
+ * EN: Validates all required fields of the task form.
+ * @returns {boolean} DE: Formularstatus. EN: Form state.
+ */
+function validateTaskForm() {
+  const titleValid = validateRequiredTaskField(taskTitle, "Please enter a title.");
+  const dateValid = validateRequiredTaskField(taskDueDate, "Please select a due date.");
+  const categoryValid = validateRequiredTaskField(taskCategory, "Please select a category.");
+  if (!titleValid) taskTitle.focus();
+  else if (!dateValid) taskDueDate.focus();
+  else if (!categoryValid) taskCategory.focus();
+  return titleValid && dateValid && categoryValid;
+}
+
+
+/**
+ * DE: Liest die aktuell ausgewählte Priorität.
+ * EN: Reads the currently selected priority.
+ * @returns {string} DE: Priorität. EN: Priority.
+ */
+function getSelectedTaskPriority() {
+  const selected = taskForm.querySelector('input[name="priority"]:checked');
+  return selected ? selected.value : "medium";
+}
+
+
+/**
+ * DE: Kopiert die Subtasks für den zu speichernden Task.
+ * EN: Copies the subtasks for the task to be stored.
+ * @returns {Array} DE: Subtasks. EN: Subtasks.
+ */
+function copyTaskFormSubtasks() {
+  const subtasks = [];
+  for (let i = 0; i < taskFormState.subtasks.length; i++) {
+    subtasks.push(Object.assign({}, taskFormState.subtasks[i]));
+  }
+  return subtasks;
+}
+
+
+/**
+ * DE: Erstellt einen Task aus den Formularwerten.
+ * EN: Creates a task from the form values.
+ * @returns {object} DE: Task. EN: Task.
+ */
+function createTaskFromForm() {
+  return {
+    id: taskFormState.editingTaskId || createTaskId(),
+    title: taskTitle.value.trim(),
+    description: taskDescription.value.trim(),
+    dueDate: taskDueDate.value,
+    priority: getSelectedTaskPriority(),
+    assignedTo: taskFormState.selectedContactIds.slice(),
+    category: taskCategory.value,
+    subtasks: copyTaskFormSubtasks(),
+    status: taskFormState.status,
+  };
+}
+
+
+/**
+ * DE: Zeigt eine Toast-Nachricht an.
+ * EN: Shows a toast message.
+ * @param {string} message - DE: Meldung. EN: Message.
+ */
+function showTaskToast(message) {
+  if (!taskToast) return;
+  taskToast.textContent = message;
+  taskToast.hidden = false;
+  taskToast.classList.remove("task-toast--show");
+  window.requestAnimationFrame(showTaskToastAnimation);
+  window.setTimeout(hideTaskToast, 2200);
+}
+
+
+/**
+ * DE: Startet die Einfluganimation des Task-Toasts.
+ * EN: Starts the entrance animation of the task toast.
+ */
+function showTaskToastAnimation() {
+  taskToast.classList.add("task-toast--show");
+}
+
+
+/**
+ * DE: Blendet den Task-Toast wieder aus.
+ * EN: Hides the task toast again.
+ */
+function hideTaskToast() {
+  if (!taskToast) return;
+  taskToast.classList.remove("task-toast--show");
+  window.setTimeout(hideTaskToastElement, 220);
+}
+
+
+/**
+ * DE: Entfernt den Task-Toast vollständig aus der Ansicht.
+ * EN: Fully hides the task toast from the view.
+ */
+function hideTaskToastElement() {
+  if (taskToast) taskToast.hidden = true;
+}
+
+
+/**
+ * DE: Entfernt alle sichtbaren Formularfehler.
+ * EN: Removes all visible form errors.
+ */
+function clearTaskFormErrors() {
+  clearTaskFieldError(taskTitle);
+  clearTaskFieldError(taskDueDate);
+  clearTaskFieldError(taskCategory);
+}
+
+
+/**
+ * DE: Setzt alle Formularwerte auf den Erstellungszustand zurück.
+ * EN: Resets all form values to the create state.
+ */
+function resetTaskFormValues() {
+  taskForm.reset();
+  taskFormState.selectedContactIds = [];
+  taskFormState.subtasks = [];
+  taskFormState.editingTaskId = null;
+  taskFormState.editingSubtaskId = null;
+  taskForm.querySelector('input[value="medium"]').checked = true;
+  clearTaskFormErrors();
+  renderTaskContactDropdown();
+  renderTaskSelectedContacts();
+  renderFormSubtasks();
+  updateSubtaskInputActions();
+}
+
+
+/**
+ * DE: Füllt das Formular mit einem bestehenden Task.
+ * EN: Fills the form with an existing task.
+ * @param {object} task - DE: Task. EN: Task.
+ */
+function fillTaskForm(task) {
+  taskTitle.value = task.title || "";
+  taskDescription.value = task.description || "";
+  taskDueDate.value = task.dueDate || "";
+  taskCategory.value = task.category || "";
+  taskForm.querySelector('input[value="' + normalizeTaskPriority(task.priority) + '"]').checked = true;
+  taskFormState.selectedContactIds = normalizeTaskAssignments(task.assignedTo);
+  taskFormState.subtasks = normalizeSubtasks(task.subtasks);
+  renderTaskContactDropdown();
+  renderTaskSelectedContacts();
+  renderFormSubtasks();
+}
+
+
+/**
+ * DE: Bereitet das Formular zum Erstellen oder Bearbeiten vor.
+ * EN: Prepares the form for creating or editing.
+ * @param {string} status - DE: Taskstatus. EN: Task status.
+ * @param {object|null} task - DE: Bestehender Task. EN: Existing task.
+ */
+function prepareTaskForm(status, task) {
+  resetTaskFormValues();
+  taskFormState.status = normalizeTaskStatus(status);
+  if (task) {
+    taskFormState.editingTaskId = task.id;
+    taskFormState.status = normalizeTaskStatus(task.status);
+    fillTaskForm(task);
+  }
+  updateTaskFormButtons(Boolean(task));
+}
+
+
+/**
+ * DE: Passt die Formularbuttons an Erstellen oder Bearbeiten an.
+ * EN: Adapts the form buttons for create or edit mode.
+ * @param {boolean} editing - DE: Bearbeitungsmodus. EN: Edit mode.
+ */
+function updateTaskFormButtons(editing) {
+  const submitText = taskSubmitButton.querySelector("span");
+  submitText.textContent = editing ? "Ok" : "Create Task";
+  taskClearButton.hidden = editing;
+  taskClearButton.textContent = "Clear ×";
+  const title = document.getElementById("taskFormDialogTitle");
+  if (title) title.textContent = editing ? "Edit Task" : "Add Task";
+}
+
+
+/**
+ * DE: Behandelt den sekundären Formularbutton.
+ * EN: Handles the secondary form button.
+ */
+function handleTaskClearButton() {
+  if (taskFormState.editingTaskId && typeof closeTaskFormDialog === "function") {
+    closeTaskFormDialog();
+    return;
+  }
+  prepareTaskForm(taskFormState.status, null);
+}
+
+
+/**
+ * DE: Reagiert nach erfolgreichem Speichern auf die aktuelle Seite.
+ * EN: Reacts after successful saving on the current page.
+ * @param {object} task - DE: Gespeicherter Task. EN: Stored task.
+ * @param {boolean} editing - DE: Bearbeitungsstatus. EN: Edit state.
+ */
+function finishTaskFormSave(task, editing) {
+  if (typeof handleBoardTaskSaved === "function") {
+    handleBoardTaskSaved(task, editing);
+    return;
+  }
+  showTaskToast("Task successfully created.");
+  window.setTimeout(openBoardAfterTaskCreate, 850);
+}
+
+
+/**
+ * DE: Öffnet nach dem Erstellen eines Tasks das Board.
+ * EN: Opens the board after creating a task.
+ */
+function openBoardAfterTaskCreate() {
+  window.location.href = "./board.html";
+}
+
+
+/**
+ * DE: Speichert das Taskformular.
+ * EN: Saves the task form.
+ * @param {SubmitEvent} event - DE: Formularereignis. EN: Form event.
+ * @returns {Promise<void>}
+ */
+async function handleTaskFormSubmit(event) {
+  event.preventDefault();
+  if (!validateTaskForm()) return;
+  const editing = Boolean(taskFormState.editingTaskId);
+  taskSubmitButton.disabled = true;
+  try {
+    const task = await storeTask(createTaskFromForm());
+    finishTaskFormSave(task, editing);
+  } catch {
+    showTaskToast("Could not save the task. Please try again.");
+  }
+  taskSubmitButton.disabled = false;
+}
+
+
+/**
+ * DE: Initialisiert die Ereignisse des Taskformulars.
+ * EN: Initializes the task form events.
+ */
+function initializeTaskFormEvents() {
+  taskAssignedSearch.addEventListener("focus", openTaskContactDropdown);
+  taskAssignedSearch.addEventListener("input", filterTaskContacts);
+  taskContactDropdown.addEventListener("change", handleTaskContactChange);
+  if (taskAssignedToggle) taskAssignedToggle.addEventListener("click", toggleTaskContactDropdown);
+  taskSubtaskInput.addEventListener("keydown", handleSubtaskKeydown);
+  taskSubtaskInput.addEventListener("input", updateSubtaskInputActions);
+  taskSubtaskList.addEventListener("click", handleFormSubtaskAction);
+  document.getElementById("taskSubtaskAdd").addEventListener("click", addOrUpdateSubtask);
+  document.getElementById("taskSubtaskClear").addEventListener("click", clearSubtaskInput);
+  taskClearButton.addEventListener("click", handleTaskClearButton);
+  taskForm.addEventListener("submit", handleTaskFormSubmit);
+  document.addEventListener("click", closeTaskDropdownOutside);
+}
+
+
+/**
+ * DE: Initialisiert das wiederverwendbare Taskformular.
+ * EN: Initializes the reusable task form.
+ * @returns {Promise<void>}
+ */
+async function initializeTaskForm() {
+  if (!taskForm) return;
+  taskFormState.contacts = await loadTaskFormContacts();
+  renderTaskContactDropdown();
+  initializeTaskFormEvents();
+  prepareTaskForm(taskForm.getAttribute("data-default-status") || TASK_STATUS_TODO, null);
+}

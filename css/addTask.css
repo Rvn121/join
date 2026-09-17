@@ -1,0 +1,11 @@
+.add-task-content {
+  padding-top: 64px;
+}
+
+.add-task-page {
+  width: min(100%, 980px);
+}
+
+.add-task-page > h1 {
+  margin-bottom: 42px;
+}

@@ -25,6 +25,16 @@
   --category-user-story: #0038ff;
   --category-technical-task: #1fd7c1;
 
+  /* Taskmanagement */
+  --task-urgent: #ff3d00;
+  --task-medium: #ffa800;
+  --task-low: #7ae229;
+  --task-card-shadow: rgba(0, 0, 0, 0.08);
+  --task-overlay: rgba(0, 0, 0, 0.28);
+  --task-drop-zone: rgba(41, 171, 226, 0.12);
+  --task-soft-background: #f4f4f4;
+  --task-form-text: #2a3647;
+
   /* Kontakt-Avatare */
   --avatar-orange: #ff7a00;
   --avatar-pink: #ff5eb3;

@@ -5,9 +5,16 @@
 @import url("./css/signup.css");
 @import url("./css/app.css");
 @import url("./css/pages.css");
-@import url("./css/responsive.css");
 @import url("./css/buttons.css");
 @import url("./css/colors.css");
 @import url("./css/components.css");
 @import url("./css/contacts.css");
 @import url("./css/contactDialog.css");
+@import url("./css/addTask.css");
+@import url("./css/taskForm.css");
+@import url("./css/taskFormInteractive.css");
+@import url("./css/board.css");
+@import url("./css/taskDialog.css");
+@import url("./css/summary.css");
+@import url("./css/responsive.css");
+@import url("./css/taskResponsive.css");

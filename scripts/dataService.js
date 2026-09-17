@@ -171,19 +171,24 @@ async function deleteUser(userId) {
 }
 
 
-/** DE: Liest alle Tasks aus Firebase. EN: Reads all tasks from Firebase. */
+/** DE: Liest Tasks aus Firebase oder aus der lokalen Gastsicht. EN: Reads tasks from Firebase or the local guest view. */
 async function getTasks() {
   try {
+    const guestTasks = getUserMode() === "guest" ? getGuestTaskData() : null;
+    if (guestTasks) return guestTasks;
     const tasks = await getFirebaseData("tasks");
-    return tasks ? Object.values(tasks) : [];
+    const taskList = mapStoredTasks(tasks);
+    if (getUserMode() === "guest") setGuestTaskData(taskList);
+    return taskList;
   } catch {
     return [];
   }
 }
 
 
-/** DE: Speichert alle Tasks in Firebase. EN: Stores all tasks in Firebase. */
+/** DE: Speichert Tasks in Firebase oder nur lokal für den Gast. EN: Stores tasks in Firebase or only locally for the guest. */
 async function saveTasks(tasks) {
+  if (getUserMode() === "guest") return setGuestTaskData(tasks);
   await putFirebaseData("tasks", tasks);
 }
 

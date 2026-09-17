@@ -192,6 +192,57 @@ function clearGuestLocalData() {
 
 
 /**
+ * DE: Liest die lokal gespeicherten Gast-Tasks.
+ * EN: Reads the locally stored guest tasks.
+ * @returns {Array|null} DE: Gast-Tasks. EN: Guest tasks.
+ */
+function getGuestTaskData() {
+  const tasks = localStorage.getItem("joinGuestTasks");
+  return tasks ? JSON.parse(tasks) : null;
+}
+
+
+/**
+ * DE: Speichert Tasks ausschließlich in der lokalen Gastsicht.
+ * EN: Stores tasks only in the local guest view.
+ * @param {Array} tasks - DE: Tasks. EN: Tasks.
+ */
+function setGuestTaskData(tasks) {
+  localStorage.setItem("joinGuestTasks", JSON.stringify(tasks));
+}
+
+
+/**
+ * DE: Kopiert einen gespeicherten Task und ergänzt bei Bedarf seine ID.
+ * EN: Copies a stored task and adds its id when needed.
+ * @param {object} task - DE: Gespeicherter Task. EN: Stored task.
+ * @param {string} fallbackId - DE: Ersatz-ID. EN: Fallback id.
+ * @returns {object} DE: Taskkopie. EN: Task copy.
+ */
+function copyStoredTask(task, fallbackId) {
+  const copy = Object.assign({}, task);
+  if (!copy.id) copy.id = String(fallbackId);
+  return copy;
+}
+
+
+/**
+ * DE: Wandelt gespeicherte Firebase-Tasks in eine Liste mit stabilen IDs um.
+ * EN: Converts stored Firebase tasks into a list with stable ids.
+ * @param {object|Array|null} data - DE: Firebase-Daten. EN: Firebase data.
+ * @returns {Array} DE: Taskliste. EN: Task list.
+ */
+function mapStoredTasks(data) {
+  const tasks = [];
+  if (!data) return tasks;
+  for (const key in data) {
+    if (data[key]) tasks.push(copyStoredTask(data[key], key));
+  }
+  return tasks;
+}
+
+
+/**
  * DE: Meldet den aktuellen Zugang ab.
  * EN: Logs out the current access.
  */

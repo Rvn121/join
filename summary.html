@@ -13,18 +13,15 @@
         <a class="sidebar-logo-link" href="./summary.html" aria-label="Zur Summary">
           <img class="sidebar-logo" src="./assets/img/join_logo_white.png" alt="Join" />
         </a>
-
         <nav class="sidebar-nav app-navigation" aria-label="Hauptnavigation">
           <a class="sidebar-link sidebar-link-active" href="./summary.html" aria-current="page">Summary</a>
           <a class="sidebar-link" href="./addTask.html">Add Task</a>
           <a class="sidebar-link" href="./board.html">Board</a>
           <a class="sidebar-link" href="./contacts.html">Contacts</a>
         </nav>
-
         <nav class="sidebar-nav external-navigation" aria-label="Login">
           <a class="sidebar-link" href="./index.html" data-login-link>Log in</a>
         </nav>
-
         <footer class="sidebar-footer">
           <a class="sidebar-footer-link" href="./privacyPolicy.html">Privacy Policy</a>
           <a class="sidebar-footer-link" href="./legalNotice.html">Legal notice</a>
@@ -35,16 +32,13 @@
         <header class="app-header">
           <div class="app-header-content">
             <span class="app-title">Kanban Project Management Tool</span>
-
             <div class="app-header-actions">
               <a class="help-button" id="helpButton" href="./help.html" aria-label="Hilfe">
                 <img src="./assets/icons/help.svg" alt="" aria-hidden="true" />
               </a>
-
               <button class="user-placeholder" id="profileButton" type="button" aria-label="Benutzerprofil">
                 <span class="user-initials" id="userInitials" aria-hidden="true"></span>
               </button>
-
               <div class="profile-menu" id="profileMenu" hidden>
                 <button id="logoutButton" type="button">Log out</button>
               </div>
@@ -53,16 +47,48 @@
         </header>
 
         <main class="app-main">
-          <div class="app-content">
-            <section class="content-page summary-content">
-              <div class="content-heading-row">
+          <div class="app-content summary-app-content">
+            <section class="summary-content">
+              <div class="content-heading-row summary-heading-row">
                 <h1>Join 360</h1>
                 <span class="content-heading-divider" aria-hidden="true"></span>
                 <p>Key Metrics at a Glance</p>
               </div>
 
-              <div class="content-placeholder">
-                <p>Summary content placeholder</p>
+              <div class="summary-layout">
+                <div class="summary-grid" id="summaryGrid">
+                  <a class="summary-card summary-card--half" href="./board.html" aria-label="To-do Tasks">
+                    <span class="summary-icon summary-icon--todo"><img class="summary-icon-default" src="./assets/icons/update-dark.png" alt="" aria-hidden="true" /><img class="summary-icon-hover" src="./assets/icons/update-whtie.png" alt="" aria-hidden="true" /></span>
+                    <span class="summary-count-group"><span class="summary-number" id="summaryTodo">0</span><span class="summary-label">To-do</span></span>
+                  </a>
+                  <a class="summary-card summary-card--half" href="./board.html" aria-label="Done Tasks">
+                    <span class="summary-icon summary-icon--done"><img class="summary-icon-default" src="./assets/icons/check-dark.png" alt="" aria-hidden="true" /><img class="summary-icon-hover" src="./assets/icons/check-white.png" alt="" aria-hidden="true" /></span>
+                    <span class="summary-count-group"><span class="summary-number" id="summaryDone">0</span><span class="summary-label">Done</span></span>
+                  </a>
+
+                  <a class="summary-card summary-card--urgent" href="./board.html" aria-label="Urgent Tasks and next deadline">
+                    <span class="summary-icon summary-icon--urgent"><img src="./assets/icons/Prio-high.png" alt="" aria-hidden="true" /></span>
+                    <span class="summary-urgent-count">
+                      <strong id="summaryUrgent">0</strong><small>Urgent</small>
+                    </span>
+                    <span class="summary-urgent-divider" aria-hidden="true"></span>
+                    <span class="summary-deadline">
+                      <strong id="summaryDeadline">No deadline</strong><small>Upcoming Deadline</small>
+                    </span>
+                  </a>
+
+                  <a class="summary-card summary-card--third" href="./board.html">
+                    <strong class="summary-number" id="summaryBoard">0</strong><span class="summary-label">Tasks in<br />Board</span>
+                  </a>
+                  <a class="summary-card summary-card--third" href="./board.html">
+                    <strong class="summary-number" id="summaryProgress">0</strong><span class="summary-label">Tasks in<br />Progress</span>
+                  </a>
+                  <a class="summary-card summary-card--third" href="./board.html">
+                    <strong class="summary-number" id="summaryFeedback">0</strong><span class="summary-label">Awaiting<br />Feedback</span>
+                  </a>
+                </div>
+
+                <div class="summary-greeting" id="summaryGreeting" aria-live="polite"></div>
               </div>
             </section>
           </div>
@@ -73,6 +99,7 @@
     <script src="./scripts/common.js"></script>
     <script src="./scripts/firebaseConfig.js"></script>
     <script src="./scripts/dataService.js"></script>
+    <script src="./scripts/taskUtils.js"></script>
     <script src="./scripts/summary.js"></script>
   </body>
 </html>
