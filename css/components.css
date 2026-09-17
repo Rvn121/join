@@ -1,5 +1,3 @@
-/* Text input – one look for every form field (Figma "Frame 14": 48px, radius 10, 1px border, 20px text).
-   Shared by login/sign-up/contact inputs, task form fields, assigned-to dropdown and board search. */
 .component-input input,
 .task-field input,
 .task-field textarea,
@@ -62,18 +60,17 @@
   padding: 0 50px 0 20px;
 }
 
-.component-input .input-icon {
+.component-input > img {
   position: absolute;
   top: 24px;
-  right: 18px;
-  width: 20px;
-  height: 17px;
-  object-fit: contain;
+  right: 21px;
+  width: 24px;
+  height: 24px;
+  object-fit: scale-down;
   transform: translateY(-50%);
   pointer-events: none;
 }
 
-/* Avatar (Figma "Profile badge") – shared base, sizes live with the component */
 .contact-avatar,
 .task-avatar {
   display: inline-flex;

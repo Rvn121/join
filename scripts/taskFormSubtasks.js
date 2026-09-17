@@ -117,6 +117,6 @@ function updateSubtaskInputActions() {
   const icon = document.querySelector("#taskSubtaskAdd img");
   clearButton.hidden = !hasText;
   divider.hidden = !hasText;
-  icon.src = hasText ? "./assets/icons/check-dark.png" : "./assets/icons/add.png";
+  icon.src = hasText ? "./assets/icons/check-dark.svg" : "./assets/icons/add.svg";
 }
 

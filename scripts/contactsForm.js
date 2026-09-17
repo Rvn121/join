@@ -13,7 +13,7 @@ const contactSubmitButton = document.getElementById("contactSubmitButton");
 function renderDialogAvatar(contact) {
   const avatar = document.getElementById("contactDialogAvatar");
   if (!contact) {
-    avatar.innerHTML = '<img src="./assets/icons/profil.png" alt="" aria-hidden="true" />';
+    avatar.innerHTML = '<img src="./assets/icons/profil.svg" alt="" aria-hidden="true" />';
     return;
   }
   avatar.innerHTML = getContactDialogAvatarTemplate(contact);
@@ -40,7 +40,7 @@ function setContactDialogTexts(mode) {
  */
 function setContactDialogSecondaryIcon(mode) {
   const icon = document.getElementById("contactCancelIcon");
-  icon.src = mode === "add" ? "./assets/icons/close.png" : "./assets/icons/delete.png";
+  icon.src = mode === "add" ? "./assets/icons/close.svg" : "./assets/icons/delete.svg";
 }
 
 
@@ -286,7 +286,7 @@ function handleContactSecondaryAction() {
 function updateDialogSecondaryIcon(useHover) {
   if (contactState.dialogMode !== "edit") return;
   const icon = document.getElementById("contactCancelIcon");
-  icon.src = useHover ? "./assets/icons/delete-hover.png" : "./assets/icons/delete.png";
+  icon.src = useHover ? "./assets/icons/delete_hover.svg" : "./assets/icons/delete.svg";
 }
 
 

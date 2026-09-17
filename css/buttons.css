@@ -58,7 +58,6 @@
   box-shadow: none;
 }
 
-/* Form buttons (Create Task / Cancel / Create contact): 56px, radius 10, icon 24px */
 .btn--form {
   display: inline-flex;
   min-height: 56px;
@@ -75,14 +74,16 @@
   font-weight: 400;
 }
 
-/* 24px icon box like Figma; small glyphs stay at their intrinsic size instead of being blown up */
 .btn--form img {
   width: 24px;
   height: 24px;
   object-fit: scale-down;
 }
 
-/* Action buttons (Add task / Add new contact): radius 10, hover light blue, icon 32px */
+.btn--form.btn--primary img {
+  padding: 4px;
+}
+
 .btn--action {
   display: inline-flex;
   align-items: center;

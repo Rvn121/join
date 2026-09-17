@@ -20,7 +20,6 @@
   background: var(--card-background);
 }
 
-/* Figma: headline at y=64, form starts at y=174 */
 .task-dialog-shell > h2 {
   margin-bottom: 37px;
   font-size: 61px;
@@ -47,7 +46,6 @@
   gap: 25px;
 }
 
-/* Figma "Floating add task": footer buttons start 152px below the column divider */
 .task-form--dialog .task-form-footer {
   margin-top: 152px;
 }
@@ -157,12 +155,12 @@
   flex: 0 0 20px;
   border: unset;
   appearance: none;
-  background: url("../assets/icons/subtaskUnchecked.png") center / contain no-repeat;
+  background: url("../assets/icons/checkbox.svg") center / contain no-repeat;
   cursor: pointer;
 }
 
 .task-detail-subtask input:checked {
-  background-image: url("../assets/icons/subtaskChecked.png");
+  background-image: url("../assets/icons/checked.svg");
 }
 
 .task-detail-subtask input:focus-visible {

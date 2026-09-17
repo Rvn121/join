@@ -13,7 +13,6 @@
   --join-muted: #a8a8a8;
   --join-muted-light: #cdcdcd;
 
-  /* Validation errors (separate from the urgent priority color) */
   --join-error: #e60026;
   --join-error-soft: #ff8190;
 

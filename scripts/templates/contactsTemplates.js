@@ -117,8 +117,8 @@ function getContactActionsTemplate(canManage) {
   if (!canManage) return "";
   return `
     <div class="contact-detail-actions">
-      ${getContactActionTemplate("edit", "Edit", "edit.png", "edit-hover.png")}
-      ${getContactActionTemplate("delete", "Delete", "delete.png", "delete-hover.png")}
+      ${getContactActionTemplate("edit", "Edit", "edit.svg", "edit_hover.svg")}
+      ${getContactActionTemplate("delete", "Delete", "delete.svg", "delete_hover.svg")}
     </div>`;
 }
 

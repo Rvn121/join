@@ -32,7 +32,6 @@
   min-height: 56px;
 }
 
-/* person_add icon composed from person icon + plus until the SVG icon set exists */
 .contact-add-symbol {
   position: relative;
   display: inline-flex;

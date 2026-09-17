@@ -243,11 +243,11 @@ async function handleSignUpSubmit(event) {
 function updatePasswordIcon(input, icon) {
   if (!input.value) {
     input.type = "password";
-    icon.src = "./assets/icons/lock.png";
+    icon.src = "./assets/icons/lock.svg";
   } else if (input.type === "password") {
-    icon.src = "./assets/icons/visibilityOff.png";
+    icon.src = "./assets/icons/visibility_off.svg";
   } else {
-    icon.src = "./assets/icons/visibility.png";
+    icon.src = "./assets/icons/visibility.svg";
   }
 }
 
@@ -302,8 +302,8 @@ function initializePasswordToggle(button) {
  */
 function updatePrivacyCheckboxIcon() {
   const icon = document.getElementById("privacyCheckboxIcon");
-  if (privacyAccepted.checked) icon.src = "./assets/icons/checkboxActive.png";
-  else icon.src = "./assets/icons/checkbox.png";
+  if (privacyAccepted.checked) icon.src = "./assets/icons/checked.svg";
+  else icon.src = "./assets/icons/checkbox.svg";
 }
 
 

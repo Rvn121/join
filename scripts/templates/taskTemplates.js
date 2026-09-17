@@ -201,9 +201,9 @@ function getTaskDetailTemplate(task, contacts) {
     <section class="task-detail-section"><h3>Assigned To:</h3><ul>${getTaskDetailContactsTemplate(task, contacts)}</ul></section>
     <section class="task-detail-section"><h3>Subtasks</h3><div class="task-detail-subtasks">${getTaskDetailSubtasksTemplate(task.subtasks)}</div></section>
     <div class="task-detail-actions">
-      <button type="button" data-task-delete><img src="./assets/icons/delete.png" alt="" />Delete</button>
+      <button type="button" data-task-delete><img src="./assets/icons/delete.svg" alt="" />Delete</button>
       <span aria-hidden="true"></span>
-      <button type="button" data-task-edit><img src="./assets/icons/edit.png" alt="" />Edit</button>
+      <button type="button" data-task-edit><img src="./assets/icons/edit.svg" alt="" />Edit</button>
     </div>`;
 }
 
@@ -230,5 +230,5 @@ function getAssignedContactTemplate(contact, selected, ownContact) {
  * @returns {string} DE: Subtask-HTML. EN: Subtask HTML.
  */
 function getFormSubtaskTemplate(subtask) {
-  return `<li data-form-subtask-id="${escapeTaskHtml(subtask.id)}"><span class="task-subtask-title">${escapeTaskHtml(subtask.title)}</span><div class="task-subtask-actions"><button class="icon-button" type="button" data-edit-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask bearbeiten"><img src="./assets/icons/edit.png" alt="" /></button><span class="task-inline-divider" aria-hidden="true"></span><button class="icon-button" type="button" data-delete-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask löschen"><img src="./assets/icons/delete.png" alt="" /></button></div></li>`;
+  return `<li data-form-subtask-id="${escapeTaskHtml(subtask.id)}"><span class="task-subtask-title">${escapeTaskHtml(subtask.title)}</span><div class="task-subtask-actions"><button class="icon-button" type="button" data-edit-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask bearbeiten"><img src="./assets/icons/edit.svg" alt="" /></button><span class="task-inline-divider" aria-hidden="true"></span><button class="icon-button" type="button" data-delete-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask löschen"><img src="./assets/icons/delete.svg" alt="" /></button></div></li>`;
 }

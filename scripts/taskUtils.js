@@ -271,9 +271,9 @@ function getPriorityLabel(priority) {
  * @returns {string} DE: Iconpfad. EN: Icon path.
  */
 function getPriorityIcon(priority) {
-  if (priority === "urgent") return "./assets/icons/Prio-high.png";
-  if (priority === "low") return "./assets/icons/Prio-low.png";
-  return "./assets/icons/Prio-med.png";
+  if (priority === "urgent") return "./assets/icons/Prio-high.svg";
+  if (priority === "low") return "./assets/icons/Prio-low.svg";
+  return "./assets/icons/Prio-med.svg";
 }
 
 

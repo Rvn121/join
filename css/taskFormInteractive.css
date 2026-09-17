@@ -74,6 +74,7 @@
   width: 20px;
   height: 20px;
   flex: 0 0 20px;
+  padding: 0;
   border: 2px solid var(--join-dark);
   border-radius: 4px;
   appearance: none;
@@ -83,7 +84,7 @@
 
 .task-contact-option input:checked {
   background-color: var(--card-background);
-  background-image: url("../assets/icons/check-dark.png");
+  background-image: url("../assets/icons/check-dark.svg");
   background-repeat: no-repeat;
   background-position: center;
   background-size: 13px;
