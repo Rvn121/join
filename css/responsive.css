@@ -4,9 +4,12 @@
     min-width: 190px;
   }
 
-  .sidebar-link,
-  .sidebar-footer-link {
+  .sidebar-link {
     padding-inline: 30px;
+  }
+
+  .sidebar-footer {
+    padding-left: 22px;
   }
 
   .app-header-content {
@@ -48,7 +51,7 @@
   }
 
   .sidebar-logo-link {
-    min-height: 160px;
+    padding: 40px 0 60px;
   }
 
   .sidebar-logo {
@@ -56,13 +59,12 @@
   }
 
   .sidebar-link {
-    min-height: 46px;
     padding-inline: 22px;
     font-size: var(--fs-small);
   }
 
-  .sidebar-footer-link {
-    padding-inline: 22px;
+  .sidebar-footer {
+    padding-left: 14px;
   }
 
   .app-header,
@@ -166,12 +168,13 @@
   }
 
   .sidebar-logo-link {
-    min-height: 100px;
+    padding: 24px 0 16px;
   }
 
   .sidebar-nav {
     flex-direction: row;
     flex-wrap: wrap;
+    gap: 0;
   }
 
   .sidebar-link {
@@ -181,7 +184,8 @@
 
   .sidebar-footer {
     flex-direction: row;
-    padding-bottom: 0;
+    gap: 0;
+    padding: 0;
   }
 
   .sidebar-footer-link {
