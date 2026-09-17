@@ -83,7 +83,7 @@
 
   .task-form-dialog--edit .task-dialog-shell {
     width: calc(100vw - 24px);
-    padding: 54px 22px 26px;
+    padding: 80px 22px 26px;
   }
 
   .task-form-footer {
@@ -99,12 +99,6 @@
 }
 
 @media (max-width: 620px) {
-  .add-task-content,
-  .board-content,
-  .summary-app-content {
-    padding-top: 36px;
-  }
-
   .add-task-page > h1,
   .summary-heading-row {
     margin-bottom: 28px;

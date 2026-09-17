@@ -149,7 +149,7 @@
   min-height: 96px;
   align-items: center;
   justify-content: space-between;
-  padding: 0 54px;
+  padding: 0 40px 0 96px;
 }
 
 .app-title {
@@ -256,5 +256,5 @@
   width: 100%;
   max-width: var(--content-width);
   min-height: calc(100vh - 96px);
-  padding: 72px 72px 96px;
+  padding: 116px 96px 96px;
 }

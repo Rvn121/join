@@ -177,7 +177,7 @@
   min-width: 0;
   flex: 1;
   overflow: hidden;
-  padding: 74px 56px;
+  padding: 116px 96px 96px 80px;
   background: var(--page-background);
 }
 
@@ -280,7 +280,7 @@
 
 @media (max-width: 1000px) {
   .contacts-detail-stage {
-    padding: 54px 36px;
+    padding: 52px 40px 72px;
   }
 }
 

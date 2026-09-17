@@ -1,13 +1,5 @@
-.summary-app-content {
-  padding-top: 64px;
-}
-
-.summary-content {
-  width: min(100%, 1080px);
-}
-
 .summary-heading-row {
-  margin-bottom: 42px;
+  margin-bottom: 56px;
 }
 
 .summary-layout {
