@@ -199,6 +199,10 @@
     gap: 12px;
   }
 
+  .content-heading-row p {
+    font-size: var(--fs-lg);
+  }
+
   .content-heading-divider {
     width: 90px;
     height: 3px;
