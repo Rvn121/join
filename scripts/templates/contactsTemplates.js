@@ -23,8 +23,7 @@ function escapeContactHtml(value = "") {
  */
 function getContactDialogAvatarTemplate(contact) {
   return `
-    <span class="contact-avatar contact-avatar--dialog"
-      style="--contact-color:${escapeContactHtml(contact.color)}">
+    <span class="contact-avatar contact-avatar--dialog ${getAvatarColorClass(contact.color)}">
       ${escapeContactHtml(contact.initials)}
     </span>`;
 }
@@ -47,8 +46,7 @@ function getContactListItemTemplate(contact, selectedId) {
   return `
     <button class="contact-list-item${selectedClass}" type="button"
       data-contact-id="${escapeContactHtml(contact.id)}"${current}>
-      <span class="contact-avatar contact-avatar--small"
-        style="--contact-color:${escapeContactHtml(contact.color)}">
+      <span class="contact-avatar contact-avatar--small ${getAvatarColorClass(contact.color)}">
         ${escapeContactHtml(contact.initials)}
       </span>
       <span class="contact-list-copy">
@@ -123,8 +121,8 @@ function getContactActionsTemplate(canManage) {
   if (!canManage) return "";
   return `
     <div class="contact-detail-actions">
-      ${getContactActionTemplate("edit", "Edit", "edit.png", "edit-hover.png")}
-      ${getContactActionTemplate("delete", "Delete", "delete.png", "delete-hover.png")}
+      ${getContactActionTemplate("edit", "Edit", "edit.svg", "edit_hover.svg")}
+      ${getContactActionTemplate("delete", "Delete", "delete.svg", "delete_hover.svg")}
     </div>`;
 }
 
@@ -157,8 +155,7 @@ function getContactDetailTemplate(contact, canManage) {
   return `
     <article class="contact-detail-card">
       <div class="contact-detail-head">
-        <span class="contact-avatar contact-avatar--large"
-          style="--contact-color:${escapeContactHtml(contact.color)}">
+        <span class="contact-avatar contact-avatar--large ${getAvatarColorClass(contact.color)}">
           ${escapeContactHtml(contact.initials)}
         </span>
         <div class="contact-detail-title">

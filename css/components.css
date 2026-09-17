@@ -1,118 +1,181 @@
-@import url("colors.css");
-
-.component-section {
-  margin-bottom: 48px;
-}
-
-.component-row {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-
-/* Button-Styles kommen aus buttons.css (.btn / .btn--primary / .btn--secondary) */
-
-/* Input */
-.component-input {
-  position: relative;
-  width: 420px;
-  max-width: 100%;
-  margin-bottom: 22px;
-}
-
-.component-input input {
+.component-input input,
+.task-field input,
+.task-field textarea,
+.task-field select,
+.task-dropdown-input-wrap,
+.board-search {
   width: 100%;
-  height: 48px;
-  padding: 0 50px 0 20px;
-  border: 1px solid var(--join-border);
+  border: 1px solid var(--join-text-secondary);
   border-radius: 10px;
   outline: none;
-  background: #ffffff;
+  background: var(--card-background);
   color: var(--join-text);
-  transition: border-color 160ms ease;
+  font-size: var(--fs-lg);
+  transition: border-color var(--click-transition), box-shadow var(--click-transition);
 }
 
-.component-input input::placeholder {
-  color: var(--join-muted);
+.component-input input,
+.task-field input,
+.task-field select,
+.board-search {
+  height: 48px;
 }
 
-.component-input input:focus {
+.component-input input::placeholder,
+.task-field input::placeholder,
+.task-field textarea::placeholder,
+.task-dropdown-input-wrap input::placeholder,
+.board-search input::placeholder {
+  color: var(--join-text-secondary);
+}
+
+.component-input input:focus,
+.task-field input:focus,
+.task-field textarea:focus,
+.task-field select:focus,
+.task-dropdown-input-wrap:focus-within,
+.board-search:focus-within {
   border-color: var(--join-border-hover);
 }
 
-.component-input input.input-error {
-  border-color: var(--priority-urgent);
+.component-input input.input-error,
+.task-input-error {
+  border-color: var(--join-error);
+}
+
+.component-input .field-error,
+.contact-form-message,
+.task-field-error {
+  color: var(--join-error);
+}
+
+.component-input {
+  position: relative;
+  width: 422px;
+  max-width: 100%;
+  margin-bottom: 24px;
+}
+
+.component-input input {
+  padding: 0 53px 0 21px;
 }
 
 .component-input .field-error {
-  color: var(--priority-urgent);
+  display: block;
+  margin-top: 8px;
+  font-size: var(--fs-error);
+  line-height: 14px;
+}
+
+.component-input .field-error:empty {
+  display: none;
 }
 
 .component-input > img {
   position: absolute;
   top: 24px;
-  right: 18px;
-  width: 20px;
-  height: 17px;
+  right: 21px;
+  width: 24px;
+  height: 24px;
+  object-fit: scale-down;
   transform: translateY(-50%);
   pointer-events: none;
 }
 
-/* Avatar */
-.component-avatar {
+.contact-avatar,
+.task-avatar {
   display: inline-flex;
-  width: 42px;
-  height: 42px;
+  flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  border: 2px solid #ffffff;
+  border: 2px solid var(--card-background);
   border-radius: 50%;
-  color: #ffffff;
-  font-size: var(--fs-small);
-  font-weight: var(--fw-bold);
+  background: var(--avatar-color, var(--join-blue));
+  color: var(--card-background);
 }
 
-/* Badge */
-.component-badge {
+/* Avatar color modifiers – set --avatar-color, consumed by .contact-avatar and .task-avatar */
+.avatar--orange { --avatar-color: var(--avatar-orange); }
+.avatar--pink { --avatar-color: var(--avatar-pink); }
+.avatar--indigo { --avatar-color: var(--avatar-indigo); }
+.avatar--purple { --avatar-color: var(--avatar-purple); }
+.avatar--cyan { --avatar-color: var(--avatar-cyan); }
+.avatar--teal { --avatar-color: var(--avatar-teal); }
+.avatar--coral { --avatar-color: var(--avatar-coral); }
+.avatar--apricot { --avatar-color: var(--avatar-apricot); }
+.avatar--magenta { --avatar-color: var(--avatar-magenta); }
+.avatar--gold { --avatar-color: var(--avatar-gold); }
+.avatar--royal { --avatar-color: var(--avatar-royal); }
+.avatar--lime { --avatar-color: var(--avatar-lime); }
+
+/* Icon button – round, transparent, shared hover circle.
+   Also drives the hover circle of a native <select> via .select-wrap::after */
+.icon-button,
+.select-wrap::after {
   display: inline-flex;
+  width: 36px;
+  height: 36px;
   align-items: center;
-  padding: 4px 16px;
-  border-radius: 8px;
-  color: #ffffff;
-  font-size: var(--fs-body);
-  font-weight: var(--fw-bold);
+  justify-content: center;
+  padding: 0;
+  border: unset;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--join-dark);
+  font-size: 22px;
+  text-decoration: none;
+  transition: background var(--click-transition);
 }
 
-.component-badge--urgent {
-  background: var(--priority-urgent);
+.icon-button:hover,
+.icon-button:focus-visible,
+.select-wrap:hover::after {
+  background: var(--join-dark-soft);
 }
 
-.component-badge--medium {
-  background: var(--priority-medium);
+.icon-button img {
+  width: 16px;
+  height: 16px;
 }
 
-.component-badge--low {
-  background: var(--priority-low);
+.select-wrap {
+  position: relative;
 }
 
-.component-badge--user-story {
-  background: var(--category-user-story);
+.select-wrap::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  pointer-events: none;
 }
 
-.component-badge--technical-task {
-  background: var(--category-technical-task);
+/* Overlays – shared slide-in for every dialog, page stays put while one is open */
+@keyframes overlay-slide-in {
+  from {
+    transform: translateX(100vw);
+  }
+}
+
+.task-form-dialog[open] .task-dialog-shell,
+.task-detail-dialog[open] .task-detail-shell {
+  animation: overlay-slide-in 220ms ease-out;
+}
+
+body:has(dialog[open]:not(.login-dialog):not(.signup-dialog)) {
+  overflow: hidden;
 }
 
 /* Toast */
 .component-toast {
   display: inline-flex;
-  min-height: 66px;
+  min-height: 74px;
   align-items: center;
   padding: 0 32px;
   border-radius: 20px;
   background: var(--join-dark);
-  color: #ffffff;
+  color: var(--join-white);
   font-size: var(--fs-lg);
 }
 

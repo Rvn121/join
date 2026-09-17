@@ -128,10 +128,10 @@ function addProfileMenuLinks() {
  */
 function getSidebarIconPath(link) {
   const href = link.getAttribute("href");
-  if (href === "./summary.html") return "./assets/icons/summary.png";
-  if (href === "./addTask.html") return "./assets/icons/edit_square.png";
-  if (href === "./board.html") return "./assets/icons/board.png";
-  if (href === "./contacts.html") return "./assets/icons/contact.png";
+  if (href === "./summary.html") return "./assets/icons/summary.svg";
+  if (href === "./addTask.html") return "./assets/icons/edit_square.svg";
+  if (href === "./board.html") return "./assets/icons/board.svg";
+  if (href === "./contacts.html") return "./assets/icons/contact.svg";
   return "";
 }
 
@@ -164,7 +164,7 @@ function addLoginLinkIcons() {
     if (loginLinks[i].querySelector("img")) continue;
     const icon = document.createElement("img");
     icon.className = "sidebar-link-icon";
-    icon.src = "./assets/icons/login.png";
+    icon.src = "./assets/icons/login.svg";
     icon.alt = "";
     icon.setAttribute("aria-hidden", "true");
     loginLinks[i].insertBefore(icon, loginLinks[i].firstChild);

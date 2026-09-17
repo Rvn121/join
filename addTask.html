@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join - Add Task</title>
-    <link rel="icon" type="image/png" href="./assets/icons/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg" />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body class="app-body" data-page="addTask" data-protected-page="true">
     <div class="app-frame">
       <aside class="app-sidebar">
         <a class="sidebar-logo-link" href="./summary.html" aria-label="Zur Summary">
-          <img class="sidebar-logo" src="./assets/img/join_logo_white.png" alt="Join" />
+          <img class="sidebar-logo" src="./assets/img/join_logo_white.svg" alt="Join" />
         </a>
 
         <nav class="sidebar-nav app-navigation" aria-label="Hauptnavigation">
@@ -50,13 +50,13 @@
         </header>
 
         <main class="app-main">
-          <div class="app-content add-task-content">
+          <div class="app-content">
             <section class="add-task-page">
               <h1>Add Task</h1>
               <form class="task-form task-form--page" id="taskForm" novalidate data-default-status="todo">
                 <div class="task-form-columns">
                   <div class="task-form-column">
-                    <label class="task-field" for="taskTitle">
+                    <label class="task-field task-field--title" for="taskTitle">
                       <span>Title<span class="task-required">*</span></span>
                       <input id="taskTitle" name="title" type="text" placeholder="Enter a title" maxlength="80" />
                       <small class="task-field-error" data-error-for="taskTitle"></small>
@@ -65,6 +65,7 @@
                     <label class="task-field" for="taskDescription">
                       <span>Description</span>
                       <textarea id="taskDescription" name="description" placeholder="Enter a Description" maxlength="1000"></textarea>
+                      <small class="task-field-error" data-error-for="taskDescription"></small>
                     </label>
 
                     <label class="task-field" for="taskDueDate">
@@ -89,17 +90,17 @@
                         <label class="task-priority task-priority--urgent">
                           <input type="radio" name="priority" value="urgent" />
                           <span>Urgent</span>
-                          <img src="./assets/icons/Prio-high.png" alt="" aria-hidden="true" />
+                          <img src="./assets/icons/prio-high.svg" alt="" aria-hidden="true" />
                         </label>
                         <label class="task-priority task-priority--medium">
                           <input type="radio" name="priority" value="medium" checked />
                           <span>Medium</span>
-                          <img src="./assets/icons/Prio-med.png" alt="" aria-hidden="true" />
+                          <img src="./assets/icons/prio-medium.svg" alt="" aria-hidden="true" />
                         </label>
                         <label class="task-priority task-priority--low">
                           <input type="radio" name="priority" value="low" />
                           <span>Low</span>
-                          <img src="./assets/icons/Prio-low.png" alt="" aria-hidden="true" />
+                          <img src="./assets/icons/prio-low.svg" alt="" aria-hidden="true" />
                         </label>
                       </div>
                     </fieldset>
@@ -109,8 +110,8 @@
                       <div class="task-dropdown" id="taskAssignedDropdown">
                         <div class="task-dropdown-input-wrap">
                           <input id="taskAssignedSearch" type="text" placeholder="Select contacts to assign" autocomplete="off" />
-                          <button class="task-dropdown-toggle" id="taskAssignedToggle" type="button" aria-label="Assigned-to-Liste öffnen oder schließen" aria-expanded="false">
-                        <img src="./assets/icons/arrow_drop_down.png" alt="" aria-hidden="true" />
+                          <button class="icon-button task-dropdown-toggle" id="taskAssignedToggle" type="button" aria-label="Assigned-to-Liste öffnen oder schließen" aria-expanded="false">
+                        <img src="./assets/icons/arrow_drop_down.svg" alt="" aria-hidden="true" />
                       </button>
                         </div>
                         <div class="task-contact-dropdown" id="taskContactDropdown" hidden></div>

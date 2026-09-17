@@ -1,14 +1,6 @@
+/* Layout and typography tokens – all color tokens live in colors.css */
 :root {
-  --join-blue: #29abe2;
-  --join-dark: #2a3647;
-  --join-dark-active: #091931;
-  --join-dark-hover: #35475d;
-  --join-text: #000000;
-  --join-muted: #a8a8a8;
-  --page-background: #f6f7f8;
-  --card-background: #ffffff;
   --content-width: 1440px;
-  --page-width: 1920px;
   --click-transition: 100ms ease;
   --floating-duration: 350ms;
   --floating-easing: ease-in-out;
@@ -19,6 +11,13 @@
   --fs-lead: 27px;
   --fs-lg: 20px;
   --fs-button: 21px;
+  --fs-h1: 61px;
+  --fs-display: 64px;
+  --fs-h1-mobile: 47px;
+  --fs-badge-lg: 23px;
+  --fs-error: 12px;
+  --fw-medium: 500;
+  --fw-semibold: 600;
   --fw-bold: 700;
 }
 

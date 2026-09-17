@@ -1,41 +1,73 @@
-/* Erweiterte Farbtoken (ergaenzen die Basisfarben aus standard.css) */
+/* Color palette from Figma – the single source for all color tokens */
 :root {
+  /* Brand & base */
+  --join-blue: #29abe2;
+  --join-dark: #2a3647;
+  --join-dark-hover: #35475d;
+  --join-dark-active: #091931;
+  --join-dark-soft: rgba(42, 54, 71, 0.08);
+  --join-accent: #124658;
+  --join-text: #000000;
+  --join-text-secondary: #686868;
+  --join-white: #ffffff;
+  --join-muted-light: #cdcdcd;
+  --join-nav-text: #e7e7e7;
+
+  --join-error: #e60026;
+  --join-error-soft: #ff8190;
+
+  /* Surfaces */
+  --page-background: #f6f7f8;
+  --card-background: #ffffff;
+  --join-surface-muted: #e7e7e7;
+  --join-surface-hover: #eeeeee;
+
+  /* Borders */
   --join-border: #d1d1d1;
-  --join-border-hover: #124658;
+  --join-border-hover: var(--join-accent);
+
+  /* Shadows */
+  --shadow-soft: rgba(0, 0, 0, 0.08);
+  --shadow-card: rgba(0, 0, 0, 0.1);
+  --shadow-dialog: rgba(0, 0, 0, 0.14);
+  --shadow-medium: rgba(0, 0, 0, 0.18);
+  --shadow-button: rgba(0, 0, 0, 0.25);
+  --shadow-header: rgba(0, 0, 0, 0.1);
+  --shadow-strong: rgba(0, 0, 0, 0.4);
+
+  /* App shell (sidebar, header, profile menu) */
+  --sidebar-link-hover: #2a3d59;
+  --profile-hover-soft: rgba(12, 46, 98, 0.12);
 
   /* Contacts */
-  --contact-list-hover:linear-gradient(
-    180deg,
-    #F9F9F9 0%,
-    #F0F0F0 100%
-  );
+  --contact-list-hover: linear-gradient(180deg, #f9f9f9 0%, #f0f0f0 100%);
   --contact-link: #007cee;
   --contact-overlay: rgba(0, 0, 0, 0.22);
-  --contact-shadow-soft: rgba(0, 0, 0, 0.08);
-  --contact-shadow-button: rgba(0, 0, 0, 0.25);
-  --contact-shadow-dialog: rgba(0, 0, 0, 0.14);
-  --contact-dark-hover-soft: rgba(42, 54, 71, 0.08);
+  --contact-shadow-soft: var(--shadow-soft);
+  --contact-shadow-dialog: var(--shadow-dialog);
 
-  /* Prioritaet */
-  --priority-urgent: #E60026;
+  /* Priority */
+  --priority-urgent: #ff3d00;
   --priority-medium: #ffa800;
   --priority-low: #7ae229;
 
-  /* Kategorie-Badges */
+  /* Category badges */
   --category-user-story: #0038ff;
   --category-technical-task: #1fd7c1;
 
-  /* Taskmanagement */
-  --task-urgent: #ff3d00;
-  --task-medium: #ffa800;
-  --task-low: #7ae229;
-  --task-card-shadow: rgba(0, 0, 0, 0.08);
+  /* Task management */
+  --task-urgent: var(--priority-urgent);
+  --task-medium: var(--priority-medium);
+  --task-low: var(--priority-low);
+  --task-card-shadow: var(--shadow-soft);
   --task-overlay: rgba(0, 0, 0, 0.28);
   --task-drop-zone: rgba(41, 171, 226, 0.12);
   --task-soft-background: #f4f4f4;
-  --task-form-text: #2a3647;
+  --board-column-title: #42526e;
+  --progress-fill: #4589ff;
+  --task-form-text: var(--join-dark);
 
-  /* Kontakt-Avatare */
+  /* Contact avatars */
   --avatar-orange: #ff7a00;
   --avatar-pink: #ff5eb3;
   --avatar-indigo: #6e52ff;

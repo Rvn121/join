@@ -30,8 +30,8 @@
 
 .contact-dialog-brand {
   position: relative;
-  width: 454px;
-  flex: 0 0 454px;
+  width: 467px;
+  flex: 0 0 467px;
   background: var(--join-dark);
   color: var(--card-background);
 }
@@ -39,25 +39,25 @@
 .contact-dialog-brand > img {
   position: absolute;
   top: 154px;
-  left: 46.9px;
-  width: 55.6px;
-  height: 66.48px;
+  left: 47px;
+  width: 56px;
+  height: 66px;
   object-fit: contain;
 }
 
 .contact-dialog-brand h2 {
   position: absolute;
-  top: 236px;
-  left: 46.9px;
-  width: 366px;
-  font-size: 61px;
+  top: 232px;
+  left: 48px;
+  width: 371px;
+  font-size: var(--fs-h1);
   line-height: 1.2;
 }
 
 .contact-dialog-brand p {
   position: absolute;
-  top: 318px;
-  left: 46.9px;
+  top: 314px;
+  left: 48px;
   margin: 0;
   font-size: var(--fs-lead);
   line-height: 1.2;
@@ -66,9 +66,9 @@
 
 .contact-dialog-line {
   position: absolute;
-  top: 360px;
-  left: 46.9px;
-  width: 84px;
+  top: 361px;
+  left: 48px;
+  width: 90px;
   height: 3px;
   background: var(--join-blue);
 }
@@ -84,32 +84,21 @@
   z-index: 2;
   top: 48px;
   right: 48px;
-  display: inline-flex;
-  width: 36px;
-  height: 36px;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  border: unset;
-  border-radius: 50%;
-  background: transparent;
-  transition: background var(--click-transition);
-}
-
-.contact-dialog-close:hover,
-.contact-dialog-close:focus-visible {
-  background: var(--contact-dark-hover-soft);
+  width: 32px;
+  height: 32px;
 }
 
 .contact-dialog-close img {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
+  padding: 5px;
+  object-fit: contain;
 }
 
 .contact-dialog-avatar {
   position: absolute;
   top: 204px;
-  left: 96px;
+  left: 83px;
   display: flex;
   width: 120px;
   height: 120px;
@@ -127,18 +116,23 @@
   height: 120px;
   border: 3px solid var(--card-background);
   border-radius: 70px;
-  font-size: 42px;
+  box-shadow: 0 0 4px var(--shadow-strong);
+  font-size: var(--fs-h1-mobile);
+  font-weight: var(--fw-medium);
 }
 
 .contact-form {
   position: absolute;
   top: 137px;
-  left: 288px;
+  left: 275px;
   width: 422px;
 }
 
+.contact-form .component-input input {
+  height: 50px;
+}
+
 .contact-form .component-input {
-  width: 422px;
   margin-bottom: 32px;
 }
 
@@ -153,41 +147,13 @@
 
 .contact-form-message {
   margin-top: 12px;
-  color: var(--priority-urgent);
   font-size: var(--fs-small);
 }
 
 .contact-form-actions {
   display: flex;
   gap: 24px;
-  margin-top: 44px;
-}
-
-.contact-form-actions .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  border-radius: 10px;
-  white-space: nowrap;
-}
-
-#contactCancelButton {
-  width: 126px;
-  min-width: 126px;
-  height: 56px;
-}
-
-#contactSubmitButton {
-  width: 214px;
-  min-width: 214px;
-  height: 57px;
-}
-
-.contact-form-actions .btn img {
-  width: 18px;
-  height: 18px;
-  object-fit: contain;
+  margin-top: 48px;
 }
 
 .contacts-toast {
@@ -209,7 +175,6 @@
   display: block;
   min-height: 16px;
   margin-top: 4px;
-  color: var(--priority-urgent);
   font-size: var(--fs-label);
 }
 
@@ -284,22 +249,23 @@
 
 @media (max-width: 700px) {
   .contact-dialog-card {
-    width: calc(100vw - 24px);
+    width: min(396px, calc(100vw - 32px));
     height: auto;
-    max-height: calc(100vh - 24px);
+    max-height: calc(100vh - 32px);
     flex-direction: column;
     overflow-y: auto;
+    box-shadow: 0 0 4px var(--shadow-strong);
   }
 
   .contact-dialog-brand {
     position: static;
     display: flex;
     width: 100%;
-    min-height: 190px;
-    flex-basis: auto;
+    min-height: 352px;
+    flex: 0 0 auto;
     flex-direction: column;
     justify-content: center;
-    padding: 28px;
+    padding: 66px 24px;
   }
 
   .contact-dialog-brand > img {
@@ -314,25 +280,42 @@
   }
 
   .contact-dialog-brand h2 {
-    font-size: 32px;
+    font-size: var(--fs-h1-mobile);
   }
 
   .contact-dialog-brand p {
     margin-top: 8px;
+    font-size: var(--fs-lg);
+    white-space: normal;
   }
 
   .contact-dialog-line {
-    margin-top: 18px;
+    width: 90px;
+    margin-top: 16px;
   }
 
   .contact-dialog-form-area {
-    display: block;
-    padding: 64px 24px 28px;
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding: 0 16px 32px;
+  }
+
+  .contact-dialog-avatar {
+    position: static;
+    display: flex;
+    margin-top: -60px;
   }
 
   .contact-dialog-close {
-    top: 18px;
-    right: 20px;
+    top: 24px;
+    right: 24px;
+  }
+
+  .contact-dialog-close img {
+    filter: brightness(0) invert(1);
   }
 
   .contact-form {
@@ -342,27 +325,34 @@
 
   .contact-form .component-input {
     width: 100%;
-    margin-bottom: 22px;
+    margin-bottom: 15px;
+  }
+
+  .contact-form .component-input input {
+    height: 41px;
+  }
+
+  .contact-form .component-input:nth-of-type(3) {
+    margin-bottom: 0;
   }
 
   .contact-form-actions {
-    flex-wrap: wrap;
-    gap: 14px;
-    margin-top: 24px;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 32px;
   }
 
-  #contactCancelButton,
-  #contactSubmitButton {
-    width: auto;
-    min-width: 0;
-    height: 48px;
+  .contact-form-actions .btn--form {
+    min-height: 51px;
+    padding: 0 10px;
+    font-size: var(--fs-button);
   }
 
   .contacts-toast {
     bottom: auto;
     left: 50%;
+    min-width: 0;
     width: calc(100vw - 32px);
-    justify-content: center;
   }
 }
 

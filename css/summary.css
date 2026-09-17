@@ -8,33 +8,34 @@
 }
 
 .summary-heading-row {
-  margin-bottom: 42px;
+  margin-bottom: 56px;
 }
 
 .summary-layout {
   display: flex;
   align-items: center;
-  gap: 66px;
+  gap: 80px;
 }
 
 .summary-grid {
-  display: grid;
-  width: 470px;
-  grid-template-columns: repeat(6, 1fr);
-  gap: 20px;
+  display: flex;
+  width: 560px;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 28px;
 }
 
 .summary-card {
   display: flex;
-  min-height: 140px;
+  height: 168px;
   align-items: center;
   justify-content: center;
-  border-radius: 22px;
+  border-radius: 30px;
   background: var(--card-background);
-  box-shadow: 0 3px 8px var(--task-card-shadow);
+  box-shadow: 0 0 4px var(--shadow-strong);
   color: var(--join-text);
   text-decoration: none;
-  transition: transform var(--click-transition), background var(--click-transition), color var(--click-transition);
+  transition: background var(--click-transition), color var(--click-transition);
 }
 
 .summary-card:hover,
@@ -42,30 +43,31 @@
   background: var(--join-dark);
   color: var(--card-background);
   outline: none;
-  transform: scale(1.02);
 }
 
 .summary-card--half {
-  grid-column: span 3;
-  flex-direction: row;
+  width: 264px;
   gap: 18px;
 }
 
-.summary-count-group {
+.summary-count-group,
+.summary-urgent-count,
+.summary-deadline {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .summary-card--urgent {
-  grid-column: span 6;
-  min-height: 142px;
-  gap: 22px;
+  width: 100%;
+  gap: 61px;
+  padding: 28px 48px;
 }
 
 .summary-card--third {
-  grid-column: span 2;
+  width: 168px;
   flex-direction: column;
+  padding: 25px 0;
   text-align: center;
 }
 
@@ -84,6 +86,7 @@
   width: 69px;
   height: 69px;
   object-fit: contain;
+  transition: opacity var(--click-transition);
 }
 
 .summary-icon-hover {
@@ -100,67 +103,88 @@
   opacity: 1;
 }
 
+.summary-urgent-group {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
 .summary-icon--urgent {
-  width: 58px;
-  height: 58px;
-  flex-basis: 58px;
-  margin: 0;
+  width: 60px;
+  height: 60px;
+  flex-basis: 60px;
   border-radius: 50%;
   background: var(--task-urgent);
 }
 
 .summary-icon--urgent img {
-  width: 22px;
-  height: 16px;
+  width: 34px;
+  height: 25px;
   object-fit: contain;
   filter: brightness(0) invert(1);
 }
 
 .summary-number,
 .summary-urgent-count strong {
-  font-size: 47px;
-  line-height: 1;
-  font-weight: 400;
+  font-size: var(--fs-display);
+  line-height: 1.2;
+  font-weight: var(--fw-semibold);
 }
 
-.summary-label,
+.summary-label {
+  color: var(--join-dark);
+  font-size: var(--fs-lg);
+  line-height: 1.2;
+}
+
 .summary-urgent-count small,
 .summary-deadline small {
-  margin-top: 4px;
-  font-size: var(--fs-small);
+  color: var(--join-dark);
+  font-size: var(--fs-body);
+  line-height: 1.2;
 }
 
-.summary-urgent-count,
-.summary-deadline {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.summary-card:hover .summary-label,
+.summary-card:hover small,
+.summary-card:hover .summary-deadline strong,
+.summary-card:focus-visible .summary-label,
+.summary-card:focus-visible small,
+.summary-card:focus-visible .summary-deadline strong {
+  color: inherit;
 }
 
 .summary-urgent-divider {
-  width: 1px;
-  height: 68px;
+  width: 2px;
+  height: 102px;
   background: var(--join-border);
 }
 
+.summary-deadline {
+  gap: 13px;
+}
+
 .summary-deadline strong {
-  font-size: var(--fs-body);
+  color: var(--join-dark);
+  font-size: var(--fs-button);
+  line-height: 1.2;
 }
 
 .summary-greeting {
   display: flex;
-  min-width: 250px;
   flex-direction: column;
+  gap: 3px;
   color: var(--join-dark);
+  line-height: 1.2;
 }
 
 .summary-greeting span {
-  font-size: 34px;
+  font-size: var(--fs-h1-mobile);
+  font-weight: var(--fw-medium);
 }
 
 .summary-greeting strong {
-  color: var(--join-border-hover);
-  font-size: 44px;
+  color: var(--join-accent);
+  font-size: var(--fs-display);
 }
 
 /* DE: Design-Anpassungen für die Summary. EN: Design adjustments for the summary. */

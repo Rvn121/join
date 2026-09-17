@@ -46,7 +46,7 @@ join/
 - Nur `style.css` importiert andere Dateien, und zwar in der Reihenfolge base → layout → components → pages. Die übrigen CSS-Dateien enthalten keine `@import`-Anweisungen.
 - Jede Datei hat genau eine Zuständigkeit. Seiten-Layout gehört nicht in `pages/`, und es gibt nicht zwei Systeme für dieselbe Komponente.
 - Media Queries stehen direkt bei der Komponente oder Seite, die sie betreffen – nicht in einer gesammelten Responsive-Datei.
-- Alle `:root`-Variablen liegen in `base/tokens.css`. Im restlichen CSS nutzen wir die Tokens statt fester Werte. Feste Tokens: `--click-transition: 100ms ease`, `--content-width: 1440px`, `--page-width: 1920px`.
+- Alle `:root`-Variablen liegen in `base/tokens.css`. Im restlichen CSS nutzen wir die Tokens statt fester Werte. Feste Tokens: `--click-transition: 100ms ease`, `--content-width: 1440px`. Ab 1440 px bleibt der Inhalt links an derselben Position (kein zentrierender Page-Wrapper), Sidebar und Header wachsen mit.
 
 ### Typografie
 
@@ -61,13 +61,20 @@ Die Schrift-Hierarchie liegt in `base/typography.css` und ist aus dem Figma-Desi
 | `small`     | 14px / 400 | 14px / 400 | Hinweise, Meta-Angaben                       |
 | `label`     | 13px / 400 | 13px / 400 | Formular-Labels                              |
 
-Dazu kommen drei Größen, die keinem Element zugeordnet sind und nur als Token in `tokens.css` liegen:
+Dazu kommen Größen, die keinem Element zugeordnet sind und nur als Token in `tokens.css` liegen:
 
-| Token         | Wert       | Verwendung                                     |
-|---------------|------------|------------------------------------------------|
-| `--fs-lead`   | 27px / 400 | Sublines wie "Better with a team"              |
-| `--fs-lg`     | 20px / 400 | Inputs, Dropdown-Einträge, größerer Fließtext  |
-| `--fs-button` | 21px / 700 | Button-Beschriftungen                          |
+| Token            | Wert       | Verwendung                                                  |
+|------------------|------------|-------------------------------------------------------------|
+| `--fs-h1`        | 61px / 700 | `h1`, Task-Titel im Detail-Overlay, Overlay-Titel            |
+| `--fs-lead`      | 27px / 400 | Sublines wie "Better with a team"                           |
+| `--fs-lg`        | 20px / 400 | Inputs, Dropdown-Einträge, Formular-Labels, Zwischentitel   |
+| `--fs-button`    | 21px / 700 | Button-Beschriftungen                                       |
+| `--fs-display`   | 64px / 600 | Summary-Zahlen (Desktop), Name in der Begrüßung (700)       |
+| `--fs-h1-mobile` | 47px       | `h1` ab 620px, Begrüßungszeile (500), Summary-Zahlen Mobile |
+| `--fs-badge-lg`  | 23px / 400 | Kategorie-Badge im Task-Detail-Overlay                      |
+| `--fs-error`     | 12px / 400 | Fehlertext unter Formularfeldern                            |
+
+Schriftgewichte liegen ebenfalls als Token vor: `--fw-medium` (500), `--fw-semibold` (600), `--fw-bold` (700).
 
 - Überschriften werden semantisch gesetzt (`h1` für den Seitentitel, `h2` für Abschnitte, `h3` für Cards) und nicht pro Seite oder Komponente neu gestylt. Kontext-Selektoren wie `.legal-content h2 { font-size: … }` gibt es nicht mehr.
 - Braucht eine Komponente eine der drei Zusatzgrößen, nutzt sie den Token. Feste `font-size`-Werte im Komponenten-CSS nur, wenn es keinen passenden Token gibt – das sollte die Ausnahme sein.

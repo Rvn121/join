@@ -35,9 +35,9 @@ function findTaskContact(contacts, reference) {
  */
 function getTaskAvatarTemplate(contact) {
   const initials = escapeTaskHtml(contact.initials || "?");
-  const color = contact.color || "var(--join-blue)";
+  const colorClass = getAvatarColorClass(contact.color);
   const name = escapeTaskHtml(contact.name || "Contact");
-  return `<span class="task-avatar" style="--task-avatar-color:${color}" title="${name}">${initials}</span>`;
+  return `<span class="task-avatar ${colorClass}" title="${name}">${initials}</span>`;
 }
 
 
@@ -81,7 +81,8 @@ function getTaskProgressTemplate(task) {
   const done = countDoneSubtasks(task.subtasks);
   const progress = getSubtaskProgress(task.subtasks);
   const label = done + "/" + task.subtasks.length + " Subtasks";
-  return `<div class="task-card-progress" title="${label}"><span><i style="width:${progress}%"></i></span><small>${label}</small></div>`;
+  const detail = done + " of " + task.subtasks.length + " subtasks done";
+  return `<div class="task-card-progress" data-progress-label="${detail}" tabindex="0"><span><i style="width:${progress}%"></i></span><small>${label}</small></div>`;
 }
 
 
@@ -191,7 +192,7 @@ function getTaskDetailTemplate(task, contacts) {
   const priority = getPriorityLabel(task.priority);
   const priorityIcon = getPriorityIcon(task.priority);
   return `
-    <button class="task-detail-close" type="button" data-task-detail-close aria-label="Taskdetails schließen">×</button>
+    <button class="icon-button task-detail-close" type="button" data-task-detail-close aria-label="Taskdetails schließen"><img src="./assets/icons/close.svg" alt="" aria-hidden="true" /></button>
     <span class="task-category ${categoryClass}">${escapeTaskHtml(task.category)}</span>
     <h2 id="taskDetailTitle">${escapeTaskHtml(task.title)}</h2>
     <p class="task-detail-description">${escapeTaskHtml(task.description || "No description")}</p>
@@ -202,9 +203,9 @@ function getTaskDetailTemplate(task, contacts) {
     <section class="task-detail-section"><h3>Assigned To:</h3><ul>${getTaskDetailContactsTemplate(task, contacts)}</ul></section>
     <section class="task-detail-section"><h3>Subtasks</h3><div class="task-detail-subtasks">${getTaskDetailSubtasksTemplate(task.subtasks)}</div></section>
     <div class="task-detail-actions">
-      <button type="button" data-task-delete><img src="./assets/icons/delete.png" alt="" />Delete</button>
+      <button type="button" data-task-delete><img src="./assets/icons/delete.svg" alt="" />Delete</button>
       <span aria-hidden="true"></span>
-      <button type="button" data-task-edit><img src="./assets/icons/edit.png" alt="" />Edit</button>
+      <button type="button" data-task-edit><img src="./assets/icons/edit.svg" alt="" />Edit</button>
     </div>`;
 }
 
@@ -233,5 +234,5 @@ function getAssignedContactTemplate(contact, selected, ownContact) {
  * @returns {string} DE: Subtask-HTML. EN: Subtask HTML.
  */
 function getFormSubtaskTemplate(subtask) {
-  return `<li data-form-subtask-id="${escapeTaskHtml(subtask.id)}"><span class="task-subtask-title">${escapeTaskHtml(subtask.title)}</span><div class="task-subtask-actions"><button type="button" data-edit-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask bearbeiten"><img src="./assets/icons/edit.png" alt="" /></button><span aria-hidden="true"></span><button type="button" data-delete-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask löschen"><img src="./assets/icons/delete.png" alt="" /></button></div></li>`;
+  return `<li data-form-subtask-id="${escapeTaskHtml(subtask.id)}"><span class="task-subtask-title">${escapeTaskHtml(subtask.title)}</span><div class="task-subtask-actions"><button class="icon-button" type="button" data-edit-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask bearbeiten"><img src="./assets/icons/edit.svg" alt="" /></button><span class="task-inline-divider" aria-hidden="true"></span><button class="icon-button" type="button" data-delete-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask löschen"><img src="./assets/icons/delete.svg" alt="" /></button></div></li>`;
 }

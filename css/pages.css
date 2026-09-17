@@ -6,7 +6,7 @@
 .content-heading-row {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 30px;
 }
 
 .content-heading-row p {
@@ -17,66 +17,53 @@
 
 .content-heading-divider {
   width: 3px;
-  height: 52px;
+  height: 59px;
   background: var(--join-blue);
 }
 
-.content-placeholder {
-  min-height: 280px;
-  margin-top: 42px;
-  border: 2px dashed var(--join-border);
-  border-radius: 14px;
+.content-page > * + * {
+  margin-top: 24px;
 }
 
-.content-placeholder p {
-  margin: 24px;
-  color: var(--join-muted);
-}
-
-.help-content,
-.legal-content {
-  max-width: 1000px;
+.content-page > h1 {
+  margin-bottom: 26px;
 }
 
 .help-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 22px;
+  margin-bottom: 26px;
 }
 
-.help-page-content {
-  padding-top: 12px;
+.icon-button.content-back-button img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
-.help-content p {
-  font-size: var(--fs-small);
-  line-height: 1.2;
-}
-
-.help-intro {
-  max-width: 950px;
-  margin-bottom: 22px;
-}
-
-.help-section h2 {
-  margin: 22px 0 14px;
-}
-
-.help-section p + p {
+.content-page section > * + * {
   margin-top: 16px;
 }
 
-.help-highlight {
-  color: var(--join-border-hover);
+.content-page h3 {
+  font-size: var(--fs-lg);
 }
 
-.help-howto-intro {
-  margin-bottom: 14px;
+.content-page h3 + p {
+  margin-top: 0;
+}
+
+.content-highlight {
+  color: var(--join-accent);
+}
+
+.content-list {
+  margin: 0;
+  padding-left: 20px;
 }
 
 .help-steps {
-  margin: 0;
   padding: 0;
   list-style: none;
   counter-reset: help-step;
@@ -84,34 +71,28 @@
 
 .help-step {
   position: relative;
-  margin-bottom: 16px;
-  padding-left: 48px;
+  padding-left: 61px;
   counter-increment: help-step;
+}
+
+.help-step + .help-step {
+  margin-top: 16px;
 }
 
 .help-step::before {
   position: absolute;
-  top: -3px;
+  top: -4px;
   left: 0;
   content: counter(help-step) ".";
-  font-size: 24px;
+  font-size: var(--fs-lead);
   font-weight: var(--fw-bold);
 }
 
-.help-step h3 {
-  margin: 0 0 1px;
-  font-size: var(--fs-body);
-}
-
-.help-step p {
-  margin: 0;
-}
-
 .help-follow-up {
-  margin-left: 48px;
+  margin-left: 61px;
 }
 
-.help-follow-up p {
+.help-follow-up p + p {
   margin-top: 16px;
 }
 

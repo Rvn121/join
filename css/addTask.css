@@ -1,14 +1,14 @@
-.add-task-content {
-  padding-top: 64px;
-}
-
 .add-task-page {
   width: 100%;
   max-width: 980px;
 }
 
 .add-task-page > h1 {
-  margin-bottom: 42px;
+  margin-bottom: 48px;
+}
+
+.task-form--page .task-form-footer {
+  margin-top: 124px;
 }
 
 /* DE: Design-Anpassungen für Add Task. EN: Design adjustments for Add Task. */

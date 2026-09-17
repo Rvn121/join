@@ -25,33 +25,33 @@
   flex-direction: column;
   overflow-y: auto;
   background: var(--join-dark);
-  color: #ffffff;
+  color: var(--join-white);
 }
 
 .sidebar-logo-link {
   display: flex;
-  min-height: 205px;
-  align-items: center;
   justify-content: center;
+  padding: 64px 0 115px;
 }
 
 .sidebar-logo {
-  width: 82px;
+  width: 100px;
   height: auto;
 }
 
 .sidebar-nav {
   display: flex;
   flex-direction: column;
+  gap: 15px;
 }
 
 .sidebar-link {
   display: flex;
-  min-height: 50px;
+  min-height: 46px;
   align-items: center;
-  padding-inline: max(22px, calc((100% - 136px) / 2));
-  color: #ffffff;
-  gap: 10px;
+  padding: 8px 56px;
+  color: var(--join-nav-text);
+  gap: 8px;
   text-align: left;
   text-decoration: none;
   transition: background var(--click-transition);
@@ -59,7 +59,8 @@
 
 .app-navigation .sidebar-link:not(.sidebar-link-active):hover,
 .app-navigation .sidebar-link:not(.sidebar-link-active):focus-visible {
-  background: #2a3d59;
+  border-radius: 8px;
+  background: var(--sidebar-link-hover);
 }
 
 .external-navigation .sidebar-link:hover,
@@ -71,14 +72,19 @@
 .sidebar-link-active:hover,
 .sidebar-link-active:focus-visible {
   background: var(--join-dark-active);
+  color: var(--join-white);
 }
 
 
 .sidebar-link-icon {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   flex-shrink: 0;
-  object-fit: contain;
+  object-fit: scale-down;
+}
+
+.sidebar-link-active .sidebar-link-icon {
+  filter: brightness(0) invert(1);
 }
 
 .external-navigation {
@@ -97,16 +103,16 @@
   display: flex;
   margin-top: auto;
   flex-direction: column;
-  padding: 0 0 54px;
+  gap: 4px;
+  padding: 0 0 64px 52px;
 }
 
 .sidebar-footer-link {
   display: flex;
-  min-height: 38px;
+  min-height: 35px;
   align-items: center;
-  padding-inline: max(22px, calc((100% - 136px) / 2));
-  color: #cdcdcd;
-  font-size: var(--fs-small);
+  padding: 8px;
+  color: var(--join-nav-text);
   text-align: left;
   text-decoration: none;
   transition: background var(--click-transition), color var(--click-transition);
@@ -114,7 +120,7 @@
 
 .sidebar-footer-link:hover,
 .sidebar-footer-link:focus-visible {
-  color: #124658;
+  color: var(--join-accent);
   font-weight: var(--fw-bold);
 }
 
@@ -122,7 +128,7 @@
 .sidebar-footer-link-active:hover,
 .sidebar-footer-link-active:focus-visible {
   background: var(--join-dark-active);
-  color: #ffffff;
+  color: var(--join-white);
 }
 
 .app-page {
@@ -139,8 +145,8 @@
   width: 100%;
   min-height: 96px;
   border-bottom: unset;
-  background: #ffffff;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  background: var(--card-background);
+  box-shadow: 0 4px 4px var(--shadow-header);
 }
 
 .app-header-content {
@@ -149,7 +155,7 @@
   min-height: 96px;
   align-items: center;
   justify-content: space-between;
-  padding: 0 54px;
+  padding: 0 40px 0 96px;
 }
 
 .app-title {
@@ -160,7 +166,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 16px;
 }
 
 .help-button,
@@ -176,32 +182,32 @@
 }
 
 .help-button {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
 }
 
 .help-button img {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
 }
 
 .user-placeholder {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  background: #ffffff;
+  background: var(--card-background);
   box-shadow: inset 0 0 0 3px var(--join-dark);
   transition: background var(--click-transition);
 }
 
 .user-placeholder:hover,
 .user-placeholder:focus-visible {
-  background: rgba(12, 46, 98, 0.12);
+  background: var(--profile-hover-soft);
 }
 
 .user-initials {
-  color: #124658;
+  color: var(--join-accent);
   font-size: var(--fs-lg);
   font-weight: var(--fw-bold);
 }
@@ -209,27 +215,30 @@
 .profile-menu {
   position: absolute;
   z-index: 5;
-  top: 64px;
+  top: 72px;
   right: 0;
-  min-width: 150px;
-  padding: 8px;
+  width: 150px;
+  padding: 10px;
   border-radius: 20px 0 20px 20px;
   background: var(--join-dark);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 0 4px var(--shadow-strong);
 }
 
 .profile-menu a,
 .profile-menu button {
-  display: block;
+  display: flex;
   width: 100%;
-  padding: 10px 12px;
+  min-height: 46px;
+  align-items: center;
+  padding: 8px 16px;
   border: unset;
-  border-radius: 6px;
+  border-radius: 8px;
   background: transparent;
-  color: #cdcdcd;
+  color: var(--join-muted-light);
   font: inherit;
   text-align: left;
   text-decoration: none;
+  white-space: nowrap;
   transition: background var(--click-transition), color var(--click-transition);
 }
 
@@ -238,7 +247,7 @@
 .profile-menu button:hover,
 .profile-menu button:focus-visible {
   background: var(--join-dark-hover);
-  color: #ffffff;
+  color: var(--join-white);
 }
 
 .external-layout .app-header-actions {
@@ -256,7 +265,7 @@
   width: 100%;
   max-width: var(--content-width);
   min-height: calc(100vh - 96px);
-  padding: 72px 72px 96px;
+  padding: 116px 96px 96px;
 }
 
 /* DE: Design-Anpassungen für Sidebar und Header. EN: Design adjustments for sidebar and header. */

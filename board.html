@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Join - Board</title>
-    <link rel="icon" type="image/png" href="./assets/icons/favicon.png" />
+    <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg" />
     <link rel="stylesheet" href="./style.css" />
   </head>
   <body class="app-body" data-page="board" data-protected-page="true">
     <div class="app-frame">
       <aside class="app-sidebar">
         <a class="sidebar-logo-link" href="./summary.html" aria-label="Zur Summary">
-          <img class="sidebar-logo" src="./assets/img/join_logo_white.png" alt="Join" />
+          <img class="sidebar-logo" src="./assets/img/join_logo_white.svg" alt="Join" />
         </a>
         <nav class="sidebar-nav app-navigation" aria-label="Hauptnavigation">
           <a class="sidebar-link" href="./summary.html">Summary</a>
@@ -55,7 +55,7 @@
                   <label class="board-search" for="boardSearchInput">
                     <input id="boardSearchInput" type="search" placeholder="Find Task" autocomplete="off" />
                     <span aria-hidden="true"></span>
-                    <img src="./assets/icons/search.png" alt="" aria-hidden="true" />
+                    <img src="./assets/icons/search.svg" alt="" aria-hidden="true" />
                   </label>
                   <button class="btn btn--primary board-add-task" id="boardAddTaskButton" type="button" aria-label="Add task">
                     <span class="board-add-task-plus" aria-hidden="true">+</span>
@@ -68,7 +68,7 @@
                   <div class="board-column-heading">
                     <h2>To do</h2>
                     <button class="board-column-add" type="button" data-add-task-status="todo" aria-label="Task zu To do hinzufügen">
-                      <img src="./assets/icons/add.png" alt="" aria-hidden="true" />
+                      <img src="./assets/icons/add.svg" alt="" aria-hidden="true" />
                     </button>
                   </div>
                   <div class="board-column-tasks" id="boardTodo" data-drop-status="todo"></div>
@@ -78,7 +78,7 @@
                   <div class="board-column-heading">
                     <h2>In progress</h2>
                     <button class="board-column-add" type="button" data-add-task-status="inProgress" aria-label="Task zu In progress hinzufügen">
-                      <img src="./assets/icons/add.png" alt="" aria-hidden="true" />
+                      <img src="./assets/icons/add.svg" alt="" aria-hidden="true" />
                     </button>
                   </div>
                   <div class="board-column-tasks" id="boardInProgress" data-drop-status="inProgress"></div>
@@ -88,7 +88,7 @@
                   <div class="board-column-heading">
                     <h2>Await feedback</h2>
                     <button class="board-column-add" type="button" data-add-task-status="awaitFeedback" aria-label="Task zu Await feedback hinzufügen">
-                      <img src="./assets/icons/add.png" alt="" aria-hidden="true" />
+                      <img src="./assets/icons/add.svg" alt="" aria-hidden="true" />
                     </button>
                   </div>
                   <div class="board-column-tasks" id="boardAwaitFeedback" data-drop-status="awaitFeedback"></div>
@@ -107,12 +107,12 @@
 
     <dialog class="task-form-dialog" id="taskFormDialog" aria-labelledby="taskFormDialogTitle">
       <div class="task-dialog-shell">
-        <button class="task-dialog-close" id="taskFormDialogClose" type="button" aria-label="Dialog schließen">×</button>
+        <button class="icon-button task-dialog-close" id="taskFormDialogClose" type="button" aria-label="Dialog schließen"><img src="./assets/icons/close.svg" alt="" aria-hidden="true" /></button>
         <h2 id="taskFormDialogTitle">Add Task</h2>
         <form class="task-form task-form--dialog" id="taskForm" novalidate data-default-status="todo">
           <div class="task-form-columns">
             <div class="task-form-column">
-              <label class="task-field" for="taskTitle">
+              <label class="task-field task-field--title" for="taskTitle">
                 <span>Title<span class="task-required">*</span></span>
                 <input id="taskTitle" name="title" type="text" placeholder="Enter a title" maxlength="80" />
                 <small class="task-field-error" data-error-for="taskTitle"></small>
@@ -120,6 +120,7 @@
               <label class="task-field" for="taskDescription">
                 <span>Description</span>
                 <textarea id="taskDescription" name="description" placeholder="Enter a Description" maxlength="1000"></textarea>
+                <small class="task-field-error" data-error-for="taskDescription"></small>
               </label>
               <label class="task-field" for="taskDueDate">
                 <span>Due date<span class="task-required">*</span></span>
@@ -142,15 +143,15 @@
                 <div class="task-priority-options">
                   <label class="task-priority task-priority--urgent">
                     <input type="radio" name="priority" value="urgent" />
-                    <span>Urgent</span><img src="./assets/icons/Prio-high.png" alt="" aria-hidden="true" />
+                    <span>Urgent</span><img src="./assets/icons/prio-high.svg" alt="" aria-hidden="true" />
                   </label>
                   <label class="task-priority task-priority--medium">
                     <input type="radio" name="priority" value="medium" checked />
-                    <span>Medium</span><img src="./assets/icons/Prio-med.png" alt="" aria-hidden="true" />
+                    <span>Medium</span><img src="./assets/icons/prio-medium.svg" alt="" aria-hidden="true" />
                   </label>
                   <label class="task-priority task-priority--low">
                     <input type="radio" name="priority" value="low" />
-                    <span>Low</span><img src="./assets/icons/Prio-low.png" alt="" aria-hidden="true" />
+                    <span>Low</span><img src="./assets/icons/prio-low.svg" alt="" aria-hidden="true" />
                   </label>
                 </div>
               </fieldset>
@@ -160,8 +161,8 @@
                 <div class="task-dropdown" id="taskAssignedDropdown">
                   <div class="task-dropdown-input-wrap">
                     <input id="taskAssignedSearch" type="text" placeholder="Select contacts to assign" autocomplete="off" />
-                    <button class="task-dropdown-toggle" id="taskAssignedToggle" type="button" aria-label="Assigned-to-Liste öffnen oder schließen" aria-expanded="false">
-                    <img src="./assets/icons/arrow_drop_down.png" alt="" aria-hidden="true" />
+                    <button class="icon-button task-dropdown-toggle" id="taskAssignedToggle" type="button" aria-label="Assigned-to-Liste öffnen oder schließen" aria-expanded="false">
+                    <img src="./assets/icons/arrow_drop_down.svg" alt="" aria-hidden="true" />
                   </button>
                   </div>
                   <div class="task-contact-dropdown" id="taskContactDropdown" hidden></div>

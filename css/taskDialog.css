@@ -20,15 +20,15 @@
   width: calc(100vw - 48px);
   max-width: 1120px;
   max-height: calc(100vh - 48px);
-  padding: 48px 54px 38px;
+  padding: 64px 66px 64px 74px;
   overflow-y: auto;
   border-radius: 30px;
   background: var(--card-background);
 }
 
 .task-dialog-shell > h2 {
-  margin-bottom: 30px;
-  font-size: 44px;
+  margin-bottom: 37px;
+  font-size: var(--fs-h1);
 }
 
 .task-dialog-close,
@@ -57,11 +57,15 @@
 }
 
 .task-form--dialog .task-form-columns {
-  gap: 34px;
+  gap: 47px;
 }
 
-.task-form--dialog .task-form-divider {
-  min-height: 390px;
+.task-form--dialog .task-form-actions {
+  gap: 25px;
+}
+
+.task-form--dialog .task-form-footer {
+  margin-top: 152px;
 }
 
 .task-detail-shell {
@@ -74,6 +78,14 @@
   overflow-x: hidden;
   scrollbar-width: thin;
   background: var(--card-background);
+  box-shadow: 0 0 4px var(--shadow-medium);
+}
+
+.task-detail-shell .task-category {
+  min-height: 36px;
+  padding: 4px 24px;
+  font-size: var(--fs-badge-lg);
+  line-height: 28px;
 }
 
 .task-detail-shell > h2 {
@@ -81,6 +93,8 @@
   padding-right: 0;
   overflow-wrap: anywhere;
   word-break: break-word;
+  font-size: var(--fs-h1);
+  line-height: 1.2;
 }
 
 .task-detail-description {
@@ -88,6 +102,7 @@
   margin: 0;
   overflow-wrap: anywhere;
   word-break: break-word;
+  font-size: var(--fs-lg);
   white-space: pre-wrap;
 }
 .task-detail-data {
@@ -103,41 +118,46 @@
 }
 
 .task-detail-data dt {
-  min-width: 76px;
-  color: var(--join-dark-hover);
-  font-size: var(--fs-small);
+  color: var(--join-dark);
+  font-size: var(--fs-lg);
 }
 
 .task-detail-data dd {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   margin: 0;
+  font-size: var(--fs-lg);
 }
 
-.task-detail-data img {
-  width: 18px;
-  height: 14px;
+.task-detail-data div:has(img) dd {
+  min-height: 32px;
+  padding: 4px 18px;
+  border-radius: 10px;
 }
 
 .task-detail-section {
   margin-top: 0;
 }
 .task-detail-section h3 {
-  margin-bottom: 12px;
-  font-size: var(--fs-small);
+  margin-bottom: 8px;
+  color: var(--join-dark);
+  font-size: var(--fs-lg);
   font-weight: 400;
 }
 
 .task-detail-section ul {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 
 .task-detail-section li {
-  max-width: 100%;
   display: flex;
+  min-height: 56px;
   align-items: center;
   gap: 12px;
   margin-bottom: 0;
@@ -145,16 +165,19 @@
 }
 
 .task-detail-subtasks {
-  display: grid;
-  gap: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .task-detail-subtask {
-  max-width: 100%;
   display: flex;
+  min-height: 32px;
   align-items: center;
-  gap: 10px;
-  font-size: var(--fs-small);
+  gap: 16px;
+  padding: 4px 16px;
+  border-radius: 10px;
+  font-size: var(--fs-body);
   cursor: pointer;
 }
 
@@ -164,17 +187,18 @@
 }
 
 .task-detail-subtask input {
-  width: 20px;
-  height: 20px;
-  flex: 0 0 20px;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 24px;
+  margin: 0;
   border: unset;
   appearance: none;
-  background: url("../assets/icons/subtaskUnchecked.png") center / contain no-repeat;
+  background: url("../assets/icons/checkbox.svg") center / contain no-repeat;
   cursor: pointer;
 }
 
 .task-detail-subtask input:checked {
-  background-image: url("../assets/icons/subtaskChecked.png");
+  background-image: url("../assets/icons/checked.svg");
 }
 
 .task-detail-subtask input:focus-visible {
@@ -183,8 +207,9 @@
 }
 
 .task-detail-empty {
-  color: var(--join-muted);
-  font-size: var(--fs-small);
+  padding: 6px 16px;
+  color: var(--join-text-secondary);
+  font-size: var(--fs-body);
 }
 
 .task-detail-actions {
@@ -204,21 +229,23 @@
 .task-detail-actions button {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 6px;
+  gap: 8px;
+  padding: 0;
   border: unset;
   background: transparent;
   color: var(--join-dark);
+  font-size: var(--fs-body);
+  transition: color var(--click-transition);
 }
 
 .task-detail-actions button:hover {
-  color: var(--join-border-hover);
-  font-weight: var(--fw-bold);
+  color: var(--join-blue);
 }
 
 .task-detail-actions img {
-  width: 18px;
-  height: 18px;
+  width: 24px;
+  height: 24px;
+  object-fit: scale-down;
 }
 
 .task-form-dialog--edit {
@@ -232,25 +259,35 @@
   display: none;
 }
 
+.task-form-dialog--edit .task-dialog-close {
+  top: 44px;
+  right: 39px;
+}
+
+.task-form-dialog--edit .task-form--dialog {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+}
+
 .task-form-dialog--edit .task-form-columns {
   display: block;
+  min-height: 0;
+  margin: -4px 0 -4px -6px;
+  padding: 4px 8px 4px 6px;
+  overflow-y: auto;
 }
 
-.task-form-dialog--edit .task-form-divider {
-  display: none;
-}
-
-.task-form-dialog--edit .task-form-footer {
-  justify-content: flex-end;
-  margin-top: 10px;
-}
-
+.task-form-dialog--edit .task-form-divider,
+.task-form-dialog--edit .task-required,
+.task-form-dialog--edit [for="taskCategory"],
 .task-form-dialog--edit .task-form-footer > p {
   display: none;
 }
 
-.task-form-dialog--edit .task-form-actions {
-  width: auto;
+.task-form-dialog--edit .task-form--dialog .task-form-footer {
+  justify-content: flex-end;
+  margin-top: 24px;
 }
 
 /* DE: Design-Anpassungen für Task-Dialoge. EN: Design adjustments for task dialogs. */

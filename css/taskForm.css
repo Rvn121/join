@@ -38,10 +38,23 @@
 
 .task-field,
 .task-priority-field {
+  position: relative;
   display: block;
   margin: 0 0 24px;
   padding: 0;
   border: unset;
+}
+
+.task-priority-field,
+.task-form-divider ~ .task-form-column .task-field {
+  margin-bottom: 24px;
+}
+
+.task-form-divider ~ .task-form-column .task-field-error {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  margin-top: 0;
 }
 
 .task-field > span,
@@ -70,17 +83,19 @@
 
 .task-field input,
 .task-field select {
-  height: 48px;
   padding: 0 16px;
-  outline: none;
+}
+
+.task-field--title input {
+  padding: 0 21px;
 }
 
 .task-field textarea {
+  display: block;
   min-height: 120px;
   max-height: 184px;
   padding: 18px 16px;
   overflow-y: auto;
-  outline: none;
   resize: vertical;
 }
 
@@ -111,9 +126,10 @@ label[for="taskTitle"] input {
 .task-field select {
   padding-right: 46px;
   appearance: none;
-  background-image: url("../assets/icons/arrow_drop_down.png");
+  background-image: url("../assets/icons/arrow_drop_down.svg");
   background-repeat: no-repeat;
-  background-position: right 16px center;
+  background-position: right 24px top calc(50% + 2px);
+  cursor: pointer;
 }
 
 
@@ -171,7 +187,7 @@ label[for="taskTitle"] input {
 
 .task-field input[type="date"] {
   padding-right: 48px;
-  background-image: url("../assets/icons/event.png");
+  background-image: url("../assets/icons/event.svg");
   background-repeat: no-repeat;
   background-position: right 16px center;
 }
@@ -188,7 +204,7 @@ label[for="taskTitle"] input {
 
 .task-field-error {
   display: block;
-  min-height: 17px;
+  min-height: 12px;
   margin-top: 4px;
   color: var(--join-error);
   font-size: var(--fs-error);
@@ -265,4 +281,9 @@ label[for="taskTitle"] input {
 
 .task-priority--selected img {
   filter: brightness(0) invert(1);
+}
+
+.task-priority:hover,
+.task-priority:has(input:checked):hover {
+  box-shadow: 0 4px 4px var(--shadow-button);
 }
