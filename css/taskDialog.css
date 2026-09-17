@@ -89,7 +89,7 @@
 
 .task-detail-data dt {
   min-width: 76px;
-  color: var(--join-dark-hover);
+  color: var(--join-dark);
   font-size: var(--fs-small);
 }
 
@@ -169,7 +169,7 @@
 }
 
 .task-detail-empty {
-  color: var(--join-muted);
+  color: var(--join-text-secondary);
   font-size: var(--fs-small);
 }
 

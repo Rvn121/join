@@ -69,7 +69,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  color: var(--join-dark-hover);
+  color: var(--board-column-title);
 }
 
 .board-column-heading h2 {
@@ -118,10 +118,10 @@
   min-height: 52px;
   align-items: center;
   justify-content: center;
-  border: 1px dashed var(--join-muted);
+  border: 1px solid var(--join-text-secondary);
   border-radius: 10px;
-  background: var(--task-soft-background);
-  color: var(--join-muted);
+  background: var(--join-surface-muted);
+  color: var(--join-text-secondary);
   font-size: var(--fs-small);
 }
 
@@ -176,7 +176,7 @@
   display: -webkit-box;
   margin: 0 0 16px;
   overflow: hidden;
-  color: var(--join-muted);
+  color: var(--join-text-secondary);
   font-size: var(--fs-small);
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
@@ -201,7 +201,7 @@
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: var(--join-blue);
+  background: var(--progress-fill);
 }
 
 .task-card-progress small {

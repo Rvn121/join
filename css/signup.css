@@ -84,7 +84,7 @@
   justify-content: center;
   gap: 10px;
   margin: 2px 0 22px;
-  color: var(--join-muted);
+  color: var(--join-text-secondary);
   font-size: var(--fs-small);
   cursor: pointer;
 }
@@ -145,7 +145,7 @@ body.signup-visible .login-dialog {
   bottom: 34px;
   display: flex;
   gap: 34px;
-  color: var(--join-muted);
+  color: var(--join-text-secondary);
   font-size: var(--fs-small);
 }
 

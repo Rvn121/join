@@ -50,7 +50,7 @@
   min-height: 50px;
   align-items: center;
   padding-inline: max(22px, calc((100% - 136px) / 2));
-  color: var(--join-white);
+  color: var(--join-nav-text);
   gap: 10px;
   text-align: left;
   text-decoration: none;
@@ -105,7 +105,7 @@
   min-height: 38px;
   align-items: center;
   padding-inline: max(22px, calc((100% - 136px) / 2));
-  color: var(--join-muted-light);
+  color: var(--join-nav-text);
   font-size: var(--fs-small);
   text-align: left;
   text-decoration: none;

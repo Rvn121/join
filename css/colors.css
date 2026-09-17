@@ -10,8 +10,8 @@
   --join-text: #000000;
   --join-text-secondary: #686868;
   --join-white: #ffffff;
-  --join-muted: #a8a8a8;
   --join-muted-light: #cdcdcd;
+  --join-nav-text: #e7e7e7;
 
   --join-error: #e60026;
   --join-error-soft: #ff8190;
@@ -19,6 +19,7 @@
   /* Surfaces */
   --page-background: #f6f7f8;
   --card-background: #ffffff;
+  --join-surface-muted: #e7e7e7;
 
   /* Borders */
   --join-border: #d1d1d1;
@@ -40,7 +41,6 @@
   --contact-link: #007cee;
   --contact-overlay: rgba(0, 0, 0, 0.22);
   --contact-shadow-soft: var(--shadow-soft);
-  --contact-shadow-button: var(--shadow-button);
   --contact-shadow-dialog: var(--shadow-dialog);
 
   /* Priority */
@@ -60,6 +60,8 @@
   --task-overlay: rgba(0, 0, 0, 0.28);
   --task-drop-zone: rgba(41, 171, 226, 0.12);
   --task-soft-background: #f4f4f4;
+  --board-column-title: #42526e;
+  --progress-fill: #4589ff;
   --task-form-text: var(--join-dark);
 
   /* Contact avatars */
