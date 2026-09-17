@@ -10,8 +10,8 @@
   border: unset;
   border-radius: 30px;
   overflow: visible;
-  background: #ffffff;
-  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.08);
+  background: var(--card-background);
+  box-shadow: 0 0 14px 3px var(--shadow-soft);
   transform: translate(-50%, -50%);
 }
 
@@ -104,7 +104,7 @@
 }
 
 .privacy-check a {
-  color: #124658;
+  color: var(--join-accent);
   text-decoration: none;
 }
 
@@ -115,7 +115,7 @@
   top: 32px;
   left: 50%;
   transform: translateX(-50%);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 10px var(--shadow-medium);
 }
 
 body.signup-visible .signup-area,

@@ -176,7 +176,7 @@
 
 .content-back-button:hover,
 .content-back-button:focus-visible {
-  background: rgba(42, 54, 71, 0.08);
+  background: var(--contact-dark-hover-soft);
 }
 
 .content-back-button img {
@@ -205,8 +205,8 @@
   width: min(100%, 660px);
   padding: 48px 72px 52px;
   border-radius: 30px;
-  background: #ffffff;
-  box-shadow: 0 0 14px 3px rgba(0, 0, 0, 0.08);
+  background: var(--card-background);
+  box-shadow: 0 0 14px 3px var(--shadow-soft);
 }
 
 .signup-heading {

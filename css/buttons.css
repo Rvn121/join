@@ -25,28 +25,28 @@
 .btn--primary {
   border: 1px solid var(--join-dark);
   background: var(--join-dark);
-  color: #ffffff;
+  color: var(--join-white);
 }
 .btn--primary:hover,
 .btn--primary:focus-visible {
-  border-color: #124658;
-  background: #124658;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+  border-color: var(--join-accent);
+  background: var(--join-accent);
+  box-shadow: 0 4px 4px var(--shadow-button);
 }
 
 .btn--secondary {
   border: 1px solid var(--join-dark);
-  background: #ffffff;
+  background: var(--card-background);
   color: var(--join-dark);
 }
 
 .btn--secondary:hover,
 .btn--secondary:focus-visible {
-  border-color: #124658;
-  color: #124658;
+  border-color: var(--join-accent);
+  color: var(--join-accent);
   box-shadow:
-    inset 0 0 0 1px #124658,
-    0 4px 4px rgba(0, 0, 0, 0.25);
+    inset 0 0 0 1px var(--join-accent),
+    0 4px 4px var(--shadow-button);
 }
 
 .btn--icon {
@@ -58,7 +58,7 @@
   padding: 0;
   border-radius: 8px;
   background: var(--join-dark);
-  color: #ffffff;
+  color: var(--join-white);
 }
 
 .btn--icon:hover,
@@ -75,7 +75,7 @@
   padding: 0;
   border: 1px solid var(--join-dark);
   border-radius: 8px;
-  background: #ffffff;
+  background: var(--card-background);
   color: var(--join-dark);
 }
 

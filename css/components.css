@@ -28,7 +28,7 @@
   border: 1px solid var(--join-border);
   border-radius: 10px;
   outline: none;
-  background: #ffffff;
+  background: var(--card-background);
   color: var(--join-text);
   transition: border-color 160ms ease;
 }
@@ -66,9 +66,9 @@
   height: 42px;
   align-items: center;
   justify-content: center;
-  border: 2px solid #ffffff;
+  border: 2px solid var(--join-white);
   border-radius: 50%;
-  color: #ffffff;
+  color: var(--join-white);
   font-size: var(--fs-small);
   font-weight: var(--fw-bold);
 }
@@ -79,7 +79,7 @@
   align-items: center;
   padding: 4px 16px;
   border-radius: 8px;
-  color: #ffffff;
+  color: var(--join-white);
   font-size: var(--fs-body);
   font-weight: var(--fw-bold);
 }
@@ -112,6 +112,6 @@
   padding: 0 32px;
   border-radius: 20px;
   background: var(--join-dark);
-  color: #ffffff;
+  color: var(--join-white);
   font-size: var(--fs-lg);
 }

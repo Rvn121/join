@@ -1,12 +1,5 @@
+/* Layout and typography tokens – all color tokens live in colors.css */
 :root {
-  --join-blue: #29abe2;
-  --join-dark: #2a3647;
-  --join-dark-active: #091931;
-  --join-dark-hover: #35475d;
-  --join-text: #000000;
-  --join-muted: #a8a8a8;
-  --page-background: #f6f7f8;
-  --card-background: #ffffff;
   --content-width: 1440px;
   --page-width: 1920px;
   --click-transition: 100ms ease;

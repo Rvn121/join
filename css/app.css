@@ -25,7 +25,7 @@
   flex-direction: column;
   overflow-y: auto;
   background: var(--join-dark);
-  color: #ffffff;
+  color: var(--join-white);
 }
 
 .sidebar-logo-link {
@@ -50,7 +50,7 @@
   min-height: 50px;
   align-items: center;
   padding-inline: max(22px, calc((100% - 136px) / 2));
-  color: #ffffff;
+  color: var(--join-white);
   gap: 10px;
   text-align: left;
   text-decoration: none;
@@ -59,7 +59,7 @@
 
 .app-navigation .sidebar-link:not(.sidebar-link-active):hover,
 .app-navigation .sidebar-link:not(.sidebar-link-active):focus-visible {
-  background: #2a3d59;
+  background: var(--sidebar-link-hover);
 }
 
 .external-navigation .sidebar-link:hover,
@@ -105,7 +105,7 @@
   min-height: 38px;
   align-items: center;
   padding-inline: max(22px, calc((100% - 136px) / 2));
-  color: #cdcdcd;
+  color: var(--join-muted-light);
   font-size: var(--fs-small);
   text-align: left;
   text-decoration: none;
@@ -114,7 +114,7 @@
 
 .sidebar-footer-link:hover,
 .sidebar-footer-link:focus-visible {
-  color: #124658;
+  color: var(--join-accent);
   font-weight: var(--fw-bold);
 }
 
@@ -122,7 +122,7 @@
 .sidebar-footer-link-active:hover,
 .sidebar-footer-link-active:focus-visible {
   background: var(--join-dark-active);
-  color: #ffffff;
+  color: var(--join-white);
 }
 
 .app-page {
@@ -139,8 +139,8 @@
   width: 100%;
   min-height: 96px;
   border-bottom: unset;
-  background: #ffffff;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  background: var(--card-background);
+  box-shadow: 0 3px 8px var(--shadow-card);
 }
 
 .app-header-content {
@@ -190,18 +190,18 @@
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #ffffff;
+  background: var(--card-background);
   box-shadow: inset 0 0 0 3px var(--join-dark);
   transition: background var(--click-transition);
 }
 
 .user-placeholder:hover,
 .user-placeholder:focus-visible {
-  background: rgba(12, 46, 98, 0.12);
+  background: var(--profile-hover-soft);
 }
 
 .user-initials {
-  color: #124658;
+  color: var(--join-accent);
   font-size: var(--fs-lg);
   font-weight: var(--fw-bold);
 }
@@ -215,7 +215,7 @@
   padding: 8px;
   border-radius: 20px 0 20px 20px;
   background: var(--join-dark);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 4px 12px var(--shadow-medium);
 }
 
 .profile-menu a,
@@ -226,7 +226,7 @@
   border: unset;
   border-radius: 6px;
   background: transparent;
-  color: #cdcdcd;
+  color: var(--join-muted-light);
   font: inherit;
   text-align: left;
   text-decoration: none;
@@ -238,7 +238,7 @@
 .profile-menu button:hover,
 .profile-menu button:focus-visible {
   background: var(--join-dark-hover);
-  color: #ffffff;
+  color: var(--join-white);
 }
 
 .external-layout .app-header-actions {
