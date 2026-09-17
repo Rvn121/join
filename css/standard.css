@@ -10,6 +10,12 @@
   --fs-lead: 27px;
   --fs-lg: 20px;
   --fs-button: 21px;
+  --fs-display: 64px;
+  --fs-h1-mobile: 47px;
+  --fs-badge-lg: 23px;
+  --fs-error: 12px;
+  --fw-medium: 500;
+  --fw-semibold: 600;
   --fw-bold: 700;
 }
 

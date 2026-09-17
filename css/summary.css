@@ -110,9 +110,9 @@
 
 .summary-number,
 .summary-urgent-count strong {
-  font-size: 47px;
+  font-size: var(--fs-display);
   line-height: 1;
-  font-weight: 400;
+  font-weight: var(--fw-semibold);
 }
 
 .summary-label,
@@ -147,10 +147,11 @@
 }
 
 .summary-greeting span {
-  font-size: 34px;
+  font-size: var(--fs-h1-mobile);
+  font-weight: var(--fw-medium);
 }
 
 .summary-greeting strong {
   color: var(--join-border-hover);
-  font-size: 44px;
+  font-size: var(--fs-display);
 }

@@ -60,6 +60,10 @@
   background: var(--card-background);
 }
 
+.task-detail-shell .task-category {
+  font-size: var(--fs-badge-lg);
+}
+
 .task-detail-shell > h2 {
   max-width: 100%;
   margin: 18px 0 18px;

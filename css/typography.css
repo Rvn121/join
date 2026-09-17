@@ -47,7 +47,7 @@ select {
 
 @media (max-width: 620px) {
   h1 {
-    font-size: 47px;
+    font-size: var(--fs-h1-mobile);
   }
 
   h2 {

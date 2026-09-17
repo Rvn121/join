@@ -162,12 +162,18 @@
     grid-column: span 2;
   }
 
+  .summary-number,
+  .summary-urgent-count strong {
+    font-size: var(--fs-h1-mobile);
+  }
+
   .summary-greeting span {
-    font-size: 28px;
+    font-size: 36px;
+    font-weight: 400;
   }
 
   .summary-greeting strong {
-    font-size: 36px;
+    font-size: var(--fs-h1-mobile);
   }
 }
 

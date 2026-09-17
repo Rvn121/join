@@ -95,7 +95,7 @@
   display: block;
   min-height: 12px;
   margin-top: 4px;
-  font-size: var(--fs-label);
+  font-size: var(--fs-error);
   line-height: 12px;
 }
 
