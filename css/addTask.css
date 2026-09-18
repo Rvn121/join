@@ -1,5 +1,5 @@
 .add-task-page {
-  width: min(100%, 976px);
+  width: min(100%, 980px);
 }
 
 .add-task-page > h1 {
@@ -8,4 +8,39 @@
 
 .task-form--page .task-form-footer {
   margin-top: 124px;
+}
+
+/* DE: Design-Anpassungen für Add Task. EN: Design adjustments for Add Task. */
+.add-task-content {
+  padding: 124px 136px 79px 96px;
+}
+.add-task-page {
+  width: 977px;
+  max-width: 100%;
+}
+.add-task-page > h1 {
+  margin-bottom: 48px;
+}
+
+.task-form--page .task-clear-button,
+.task-form--page .task-submit-button {
+  padding-inline: 16px;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.task-form--page .task-clear-button {
+  background: var(--page-background);
+}
+
+.task-form--page .task-clear-button svg {
+  flex-shrink: 0;
+}
+
+.task-form--page .task-submit-button img {
+  width: 15.49px;
+  height: 11.22px;
+  flex-shrink: 0;
+  margin-inline: 4.25px;
+  object-fit: contain;
 }

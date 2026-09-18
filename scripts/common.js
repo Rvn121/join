@@ -22,7 +22,8 @@ function getUserMode() {
  */
 function getCurrentUser() {
   const user = localStorage.getItem(CURRENT_USER_KEY);
-  return user ? JSON.parse(user) : null;
+  if (!user) return null;
+  return JSON.parse(user);
 }
 
 
@@ -149,7 +150,7 @@ function addSidebarNavigationIcons() {
     icon.src = iconPath;
     icon.alt = "";
     icon.setAttribute("aria-hidden", "true");
-    links[i].prepend(icon);
+    links[i].insertBefore(icon, links[i].firstChild);
   }
 }
 
@@ -166,7 +167,7 @@ function addLoginLinkIcons() {
     icon.src = "./assets/icons/login.svg";
     icon.alt = "";
     icon.setAttribute("aria-hidden", "true");
-    loginLinks[i].prepend(icon);
+    loginLinks[i].insertBefore(icon, loginLinks[i].firstChild);
   }
 }
 
@@ -198,7 +199,8 @@ function clearGuestLocalData() {
  */
 function getGuestTaskData() {
   const tasks = localStorage.getItem("joinGuestTasks");
-  return tasks ? JSON.parse(tasks) : null;
+  if (!tasks) return null;
+  return JSON.parse(tasks);
 }
 
 
@@ -220,7 +222,10 @@ function setGuestTaskData(tasks) {
  * @returns {object} DE: Taskkopie. EN: Task copy.
  */
 function copyStoredTask(task, fallbackId) {
-  const copy = Object.assign({}, task);
+  const copy = {};
+  for (let key in task) {
+    copy[key] = task[key];
+  }
   if (!copy.id) copy.id = String(fallbackId);
   return copy;
 }
@@ -235,10 +240,43 @@ function copyStoredTask(task, fallbackId) {
 function mapStoredTasks(data) {
   const tasks = [];
   if (!data) return tasks;
-  for (const key in data) {
+  for (let key in data) {
     if (data[key]) tasks.push(copyStoredTask(data[key], key));
   }
   return tasks;
+}
+
+
+/**
+ * DE: Sucht vom geklickten Element nach oben nach einem Datenattribut.
+ * EN: Searches upward from a clicked element for a data attribute.
+ * @param {HTMLElement} element - DE: Start-Element. EN: Start element.
+ * @param {string} attributeName - DE: Attributname. EN: Attribute name.
+ * @returns {HTMLElement|null} DE: Gefundenes Element. EN: Found element.
+ */
+function findParentWithAttribute(element, attributeName) {
+  let current = element;
+  while (current && current !== document.body) {
+    if (current.hasAttribute && current.hasAttribute(attributeName)) return current;
+    current = current.parentElement;
+  }
+  return null;
+}
+
+
+/**
+ * DE: Sucht vom geklickten Element nach oben nach einem Button.
+ * EN: Searches upward from a clicked element for a button.
+ * @param {HTMLElement} element - DE: Start-Element. EN: Start element.
+ * @returns {HTMLElement|null} DE: Button. EN: Button.
+ */
+function findParentButton(element) {
+  let current = element;
+  while (current && current !== document.body) {
+    if (current.tagName === "BUTTON") return current;
+    current = current.parentElement;
+  }
+  return null;
 }
 
 

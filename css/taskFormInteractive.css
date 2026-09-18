@@ -123,9 +123,13 @@
 
 .task-selected-contacts {
   display: flex;
-  min-height: 36px;
-  align-items: center;
-  padding: 6px 4px 0;
+  height: 64px;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 8px 0 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: thin;
 }
 
 .task-selected-contacts:empty {
@@ -158,10 +162,23 @@
   transform: translateY(-50%);
 }
 
-.task-subtask-input-actions .icon-button,
 .task-subtask-actions .icon-button {
   width: 24px;
   height: 24px;
+}
+
+.task-inline-action {
+  display: inline-flex;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: unset;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--join-dark);
+  font-size: 22px;
 }
 
 .task-subtask-input-actions .icon-button img,
@@ -189,6 +206,7 @@
 .task-subtask-list {
   margin: 8px 0 0;
   padding: 0 0 0 32px;
+  list-style: none;
 }
 
 .task-subtask-list li {
@@ -202,7 +220,24 @@
 }
 
 .task-subtask-title {
+  min-width: 0;
+  flex: 1;
   overflow-wrap: anywhere;
+}
+
+.task-subtask-list li::before {
+  content: "•";
+  flex-shrink: 0;
+}
+
+.task-subtask-actions {
+  align-items: center;
+}
+
+.task-subtask-actions > span {
+  width: 1px;
+  height: 20px;
+  background: var(--join-border);
 }
 
 .task-subtask-list li:hover {
@@ -245,14 +280,14 @@
   position: fixed;
   z-index: 40;
   top: 50%;
-  right: 0;
+  right: 50%;
   min-width: 326px;
+  max-width: calc(100vw - 32px);
   justify-content: center;
   gap: 30px;
-  opacity: 0;
   box-shadow: 0 0 4px var(--shadow-dialog);
-  transform: translate(110%, -50%);
-  transition: transform 220ms ease-out, opacity 220ms ease-out;
+  transform: translate(calc(50vw + 100% + 16px), -50%);
+  transition: transform var(--floating-duration) var(--floating-easing);
 }
 
 .task-toast::after {
@@ -264,7 +299,97 @@
 }
 
 .task-toast--show {
-  right: 50%;
-  opacity: 1;
   transform: translate(50%, -50%);
+}
+
+/* DE: Design-Anpassungen für interaktive Task-Formulare. EN: Design adjustments for interactive task forms. */
+.task-contact-dropdown {
+  top: 100%;
+  max-height: 297px;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 0 14px var(--shadow-dialog);
+}
+.task-contact-option {
+  min-height: 56px;
+  margin: 2px 0;
+  padding: 7px 16px;
+  border-radius: 10px;
+  font-size: 20px;
+}
+.task-contact-option:hover {
+  background: var(--join-surface-hover);
+}
+.task-contact-option .task-avatar {
+  width: 42px;
+  height: 42px;
+  font-size: 16px;
+}
+.task-selected-contacts .task-avatar {
+  width: 42px;
+  height: 42px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.2;
+}
+.task-subtask-input-actions {
+  right: 16px;
+  gap: 4px;
+}
+.task-inline-action {
+  width: 24px;
+  height: 24px;
+  font-size: 20px;
+}
+.task-inline-action img {
+  width: auto;
+  height: auto;
+  max-width: 16px;
+  max-height: 14px;
+  object-fit: contain;
+}
+.task-inline-divider {
+  height: 24px;
+}
+.task-subtask-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 32px;
+  padding: 4px 16px;
+  background: var(--join-surface-hover);
+  font-size: 16px;
+}
+.task-subtask-list li:hover {
+  background: var(--join-surface-hover);
+}
+.task-subtask-list button {
+  width: 24px;
+  height: 24px;
+  padding: 3px;
+}
+.task-form-footer {
+  margin-top: 18px;
+}
+.task-form--page .task-form-footer {
+  margin-top: 124px;
+}
+.task-form-actions {
+  gap: 16px;
+}
+.task-form-actions .btn {
+  min-height: 56px;
+  border-radius: 10px;
+}
+.task-clear-button {
+  min-width: 110px;
+  font-size: 20px;
+  font-weight: 400;
+}
+.task-submit-button {
+  min-width: 183px;
+  font-size: 21px;
+}
+.task-submit-button img {
+  width: 24px;
+  height: 24px;
 }

@@ -9,7 +9,12 @@
 .task-detail-dialog::backdrop {
   background: var(--task-overlay);
 }
-
+.task-detail-dialog {
+  width: min(525px, calc(100vw - 32px));
+  max-width: none;
+  max-height: none;
+  overflow: hidden;
+}
 .task-dialog-shell {
   position: relative;
   width: min(1116px, calc(100vw - 48px));
@@ -97,14 +102,12 @@
   font-size: var(--fs-lg);
   white-space: pre-wrap;
 }
-
 .task-detail-data {
   display: flex;
   flex-direction: column;
   gap: 24px;
   margin: 0;
 }
-
 .task-detail-data > div {
   display: flex;
   align-items: center;
@@ -136,6 +139,9 @@
   object-fit: contain;
 }
 
+.task-detail-section {
+  margin-top: 0;
+}
 .task-detail-section h3 {
   margin-bottom: 8px;
   color: var(--join-dark);

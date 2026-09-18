@@ -109,7 +109,8 @@ function normalizeTaskAssignments(assignments) {
  * @returns {object} DE: Normalisierter Task. EN: Normalized task.
  */
 function normalizeTask(task) {
-  const normalized = Object.assign({}, task);
+  const normalized = {};
+  for (let key in task) normalized[key] = task[key];
   normalized.id = String(task.id || createTaskId());
   normalized.status = normalizeTaskStatus(task.status || task.boardStatus);
   normalized.priority = normalizeTaskPriority(task.priority);

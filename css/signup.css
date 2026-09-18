@@ -238,3 +238,26 @@ body.signup-visible .login-dialog {
     font-size: var(--fs-body);
   }
 }
+
+/* DE: Design-Anpassungen für Sign-up. EN: Design adjustments for sign-up. */
+.signup-dialog, .signup-card {
+  width: calc(100vw - 48px);
+  max-width: 598px;
+}
+.signup-dialog-form, .signup-card {
+  padding: 48px 88px;
+}
+.password-toggle {
+  width: 24px;
+  height: 24px;
+  right: 21px;
+}
+.password-toggle img {
+  width: 24px;
+  height: 24px;
+}
+.signup-toast {
+  top: 50%;
+  min-width: 326px;
+  transform: translate(-50%, -50%);
+}

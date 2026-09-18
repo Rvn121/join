@@ -9,28 +9,22 @@
   overflow: hidden;
   background: transparent;
 }
-
 .contact-dialog::backdrop {
   background: var(--contact-overlay);
 }
-
 .contact-dialog-card {
   position: absolute;
   top: 50%;
   left: 50%;
   display: flex;
-  width: min(1212px, calc(100vw - 48px));
+  width: calc(100vw - 48px);
+  max-width: 1212px;
   height: 592px;
   max-height: calc(100vh - 48px);
   border-radius: 30px;
   overflow: hidden;
   background: var(--card-background);
   box-shadow: 0 0 16px var(--contact-shadow-dialog);
-  transform: translate(110vw, -50%);
-  transition: transform 220ms ease-in-out;
-}
-
-.contact-dialog--open .contact-dialog-card {
   transform: translate(-50%, -50%);
 }
 
@@ -219,7 +213,8 @@
   }
 
   .contact-form {
-    width: min(422px, 100%);
+    width: 100%;
+    max-width: 422px;
   }
 
   .contact-form .component-input {
@@ -363,4 +358,28 @@
     min-width: 0;
     width: calc(100vw - 32px);
   }
+}
+
+/* DE: Design-Anpassungen für den Kontaktdialog. EN: Design adjustments for the contact dialog. */
+.contact-dialog-brand {
+  width: 467px;
+  flex-basis: 467px;
+}
+.contact-dialog-line {
+  width: 90px;
+}
+.contact-dialog-close {
+  width: 32px;
+  height: 32px;
+}
+.contact-dialog-close img {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+}
+.contact-form .component-input input {
+  height: 50px;
+}
+.contact-form-actions {
+  margin-top: 48px;
 }

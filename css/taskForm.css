@@ -2,6 +2,24 @@
   color: var(--task-form-text);
 }
 
+.task-form-dialog:not(.task-form-dialog--edit) .task-form-actions .btn {
+  padding-inline: 16px;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.task-form--dialog .task-clear-button svg {
+  flex-shrink: 0;
+}
+
+.task-form-dialog:not(.task-form-dialog--edit) .task-submit-button img {
+  width: 15.49px;
+  height: 11.22px;
+  flex-shrink: 0;
+  margin-inline: 4.25px;
+  object-fit: contain;
+}
+
 .task-form-columns {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
@@ -78,6 +96,59 @@
   cursor: pointer;
 }
 
+
+.task-date-input-wrap {
+  position: relative;
+}
+
+.task-date-input-wrap > input[type="text"] {
+  padding-right: 56px;
+}
+
+.task-date-button {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: unset;
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.task-date-button:hover {
+  background: var(--contact-dark-hover-soft);
+}
+
+.task-date-button:focus-visible {
+  outline: 2px solid var(--join-blue);
+  outline-offset: 2px;
+}
+
+.task-date-button img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.task-date-input-wrap > .task-date-picker {
+  position: absolute;
+  right: 12px;
+  bottom: 0;
+  width: 32px;
+  height: 1px;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .task-field input[type="date"] {
   padding-right: 48px;
   background-image: url("../assets/icons/event.svg");
@@ -90,6 +161,7 @@
   opacity: 0;
   cursor: pointer;
 }
+
 .task-input-error {
   border-color: var(--join-error) !important;
 }
@@ -102,14 +174,30 @@
   line-height: 12px;
 }
 
+.task-field-error[data-error-for="taskCategory"]:empty {
+  display: none;
+}
+
 .task-priority-options {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
 }
 
+.task-form--dialog .task-priority-options {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.task-form--dialog .task-priority {
+  width: 100%;
+  min-width: 0;
+  padding-inline: 4px;
+  justify-content: center;
+}
+
 .task-priority {
   display: flex;
+  width: 136px;
   height: 56px;
   align-items: center;
   justify-content: center;
@@ -121,6 +209,7 @@
   font-size: var(--fs-lg);
   transition: background var(--click-transition), color var(--click-transition), box-shadow var(--click-transition);
 }
+
 
 .task-priority input {
   position: absolute;
@@ -135,26 +224,28 @@
   object-fit: contain;
 }
 
-.task-priority:has(input:checked) {
+.task-priority:has(input:checked),
+.task-priority--selected {
   box-shadow: none;
   color: var(--card-background);
   font-size: var(--fs-button);
   font-weight: var(--fw-bold);
+  box-shadow: none;
 }
 
-.task-priority--urgent:has(input:checked) {
+.task-priority--urgent.task-priority--selected {
   background: var(--task-urgent);
 }
 
-.task-priority--medium:has(input:checked) {
+.task-priority--medium.task-priority--selected {
   background: var(--task-medium);
 }
 
-.task-priority--low:has(input:checked) {
+.task-priority--low.task-priority--selected {
   background: var(--task-low);
 }
 
-.task-priority:has(input:checked) img {
+.task-priority--selected img {
   filter: brightness(0) invert(1);
 }
 

@@ -24,7 +24,8 @@
   }
 
   .task-dialog-shell {
-    width: min(720px, calc(100vw - 40px));
+    width: calc(100vw - 40px);
+    max-width: 720px;
   }
 
   .task-form--dialog .task-form-columns {
@@ -457,5 +458,160 @@
   .summary-card--urgent {
     gap: 12px;
     padding: 14px;
+  }
+}
+
+/* DE: Mobile Anpassungen für Tasks und Board. EN: Mobile adjustments for tasks and board. */
+@media (max-width: 620px) {
+  .board-content, .add-task-content {
+    padding-top: 48px;
+  }
+  .task-form-columns {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .task-form-divider {
+    display: none;
+  }
+  .task-field > span, .task-field > label, .task-priority-field legend {
+    font-size: 16px;
+  }
+  .task-field input, .task-field select {
+    height: 40px;
+  }
+  .task-field textarea {
+    min-height: 88px;
+  }
+  .task-priority {
+    width: auto;
+    height: 41px;
+    font-size: 16px;
+  }
+  .task-form--page {
+    padding-bottom: 168px;
+  }
+  .task-form--page .task-form-footer {
+    position: fixed;
+    z-index: 45;
+    right: 0;
+    bottom: 88px;
+    left: 0;
+    height: 80px;
+    margin: 0;
+    padding: 12px 16px;
+    background: var(--page-background);
+  }
+  .task-form--page .task-form-footer > p {
+    display: none;
+  }
+  .task-form--page .task-form-actions {
+    width: 100%;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 16px;
+  }
+  .task-form--page .task-form-actions .btn {
+    width: auto;
+  }
+  .board-heading-row {
+    display: grid;
+    grid-template-columns: 1fr 40px;
+    gap: 24px 16px;
+    margin-bottom: 40px;
+  }
+  .board-heading-row h1 {
+    grid-column: 1;
+  }
+  .board-tools {
+    display: contents;
+  }
+  .board-search {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+  }
+  .board-add-task {
+    grid-column: 2;
+    grid-row: 1;
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    min-height: 40px;
+    padding: 0;
+    font-size: 0;
+    background: var(--join-dark);
+  }
+  .board-add-task:hover,
+  .board-add-task:focus-visible {
+    background: var(--join-blue);
+  }
+  .board-add-task-plus {
+    display: inline;
+    font-size: 28px;
+    line-height: 1;
+  }
+  .board-add-task img {
+    width: 24px;
+    height: 24px;
+  }
+  .board-columns {
+    grid-template-columns: 1fr;
+    gap: 26px;
+  }
+  .board-column-heading h2 {
+    font-size: 27px;
+    color: var(--join-dark);
+  }
+  .board-column-add {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+  }
+  .board-column-tasks {
+    display: flex;
+    min-height: 80px;
+    gap: 16px;
+    overflow-x: auto;
+    padding: 8px;
+  }
+  .task-card {
+    width: 252px;
+    min-width: 252px;
+    margin-bottom: 0;
+  }
+  .task-detail-shell {
+    width: calc(100vw - 32px);
+    padding: 32px 24px;
+  }
+  .task-detail-shell > h2 {
+    font-size: 36px;
+  }
+  .task-detail-description,
+  .task-detail-data dt,
+  .task-detail-data dd,
+  .task-detail-section h3 {
+    font-size: 16px;
+  }
+  .task-form-dialog:not(.task-form-dialog--edit) {
+    width: 100vw;
+    height: 100vh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+  }
+  .task-form-dialog:not(.task-form-dialog--edit) .task-dialog-shell {
+    width: 100vw;
+    min-height: 100vh;
+    max-height: 100vh;
+    padding: 48px 16px 128px;
+    border-radius: 0;
+  }
+  .task-form-dialog:not(.task-form-dialog--edit) .task-dialog-shell > h2 {
+    font-size: 47px;
+  }
+  .task-form-dialog--edit .task-dialog-shell {
+    width: 100%;
+    padding: 32px 24px;
+    border-radius: 30px;
   }
 }

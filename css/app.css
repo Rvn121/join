@@ -267,3 +267,85 @@
   min-height: calc(100vh - 96px);
   padding: 116px 96px 96px;
 }
+
+/* DE: Design-Anpassungen für Sidebar und Header. EN: Design adjustments for sidebar and header. */
+.app-content {
+  padding: 116px 96px 96px;
+}
+.app-header {
+  box-shadow: 0 4px 4px var(--shadow-header);
+}
+.app-header-content {
+  padding: 20px 40px 20px 96px;
+}
+.app-header-actions {
+  gap: 16px;
+}
+.help-button {
+  width: 32px;
+  height: 32px;
+}
+.help-button img {
+  width: 20px;
+  height: 20px;
+}
+.user-placeholder {
+  width: 56px;
+  height: 56px;
+  box-shadow: inset 0 0 0 3px var(--join-dark);
+}
+.user-initials {
+  color: #124658;
+  font-size: 20px;
+}
+.profile-menu {
+  top: 72px;
+  min-width: 150px;
+  padding: 10px;
+  box-shadow: 0 0 4px var(--shadow-strong);
+}
+.profile-menu a, .profile-menu button {
+  min-height: 46px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+.sidebar-logo-link {
+  min-height: 0;
+  padding: 64px 0 115px;
+}
+.sidebar-logo {
+  width: 100px;
+}
+.sidebar-nav.app-navigation {
+  gap: 15px;
+}
+.sidebar-link {
+  min-height: 46px;
+  padding: 8px 56px;
+  gap: 8px;
+  color: var(--join-nav-text);
+}
+.sidebar-link-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: scale-down;
+}
+.app-navigation .sidebar-link:not(.sidebar-link-active):hover,
+.app-navigation .sidebar-link:not(.sidebar-link-active):focus-visible {
+  border-radius: 8px;
+  background: var(--sidebar-link-hover);
+}
+.sidebar-link-active {
+  color: #fff;
+}
+.sidebar-footer {
+  gap: 4px;
+  padding: 0 0 64px 52px;
+}
+.sidebar-footer-link {
+  min-height: auto;
+  padding: 8px;
+  color: var(--join-nav-text);
+  font-size: 16px;
+}

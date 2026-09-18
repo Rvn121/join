@@ -10,15 +10,28 @@
   <body class="app-body" data-page="contacts" data-protected-page="true">
     <div class="app-frame">
       <aside class="app-sidebar">
-        <a class="sidebar-logo-link" href="./summary.html" aria-label="Zur Summary">
-          <img class="sidebar-logo" src="./assets/img/join_logo_white.svg" alt="Join" />
+        <a
+          class="sidebar-logo-link"
+          href="./summary.html"
+          aria-label="Zur Summary"
+        >
+          <img
+            class="sidebar-logo"
+            src="./assets/img/join_logo_white.svg"
+            alt="Join"
+          />
         </a>
 
         <nav class="sidebar-nav app-navigation" aria-label="Hauptnavigation">
           <a class="sidebar-link" href="./summary.html">Summary</a>
           <a class="sidebar-link" href="./addTask.html">Add Task</a>
           <a class="sidebar-link" href="./board.html">Board</a>
-          <a class="sidebar-link sidebar-link-active" href="./contacts.html" aria-current="page">Contacts</a>
+          <a
+            class="sidebar-link sidebar-link-active"
+            href="./contacts.html"
+            aria-current="page"
+            >Contacts</a
+          >
         </nav>
 
         <nav class="sidebar-nav external-navigation" aria-label="Login">
@@ -26,8 +39,12 @@
         </nav>
 
         <footer class="sidebar-footer">
-          <a class="sidebar-footer-link" href="./privacyPolicy.html">Privacy Policy</a>
-          <a class="sidebar-footer-link" href="./legalNotice.html">Legal notice</a>
+          <a class="sidebar-footer-link" href="./privacyPolicy.html"
+            >Privacy Policy</a
+          >
+          <a class="sidebar-footer-link" href="./legalNotice.html"
+            >Legal notice</a
+          >
         </footer>
       </aside>
 
@@ -37,12 +54,26 @@
             <span class="app-title">Kanban Project Management Tool</span>
 
             <div class="app-header-actions">
-              <a class="help-button" id="helpButton" href="./help.html" aria-label="Hilfe">
+              <a
+                class="help-button"
+                id="helpButton"
+                href="./help.html"
+                aria-label="Hilfe"
+              >
                 <img src="./assets/icons/help.svg" alt="" aria-hidden="true" />
               </a>
 
-              <button class="user-placeholder" id="profileButton" type="button" aria-label="Benutzerprofil">
-                <span class="user-initials" id="userInitials" aria-hidden="true"></span>
+              <button
+                class="user-placeholder"
+                id="profileButton"
+                type="button"
+                aria-label="Benutzerprofil"
+              >
+                <span
+                  class="user-initials"
+                  id="userInitials"
+                  aria-hidden="true"
+                ></span>
               </button>
 
               <div class="profile-menu" id="profileMenu" hidden>
@@ -54,9 +85,17 @@
 
         <main class="app-main contacts-main">
           <div class="contacts-workspace">
-            <aside class="contacts-panel" id="contactsPanel" aria-label="Contact list">
+            <aside
+              class="contacts-panel"
+              id="contactsPanel"
+              aria-label="Contact list"
+            >
               <div class="contacts-panel-header">
-                <button class="btn btn--primary btn--action contact-add-button" id="addContactButton" type="button">
+                <button
+                  class="btn btn--primary btn--action contact-add-button"
+                  id="addContactButton"
+                  type="button"
+                >
                   <span>Add new contact</span>
                   <span class="contact-add-symbol" aria-hidden="true">
                     <img src="./assets/icons/person.svg" alt="" />
@@ -64,13 +103,22 @@
                   </span>
                 </button>
               </div>
-              <div class="contacts-list" id="contactsList" aria-live="polite"></div>
-              <div class="contacts-resizer" id="contactsResizer" role="separator" tabindex="0"
-                aria-label="Resize contact list" aria-orientation="vertical"></div>
+              <div
+                class="contacts-list"
+                id="contactsList"
+                aria-live="polite"
+              ></div>
             </aside>
 
-            <section class="contacts-detail-stage" aria-labelledby="contactsHeading">
-              <a class="contact-detail-back" href="./contacts.html" aria-label="Back to contact list">
+            <section
+              class="contacts-detail-stage"
+              aria-labelledby="contactsHeading"
+            >
+              <a
+                class="contact-detail-back"
+                href="./contacts.html"
+                aria-label="Back to contact list"
+              >
                 <img src="./assets/icons/arrow.svg" alt="" aria-hidden="true" />
               </a>
               <div class="content-heading-row contacts-heading-row">
@@ -78,14 +126,22 @@
                 <span class="content-heading-divider" aria-hidden="true"></span>
                 <p>Better with a team</p>
               </div>
-              <div class="contact-detail" id="contactDetail" aria-live="polite"></div>
+              <div
+                class="contact-detail"
+                id="contactDetail"
+                aria-live="polite"
+              ></div>
             </section>
           </div>
         </main>
       </div>
     </div>
 
-    <dialog class="contact-dialog" id="contactDialog" aria-labelledby="contactDialogTitle">
+    <dialog
+      class="contact-dialog"
+      id="contactDialog"
+      aria-labelledby="contactDialogTitle"
+    >
       <div class="contact-dialog-card">
         <section class="contact-dialog-brand">
           <img src="./assets/img/join_logo_white.svg" alt="Join" />
@@ -95,7 +151,12 @@
         </section>
 
         <section class="contact-dialog-form-area">
-          <button class="icon-button contact-dialog-close" id="contactDialogClose" type="button" aria-label="Close dialog">
+          <button
+            class="icon-button contact-dialog-close"
+            id="contactDialogClose"
+            type="button"
+            aria-label="Close dialog"
+          >
             <img src="./assets/icons/close.svg" alt="" aria-hidden="true" />
           </button>
 
@@ -106,32 +167,67 @@
           <form class="contact-form" id="contactForm" novalidate>
             <div class="component-input">
               <label class="sr-only" for="contactName">Name</label>
-              <input id="contactName" name="contactName" type="text" placeholder="Name" autocomplete="name" />
+              <input
+                id="contactName"
+                name="contactName"
+                type="text"
+                placeholder="Name"
+                autocomplete="name"
+              />
               <img src="./assets/icons/person.svg" alt="" aria-hidden="true" />
               <span class="field-error" id="contactNameError"></span>
             </div>
 
             <div class="component-input">
               <label class="sr-only" for="contactEmail">Email</label>
-              <input id="contactEmail" name="contactEmail" type="email" placeholder="Email" autocomplete="email" />
+              <input
+                id="contactEmail"
+                name="contactEmail"
+                type="email"
+                placeholder="Email"
+                autocomplete="email"
+              />
               <img src="./assets/icons/mail.svg" alt="" aria-hidden="true" />
               <span class="field-error" id="contactEmailError"></span>
             </div>
 
             <div class="component-input">
               <label class="sr-only" for="contactPhone">Phone</label>
-              <input id="contactPhone" name="contactPhone" type="tel" placeholder="Phone" autocomplete="tel" />
+              <input
+                id="contactPhone"
+                name="contactPhone"
+                type="tel"
+                placeholder="Phone"
+                autocomplete="tel"
+              />
               <img src="./assets/icons/call.svg" alt="" aria-hidden="true" />
               <span class="field-error" id="contactPhoneError"></span>
             </div>
 
-            <p class="contact-form-message" id="contactFormMessage" aria-live="polite"></p>
+            <p
+              class="contact-form-message"
+              id="contactFormMessage"
+              aria-live="polite"
+            ></p>
             <div class="contact-form-actions">
-              <button class="btn btn--secondary btn--form" id="contactCancelButton" type="button">
+              <button
+                class="btn btn--secondary btn--form"
+                id="contactCancelButton"
+                type="button"
+              >
                 <span id="contactCancelLabel">Cancel</span>
-                <img id="contactCancelIcon" src="./assets/icons/close.svg" alt="" aria-hidden="true" />
+                <img
+                  id="contactCancelIcon"
+                  src="./assets/icons/close.svg"
+                  alt=""
+                  aria-hidden="true"
+                />
               </button>
-              <button class="btn btn--primary btn--form" id="contactSubmitButton" type="submit">
+              <button
+                class="btn btn--primary btn--form"
+                id="contactSubmitButton"
+                type="submit"
+              >
                 <span id="contactSubmitLabel">Create contact</span>
                 <img src="./assets/icons/check.svg" alt="" aria-hidden="true" />
               </button>
@@ -141,15 +237,19 @@
       </div>
     </dialog>
 
-    <div class="component-toast contacts-toast" id="contactsToast" hidden aria-live="polite"></div>
+    <div
+      class="component-toast contacts-toast"
+      id="contactsToast"
+      hidden
+      aria-live="polite"
+    ></div>
 
     <script src="./scripts/common.js"></script>
+    <script src="./scripts/floating.js"></script>
     <script src="./scripts/firebaseConfig.js"></script>
     <script src="./scripts/dataService.js"></script>
-    <script src="./scripts/avatarColors.js"></script>
     <script src="./scripts/templates/contactsTemplates.js"></script>
     <script src="./scripts/contacts.js"></script>
-    <script src="./scripts/contactsPanel.js"></script>
     <script src="./scripts/contactsActions.js"></script>
     <script src="./scripts/contactsForm.js"></script>
     <script src="./scripts/contactsValidation.js"></script>

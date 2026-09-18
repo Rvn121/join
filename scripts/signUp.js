@@ -274,8 +274,42 @@ function togglePasswordVisibility(button) {
 function updatePasswordToggle(button) {
   const input = document.getElementById(button.getAttribute("data-target"));
   updatePasswordIcon(input, button.querySelector("img"));
-  const label = input.type === "password" ? "Show password" : "Hide password";
+  let label = "Hide password";
+  if (input.type === "password") label = "Show password";
   button.setAttribute("aria-label", label);
+}
+
+
+/**
+ * DE: Sucht den Sichtbarkeits-Button zu einem Passwortfeld.
+ * EN: Finds the visibility button for a password field.
+ * @param {HTMLInputElement} input - DE: Passwortfeld. EN: Password input.
+ * @returns {HTMLButtonElement|null} DE: Schaltfläche. EN: Button.
+ */
+function getPasswordToggleButton(input) {
+  const selector = '[data-password-toggle][data-target="' + input.id + '"]';
+  return document.querySelector(selector);
+}
+
+
+/**
+ * DE: Aktualisiert das Passwortsymbol nach einer Eingabe.
+ * EN: Updates the password icon after input.
+ * @param {Event} event - DE: Eingabeereignis. EN: Input event.
+ */
+function handlePasswordToggleInput(event) {
+  const button = getPasswordToggleButton(event.currentTarget);
+  if (button) updatePasswordToggle(button);
+}
+
+
+/**
+ * DE: Schaltet die Passwortsichtbarkeit nach einem Klick um.
+ * EN: Toggles password visibility after a click.
+ * @param {MouseEvent} event - DE: Klickereignis. EN: Click event.
+ */
+function handlePasswordToggleClick(event) {
+  togglePasswordVisibility(event.currentTarget);
 }
 
 
@@ -287,12 +321,8 @@ function updatePasswordToggle(button) {
 function initializePasswordToggle(button) {
   const input = document.getElementById(button.getAttribute("data-target"));
   updatePasswordToggle(button);
-  input.addEventListener("input", function () {
-    updatePasswordToggle(button);
-  });
-  button.addEventListener("click", function () {
-    togglePasswordVisibility(button);
-  });
+  input.addEventListener("input", handlePasswordToggleInput);
+  button.addEventListener("click", handlePasswordToggleClick);
 }
 
 
