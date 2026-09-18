@@ -227,7 +227,7 @@ function createBasicContactDraft() {
     email: normalizeEmail(contactEmail.value),
     phone: contactPhone.value ? formatContactPhone(contactPhone.value) : "",
     initials: createContactInitials(contactName.value),
-    color: getAvatarColorByName(contactName.value),
+    color: getRandomAvatarColor(),
     isRegistered: false,
     userId: null,
   };

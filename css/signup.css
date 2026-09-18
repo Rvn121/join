@@ -37,27 +37,12 @@
   position: absolute;
   top: 58px;
   left: 48px;
-  display: inline-flex;
-  width: 36px;
-  height: 36px;
-  align-items: center;
-  justify-content: center;
-  border: unset;
-  background: transparent;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.signup-back-button img {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
 }
 
 .password-toggle {
   position: absolute;
   top: 24px;
-  right: 14px;
+  right: 19px;
   display: inline-flex;
   width: 28px;
   height: 28px;
@@ -71,9 +56,9 @@
 }
 
 .password-toggle img {
-  width: 20px;
-  height: 20px;
-  object-fit: contain;
+  width: 24px;
+  height: 24px;
+  object-fit: scale-down;
 }
 
 .privacy-check {
@@ -106,6 +91,11 @@
 .privacy-check a {
   color: var(--join-accent);
   text-decoration: none;
+}
+
+.signup-form > button[type="submit"] {
+  position: relative;
+  top: -30px;
 }
 
 body.signup-visible .signup-area,

@@ -236,7 +236,7 @@ function renderContacts() {
  * EN: Starts the entrance animation of the detail view.
  */
 function startContactDetailAnimation() {
-  contactDetail.classList.add("contact-detail--enter");
+  animateFloatingElement(contactDetail, true);
 }
 
 
@@ -248,8 +248,7 @@ function renderContactDetail() {
   const contact = getSelectedContact();
   if (!contact) return contactDetail.replaceChildren();
   contactDetail.innerHTML = getContactDetailTemplate(contact, canManageContact(contact));
-  contactDetail.classList.remove("contact-detail--enter");
-  window.setTimeout(startContactDetailAnimation, 0);
+  startContactDetailAnimation();
   initializeContactDetailEvents();
 }
 

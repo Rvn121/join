@@ -35,12 +35,6 @@
   margin-bottom: 26px;
 }
 
-.content-back-button img {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-}
-
 .content-page section > * + * {
   margin-top: 16px;
 }
@@ -126,7 +120,7 @@
   display: flex;
   width: 420px;
   max-width: 100%;
-  align-items: flex-start;
+  align-items: center;
   gap: 10px;
   margin: 4px 0 18px;
   font-size: var(--fs-small);

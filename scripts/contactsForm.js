@@ -77,7 +77,7 @@ function fillContactDialog(mode, contact = null) {
  * EN: Focuses the name field.
  */
 function focusContactName() {
-  contactName.focus();
+  contactName.focus({ preventScroll: true });
 }
 
 
@@ -90,27 +90,9 @@ function focusContactName() {
 function openContactDialog(mode, contact = null) {
   clearContactFormErrors();
   fillContactDialog(mode, contact);
-  if (!contactDialog.open) contactDialog.showModal();
-  window.setTimeout(showContactDialog, 0);
-  window.setTimeout(focusContactName, 220);
-}
-
-
-/**
- * DE: Startet die sichtbare Dialoganimation.
- * EN: Starts the visible dialog animation.
- */
-function showContactDialog() {
-  contactDialog.classList.add("contact-dialog--open");
-}
-
-
-/**
- * DE: Schließt den Dialog nach der Animation vollständig.
- * EN: Fully closes the dialog after the animation.
- */
-function finishContactDialogClose() {
-  if (contactDialog.open) contactDialog.close();
+  openFloatingDialog(contactDialog).then((opened) => {
+    if (opened && contactDialog.open) focusContactName();
+  });
 }
 
 
@@ -119,8 +101,7 @@ function finishContactDialogClose() {
  * EN: Closes the animated contact dialog.
  */
 function closeContactDialog() {
-  contactDialog.classList.remove("contact-dialog--open");
-  window.setTimeout(finishContactDialogClose, 180);
+  return closeFloatingDialog(contactDialog);
 }
 
 
@@ -273,8 +254,9 @@ function handleContactSecondaryAction() {
     closeContactDialog();
     return;
   }
-  closeContactDialog();
-  window.setTimeout(deleteSelectedContact, 190);
+  closeContactDialog().then((closed) => {
+    if (closed) deleteSelectedContact();
+  });
 }
 
 
@@ -309,17 +291,6 @@ function hideDialogSecondaryHover() {
 
 
 /**
- * DE: Verhindert das direkte Schließen des Dialogs mit Escape.
- * EN: Prevents the dialog from closing directly with Escape.
- * @param {Event} event - DE: Dialogereignis. EN: Dialog event.
- */
-function handleContactDialogCancel(event) {
-  event.preventDefault();
-  closeContactDialog();
-}
-
-
-/**
  * DE: Initialisiert die Ereignisse des Kontaktformulars.
  * EN: Initializes the contact form events.
  */
@@ -331,5 +302,4 @@ function initializeContactFormEvents() {
   secondaryButton.addEventListener("mouseleave", hideDialogSecondaryHover);
   contactForm.addEventListener("submit", handleContactSubmit);
   contactPhone.addEventListener("blur", formatPhoneField);
-  contactDialog.addEventListener("cancel", handleContactDialogCancel);
 }

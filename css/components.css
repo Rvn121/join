@@ -96,6 +96,9 @@
 .avatar--gold { --avatar-color: var(--avatar-gold); }
 .avatar--royal { --avatar-color: var(--avatar-royal); }
 .avatar--lime { --avatar-color: var(--avatar-lime); }
+.avatar--amber { --avatar-color: var(--avatar-amber); }
+.avatar--violet { --avatar-color: var(--avatar-violet); }
+.avatar--red { --avatar-color: var(--avatar-red); }
 
 /* Icon button – round, transparent, shared hover circle.
    Also drives the hover circle of a native <select> via .select-wrap::after */
@@ -127,6 +130,12 @@
   height: 16px;
 }
 
+.back-button img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
 .select-wrap {
   position: relative;
 }
@@ -154,12 +163,5 @@
   background: var(--join-dark);
   color: var(--join-white);
   font-size: var(--fs-lg);
-  opacity: 0;
-  transform: translate(-50%, 24px);
-  transition: transform 220ms ease-out, opacity 220ms ease-out;
-}
-
-.component-toast--visible {
-  opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translateX(-50%);
 }

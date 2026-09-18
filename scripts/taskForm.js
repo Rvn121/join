@@ -138,6 +138,7 @@ function clearTaskFormErrors() {
  */
 function resetTaskFormValues() {
   taskForm.reset();
+  updateTaskDateAppearance();
   taskFormState.selectedContactIds = [];
   taskFormState.subtasks = [];
   taskFormState.editingTaskId = null;
@@ -160,6 +161,7 @@ function fillTaskForm(task) {
   taskTitle.value = task.title || "";
   taskDescription.value = task.description || "";
   taskDueDate.value = task.dueDate || "";
+  updateTaskDateAppearance();
   taskCategory.value = task.category || "";
   taskForm.querySelector('input[value="' + normalizeTaskPriority(task.priority) + '"]').checked = true;
   taskFormState.selectedContactIds = normalizeTaskAssignments(task.assignedTo);
@@ -262,10 +264,24 @@ async function handleTaskFormSubmit(event) {
 
 
 /**
- * DE: Initialisiert die Ereignisse des Taskformulars.
- * EN: Initializes the task form events.
+ * DE: Aktualisiert den Platzhalter des Datumsfelds.
+ * EN: Updates the date field placeholder.
  */
+function updateTaskDateAppearance() {
+  taskDueDate.classList.toggle("date-empty", !taskDueDate.value);
+}
+
+/** DE: Öffnet den Kalender am Icon. EN: Opens the calendar at its icon. */
+function openTaskDatePicker(event) {
+  toggleTaskCalendar(event);
+}
+
+/** DE: Initialisiert Formularereignisse. EN: Initializes form events. */
 function initializeTaskFormEvents() {
+  document.getElementById("taskDatePicker").addEventListener("pointerdown", rememberTaskCalendarState);
+  document.getElementById("taskDatePicker").addEventListener("click", openTaskDatePicker);
+  taskDueDate.addEventListener("input", updateTaskDateAppearance);
+  taskDueDate.addEventListener("change", updateTaskDateAppearance);
   taskAssignedSearch.addEventListener("focus", openTaskContactDropdown);
   taskAssignedSearch.addEventListener("input", filterTaskContacts);
   taskContactDropdown.addEventListener("change", handleTaskContactChange);

@@ -158,7 +158,7 @@ function openGuestSummary() {
 function openSignUp() {
   if (loginDialog.open) loginDialog.close();
   document.body.classList.add("signup-visible");
-  if (!signUpDialog.open) signUpDialog.show();
+  openFloatingDialog(signUpDialog, false, closeSignUp);
 }
 
 
@@ -166,8 +166,8 @@ function openSignUp() {
  * DE: Schließt Sign-up und zeigt den Login.
  * EN: Closes sign up and shows login.
  */
-function closeSignUp() {
-  if (signUpDialog.open) signUpDialog.close();
+async function closeSignUp() {
+  if (!await closeFloatingDialog(signUpDialog)) return;
   document.body.classList.remove("signup-visible");
   showLoginDialog();
 }

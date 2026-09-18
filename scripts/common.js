@@ -182,19 +182,9 @@ function showToast(message, duration = 2200) {
   if (!appToast) return;
   appToast.textContent = message;
   appToast.hidden = false;
-  appToast.classList.remove("component-toast--visible");
-  window.requestAnimationFrame(showToastAnimation);
+  animateFloatingElement(appToast, true);
   window.clearTimeout(showToast.timer);
   showToast.timer = window.setTimeout(hideToast, duration);
-}
-
-
-/**
- * DE: Startet die Einfluganimation des Toasts.
- * EN: Starts the entrance animation of the toast.
- */
-function showToastAnimation() {
-  appToast.classList.add("component-toast--visible");
 }
 
 
@@ -202,10 +192,9 @@ function showToastAnimation() {
  * DE: Blendet den Toast wieder aus.
  * EN: Hides the toast again.
  */
-function hideToast() {
+async function hideToast() {
   if (!appToast) return;
-  appToast.classList.remove("component-toast--visible");
-  window.setTimeout(finishHideToast, 220);
+  if (await animateFloatingElement(appToast, false)) finishHideToast();
 }
 
 
@@ -225,6 +214,7 @@ function finishHideToast() {
 function toggleProfileMenu() {
   if (!profileMenu) return;
   profileMenu.hidden = !profileMenu.hidden;
+  profileButton?.setAttribute("aria-expanded", String(!profileMenu.hidden));
 }
 
 
@@ -334,4 +324,81 @@ if (logoutButton) logoutButton.addEventListener("click", logoutUser);
 const loginLinks = document.querySelectorAll("[data-login-link]");
 for (let i = 0; i < loginLinks.length; i++) {
   loginLinks[i].addEventListener("click", clearGuestForLogin);
+}
+const floatingAnimations = new WeakMap();
+const floatingDialogClosers = new Map();
+
+/** DE: Schließt Menüs und Dialoge bei Klick außerhalb. EN: Dismisses outside clicks. */
+function closeOutsideElements(event) {
+  if (profileMenu && !profileMenu.hidden &&
+      !profileMenu.contains(event.target) && !profileButton?.contains(event.target)) {
+    profileMenu.hidden = true;
+    profileButton?.setAttribute("aria-expanded", "false");
+  }
+  const dialogs = Array.from(floatingDialogClosers.entries()).reverse();
+  for (const [dialog, close] of dialogs) {
+    if (!dialog.open) continue;
+    if (event.target !== dialog && dialog.contains(event.target)) break;
+    const surface = dialog.querySelector(".contact-dialog-card") || dialog;
+    const bounds = surface.getBoundingClientRect();
+    const inside = event.clientX >= bounds.left && event.clientX <= bounds.right &&
+      event.clientY >= bounds.top && event.clientY <= bounds.bottom;
+    if (!inside) close();
+    break;
+  }
+}
+
+document.addEventListener("pointerdown", closeOutsideElements);
+
+/** DE: Einheitlicher horizontaler Ein-/Ausflug. EN: Shared horizontal entrance/exit. */
+async function animateFloatingElement(element, entering) {
+  const previous = floatingAnimations.get(element);
+  const current = previous ? getComputedStyle(element).translate : null;
+  if (previous) previous.cancel();
+  const distance = window.innerWidth - element.getBoundingClientRect().left + 24;
+  const outside = distance + "px 0px";
+  const animation = element.animate([
+    { translate: current || (entering ? outside : "0px 0px") },
+    { translate: entering ? "0px 0px" : outside },
+  ], {
+    duration: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 300,
+    easing: "ease-in-out",
+    fill: "forwards",
+  });
+  floatingAnimations.set(element, animation);
+  try {
+    await animation.finished;
+    return true;
+  } catch {
+    return false;
+  } finally {
+    if (floatingAnimations.get(element) === animation) {
+      floatingAnimations.delete(element);
+      animation.cancel();
+    }
+  }
+}
+
+/** DE: Öffnet einen Dialog mit gemeinsamer Animation. EN: Opens an animated dialog. */
+function openFloatingDialog(dialog, modal = true, onClose = () => closeFloatingDialog(dialog)) {
+  floatingDialogClosers.delete(dialog);
+  floatingDialogClosers.set(dialog, onClose);
+  if (!dialog.open) {
+    if (modal) dialog.showModal();
+    else dialog.show();
+  }
+  dialog.oncancel = (event) => {
+    event.preventDefault();
+    onClose();
+  };
+  return animateFloatingElement(dialog.querySelector(".contact-dialog-card") || dialog, true);
+}
+
+/** DE: Wartet vor dem Schließen auf den Ausflug. EN: Waits for exit before closing. */
+async function closeFloatingDialog(dialog) {
+  if (!dialog || !dialog.open) return false;
+  const element = dialog.querySelector(".contact-dialog-card") || dialog;
+  if (!await animateFloatingElement(element, false)) return false;
+  dialog.close();
+  return true;
 }
