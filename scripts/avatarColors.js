@@ -11,7 +11,28 @@ const avatarColorNames = [
   "gold",
   "royal",
   "lime",
+  "amber",
+  "violet",
+  "red",
 ];
+
+const legacyAvatarColorNames = {
+  "#ff7a00": "orange",
+  "#ff5eb3": "pink",
+  "#6e52ff": "indigo",
+  "#9327ff": "purple",
+  "#00bee8": "cyan",
+  "#1fd7c1": "teal",
+  "#ff745e": "coral",
+  "#ffa35e": "apricot",
+  "#fc71ff": "magenta",
+  "#ffc701": "gold",
+  "#0038ff": "royal",
+  "#c3ff2b": "lime",
+  "#ffbb2b": "amber",
+  "#462f8a": "violet",
+  "#ff4646": "red",
+};
 
 
 /**
@@ -32,6 +53,8 @@ function isAvatarColorName(colorName) {
  * @returns {string} DE: Klassenname oder leer. EN: Class name or empty.
  */
 function getAvatarColorClass(colorName) {
+  colorName = String(colorName || "").trim().toLowerCase();
+  colorName = legacyAvatarColorNames[colorName] || colorName;
   if (!isAvatarColorName(colorName)) return "";
   return "avatar--" + colorName;
 }

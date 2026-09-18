@@ -76,16 +76,116 @@
 
 
 .task-field input[type="date"] {
+  position: relative;
   padding-right: 48px;
-  background-image: url("../assets/icons/event.svg");
-  background-repeat: no-repeat;
-  background-position: right 16px center;
 }
 
 .task-field input[type="date"]::-webkit-calendar-picker-indicator {
+  position: absolute;
+  top: 50%;
+  right: 16px;
   width: 22px;
+  height: 22px;
+  margin: 0;
+  padding: 0;
+  transform: translateY(-50%);
   opacity: 0;
-  cursor: pointer;
+  pointer-events: none;
+}
+
+.task-date-picker {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border-radius: 6px;
+  background: transparent;
+  transform: translateY(-50%);
+}
+
+.task-date-picker img {
+  width: 22px;
+  height: 22px;
+}
+
+.task-date-picker:focus-visible {
+  outline: 2px solid var(--join-border-hover);
+}
+
+.task-calendar {
+  position: fixed;
+  inset: auto;
+  width: min(280px, calc(100vw - 16px));
+  margin: 0;
+  padding: 12px;
+  overflow-y: auto;
+  border: 1px solid var(--join-border);
+  border-radius: 10px;
+  background: var(--card-background);
+  color: var(--join-dark);
+  box-shadow: 0 4px 16px var(--shadow-dialog);
+  font-size: 14px;
+}
+
+.task-calendar-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.task-calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+  text-align: center;
+}
+
+.task-calendar button {
+  min-height: 32px;
+  min-width: 28px;
+  padding: 4px;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+}
+
+.task-calendar button:hover,
+.task-calendar button:focus-visible {
+  background: var(--join-dark-soft);
+}
+
+.task-calendar button[aria-pressed="true"] {
+  background: var(--join-dark);
+  color: var(--join-white);
+}
+
+.task-field input[type="date"].date-empty:not(:focus)::-webkit-datetime-edit {
+  opacity: 0;
+}
+
+.task-field > .task-date-control {
+  position: relative;
+  margin-bottom: 0;
+}
+
+.task-date-placeholder {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  color: var(--join-text-secondary);
+  pointer-events: none;
+  display: none;
+}
+
+.date-empty:not(:focus) + .task-date-placeholder {
+  display: block;
 }
 .task-input-error {
   border-color: var(--join-error) !important;

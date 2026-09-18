@@ -73,11 +73,17 @@
                       <small class="task-field-error" data-error-for="taskDescription"></small>
                     </label>
 
-                    <label class="task-field" for="taskDueDate">
-                      <span>Due date<span class="task-required">*</span></span>
-                      <input id="taskDueDate" name="dueDate" type="date" lang="en-GB" />
+                    <div class="task-field">
+                      <label for="taskDueDate">Due date<span class="task-required">*</span></label>
+                      <span class="task-date-control">
+                        <input class="date-empty" id="taskDueDate" name="dueDate" type="date" lang="en-GB" />
+                        <span class="task-date-placeholder" aria-hidden="true">dd/mm/yyyy</span>
+                        <button class="task-date-picker" id="taskDatePicker" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Open calendar" aria-controls="taskDueDate">
+                          <img src="./assets/icons/event.svg" alt="" aria-hidden="true" />
+                        </button>
+                      </span>
                       <small class="task-field-error" data-error-for="taskDueDate"></small>
-                    </label>
+                    </div>
                   </div>
 
                   <span class="task-form-divider" aria-hidden="true"></span>
@@ -174,6 +180,7 @@
     <script src="./scripts/taskUtils.js"></script>
     <script src="./scripts/templates/taskTemplates.js"></script>
     <script src="./scripts/taskForm.js"></script>
+    <script src="./scripts/taskCalendar.js"></script>
     <script src="./scripts/taskFormContacts.js"></script>
     <script src="./scripts/taskFormSubtasks.js"></script>
     <script src="./scripts/addTask.js"></script>

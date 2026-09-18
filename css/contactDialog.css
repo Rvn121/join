@@ -26,11 +26,6 @@
   overflow: hidden;
   background: var(--card-background);
   box-shadow: 0 0 16px var(--contact-shadow-dialog);
-  transform: translate(110vw, -50%);
-  transition: transform 220ms ease-in-out;
-}
-
-.contact-dialog--open .contact-dialog-card {
   transform: translate(-50%, -50%);
 }
 

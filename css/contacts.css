@@ -189,21 +189,6 @@
   margin-top: 46px;
 }
 
-.contact-detail--enter {
-  animation: contact-detail-enter 220ms ease-out;
-}
-
-@keyframes contact-detail-enter {
-  from {
-    opacity: 0;
-    transform: translateX(100vw);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 .contact-detail-head {
   display: flex;
   align-items: center;

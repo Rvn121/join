@@ -13,8 +13,9 @@ function openTaskFormDialog(status, task) {
   if (!taskFormDialog) return;
   setTaskFormDialogMode(Boolean(task));
   prepareTaskForm(status, task || null);
-  taskFormDialog.showModal();
-  taskTitle.focus();
+  openFloatingDialog(taskFormDialog).then((opened) => {
+    if (opened && taskFormDialog.open) taskTitle.focus({ preventScroll: true });
+  });
 }
 
 
@@ -33,7 +34,7 @@ function setTaskFormDialogMode(editing) {
  * EN: Closes the task form dialog.
  */
 function closeTaskFormDialog() {
-  if (taskFormDialog && taskFormDialog.open) taskFormDialog.close();
+  return closeFloatingDialog(taskFormDialog);
 }
 
 
@@ -68,7 +69,7 @@ function openTaskDetail(taskId) {
   if (!task || !taskDetailDialog) return;
   activeTaskDetailId = task.id;
   renderActiveTaskDetail();
-  taskDetailDialog.showModal();
+  openFloatingDialog(taskDetailDialog, true, closeTaskDetail);
 }
 
 
@@ -77,8 +78,8 @@ function openTaskDetail(taskId) {
  * EN: Closes the detail view.
  */
 function closeTaskDetail() {
-  if (taskDetailDialog && taskDetailDialog.open) taskDetailDialog.close();
   activeTaskDetailId = null;
+  return closeFloatingDialog(taskDetailDialog);
 }
 
 
@@ -164,11 +165,10 @@ async function deleteActiveTask() {
  * DE: Öffnet den aktuell sichtbaren Task zum Bearbeiten.
  * EN: Opens the currently visible task for editing.
  */
-function editActiveTask() {
+async function editActiveTask() {
   const task = getBoardTask(activeTaskDetailId);
   if (!task) return;
-  closeTaskDetail();
-  openTaskFormDialog(task.status, task);
+  if (await closeTaskDetail()) openTaskFormDialog(task.status, task);
 }
 
 
@@ -189,8 +189,6 @@ function handleTaskDetailClick(event) {
  * EN: Initializes the events of both task dialogs.
  */
 function initializeTaskDialogs() {
-  if (taskFormDialog) taskFormDialog.addEventListener("click", closeTaskFormBackdrop);
-  if (taskDetailDialog) taskDetailDialog.addEventListener("click", closeTaskDetailBackdrop);
   if (taskDetailContent) taskDetailContent.addEventListener("click", handleTaskDetailClick);
   if (taskDetailContent) taskDetailContent.addEventListener("change", changeDetailSubtask);
   const closeButton = document.getElementById("taskFormDialogClose");
