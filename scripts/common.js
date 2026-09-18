@@ -4,6 +4,7 @@ const userInitials = document.getElementById("userInitials");
 const profileButton = document.getElementById("profileButton");
 const profileMenu = document.getElementById("profileMenu");
 const logoutButton = document.getElementById("logoutButton");
+const appToast = document.getElementById("appToast");
 
 /**
  * DE: Gibt den aktuellen Zugangsmodus zurück.
@@ -22,8 +23,7 @@ function getUserMode() {
  */
 function getCurrentUser() {
   const user = localStorage.getItem(CURRENT_USER_KEY);
-  if (!user) return null;
-  return JSON.parse(user);
+  return user ? JSON.parse(user) : null;
 }
 
 
@@ -150,7 +150,7 @@ function addSidebarNavigationIcons() {
     icon.src = iconPath;
     icon.alt = "";
     icon.setAttribute("aria-hidden", "true");
-    links[i].insertBefore(icon, links[i].firstChild);
+    links[i].prepend(icon);
   }
 }
 
@@ -167,8 +167,54 @@ function addLoginLinkIcons() {
     icon.src = "./assets/icons/login.svg";
     icon.alt = "";
     icon.setAttribute("aria-hidden", "true");
-    loginLinks[i].insertBefore(icon, loginLinks[i].firstChild);
+    loginLinks[i].prepend(icon);
   }
+}
+
+
+/**
+ * DE: Zeigt eine kurze Rückmeldung als Toast an.
+ * EN: Shows a short feedback message as a toast.
+ * @param {string} message - DE: Meldung. EN: Message.
+ * @param {number} duration - DE: Anzeigedauer in Millisekunden. EN: Display duration in milliseconds.
+ */
+function showToast(message, duration = 2200) {
+  if (!appToast) return;
+  appToast.textContent = message;
+  appToast.hidden = false;
+  appToast.classList.remove("component-toast--visible");
+  window.requestAnimationFrame(showToastAnimation);
+  window.clearTimeout(showToast.timer);
+  showToast.timer = window.setTimeout(hideToast, duration);
+}
+
+
+/**
+ * DE: Startet die Einfluganimation des Toasts.
+ * EN: Starts the entrance animation of the toast.
+ */
+function showToastAnimation() {
+  appToast.classList.add("component-toast--visible");
+}
+
+
+/**
+ * DE: Blendet den Toast wieder aus.
+ * EN: Hides the toast again.
+ */
+function hideToast() {
+  if (!appToast) return;
+  appToast.classList.remove("component-toast--visible");
+  window.setTimeout(finishHideToast, 220);
+}
+
+
+/**
+ * DE: Entfernt den Toast vollständig aus der Ansicht.
+ * EN: Fully hides the toast from the view.
+ */
+function finishHideToast() {
+  if (appToast) appToast.hidden = true;
 }
 
 
@@ -199,8 +245,7 @@ function clearGuestLocalData() {
  */
 function getGuestTaskData() {
   const tasks = localStorage.getItem("joinGuestTasks");
-  if (!tasks) return null;
-  return JSON.parse(tasks);
+  return tasks ? JSON.parse(tasks) : null;
 }
 
 
@@ -222,10 +267,7 @@ function setGuestTaskData(tasks) {
  * @returns {object} DE: Taskkopie. EN: Task copy.
  */
 function copyStoredTask(task, fallbackId) {
-  const copy = {};
-  for (let key in task) {
-    copy[key] = task[key];
-  }
+  const copy = Object.assign({}, task);
   if (!copy.id) copy.id = String(fallbackId);
   return copy;
 }
@@ -240,43 +282,10 @@ function copyStoredTask(task, fallbackId) {
 function mapStoredTasks(data) {
   const tasks = [];
   if (!data) return tasks;
-  for (let key in data) {
+  for (const key in data) {
     if (data[key]) tasks.push(copyStoredTask(data[key], key));
   }
   return tasks;
-}
-
-
-/**
- * DE: Sucht vom geklickten Element nach oben nach einem Datenattribut.
- * EN: Searches upward from a clicked element for a data attribute.
- * @param {HTMLElement} element - DE: Start-Element. EN: Start element.
- * @param {string} attributeName - DE: Attributname. EN: Attribute name.
- * @returns {HTMLElement|null} DE: Gefundenes Element. EN: Found element.
- */
-function findParentWithAttribute(element, attributeName) {
-  let current = element;
-  while (current && current !== document.body) {
-    if (current.hasAttribute && current.hasAttribute(attributeName)) return current;
-    current = current.parentElement;
-  }
-  return null;
-}
-
-
-/**
- * DE: Sucht vom geklickten Element nach oben nach einem Button.
- * EN: Searches upward from a clicked element for a button.
- * @param {HTMLElement} element - DE: Start-Element. EN: Start element.
- * @returns {HTMLElement|null} DE: Button. EN: Button.
- */
-function findParentButton(element) {
-  let current = element;
-  while (current && current !== document.body) {
-    if (current.tagName === "BUTTON") return current;
-    current = current.parentElement;
-  }
-  return null;
 }
 
 

@@ -209,26 +209,13 @@ function compareContactLetters(firstLetter, secondLetter) {
  * @returns {string} DE: HTML-Inhalt. EN: HTML content.
  */
 function createContactGroupsHtml(groups) {
-  const letters = getContactGroupLetters(groups);
+  const letters = Object.keys(groups);
   letters.sort(compareContactLetters);
   let html = "";
   for (let i = 0; i < letters.length; i++) {
     html += getContactGroupTemplate(letters[i], groups[letters[i]], contactState.selectedId);
   }
   return html;
-}
-
-
-/**
- * DE: Sammelt die vorhandenen Anfangsbuchstaben der Kontaktgruppen.
- * EN: Collects the available first letters of the contact groups.
- * @param {object} groups - DE: Kontaktgruppen. EN: Contact groups.
- * @returns {Array} DE: Buchstabenliste. EN: Letter list.
- */
-function getContactGroupLetters(groups) {
-  const letters = [];
-  for (let letter in groups) letters.push(letter);
-  return letters;
 }
 
 
@@ -259,14 +246,10 @@ function startContactDetailAnimation() {
  */
 function renderContactDetail() {
   const contact = getSelectedContact();
-  if (!contact) {
-    contactDetail.innerHTML = "";
-    return;
-  }
+  if (!contact) return contactDetail.replaceChildren();
   contactDetail.innerHTML = getContactDetailTemplate(contact, canManageContact(contact));
   contactDetail.classList.remove("contact-detail--enter");
-  void contactDetail.offsetWidth;
-  startContactDetailAnimation();
+  window.setTimeout(startContactDetailAnimation, 0);
   initializeContactDetailEvents();
 }
 
@@ -343,6 +326,7 @@ function initializeContactEvents() {
  */
 async function initializeContacts() {
   initializeContactEvents();
+  initializeContactResizer();
   contactState.contacts = await loadContacts();
   renderContacts();
 }

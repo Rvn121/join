@@ -20,7 +20,6 @@
   --page-background: #f6f7f8;
   --card-background: #ffffff;
   --join-surface-muted: #e7e7e7;
-  --join-surface-hover: #eeeeee;
 
   /* Borders */
   --join-border: #d1d1d1;
@@ -32,8 +31,6 @@
   --shadow-dialog: rgba(0, 0, 0, 0.14);
   --shadow-medium: rgba(0, 0, 0, 0.18);
   --shadow-button: rgba(0, 0, 0, 0.25);
-  --shadow-header: rgba(0, 0, 0, 0.1);
-  --shadow-strong: rgba(0, 0, 0, 0.4);
 
   /* App shell (sidebar, header, profile menu) */
   --sidebar-link-hover: #2a3d59;

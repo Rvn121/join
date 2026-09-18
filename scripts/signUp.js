@@ -159,25 +159,6 @@ function createUserData() {
 
 
 /**
- * DE: Zeigt die Erfolgsnachricht.
- * EN: Shows the success message.
- */
-function hideSignUpSuccess() {
-  document.getElementById("signUpToast").hidden = true;
-}
-
-
-/**
- * DE: Zeigt die Erfolgsnachricht.
- * EN: Shows the success message.
- */
-function showSignUpSuccess() {
-  document.getElementById("signUpToast").hidden = false;
-  window.setTimeout(hideSignUpSuccess, 1800);
-}
-
-
-/**
  * DE: Meldet eine bereits verwendete E-Mail.
  * EN: Reports an email address that is already in use.
  */
@@ -193,7 +174,7 @@ function showDuplicateEmailError() {
  * @param {object} user - DE: Benutzer. EN: User.
  */
 function finishRegistration(user) {
-  showSignUpSuccess();
+  showToast("You signed up successfully.");
   const loginEmail = document.getElementById("email");
   if (!loginEmail) return window.location.href = "./index.html";
   loginEmail.value = user.email;
@@ -274,42 +255,8 @@ function togglePasswordVisibility(button) {
 function updatePasswordToggle(button) {
   const input = document.getElementById(button.getAttribute("data-target"));
   updatePasswordIcon(input, button.querySelector("img"));
-  let label = "Hide password";
-  if (input.type === "password") label = "Show password";
+  const label = input.type === "password" ? "Show password" : "Hide password";
   button.setAttribute("aria-label", label);
-}
-
-
-/**
- * DE: Sucht den Sichtbarkeits-Button zu einem Passwortfeld.
- * EN: Finds the visibility button for a password field.
- * @param {HTMLInputElement} input - DE: Passwortfeld. EN: Password input.
- * @returns {HTMLButtonElement|null} DE: Schaltfläche. EN: Button.
- */
-function getPasswordToggleButton(input) {
-  const selector = '[data-password-toggle][data-target="' + input.id + '"]';
-  return document.querySelector(selector);
-}
-
-
-/**
- * DE: Aktualisiert das Passwortsymbol nach einer Eingabe.
- * EN: Updates the password icon after input.
- * @param {Event} event - DE: Eingabeereignis. EN: Input event.
- */
-function handlePasswordToggleInput(event) {
-  const button = getPasswordToggleButton(event.currentTarget);
-  if (button) updatePasswordToggle(button);
-}
-
-
-/**
- * DE: Schaltet die Passwortsichtbarkeit nach einem Klick um.
- * EN: Toggles password visibility after a click.
- * @param {MouseEvent} event - DE: Klickereignis. EN: Click event.
- */
-function handlePasswordToggleClick(event) {
-  togglePasswordVisibility(event.currentTarget);
 }
 
 
@@ -321,8 +268,12 @@ function handlePasswordToggleClick(event) {
 function initializePasswordToggle(button) {
   const input = document.getElementById(button.getAttribute("data-target"));
   updatePasswordToggle(button);
-  input.addEventListener("input", handlePasswordToggleInput);
-  button.addEventListener("click", handlePasswordToggleClick);
+  input.addEventListener("input", function () {
+    updatePasswordToggle(button);
+  });
+  button.addEventListener("click", function () {
+    togglePasswordVisibility(button);
+  });
 }
 
 

@@ -1,12 +1,3 @@
-.summary-app-content {
-  padding-top: 64px;
-}
-
-.summary-content {
-  width: 100%;
-  max-width: 1080px;
-}
-
 .summary-heading-row {
   margin-bottom: 56px;
 }
@@ -14,28 +5,27 @@
 .summary-layout {
   display: flex;
   align-items: center;
-  gap: 80px;
+  gap: 66px;
 }
 
 .summary-grid {
-  display: flex;
-  width: 560px;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  row-gap: 28px;
+  display: grid;
+  width: 470px;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 20px;
 }
 
 .summary-card {
   display: flex;
-  height: 168px;
+  min-height: 140px;
   align-items: center;
   justify-content: center;
-  border-radius: 30px;
+  border-radius: 22px;
   background: var(--card-background);
-  box-shadow: 0 0 4px var(--shadow-strong);
+  box-shadow: 0 3px 8px var(--task-card-shadow);
   color: var(--join-text);
   text-decoration: none;
-  transition: background var(--click-transition), color var(--click-transition);
+  transition: transform var(--click-transition), background var(--click-transition), color var(--click-transition);
 }
 
 .summary-card:hover,
@@ -43,31 +33,30 @@
   background: var(--join-dark);
   color: var(--card-background);
   outline: none;
+  transform: scale(1.02);
 }
 
 .summary-card--half {
-  width: 264px;
+  grid-column: span 3;
+  flex-direction: row;
   gap: 18px;
 }
 
-.summary-count-group,
-.summary-urgent-count,
-.summary-deadline {
+.summary-count-group {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 .summary-card--urgent {
-  width: 100%;
-  gap: 61px;
-  padding: 28px 48px;
+  grid-column: span 6;
+  min-height: 142px;
+  gap: 22px;
 }
 
 .summary-card--third {
-  width: 168px;
+  grid-column: span 2;
   flex-direction: column;
-  padding: 25px 0;
   text-align: center;
 }
 
@@ -103,23 +92,18 @@
   opacity: 1;
 }
 
-.summary-urgent-group {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
 .summary-icon--urgent {
-  width: 60px;
-  height: 60px;
-  flex-basis: 60px;
+  width: 58px;
+  height: 58px;
+  flex-basis: 58px;
+  margin: 0;
   border-radius: 50%;
   background: var(--task-urgent);
 }
 
 .summary-icon--urgent img {
-  width: 34px;
-  height: 25px;
+  width: 22px;
+  height: 16px;
   object-fit: contain;
   filter: brightness(0) invert(1);
 }
@@ -127,54 +111,39 @@
 .summary-number,
 .summary-urgent-count strong {
   font-size: var(--fs-display);
-  line-height: 1.2;
+  line-height: 1;
   font-weight: var(--fw-semibold);
 }
 
-.summary-label {
-  color: var(--join-dark);
-  font-size: var(--fs-lg);
-  line-height: 1.2;
-}
-
+.summary-label,
 .summary-urgent-count small,
 .summary-deadline small {
-  color: var(--join-dark);
-  font-size: var(--fs-body);
-  line-height: 1.2;
+  margin-top: 4px;
+  font-size: var(--fs-small);
 }
 
-.summary-card:hover .summary-label,
-.summary-card:hover small,
-.summary-card:hover .summary-deadline strong,
-.summary-card:focus-visible .summary-label,
-.summary-card:focus-visible small,
-.summary-card:focus-visible .summary-deadline strong {
-  color: inherit;
+.summary-urgent-count,
+.summary-deadline {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .summary-urgent-divider {
-  width: 2px;
-  height: 102px;
+  width: 1px;
+  height: 68px;
   background: var(--join-border);
 }
 
-.summary-deadline {
-  gap: 13px;
-}
-
 .summary-deadline strong {
-  color: var(--join-dark);
-  font-size: var(--fs-button);
-  line-height: 1.2;
+  font-size: var(--fs-body);
 }
 
 .summary-greeting {
   display: flex;
+  min-width: 250px;
   flex-direction: column;
-  gap: 3px;
   color: var(--join-dark);
-  line-height: 1.2;
 }
 
 .summary-greeting span {
@@ -183,100 +152,6 @@
 }
 
 .summary-greeting strong {
-  color: var(--join-accent);
+  color: var(--join-border-hover);
   font-size: var(--fs-display);
-}
-
-/* DE: Design-Anpassungen für die Summary. EN: Design adjustments for the summary. */
-.summary-app-content {
-  padding-top: 116px;
-}
-.summary-content {
-  width: 100%;
-  max-width: 1200px;
-}
-.summary-heading-row {
-  margin-bottom: 56px;
-}
-.summary-layout {
-  gap: 80px;
-}
-.summary-grid {
-  display: flex;
-  width: 560px;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  column-gap: 28px;
-  row-gap: 28px;
-}
-.summary-card {
-  height: 168px;
-  min-height: 168px;
-  border-radius: 30px;
-  box-shadow: 0 0 4px var(--shadow-strong);
-  transform: none !important;
-}
-.summary-card--half {
-  width: 264px;
-  flex: 0 0 264px;
-  gap: 18px;
-}
-.summary-card--urgent {
-  width: 560px;
-  flex: 0 0 560px;
-  padding: 28px 48px;
-  gap: 18px;
-}
-.summary-card--third {
-  width: 168px;
-  flex: 0 0 168px;
-}
-.summary-number, .summary-urgent-count strong {
-  font-size: 64px;
-  font-weight: 600;
-  line-height: 1.2;
-}
-.summary-label {
-  color: var(--join-dark);
-  font-size: 20px;
-}
-.summary-card:hover .summary-label,
-.summary-card:focus-visible .summary-label {
-  color: #fff;
-}
-.summary-urgent-count small, .summary-deadline small {
-  font-size: 16px;
-}
-.summary-deadline strong {
-  font-size: 21px;
-}
-.summary-icon--urgent {
-  width: 60px;
-  height: 60px;
-  flex-basis: 60px;
-}
-.summary-icon--urgent img {
-  width: 34px;
-  height: 25px;
-}
-.summary-urgent-divider {
-  width: 2px;
-  height: 102px;
-  margin-left: 43px;
-}
-.summary-deadline {
-  margin-left: 43px;
-  gap: 13px;
-}
-.summary-greeting {
-  min-width: 300px;
-  gap: 3px;
-}
-.summary-greeting span {
-  font-size: 47px;
-  font-weight: 500;
-}
-.summary-greeting strong {
-  color: #124658;
-  font-size: 64px;
 }

@@ -109,8 +109,7 @@ function normalizeTaskAssignments(assignments) {
  * @returns {object} DE: Normalisierter Task. EN: Normalized task.
  */
 function normalizeTask(task) {
-  const normalized = {};
-  for (let key in task) normalized[key] = task[key];
+  const normalized = Object.assign({}, task);
   normalized.id = String(task.id || createTaskId());
   normalized.status = normalizeTaskStatus(task.status || task.boardStatus);
   normalized.priority = normalizeTaskPriority(task.priority);
@@ -272,9 +271,9 @@ function getPriorityLabel(priority) {
  * @returns {string} DE: Iconpfad. EN: Icon path.
  */
 function getPriorityIcon(priority) {
-  if (priority === "urgent") return "./assets/icons/prio-high.svg";
-  if (priority === "low") return "./assets/icons/prio-low.svg";
-  return "./assets/icons/prio-medium.svg";
+  if (priority === "urgent") return "./assets/icons/Prio-high.svg";
+  if (priority === "low") return "./assets/icons/Prio-low.svg";
+  return "./assets/icons/Prio-med.svg";
 }
 
 

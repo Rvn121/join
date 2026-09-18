@@ -51,24 +51,13 @@
 
 .component-input {
   position: relative;
-  width: 422px;
+  width: 420px;
   max-width: 100%;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .component-input input {
-  padding: 0 53px 0 21px;
-}
-
-.component-input .field-error {
-  display: block;
-  margin-top: 8px;
-  font-size: var(--fs-error);
-  line-height: 14px;
-}
-
-.component-input .field-error:empty {
-  display: none;
+  padding: 0 50px 0 20px;
 }
 
 .component-input > img {
@@ -151,49 +140,26 @@
   pointer-events: none;
 }
 
-/* Overlays – shared slide-in for every dialog, page stays put while one is open */
-@keyframes overlay-slide-in {
-  from {
-    transform: translateX(100vw);
-  }
-}
-
-.task-form-dialog[open] .task-dialog-shell,
-.task-detail-dialog[open] .task-detail-shell {
-  animation: overlay-slide-in 220ms ease-out;
-}
-
-body:has(dialog[open]:not(.login-dialog):not(.signup-dialog)) {
-  overflow: hidden;
-}
-
 /* Toast */
 .component-toast {
+  position: fixed;
+  z-index: 40;
+  bottom: 80px;
+  left: 50%;
   display: inline-flex;
-  min-height: 74px;
+  min-height: 66px;
   align-items: center;
   padding: 0 32px;
   border-radius: 20px;
   background: var(--join-dark);
   color: var(--join-white);
   font-size: var(--fs-lg);
+  opacity: 0;
+  transform: translate(-50%, 24px);
+  transition: transform 220ms ease-out, opacity 220ms ease-out;
 }
 
-/* DE: Gemeinsame Input- und Fehlerdarstellung. EN: Shared input and error styling. */
-.component-input input {
-  border-color: var(--join-text-secondary);
-  font-size: 20px;
-}
-.component-input input::placeholder {
-  color: var(--join-text-secondary);
-}
-.component-input input:focus {
-  border-color: var(--join-accent);
-}
-.input-error, .component-input input.input-error {
-  border-color: var(--join-error) !important;
-}
-.field-error, .form-message, .contact-form-message {
-  color: var(--join-error);
-  font-size: var(--fs-error);
+.component-toast--visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
 }

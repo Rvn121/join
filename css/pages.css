@@ -5,7 +5,7 @@
 .content-heading-row {
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 22px;
 }
 
 .content-heading-row p {
@@ -16,7 +16,7 @@
 
 .content-heading-divider {
   width: 3px;
-  height: 59px;
+  height: 52px;
   background: var(--join-blue);
 }
 
@@ -35,7 +35,7 @@
   margin-bottom: 26px;
 }
 
-.icon-button.content-back-button img {
+.content-back-button img {
   width: 32px;
   height: 32px;
   object-fit: contain;
@@ -94,118 +94,59 @@
 .help-follow-up p + p {
   margin-top: 16px;
 }
-.help-enjoy {
-  margin-top: 34px;
-  padding-bottom: 24px;
-}
 
-.help-content h2,
-.legal-content h2 {
-  margin: 28px 0 8px;
-}
-
-
-.legal-page-content {
-  padding-top: 12px;
-}
-
-.legal-content > h1 {
-  margin-bottom: 20px;
-}
-
-.legal-imprint {
-  margin-top: 0;
-}
-
-.legal-details-list {
-  margin: 0 0 16px;
-  padding-left: 20px;
-}
-
-.legal-content p,
-.legal-content li {
-  font-size: var(--fs-body);
-}
-
-.legal-content p + p {
-  margin-top: 14px;
-}
-
-.legal-block {
-  margin-top: 22px;
-}
-
-.legal-block--last {
-  padding-bottom: 32px;
-}
-
-.legal-highlight {
-  color: var(--join-border-hover);
-}
-
-.content-back-button {
-  display: inline-flex;
-  width: 36px;
-  height: 36px;
+.signup-page {
+  display: flex;
+  min-height: 100vh;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  padding: 40px 20px;
+}
+
+.signup-card {
+  width: min(100%, 660px);
+  padding: 48px 72px 52px;
+  border-radius: 30px;
+  background: var(--card-background);
+  box-shadow: 0 0 14px 3px var(--shadow-soft);
+}
+
+.signup-heading {
+  margin: 0 0 32px;
+  text-align: center;
+}
+
+.signup-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.privacy-check {
+  display: flex;
+  width: 420px;
+  max-width: 100%;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 4px 0 18px;
+  font-size: var(--fs-small);
+}
+
+.privacy-check input {
+  width: 18px;
+  height: 18px;
+  margin: 0;
+}
+
+.signup-back {
+  display: inline-block;
+  margin-top: 24px;
+  color: var(--join-dark);
   text-decoration: none;
-  transition: background var(--click-transition);
+  transition: color var(--click-transition);
 }
 
-.content-back-button:hover,
-.content-back-button:focus-visible {
-  background: rgba(42, 54, 71, 0.08);
-}
-
-.content-back-button img {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-}
-
-.legal-content section {
-  margin-top: 26px;
-}
-
-.legal-content section h2 {
-  margin-bottom: 8px;
-}
-
-/* DE: Design-Anpassungen für Textseiten. EN: Design adjustments for text pages. */
-.content-heading-row {
-  gap: 30px;
-}
-.content-heading-divider {
-  height: 59px;
-}
-.content-page {
-  width: 100%;
-  max-width: 1016px;
-}
-.help-content, .legal-content {
-  max-width: none;
-}
-.help-page-content, .legal-page-content {
-  padding-top: 0;
-}
-.help-content p, .legal-content p, .legal-content li {
-  font-size: 16px;
-  line-height: 1.2;
-}
-.help-highlight, .legal-highlight {
-  color: var(--join-accent);
-}
-.help-step {
-  padding-left: 61px;
-}
-.help-step::before {
-  font-size: 27px;
-}
-.help-step h3 {
-  font-size: 20px;
-}
-.help-section h2, .legal-content h2 {
-  margin: 24px 0 16px;
+.signup-back:hover,
+.signup-back:focus-visible {
+  color: var(--join-blue);
 }

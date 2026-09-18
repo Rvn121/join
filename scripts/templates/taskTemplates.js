@@ -81,8 +81,7 @@ function getTaskProgressTemplate(task) {
   const done = countDoneSubtasks(task.subtasks);
   const progress = getSubtaskProgress(task.subtasks);
   const label = done + "/" + task.subtasks.length + " Subtasks";
-  const detail = done + " of " + task.subtasks.length + " subtasks done";
-  return `<div class="task-card-progress" data-progress-label="${detail}" tabindex="0"><span><i style="width:${progress}%"></i></span><small>${label}</small></div>`;
+  return `<div class="task-card-progress" title="${label}"><span><i style="width:${progress}%"></i></span><small>${label}</small></div>`;
 }
 
 
@@ -161,8 +160,7 @@ function getTaskDetailContactsTemplate(task, contacts) {
  * @returns {string} DE: Subtask-HTML. EN: Subtask HTML.
  */
 function getTaskDetailSubtaskTemplate(subtask) {
-  let checked = "";
-  if (subtask.done) checked = " checked";
+  const checked = subtask.done ? " checked" : "";
   return `<label class="task-detail-subtask"><input type="checkbox" data-detail-subtask-id="${escapeTaskHtml(subtask.id)}"${checked} /><span>${escapeTaskHtml(subtask.title)}</span></label>`;
 }
 
@@ -192,7 +190,7 @@ function getTaskDetailTemplate(task, contacts) {
   const priority = getPriorityLabel(task.priority);
   const priorityIcon = getPriorityIcon(task.priority);
   return `
-    <button class="icon-button task-detail-close" type="button" data-task-detail-close aria-label="Taskdetails schließen"><img src="./assets/icons/close.svg" alt="" aria-hidden="true" /></button>
+    <button class="icon-button task-detail-close" type="button" data-task-detail-close aria-label="Taskdetails schließen">×</button>
     <span class="task-category ${categoryClass}">${escapeTaskHtml(task.category)}</span>
     <h2 id="taskDetailTitle">${escapeTaskHtml(task.title)}</h2>
     <p class="task-detail-description">${escapeTaskHtml(task.description || "No description")}</p>
@@ -219,10 +217,8 @@ function getTaskDetailTemplate(task, contacts) {
  * @returns {string} DE: Options-HTML. EN: Option HTML.
  */
 function getAssignedContactTemplate(contact, selected, ownContact) {
-  let checked = "";
-  let you = "";
-  if (selected) checked = " checked";
-  if (ownContact) you = " (You)";
+  const checked = selected ? " checked" : "";
+  const you = ownContact ? " (You)" : "";
   return `<label class="task-contact-option" data-contact-name="${escapeTaskHtml(contact.name).toLowerCase()}">${getTaskAvatarTemplate(contact)}<span>${escapeTaskHtml(contact.name)}${you}</span><input type="checkbox" data-contact-id="${escapeTaskHtml(contact.id)}"${checked} /></label>`;
 }
 

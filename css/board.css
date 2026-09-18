@@ -11,20 +11,20 @@
   align-items: center;
   justify-content: space-between;
   gap: 28px;
-  margin-bottom: 47px;
+  margin-bottom: 46px;
 }
 
 .board-tools {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 24px;
 }
 
 .board-search {
   display: flex;
   width: 312px;
   align-items: center;
-  padding: 8px 16px;
+  padding: 0 14px 0 16px;
 }
 
 .board-search input {
@@ -36,46 +36,25 @@
 
 .board-search > span {
   width: 1px;
-  height: 31px;
-  margin: 0 16px 0 10px;
-  background: var(--join-text-secondary);
+  height: 30px;
+  margin: 0 14px;
+  background: var(--join-border);
 }
 
 .board-search img {
-  width: 32px;
-  height: 32px;
-  padding: 7px;
-  object-fit: contain;
-}
-
-.board-add-task {
-  min-height: 48px;
-  padding: 0 16px;
-  border-radius: 10px;
-  gap: 4px;
+  width: 24px;
+  height: 24px;
 }
 
 .board-add-task img {
-  display: none;
-}
-
-.board-add-task::after,
-.board-column-add::after {
-  display: block;
-  content: "";
-  background:
-    linear-gradient(currentColor, currentColor) center / 2px 19px no-repeat,
-    linear-gradient(currentColor, currentColor) center / 19px 2px no-repeat;
-}
-
-.board-add-task::after {
   width: 32px;
   height: 32px;
+  filter: brightness(0) invert(1);
 }
 
 .board-columns {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(210px, 1fr));
   gap: 24px;
   align-items: start;
 }
@@ -86,11 +65,10 @@
 
 .board-column-heading {
   display: flex;
-  min-height: 24px;
+  min-height: 40px;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 12px;
   color: var(--board-column-title);
 }
 
@@ -100,98 +78,84 @@
 
 .board-column-add {
   display: inline-flex;
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   align-items: center;
   justify-content: center;
-  padding: 0;
-  border: 2px solid var(--join-dark);
+  padding: 2px;
+  border: unset;
   border-radius: 8px;
   background: transparent;
-  color: var(--join-dark);
-  cursor: pointer;
-  transition: border-color var(--click-transition), color var(--click-transition);
+  transition: background var(--click-transition), transform var(--click-transition);
 }
 
 .board-column-add:hover,
 .board-column-add:focus-visible {
-  border-color: var(--join-blue);
-  color: var(--join-blue);
-  outline: none;
+  background: var(--join-dark-soft);
+  transform: scale(1.08);
 }
 
 .board-column-add img {
-  display: none;
-}
-
-.board-column-add::after {
-  width: 8px;
-  height: 8px;
-  background-size: 2px 8px, 8px 2px;
+  width: 24px;
+  height: 24px;
 }
 
 .board-column-tasks {
-  min-height: 48px;
-  border-radius: 24px;
-  transition: outline-color var(--click-transition), background var(--click-transition);
+  min-height: 150px;
+  padding: 4px;
+  border: 2px dashed transparent;
+  border-radius: 14px;
+  transition: border-color var(--click-transition), background var(--click-transition);
 }
 
 .board-column-tasks--drop {
-  outline: 2px dashed var(--join-blue);
-  outline-offset: 6px;
+  border-color: var(--join-blue);
   background: var(--task-drop-zone);
 }
 
 .board-empty {
   display: flex;
-  min-height: 48px;
+  min-height: 52px;
   align-items: center;
   justify-content: center;
-  border: 1px dashed var(--join-text-secondary);
+  border: 1px solid var(--join-text-secondary);
   border-radius: 10px;
   background: var(--join-surface-muted);
-  box-shadow: 0 0 4px var(--shadow-medium);
   color: var(--join-text-secondary);
-  font-size: var(--fs-body);
+  font-size: var(--fs-small);
 }
 
 .task-card {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   padding: 16px;
   border-radius: 24px;
   background: var(--card-background);
-  box-shadow: 0 0 10px var(--task-card-shadow);
+  box-shadow: 0 0 10px 3px var(--task-card-shadow);
   cursor: grab;
-  transition: box-shadow var(--click-transition);
+  transition: transform var(--click-transition), box-shadow var(--click-transition);
 }
 
 .task-card:hover,
 .task-card:focus-visible {
-  box-shadow: 0 0 10px var(--shadow-medium);
+  box-shadow: 0 4px 12px var(--contact-shadow-dialog);
   outline: none;
+  transform: translateY(-2px);
 }
 
 .task-card--dragging {
   z-index: 5;
   opacity: 0.88;
-  transform: rotate(5deg);
+  transform: rotate(5deg) scale(1.02) !important;
   cursor: grabbing;
 }
 
 .task-category {
   display: inline-flex;
-  align-self: flex-start;
-  min-height: 27px;
-  align-items: center;
-  padding: 4px 16px;
+  padding: 4px 14px;
   border-radius: 8px;
   color: var(--card-background);
-  font-size: var(--fs-body);
-  line-height: 19px;
+  font-size: var(--fs-small);
 }
 
 .task-category--story {
@@ -203,60 +167,33 @@
 }
 
 .task-card h3 {
-  margin: 0;
+  margin: 18px 0 8px;
   color: var(--join-dark);
   font-size: var(--fs-body);
-  line-height: 19px;
 }
 
 .task-card-description {
   display: -webkit-box;
-  margin: -16px 0 0;
+  margin: 0 0 16px;
   overflow: hidden;
   color: var(--join-text-secondary);
-  font-size: var(--fs-body);
-  line-height: 19px;
+  font-size: var(--fs-small);
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
 }
 
-.task-card-description:empty {
-  display: none;
-}
-
 .task-card-progress {
-  position: relative;
   display: flex;
   align-items: center;
-  gap: 11px;
-}
-
-.task-card-progress::after {
-  position: absolute;
-  bottom: calc(100% + 6px);
-  left: 0;
-  padding: 6px 12px;
-  border-radius: 8px;
-  background: var(--join-dark);
-  color: var(--join-white);
-  content: attr(data-progress-label);
-  font-size: var(--fs-small);
-  white-space: nowrap;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--click-transition);
-}
-
-.task-card-progress:hover::after,
-.task-card-progress:focus-within::after {
-  opacity: 1;
+  gap: 12px;
+  margin: 12px 0 14px;
 }
 
 .task-card-progress > span {
-  width: 110px;
-  height: 8px;
+  height: 7px;
+  flex: 1;
   overflow: hidden;
-  border-radius: 8px;
+  border-radius: 6px;
   background: var(--task-soft-background);
 }
 
@@ -270,8 +207,7 @@
 .task-card-progress small {
   flex: 0 0 auto;
   color: var(--join-text);
-  font-size: var(--fs-body);
-  line-height: 19px;
+  font-size: 11px;
 }
 
 .task-card-footer {
@@ -291,143 +227,7 @@
 }
 
 .task-card-priority {
-  width: 32px;
-  height: 32px;
-  padding: 10px 7px;
+  width: 20px;
+  height: 16px;
   object-fit: contain;
-}
-
-/* DE: Design-Anpassungen für das Board. EN: Design adjustments for the board. */
-.board-content {
-  padding-top: 116px;
-}
-.board-heading-row {
-  margin-bottom: 47px;
-}
-.board-tools {
-  gap: 32px;
-}
-.board-search {
-  width: 312px;
-  padding: 8px 16px;
-  border-color: var(--join-text-secondary);
-}
-.board-search input {
-  font-size: 20px;
-}
-.board-search input::placeholder {
-  color: var(--join-text-secondary);
-}
-.board-search:focus-within {
-  border-color: var(--join-accent);
-}
-.board-search > span {
-  height: 31px;
-  margin: 0 16px;
-  background: var(--join-text-secondary);
-}
-.board-search img {
-  width: 32px;
-  height: 32px;
-  object-fit: scale-down;
-}
-.board-add-task {
-  width: 160px;
-  min-height: 56px;
-  padding: 0;
-  border: 0;
-  border-radius: 10px;
-  background: url("../assets/icons/add-task.svg") center / 100% 100% no-repeat;
-}
-
-.board-add-task:hover,
-.board-add-task:focus-visible {
-  background: url("../assets/icons/add-task-hover.svg") center / 100% 100% no-repeat;
-}
-
-.board-add-task-plus {
-  display: none;
-}
-.board-add-task img {
-  width: 32px;
-  height: 32px;
-}
-.board-column-heading {
-  margin-bottom: 12px;
-  color: var(--board-column-title);
-}
-.board-column-heading h2 {
-  font-size: 20px;
-}
-.board-column-add {
-  width: 24px;
-  height: 24px;
-  padding: 0;
-  border: unset;
-  border-radius: 50%;
-}
-.board-column-add img {
-  width: 24px;
-  height: 24px;
-}
-.board-column-add:hover, .board-column-add:focus-visible {
-  border-color: var(--join-blue);
-  background: transparent;
-  transform: none;
-}
-.board-column-tasks {
-  padding: 0;
-  border: 0;
-}
-.board-column-tasks--drop {
-  outline: 2px dashed var(--join-blue);
-  outline-offset: 3px;
-}
-.board-empty {
-  min-height: 48px;
-  border: 1px dashed var(--join-text-secondary);
-  background: var(--join-surface-muted);
-  color: var(--join-text-secondary);
-  font-size: 16px;
-  box-shadow: 0 0 4px var(--shadow-medium);
-}
-.task-card {
-  margin-bottom: 16px;
-  padding: 16px;
-  box-shadow: 0 0 10px 3px var(--task-card-shadow);
-  transform: none !important;
-}
-.task-category {
-  min-height: 27px;
-  padding: 4px 16px;
-  font-size: 16px;
-}
-.task-card h3 {
-  margin: 24px 0 8px;
-}
-.task-card-description {
-  margin-bottom: 16px;
-  color: var(--join-text-secondary);
-  font-size: 16px;
-}
-.task-card-progress {
-  gap: 11px;
-}
-.task-card-progress > span {
-  height: 8px;
-}
-.task-card-progress i {
-  background: var(--progress-fill);
-}
-.task-card-progress small {
-  font-size: 16px;
-}
-.task-card-priority {
-  width: 32px;
-  height: 32px;
-  padding: 10px 7px;
-  object-fit: contain;
-}
-.task-card--dragging {
-  transform: rotate(5deg) !important;
 }

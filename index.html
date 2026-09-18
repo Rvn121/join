@@ -31,8 +31,7 @@
       </header>
 
       <main class="site-main">
-        <img class="join-logo join-logo--dark" src="./assets/img/join_logo.svg" alt="Join" />
-        <img class="join-logo join-logo--light" src="./assets/img/join_logo_white.svg" alt="" aria-hidden="true" />
+        <img class="join-logo" src="./assets/img/join_logo.svg" alt="Join" />
 
         <dialog
           class="login-dialog"
@@ -211,9 +210,7 @@
           </form>
         </dialog>
 
-        <div class="signup-toast component-toast" id="signUpToast" hidden>
-          You Signed Up successfully
-        </div>
+        <div class="component-toast" id="appToast" hidden aria-live="polite"></div>
       </main>
 
       <footer class="site-footer">
@@ -224,9 +221,9 @@
       </footer>
     </div>
 
+    <script src="./scripts/common.js"></script>
     <script src="./scripts/firebaseConfig.js"></script>
     <script src="./scripts/dataService.js"></script>
-    <script src="./scripts/contactService.js"></script>
     <script src="./scripts/signUp.js"></script>
     <script src="./script.js"></script>
   </body>

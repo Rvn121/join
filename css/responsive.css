@@ -40,8 +40,7 @@
   }
 
   .login-dialog {
-    width: calc(100vw - 40px);
-    max-width: 660px;
+    width: min(660px, calc(100vw - 40px));
   }
 }
 
@@ -97,76 +96,48 @@
 }
 
 @media (max-width: 620px) {
-  body:not(.logo-corner) .page-frame {
-    background: var(--join-dark);
-  }
-
-  .join-logo {
-    width: 100px;
-  }
-
-  .join-logo--light {
-    display: block;
-  }
-
-  body:not(.logo-corner) .join-logo--dark,
-  body.logo-corner .join-logo--light {
-    opacity: 0;
+  .signup-area {
+    top: 30px;
+    right: 20px;
+    gap: 12px;
+    font-size: var(--fs-small);
   }
 
   body.logo-corner .join-logo {
-    top: 37px;
-    left: 38px;
+    top: 28px;
+    left: 20px;
     width: 64px;
   }
 
-  .signup-area {
-    position: fixed;
-    top: calc(50% + 315px);
-    right: auto;
-    left: 50%;
-    gap: 35px;
-    font-size: var(--fs-lg);
-    white-space: nowrap;
-    transform: translate(-50%, -8px);
-  }
-
-  body.login-visible .signup-area {
-    transform: translate(-50%, 0);
-  }
-
-  .signup-area .btn--sm {
-    min-height: 49px;
-    padding-inline: 22px;
+  .btn--sm {
+    min-height: 36px;
+    padding-inline: 14px;
+    font-size: var(--fs-small);
   }
 
   .login-dialog {
+    top: 52%;
     width: calc(100vw - 32px);
+    min-height: 390px;
+    border-radius: 24px;
   }
 
   .login-form {
-    padding: 32px 16px;
+    min-height: 390px;
+    padding: 38px 24px 40px;
   }
 
-  .login-form .component-input,
-  .login-form .form-message {
-    width: 364px;
+  .login-heading {
+    margin-bottom: 28px;
   }
 
   .heading-line {
-    width: 88px;
+    width: 116px;
+    margin-top: 12px;
   }
 
   .login-actions {
-    flex-direction: column;
-    gap: 21px;
-  }
-
-  .login-actions .btn {
-    width: 180px;
-    min-height: 51px;
-    padding-inline: 0;
-    font-size: var(--fs-body);
+    gap: 14px;
   }
 
   .btn {
@@ -176,7 +147,11 @@
   }
 
   .footer-content {
-    padding-bottom: 22px;
+    min-height: 72px;
+  }
+
+  .footer-content a {
+    font-size: var(--fs-label);
   }
 
   .app-frame {
@@ -185,138 +160,97 @@
 
   .app-sidebar {
     position: fixed;
-    z-index: 30;
-    top: auto;
-    right: 0;
+    z-index: 25;
     bottom: 0;
     left: 0;
-    display: flex;
     width: 100%;
     min-width: 0;
-    height: 80px;
+    height: auto;
     min-height: 0;
     flex-direction: row;
-    align-items: center;
-    padding: 0 16px;
-    overflow: visible;
-    box-shadow: 0 0 4px var(--shadow-strong);
+    overflow-y: visible;
+    box-shadow: 0 -3px 8px var(--shadow-card);
   }
 
-  .sidebar-logo-link,
-  body:not(.external-layout) .sidebar-footer {
+  .sidebar-logo-link {
     display: none;
   }
 
   .sidebar-nav {
     flex: 1;
     flex-direction: row;
-    justify-content: space-between;
+    flex-wrap: nowrap;
     gap: 0;
   }
 
-  .sidebar-link,
-  .external-layout .sidebar-footer-link {
-    width: 80px;
+  .sidebar-link {
     min-width: 0;
-    height: 76px;
-    min-height: 0;
-    flex-direction: column;
+    flex: 1;
     justify-content: center;
-    gap: 4px;
-    padding: 8px 0;
-    border-radius: 16px;
-    font-size: var(--fs-body);
-    text-align: center;
+    padding: 6px 4px;
   }
 
-  .sidebar-link-icon {
-    width: 24px;
-    height: 24px;
+  .app-navigation .sidebar-link {
+    flex-direction: column;
+    gap: 2px;
   }
 
-  .app-navigation .sidebar-link:not(.sidebar-link-active):hover,
-  .app-navigation .sidebar-link:not(.sidebar-link-active):focus-visible {
-    border-radius: 16px;
+  .external-navigation .sidebar-link {
+    flex-direction: row;
+    gap: 8px;
   }
 
-  .external-layout .app-sidebar {
-    justify-content: space-between;
-  }
-
-  .external-layout .external-navigation {
-    flex: 0 0 auto;
-  }
-
-  .external-layout .sidebar-footer {
+  .sidebar-footer {
+    display: none;
+    flex: 2;
     flex-direction: row;
     gap: 0;
-    margin: 0;
     padding: 0;
   }
 
-  .app-header,
-  .app-header-content {
-    min-height: 80px;
+  .external-layout .sidebar-footer {
+    display: flex;
   }
 
-  .app-header-content {
-    padding: 20px 16px;
+  .sidebar-footer-link {
+    width: 50%;
+    justify-content: center;
   }
 
-  .app-header-content::before {
-    display: block;
+  .app-header-logo-link {
+    display: flex;
+  }
+
+  .app-header-logo {
     width: 32px;
-    height: 40px;
-    flex: 0 0 auto;
-    background: url("../assets/img/join_logo.svg") center / contain no-repeat;
-    content: "";
+    height: auto;
   }
 
-  .app-title,
-  .help-button {
-    display: none;
-  }
-
-  .user-placeholder {
-    width: 40px;
-    height: 40px;
-    box-shadow: inset 0 0 0 2px var(--join-dark);
-  }
-
-  .user-initials {
-    font-size: var(--fs-body);
-  }
-
-  .profile-menu {
-    top: 52px;
-  }
-
-  .app-main {
-    min-height: calc(100vh - 80px);
-    padding-bottom: 80px;
+  .component-toast {
+    bottom: 88px;
   }
 
   .app-content {
-    min-height: 0;
-    padding: 48px 16px 64px;
+    padding: 36px 20px 96px;
   }
 
   .content-heading-row {
     align-items: flex-start;
     flex-direction: column;
-    gap: 0;
+    gap: 12px;
   }
 
   .content-heading-row p {
-    margin-top: 8px;
     font-size: var(--fs-lg);
   }
 
   .content-heading-divider {
     width: 90px;
     height: 3px;
-    order: 1;
-    margin-top: 13px;
+  }
+
+  .signup-card {
+    padding: 36px 20px;
   }
 
   .help-heading {
@@ -333,29 +267,13 @@
 }
 
 @media (max-width: 380px) {
-  .sidebar-link,
-  .external-layout .sidebar-footer-link {
-    width: auto;
-    min-width: 0;
-    flex: 1;
-    font-size: var(--fs-small);
+  .app-header-content {
+    padding-inline: 18px;
   }
-}
 
-@media (orientation: landscape) and (max-height: 500px) and (pointer: coarse) {
-  body::before {
-    position: fixed;
-    z-index: 100;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    background: var(--join-dark);
-    color: var(--join-white);
-    content: "Please rotate your device";
-    font-size: var(--fs-lead);
-    text-align: center;
+  .app-title {
+    max-width: 180px;
+    font-size: var(--fs-small);
   }
 }
 
@@ -367,12 +285,5 @@
   .sidebar-footer-link,
   .btn {
     transition-duration: 1ms;
-  }
-
-  .task-form-dialog[open] .task-dialog-shell,
-  .task-detail-dialog[open] .task-detail-shell,
-  .contact-dialog-card {
-    animation: none;
-    transition: none;
   }
 }

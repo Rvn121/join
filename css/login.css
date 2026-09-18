@@ -5,12 +5,10 @@
   margin: 0;
   overflow: hidden;
   background: var(--page-background);
-  transition: background var(--click-transition);
 }
 
 .content-width {
-  width: 100%;
-  max-width: var(--content-width);
+  width: min(100%, var(--content-width));
   margin: 0 auto;
 }
 
@@ -18,8 +16,10 @@
   position: absolute;
   z-index: 4;
   top: 0;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--page-background);
 }
 
 .header-content {
@@ -30,11 +30,11 @@
 .signup-area {
   position: absolute;
   top: 67px;
-  right: 122px;
+  right: 72px;
   display: flex;
   align-items: center;
-  gap: 35px;
-  font-size: var(--fs-lg);
+  gap: 36px;
+  font-size: 20px;
   opacity: 0;
   transform: translateY(-8px);
   transition:
@@ -67,18 +67,13 @@ body.login-visible .signup-area {
     top 820ms cubic-bezier(0.22, 1, 0.36, 1),
     left 820ms cubic-bezier(0.22, 1, 0.36, 1),
     width 820ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 820ms cubic-bezier(0.22, 1, 0.36, 1),
-    opacity var(--click-transition);
-}
-
-.join-logo--light {
-  display: none;
+    transform 820ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 body.logo-corner .join-logo {
-  top: 67px;
-  left: max(77px, calc((100vw - var(--content-width)) / 2 + 77px));
-  width: 100px;
+  top: 72px;
+  left: max(72px, calc((100vw - var(--content-width)) / 2 + 72px));
+  width: 110px;
   transform: translate(0, 0);
 }
 
@@ -87,15 +82,16 @@ body.logo-corner .join-logo {
   z-index: 5;
   top: 50%;
   left: 50%;
-  width: 652px;
-  max-width: calc(100vw - 32px);
+  width: 660px;
+  max-width: calc(100vw - 48px);
+  min-height: 450px;
   margin: 0;
   padding: 0;
   border: unset;
   border-radius: 30px;
   overflow: visible;
   background: var(--card-background);
-  box-shadow: 0 0 14px var(--shadow-dialog);
+  box-shadow: 0 0 14px 3px var(--shadow-soft);
   opacity: 0;
   transform: translate(-50%, -46%);
   transition:
@@ -120,47 +116,48 @@ body.login-visible .login-dialog {
 
 .login-form {
   display: flex;
+  min-height: 450px;
   flex-direction: column;
   align-items: center;
-  padding: 48px 115px;
+  padding: 48px 72px 52px;
 }
 
-.login-heading,
-.signup-dialog-heading {
+.login-heading {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 32px;
+  margin-bottom: 34px;
+}
+
+.login-heading h2 {
+  margin: 0;
+  font-size: 61px;
+  line-height: 1.05;
+  font-weight: 700;
 }
 
 .heading-line {
   width: 150px;
   height: 3px;
-  margin-top: 13px;
+  margin-top: 16px;
   border-radius: 2px;
   background: var(--join-blue);
 }
 
-.login-form .component-input {
-  margin-bottom: 32px;
-}
-
-.login-form .component-input:has(+ .form-message) {
-  margin-bottom: 0;
-}
-
 .form-message {
-  min-height: 14px;
-  margin: 0;
-  color: var(--join-error);
-  font-size: var(--fs-error);
-  line-height: 14px;
+  min-height: 20px;
+  margin: 0 0 12px;
+  color: var(--join-dark);
+  font-size: 14px;
+  text-align: center;
 }
 
 .login-form .form-message {
-  width: 422px;
+  width: 420px;
   max-width: 100%;
-  margin: 8px 0 34px;
+  margin: -14px 0 24px;
+  color: var(--join-error);
+  text-align: left;
 }
 
 .login-actions {
@@ -170,20 +167,24 @@ body.login-visible .login-dialog {
   gap: 35px;
 }
 
+/* Button-Styles kommen jetzt aus buttons.css (.btn / .btn--primary / .btn--secondary / .btn--sm) */
+
 .site-footer {
   position: fixed;
   z-index: 4;
   bottom: 0;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background: var(--page-background);
 }
 
 .footer-content {
   display: flex;
+  min-height: 96px;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  padding-bottom: 38px;
+  gap: 36px;
   opacity: 0;
   transition: opacity var(--click-transition);
   pointer-events: none;
@@ -195,38 +196,17 @@ body.login-visible .footer-content {
 }
 
 .footer-content a {
-  padding: 8px;
   color: var(--join-text-secondary);
-  font-size: var(--fs-body);
+  font-size: 16px;
+  font-weight: 400;
   text-decoration: none;
-  transition: color var(--click-transition);
+  transition:
+    color var(--click-transition),
+    font-weight var(--click-transition);
 }
 
 .footer-content a:hover,
 .footer-content a:focus-visible {
   color: var(--join-accent);
-}
-
-/* DE: Design-Anpassungen für den Login. EN: Design adjustments for login. */
-.login-dialog {
-  width: 652px;
-  min-height: 449px;
-  box-shadow: 0 0 14px var(--shadow-dialog);
-}
-.login-form {
-  min-height: 449px;
-  padding: 48px 115px;
-}
-.login-form .input-group {
-  width: 422px;
-}
-.signup-area {
-  right: 122px;
-  gap: 35px;
-}
-.footer-content {
-  gap: 16px;
-}
-.footer-content a {
-  color: var(--join-text-secondary);
+  font-weight: var(--fw-bold);
 }

@@ -1,5 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="160" height="56" viewBox="0 0 160 56">
-  <rect width="160" height="56" rx="10" fill="#2a3647"/>
-  <text x="16" y="36" fill="#fff" font-family="Inter, Arial, sans-serif" font-size="21" font-weight="700">Add task</text>
-  <path d="M120 28h16m-8-8v16" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="square"/>
-</svg>

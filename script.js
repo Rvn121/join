@@ -1,5 +1,3 @@
-const USER_MODE_KEY = "joinUserMode";
-const CURRENT_USER_KEY = "joinCurrentUser";
 const loginDialog = document.getElementById("loginDialog");
 const signUpDialog = document.getElementById("signUpDialog");
 const loginForm = document.getElementById("loginForm");

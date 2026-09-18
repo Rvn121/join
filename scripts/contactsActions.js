@@ -1,43 +1,4 @@
 /**
- * DE: Blendet den Kontakt-Toast vollständig aus.
- * EN: Completely hides the contacts toast.
- */
-function finishHideContactToast() {
-  document.getElementById("contactsToast").hidden = true;
-}
-
-
-/**
- * DE: Blendet den Kontakt-Toast aus.
- * EN: Hides the contacts toast.
- */
-function hideContactToast() {
-  const toast = document.getElementById("contactsToast");
-  toast.classList.remove("contacts-toast--visible");
-  hideContactToast.timer = window.setTimeout(finishHideContactToast, getFloatingDuration());
-}
-
-
-/**
- * DE: Zeigt eine kurze Rückmeldung als Toast an.
- * EN: Shows a short feedback message as a toast.
- * @param {string} message - DE: Meldung. EN: Message.
- * @param {number} duration - DE: Anzeigedauer. EN: Display duration.
- */
-function showContactToast(message, duration = 1500) {
-  const toast = document.getElementById("contactsToast");
-  window.clearTimeout(hideContactToast.timer);
-  toast.textContent = message;
-  const wasHidden = toast.hidden;
-  toast.hidden = false;
-  if (wasHidden) void toast.offsetWidth;
-  toast.classList.add("contacts-toast--visible");
-  window.clearTimeout(showContactToast.timer);
-  showContactToast.timer = window.setTimeout(hideContactToast, duration);
-}
-
-
-/**
  * DE: Sucht den Index eines Kontakts in der lokalen Liste.
  * EN: Finds the index of a contact in the local list.
  * @param {string} contactId - DE: Kontakt-ID. EN: Contact id.
@@ -82,10 +43,10 @@ function finishOwnAccountDeletion() {
  */
 function showDeleteFeedback(ownAccount) {
   if (!ownAccount) {
-    showContactToast("Contact successfully deleted.");
+    showToast("Contact successfully deleted.");
     return;
   }
-  showContactToast("Account successfully deleted. Please register again to continue.", 2800);
+  showToast("Account successfully deleted. Please register again to continue.", 2800);
   window.setTimeout(finishOwnAccountDeletion, 2900);
 }
 
@@ -117,7 +78,7 @@ async function deleteSelectedContact() {
     else await deleteContactWithRelations(contact);
     await finishContactDeletion(ownAccount);
   } catch {
-    showContactToast("Could not delete the contact. Please try again.");
+    showToast("Could not delete the contact. Please try again.");
   }
 }
 
@@ -142,8 +103,7 @@ function editSelectedContact() {
 function setContactActionIcon(button, useHover) {
   const image = button.querySelector("img[data-hover-icon]");
   if (!image) return;
-  let attribute = "data-default-icon";
-  if (useHover) attribute = "data-hover-icon";
+  const attribute = useHover ? "data-hover-icon" : "data-default-icon";
   image.src = image.getAttribute(attribute);
 }
 

@@ -26,35 +26,10 @@ function renderDialogAvatar(contact) {
  * @param {string} mode - DE: Dialogmodus. EN: Dialog mode.
  */
 function setContactDialogTexts(mode) {
-  if (mode === "add") {
-    setAddContactTexts();
-    return;
-  }
-  setEditContactTexts();
-}
-
-
-/**
- * DE: Setzt die Texte für einen neuen Kontakt.
- * EN: Sets the texts for a new contact.
- */
-function setAddContactTexts() {
-  document.getElementById("contactDialogTitle").textContent = "Add contact";
-  document.getElementById("contactDialogSubtitle").textContent = "Tasks are better with a team!";
-  document.getElementById("contactSubmitLabel").textContent = "Create contact";
-  document.getElementById("contactCancelLabel").textContent = "Cancel";
-}
-
-
-/**
- * DE: Setzt die Texte für das Bearbeiten eines Kontakts.
- * EN: Sets the texts for editing a contact.
- */
-function setEditContactTexts() {
-  document.getElementById("contactDialogTitle").textContent = "Edit contact";
-  document.getElementById("contactDialogSubtitle").textContent = "";
-  document.getElementById("contactSubmitLabel").textContent = "Save";
-  document.getElementById("contactCancelLabel").textContent = "Delete";
+  document.getElementById("contactDialogTitle").textContent = mode === "add" ? "Add contact" : "Edit contact";
+  document.getElementById("contactDialogSubtitle").textContent = mode === "add" ? "Tasks are better with a team!" : "";
+  document.getElementById("contactSubmitLabel").textContent = mode === "add" ? "Create contact" : "Save";
+  document.getElementById("contactCancelLabel").textContent = mode === "add" ? "Cancel" : "Delete";
 }
 
 
@@ -75,22 +50,9 @@ function setContactDialogSecondaryIcon(mode) {
  * @param {object|null} contact - DE: Kontakt. EN: Contact.
  */
 function fillContactDialogInputs(contact) {
-  clearContactDialogInputs();
-  if (!contact) return;
-  contactName.value = contact.name;
-  contactEmail.value = contact.email;
-  contactPhone.value = contact.phone;
-}
-
-
-/**
- * DE: Leert die Eingabefelder im Kontaktdialog.
- * EN: Clears the contact dialog input fields.
- */
-function clearContactDialogInputs() {
-  contactName.value = "";
-  contactEmail.value = "";
-  contactPhone.value = "";
+  contactName.value = contact ? contact.name : "";
+  contactEmail.value = contact ? contact.email : "";
+  contactPhone.value = contact ? contact.phone : "";
 }
 
 
@@ -102,8 +64,7 @@ function clearContactDialogInputs() {
  */
 function fillContactDialog(mode, contact = null) {
   contactState.dialogMode = mode;
-  contactState.editingId = null;
-  if (contact) contactState.editingId = contact.id;
+  contactState.editingId = contact ? contact.id : null;
   setContactDialogTexts(mode);
   setContactDialogSecondaryIcon(mode);
   fillContactDialogInputs(contact);
@@ -116,7 +77,7 @@ function fillContactDialog(mode, contact = null) {
  * EN: Focuses the name field.
  */
 function focusContactName() {
-  contactName.focus({ preventScroll: true });
+  contactName.focus();
 }
 
 
@@ -129,7 +90,9 @@ function focusContactName() {
 function openContactDialog(mode, contact = null) {
   clearContactFormErrors();
   fillContactDialog(mode, contact);
-  showContactDialog();
+  if (!contactDialog.open) contactDialog.showModal();
+  window.setTimeout(showContactDialog, 0);
+  window.setTimeout(focusContactName, 220);
 }
 
 
@@ -137,13 +100,17 @@ function openContactDialog(mode, contact = null) {
  * DE: Startet die sichtbare Dialoganimation.
  * EN: Starts the visible dialog animation.
  */
-async function showContactDialog() {
-  showFloatingDialog(contactDialog);
-  const animation = contactDialog.floatingAnimation;
-  try {
-    await animation.finished;
-    if (contactDialog.open && contactDialog.floatingAnimation === animation) focusContactName();
-  } catch { /* DE: Abgebrochene Einfahrt erhält keinen Fokus. EN: Cancelled entrance does not receive focus. */ }
+function showContactDialog() {
+  contactDialog.classList.add("contact-dialog--open");
+}
+
+
+/**
+ * DE: Schließt den Dialog nach der Animation vollständig.
+ * EN: Fully closes the dialog after the animation.
+ */
+function finishContactDialogClose() {
+  if (contactDialog.open) contactDialog.close();
 }
 
 
@@ -152,7 +119,8 @@ async function showContactDialog() {
  * EN: Closes the animated contact dialog.
  */
 function closeContactDialog() {
-  return closeFloatingDialog(contactDialog);
+  contactDialog.classList.remove("contact-dialog--open");
+  window.setTimeout(finishContactDialogClose, 180);
 }
 
 
@@ -248,7 +216,7 @@ async function storeContactDraft(draft) {
   contactState.selectedId = savedContact.id;
   await refreshContacts();
   closeContactDialog();
-  showContactToast(getContactSaveMessage(ownProfile));
+  showToast(getContactSaveMessage(ownProfile));
 }
 
 
@@ -259,7 +227,7 @@ async function storeContactDraft(draft) {
 function showDuplicateContactError() {
   const message = "A contact with this email address already exists.";
   showContactFieldError(contactEmail, message);
-  showContactToast(message);
+  showToast(message);
   contactEmail.focus();
 }
 
@@ -279,7 +247,7 @@ async function handleContactSubmit(event) {
   try {
     await storeContactDraft(draft);
   } catch {
-    showContactToast("Could not save the contact. Please try again.");
+    showToast("Could not save the contact. Please try again.");
   }
   contactSubmitButton.disabled = false;
 }
@@ -300,13 +268,13 @@ function formatPhoneField() {
  * DE: Verarbeitet den zweiten Dialogbutton für Abbrechen oder Löschen.
  * EN: Handles the secondary dialog button for cancel or delete.
  */
-async function handleContactSecondaryAction() {
+function handleContactSecondaryAction() {
   if (contactState.dialogMode === "add") {
     closeContactDialog();
     return;
   }
-  await closeContactDialog();
-  deleteSelectedContact();
+  closeContactDialog();
+  window.setTimeout(deleteSelectedContact, 190);
 }
 
 

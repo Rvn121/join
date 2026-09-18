@@ -1,9 +1,8 @@
 /* Layout and typography tokens – all color tokens live in colors.css */
 :root {
   --content-width: 1440px;
+  --page-width: 1920px;
   --click-transition: 100ms ease;
-  --floating-duration: 350ms;
-  --floating-easing: ease-in-out;
 
   --fs-body: 16px;
   --fs-small: 14px;
@@ -11,7 +10,6 @@
   --fs-lead: 27px;
   --fs-lg: 20px;
   --fs-button: 21px;
-  --fs-h1: 61px;
   --fs-display: 64px;
   --fs-h1-mobile: 47px;
   --fs-badge-lg: 23px;
@@ -82,14 +80,4 @@ a {
 
 [hidden] {
   display: none !important;
-}
-
-/* Extended typography tokens */
-:root {
-  --fs-display: 64px;
-  --fs-h1-mobile: 47px;
-  --fs-badge-lg: 23px;
-  --fs-error: 12px;
-  --fw-medium: 500;
-  --fw-semibold: 600;
 }

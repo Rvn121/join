@@ -11,7 +11,6 @@ const taskSubtaskInput = document.getElementById("taskSubtaskInput");
 const taskSubtaskList = document.getElementById("taskSubtaskList");
 const taskSubmitButton = document.getElementById("taskSubmitButton");
 const taskClearButton = document.getElementById("taskClearButton");
-const taskToast = document.getElementById("taskToast");
 const taskFormState = {
   contacts: [],
   selectedContactIds: [],
@@ -68,7 +67,7 @@ function validateRequiredTaskField(field, message) {
  */
 function validateTaskForm() {
   const titleValid = validateRequiredTaskField(taskTitle, "Please enter a title.");
-  const dateValid = validateTaskDueDateField();
+  const dateValid = validateRequiredTaskField(taskDueDate, "Please select a due date.");
   const categoryValid = validateRequiredTaskField(taskCategory, "Please select a category.");
   if (!titleValid) taskTitle.focus();
   else if (!dateValid) taskDueDate.focus();
@@ -84,8 +83,7 @@ function validateTaskForm() {
  */
 function getSelectedTaskPriority() {
   const selected = taskForm.querySelector('input[name="priority"]:checked');
-  if (!selected) return "medium";
-  return selected.value;
+  return selected ? selected.value : "medium";
 }
 
 
@@ -97,8 +95,7 @@ function getSelectedTaskPriority() {
 function copyTaskFormSubtasks() {
   const subtasks = [];
   for (let i = 0; i < taskFormState.subtasks.length; i++) {
-    const subtask = taskFormState.subtasks[i];
-    subtasks.push({ id: subtask.id, title: subtask.title, done: subtask.done });
+    subtasks.push(Object.assign({}, taskFormState.subtasks[i]));
   }
   return subtasks;
 }
@@ -114,60 +111,13 @@ function createTaskFromForm() {
     id: taskFormState.editingTaskId || createTaskId(),
     title: taskTitle.value.trim(),
     description: taskDescription.value.trim(),
-    dueDate: getTaskDueDateValue(),
+    dueDate: taskDueDate.value,
     priority: getSelectedTaskPriority(),
     assignedTo: taskFormState.selectedContactIds.slice(),
     category: taskCategory.value,
     subtasks: copyTaskFormSubtasks(),
     status: taskFormState.status,
   };
-}
-
-
-/**
- * DE: Zeigt eine Toast-Nachricht an.
- * EN: Shows a toast message.
- * @param {string} message - DE: Meldung. EN: Message.
- */
-function showTaskToast(message) {
-  if (!taskToast) return;
-  window.clearTimeout(showTaskToast.timer);
-  window.clearTimeout(hideTaskToast.timer);
-  taskToast.textContent = message;
-  const wasHidden = taskToast.hidden;
-  taskToast.hidden = false;
-  if (wasHidden) void taskToast.offsetWidth;
-  showTaskToastAnimation();
-  showTaskToast.timer = window.setTimeout(hideTaskToast, 1500);
-}
-
-
-/**
- * DE: Startet die Einfluganimation des Task-Toasts.
- * EN: Starts the entrance animation of the task toast.
- */
-function showTaskToastAnimation() {
-  taskToast.classList.add("task-toast--show");
-}
-
-
-/**
- * DE: Blendet den Task-Toast wieder aus.
- * EN: Hides the task toast again.
- */
-function hideTaskToast() {
-  if (!taskToast) return;
-  taskToast.classList.remove("task-toast--show");
-  hideTaskToast.timer = window.setTimeout(hideTaskToastElement, getFloatingDuration());
-}
-
-
-/**
- * DE: Entfernt den Task-Toast vollständig aus der Ansicht.
- * EN: Fully hides the task toast from the view.
- */
-function hideTaskToastElement() {
-  if (taskToast) taskToast.hidden = true;
 }
 
 
@@ -193,7 +143,6 @@ function resetTaskFormValues() {
   taskFormState.editingTaskId = null;
   taskFormState.editingSubtaskId = null;
   taskForm.querySelector('input[value="medium"]').checked = true;
-  updateTaskPrioritySelection();
   clearTaskFormErrors();
   renderTaskContactDropdown();
   renderTaskSelectedContacts();
@@ -210,10 +159,9 @@ function resetTaskFormValues() {
 function fillTaskForm(task) {
   taskTitle.value = task.title || "";
   taskDescription.value = task.description || "";
-  setTaskDueDateValue(task.dueDate || "");
+  taskDueDate.value = task.dueDate || "";
   taskCategory.value = task.category || "";
   taskForm.querySelector('input[value="' + normalizeTaskPriority(task.priority) + '"]').checked = true;
-  updateTaskPrioritySelection();
   taskFormState.selectedContactIds = normalizeTaskAssignments(task.assignedTo);
   taskFormState.subtasks = normalizeSubtasks(task.subtasks);
   renderTaskContactDropdown();
@@ -247,34 +195,10 @@ function prepareTaskForm(status, task) {
  */
 function updateTaskFormButtons(editing) {
   const submitText = taskSubmitButton.querySelector("span");
-  const title = document.getElementById("taskFormDialogTitle");
+  submitText.textContent = editing ? "Ok" : "Create Task";
   taskClearButton.hidden = editing;
-  if (editing) setEditTaskTexts(submitText, title);
-  else setCreateTaskTexts(submitText, title);
-}
-
-
-/**
- * DE: Setzt die Texte für das Bearbeiten eines Tasks.
- * EN: Sets the texts for editing a task.
- * @param {HTMLElement} submitText - DE: Text im Speichern-Button. EN: Submit button text.
- * @param {HTMLElement|null} title - DE: Dialogtitel. EN: Dialog title.
- */
-function setEditTaskTexts(submitText, title) {
-  submitText.textContent = "Ok";
-  if (title) title.textContent = "Edit Task";
-}
-
-
-/**
- * DE: Setzt die Texte für das Erstellen eines Tasks.
- * EN: Sets the texts for creating a task.
- * @param {HTMLElement} submitText - DE: Text im Speichern-Button. EN: Submit button text.
- * @param {HTMLElement|null} title - DE: Dialogtitel. EN: Dialog title.
- */
-function setCreateTaskTexts(submitText, title) {
-  submitText.textContent = "Create Task";
-  if (title) title.textContent = "Add Task";
+  const title = document.getElementById("taskFormDialogTitle");
+  if (title) title.textContent = editing ? "Edit Task" : "Add Task";
 }
 
 
@@ -283,7 +207,7 @@ function setCreateTaskTexts(submitText, title) {
  * EN: Handles the secondary form button.
  */
 function handleTaskClearButton() {
-  if (taskForm.classList.contains("task-form--dialog") && typeof closeTaskFormDialog === "function") {
+  if (taskFormState.editingTaskId && typeof closeTaskFormDialog === "function") {
     closeTaskFormDialog();
     return;
   }
@@ -302,8 +226,8 @@ function finishTaskFormSave(task, editing) {
     handleBoardTaskSaved(task, editing);
     return;
   }
-  showTaskToast("Task successfully created.");
-  window.setTimeout(openBoardAfterTaskCreate, 1500 + getFloatingDuration());
+  showToast("Task successfully created.");
+  window.setTimeout(openBoardAfterTaskCreate, 850);
 }
 
 
@@ -331,22 +255,9 @@ async function handleTaskFormSubmit(event) {
     const task = await storeTask(createTaskFromForm());
     finishTaskFormSave(task, editing);
   } catch {
-    showTaskToast("Could not save the task. Please try again.");
+    showToast("Could not save the task. Please try again.");
   }
   taskSubmitButton.disabled = false;
-}
-
-
-/**
- * DE: Initialisiert die Ereignisse für die Subtasks.
- * EN: Initializes the subtask events.
- */
-function initializeTaskSubtaskEvents() {
-  taskSubtaskInput.addEventListener("keydown", handleSubtaskKeydown);
-  taskSubtaskInput.addEventListener("input", updateSubtaskInputActions);
-  taskSubtaskList.addEventListener("click", handleFormSubtaskAction);
-  document.getElementById("taskSubtaskAdd").addEventListener("click", addOrUpdateSubtask);
-  document.getElementById("taskSubtaskClear").addEventListener("click", clearSubtaskInput);
 }
 
 
@@ -355,13 +266,15 @@ function initializeTaskSubtaskEvents() {
  * EN: Initializes the task form events.
  */
 function initializeTaskFormEvents() {
-  initializeTaskPriorityEvents();
-  initializeTaskDueDate();
-  initializeTaskSubtaskEvents();
   taskAssignedSearch.addEventListener("focus", openTaskContactDropdown);
   taskAssignedSearch.addEventListener("input", filterTaskContacts);
   taskContactDropdown.addEventListener("change", handleTaskContactChange);
   if (taskAssignedToggle) taskAssignedToggle.addEventListener("click", toggleTaskContactDropdown);
+  taskSubtaskInput.addEventListener("keydown", handleSubtaskKeydown);
+  taskSubtaskInput.addEventListener("input", updateSubtaskInputActions);
+  taskSubtaskList.addEventListener("click", handleFormSubtaskAction);
+  document.getElementById("taskSubtaskAdd").addEventListener("click", addOrUpdateSubtask);
+  document.getElementById("taskSubtaskClear").addEventListener("click", clearSubtaskInput);
   taskClearButton.addEventListener("click", handleTaskClearButton);
   taskForm.addEventListener("submit", handleTaskFormSubmit);
   document.addEventListener("click", closeTaskDropdownOutside);

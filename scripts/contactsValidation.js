@@ -225,21 +225,10 @@ function createBasicContactDraft() {
   return {
     name: contactName.value.trim(),
     email: normalizeEmail(contactEmail.value),
-    phone: getContactDraftPhone(),
+    phone: contactPhone.value ? formatContactPhone(contactPhone.value) : "",
     initials: createContactInitials(contactName.value),
     color: getAvatarColorByName(contactName.value),
     isRegistered: false,
     userId: null,
   };
-}
-
-
-/**
- * DE: Gibt die formatierte Telefonnummer aus dem Kontaktformular zurück.
- * EN: Returns the formatted phone number from the contact form.
- * @returns {string} DE: Telefonnummer. EN: Phone number.
- */
-function getContactDraftPhone() {
-  if (!contactPhone.value) return "";
-  return formatContactPhone(contactPhone.value);
 }

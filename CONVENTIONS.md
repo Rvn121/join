@@ -21,8 +21,7 @@ join/
 ├── script.js             # Script der Startseite (Login)
 ├── scripts/
 │   ├── common.js         # seitenübergreifende UI- und Session-Logik
-│   ├── dataService.js    # allgemeiner Firebase-, User- und Task-Datenzugriff
-│   ├── contactService.js # kontaktbezogene Datenfunktionen auf Basis von dataService.js
+│   ├── dataService.js    # gesamter Datenzugriff (Firebase)
 │   ├── templates/        # Funktionen, die HTML-Strings zurückgeben
 │   └── <seite>.js        # eine Datei pro Seite
 ├── css/
@@ -39,14 +38,14 @@ join/
 ### JavaScript
 
 - Jede Seite bekommt eine eigene JS-Datei, benannt wie die HTML-Datei (`board.html` → `board.js`).
-- Was mehrere Seiten brauchen, kommt in `common.js` (UI, Session) oder in die Service-Dateien. `dataService.js` enthält den allgemeinen Firebase-Zugriff, `contactService.js` die Kontaktlogik. Seiten-Scripts machen kein eigenes `fetch`.
+- Was mehrere Seiten brauchen, kommt in `common.js` (UI, Session) oder `dataService.js` (Daten). Seiten-Scripts machen kein eigenes `fetch`.
 
 ### CSS
 
 - Nur `style.css` importiert andere Dateien, und zwar in der Reihenfolge base → layout → components → pages. Die übrigen CSS-Dateien enthalten keine `@import`-Anweisungen.
 - Jede Datei hat genau eine Zuständigkeit. Seiten-Layout gehört nicht in `pages/`, und es gibt nicht zwei Systeme für dieselbe Komponente.
 - Media Queries stehen direkt bei der Komponente oder Seite, die sie betreffen – nicht in einer gesammelten Responsive-Datei.
-- Alle `:root`-Variablen liegen in `base/tokens.css`. Im restlichen CSS nutzen wir die Tokens statt fester Werte. Feste Tokens: `--click-transition: 100ms ease`, `--content-width: 1440px`. Ab 1440 px bleibt der Inhalt links an derselben Position (kein zentrierender Page-Wrapper), Sidebar und Header wachsen mit.
+- Alle `:root`-Variablen liegen in `base/tokens.css`. Im restlichen CSS nutzen wir die Tokens statt fester Werte. Feste Tokens: `--click-transition: 100ms ease`, `--content-width: 1440px`, `--page-width: 1920px`.
 
 ### Typografie
 
@@ -65,7 +64,6 @@ Dazu kommen Größen, die keinem Element zugeordnet sind und nur als Token in `t
 
 | Token            | Wert       | Verwendung                                                  |
 |------------------|------------|-------------------------------------------------------------|
-| `--fs-h1`        | 61px / 700 | `h1`, Task-Titel im Detail-Overlay, Overlay-Titel            |
 | `--fs-lead`      | 27px / 400 | Sublines wie "Better with a team"                           |
 | `--fs-lg`        | 20px / 400 | Inputs, Dropdown-Einträge, Formular-Labels, Zwischentitel   |
 | `--fs-button`    | 21px / 700 | Button-Beschriftungen                                       |

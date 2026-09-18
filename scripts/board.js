@@ -105,8 +105,8 @@ async function refreshBoard() {
  * @param {MouseEvent} event - DE: Mausereignis. EN: Mouse event.
  */
 function handleBoardCardClick(event) {
-  const card = findParentWithAttribute(event.target, "data-task-id");
-  if (!card || findParentButton(event.target)) return;
+  const card = event.target.closest("[data-task-id]");
+  if (!card || event.target.closest("button")) return;
   openTaskDetail(card.getAttribute("data-task-id"));
 }
 
@@ -118,7 +118,7 @@ function handleBoardCardClick(event) {
  */
 function handleBoardCardKeydown(event) {
   if (event.key !== "Enter" && event.key !== " ") return;
-  const card = findParentWithAttribute(event.target, "data-task-id");
+  const card = event.target.closest("[data-task-id]");
   if (!card) return;
   event.preventDefault();
   openTaskDetail(card.getAttribute("data-task-id"));
@@ -131,7 +131,7 @@ function handleBoardCardKeydown(event) {
  * @param {MouseEvent} event - DE: Mausereignis. EN: Mouse event.
  */
 function handleBoardAddTask(event) {
-  const button = findParentWithAttribute(event.target, "data-add-task-status");
+  const button = event.target.closest("[data-add-task-status]");
   if (!button) return;
   openTaskFormDialog(button.getAttribute("data-add-task-status"), null);
 }
@@ -162,7 +162,7 @@ function updateBoardSearch() {
  * @param {DragEvent} event - DE: Drag-Ereignis. EN: Drag event.
  */
 function startBoardDrag(event) {
-  const card = findParentWithAttribute(event.target, "data-task-id");
+  const card = event.target.closest("[data-task-id]");
   if (!card) return;
   boardState.draggingTaskId = card.getAttribute("data-task-id");
   card.classList.add("task-card--dragging");
@@ -177,7 +177,7 @@ function startBoardDrag(event) {
  * @param {DragEvent} event - DE: Drag-Ereignis. EN: Drag event.
  */
 function allowBoardDrop(event) {
-  const column = findParentWithAttribute(event.target, "data-drop-status");
+  const column = event.target.closest("[data-drop-status]");
   if (!column) return;
   event.preventDefault();
   column.classList.add("board-column-tasks--drop");
@@ -191,7 +191,7 @@ function allowBoardDrop(event) {
  * @param {DragEvent} event - DE: Drag-Ereignis. EN: Drag event.
  */
 function leaveBoardDrop(event) {
-  const column = findParentWithAttribute(event.target, "data-drop-status");
+  const column = event.target.closest("[data-drop-status]");
   if (column && !column.contains(event.relatedTarget)) {
     column.classList.remove("board-column-tasks--drop");
   }
@@ -224,9 +224,9 @@ async function moveBoardTask(taskId, status) {
     task.status = normalizeTaskStatus(status);
     await storeTask(task);
     await refreshBoard();
-    showTaskToast("Task status successfully updated.");
+    showToast("Task status successfully updated.");
   } catch {
-    showTaskToast("Could not move the task. Please try again.");
+    showToast("Could not move the task. Please try again.");
   }
 }
 
@@ -237,7 +237,7 @@ async function moveBoardTask(taskId, status) {
  * @param {DragEvent} event - DE: Drag-Ereignis. EN: Drag event.
  */
 function dropBoardTask(event) {
-  const column = findParentWithAttribute(event.target, "data-drop-status");
+  const column = event.target.closest("[data-drop-status]");
   if (!column) return;
   event.preventDefault();
   const taskId = event.dataTransfer.getData("text/plain") || boardState.draggingTaskId;
@@ -267,8 +267,7 @@ function endBoardDrag() {
 async function handleBoardTaskSaved(task, editing) {
   closeTaskFormDialog();
   await refreshBoard();
-  if (editing) showTaskToast("Task successfully updated.");
-  else showTaskToast("Task successfully created.");
+  showToast(editing ? "Task successfully updated." : "Task successfully created.");
 }
 
 
