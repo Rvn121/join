@@ -161,6 +161,7 @@
   .app-sidebar {
     position: fixed;
     z-index: 25;
+    top: auto;
     bottom: 0;
     left: 0;
     width: 100%;
