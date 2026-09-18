@@ -10,13 +10,26 @@
   <body class="app-body" data-page="addTask" data-protected-page="true">
     <div class="app-frame">
       <aside class="app-sidebar">
-        <a class="sidebar-logo-link" href="./summary.html" aria-label="Zur Summary">
-          <img class="sidebar-logo" src="./assets/img/join_logo_white.svg" alt="Join" />
+        <a
+          class="sidebar-logo-link"
+          href="./summary.html"
+          aria-label="Zur Summary"
+        >
+          <img
+            class="sidebar-logo"
+            src="./assets/img/join_logo_white.svg"
+            alt="Join"
+          />
         </a>
 
         <nav class="sidebar-nav app-navigation" aria-label="Hauptnavigation">
           <a class="sidebar-link" href="./summary.html">Summary</a>
-          <a class="sidebar-link sidebar-link-active" href="./addTask.html" aria-current="page">Add Task</a>
+          <a
+            class="sidebar-link sidebar-link-active"
+            href="./addTask.html"
+            aria-current="page"
+            >Add Task</a
+          >
           <a class="sidebar-link" href="./board.html">Board</a>
           <a class="sidebar-link" href="./contacts.html">Contacts</a>
         </nav>
@@ -26,8 +39,12 @@
         </nav>
 
         <footer class="sidebar-footer">
-          <a class="sidebar-footer-link" href="./privacyPolicy.html">Privacy Policy</a>
-          <a class="sidebar-footer-link" href="./legalNotice.html">Legal notice</a>
+          <a class="sidebar-footer-link" href="./privacyPolicy.html"
+            >Privacy Policy</a
+          >
+          <a class="sidebar-footer-link" href="./legalNotice.html"
+            >Legal notice</a
+          >
         </footer>
       </aside>
 
@@ -35,17 +52,39 @@
         <header class="app-header">
           <div class="app-header-content">
             <div class="app-header-brand">
-              <a class="app-header-logo-link" href="./summary.html" aria-label="Zur Summary">
-                <img class="app-header-logo" src="./assets/img/join_logo.svg" alt="Join" />
+              <a
+                class="app-header-logo-link"
+                href="./summary.html"
+                aria-label="Zur Summary"
+              >
+                <img
+                  class="app-header-logo"
+                  src="./assets/img/join_logo.svg"
+                  alt="Join"
+                />
               </a>
               <span class="app-title">Kanban Project Management Tool</span>
             </div>
             <div class="app-header-actions">
-              <a class="help-button" id="helpButton" href="./help.html" aria-label="Hilfe">
+              <a
+                class="help-button"
+                id="helpButton"
+                href="./help.html"
+                aria-label="Hilfe"
+              >
                 <img src="./assets/icons/help.svg" alt="" aria-hidden="true" />
               </a>
-              <button class="user-placeholder" id="profileButton" type="button" aria-label="Benutzerprofil">
-                <span class="user-initials" id="userInitials" aria-hidden="true"></span>
+              <button
+                class="user-placeholder"
+                id="profileButton"
+                type="button"
+                aria-label="Benutzerprofil"
+              >
+                <span
+                  class="user-initials"
+                  id="userInitials"
+                  aria-hidden="true"
+                ></span>
               </button>
               <div class="profile-menu" id="profileMenu" hidden>
                 <button id="logoutButton" type="button">Log out</button>
@@ -58,31 +97,78 @@
           <div class="app-content">
             <section class="add-task-page">
               <h1>Add Task</h1>
-              <form class="task-form task-form--page" id="taskForm" novalidate data-default-status="todo">
+              <form
+                class="task-form task-form--page"
+                id="taskForm"
+                novalidate
+                data-default-status="todo"
+              >
                 <div class="task-form-columns">
                   <div class="task-form-column">
                     <label class="task-field" for="taskTitle">
                       <span>Title<span class="task-required">*</span></span>
-                      <input id="taskTitle" name="title" type="text" placeholder="Enter a title" maxlength="80" />
-                      <small class="task-field-error" data-error-for="taskTitle"></small>
+                      <input
+                        id="taskTitle"
+                        name="title"
+                        type="text"
+                        placeholder="Enter a title"
+                        maxlength="80"
+                      />
+                      <small
+                        class="task-field-error"
+                        data-error-for="taskTitle"
+                      ></small>
                     </label>
 
                     <label class="task-field" for="taskDescription">
                       <span>Description</span>
-                      <textarea id="taskDescription" name="description" placeholder="Enter a Description" maxlength="1000"></textarea>
-                      <small class="task-field-error" data-error-for="taskDescription"></small>
+                      <textarea
+                        id="taskDescription"
+                        name="description"
+                        placeholder="Enter a Description"
+                        maxlength="1000"
+                      ></textarea>
+                      <small
+                        class="task-field-error"
+                        data-error-for="taskDescription"
+                      ></small>
                     </label>
 
                     <div class="task-field">
-                      <label for="taskDueDate">Due date<span class="task-required">*</span></label>
+                      <label for="taskDueDate"
+                        >Due date<span class="task-required">*</span></label
+                      >
                       <span class="task-date-control">
-                        <input class="date-empty" id="taskDueDate" name="dueDate" type="date" lang="en-GB" />
-                        <span class="task-date-placeholder" aria-hidden="true">dd/mm/yyyy</span>
-                        <button class="task-date-picker" id="taskDatePicker" type="button" aria-haspopup="dialog" aria-expanded="false" aria-label="Open calendar" aria-controls="taskDueDate">
-                          <img src="./assets/icons/event.svg" alt="" aria-hidden="true" />
+                        <input
+                          class="date-empty"
+                          id="taskDueDate"
+                          name="dueDate"
+                          type="date"
+                          lang="en-GB"
+                        />
+                        <span class="task-date-placeholder" aria-hidden="true"
+                          >dd/mm/yyyy</span
+                        >
+                        <button
+                          class="task-date-picker"
+                          id="taskDatePicker"
+                          type="button"
+                          aria-haspopup="dialog"
+                          aria-expanded="false"
+                          aria-label="Open calendar"
+                          aria-controls="taskDueDate"
+                        >
+                          <img
+                            src="./assets/icons/event.svg"
+                            alt=""
+                            aria-hidden="true"
+                          />
                         </button>
                       </span>
-                      <small class="task-field-error" data-error-for="taskDueDate"></small>
+                      <small
+                        class="task-field-error"
+                        data-error-for="taskDueDate"
+                      ></small>
                     </div>
                   </div>
 
@@ -95,17 +181,34 @@
                         <label class="task-priority task-priority--urgent">
                           <input type="radio" name="priority" value="urgent" />
                           <span>Urgent</span>
-                          <img src="./assets/icons/Prio-high.svg" alt="" aria-hidden="true" />
+                          <img
+                            src="./assets/icons/Prio-high.svg"
+                            alt=""
+                            aria-hidden="true"
+                          />
                         </label>
                         <label class="task-priority task-priority--medium">
-                          <input type="radio" name="priority" value="medium" checked />
+                          <input
+                            type="radio"
+                            name="priority"
+                            value="medium"
+                            checked
+                          />
                           <span>Medium</span>
-                          <img src="./assets/icons/Prio-med.svg" alt="" aria-hidden="true" />
+                          <img
+                            src="./assets/icons/Prio-med.svg"
+                            alt=""
+                            aria-hidden="true"
+                          />
                         </label>
                         <label class="task-priority task-priority--low">
                           <input type="radio" name="priority" value="low" />
                           <span>Low</span>
-                          <img src="./assets/icons/Prio-low.svg" alt="" aria-hidden="true" />
+                          <img
+                            src="./assets/icons/Prio-low.svg"
+                            alt=""
+                            aria-hidden="true"
+                          />
                         </label>
                       </div>
                     </fieldset>
@@ -114,37 +217,87 @@
                       <label for="taskAssignedSearch">Assigned to</label>
                       <div class="task-dropdown" id="taskAssignedDropdown">
                         <div class="task-dropdown-input-wrap">
-                          <input id="taskAssignedSearch" type="text" placeholder="Select contacts to assign" autocomplete="off" />
-                          <button class="icon-button task-dropdown-toggle" id="taskAssignedToggle" type="button" aria-label="Assigned-to-Liste öffnen oder schließen" aria-expanded="false">
-                        <img src="./assets/icons/arrow_drop_down.svg" alt="" aria-hidden="true" />
-                      </button>
+                          <input
+                            id="taskAssignedSearch"
+                            type="text"
+                            placeholder="Select contacts to assign"
+                            autocomplete="off"
+                          />
+                          <button
+                            class="icon-button task-dropdown-toggle"
+                            id="taskAssignedToggle"
+                            type="button"
+                            aria-label="Assigned-to-Liste öffnen oder schließen"
+                            aria-expanded="false"
+                          >
+                            <img
+                              src="./assets/icons/arrow_drop_down.svg"
+                              alt=""
+                              aria-hidden="true"
+                            />
+                          </button>
                         </div>
-                        <div class="task-contact-dropdown" id="taskContactDropdown" hidden></div>
+                        <div
+                          class="task-contact-dropdown"
+                          id="taskContactDropdown"
+                          hidden
+                        ></div>
                       </div>
-                      <div class="task-selected-contacts" id="taskSelectedContacts" aria-live="polite"></div>
+                      <div
+                        class="task-selected-contacts"
+                        id="taskSelectedContacts"
+                        aria-live="polite"
+                      ></div>
                     </div>
 
                     <label class="task-field" for="taskCategory">
                       <span>Category<span class="task-required">*</span></span>
                       <div class="select-wrap">
                         <select id="taskCategory" name="category">
-                          <option value="" disabled hidden>Select task category</option>
+                          <option value="" selected disabled hidden>
+                            Select task category
+                          </option>
                           <option value="Technical Task">Technical Task</option>
                           <option value="User Story">User Story</option>
                         </select>
                       </div>
-                      <small class="task-field-error" data-error-for="taskCategory"></small>
+                      <small
+                        class="task-field-error"
+                        data-error-for="taskCategory"
+                      ></small>
                     </label>
 
                     <div class="task-field task-subtask-field">
                       <label for="taskSubtaskInput">Subtasks</label>
                       <div class="task-subtask-input-wrap">
-                        <input id="taskSubtaskInput" type="text" placeholder="Add new subtask" maxlength="30" />
+                        <input
+                          id="taskSubtaskInput"
+                          type="text"
+                          placeholder="Add new subtask"
+                          maxlength="30"
+                        />
                         <div class="task-subtask-input-actions">
-                          <button class="icon-button" id="taskSubtaskClear" type="button" aria-label="Subtask-Feld leeren">×</button>
-                          <span class="task-inline-divider" aria-hidden="true"></span>
-                          <button class="icon-button" id="taskSubtaskAdd" type="button" aria-label="Subtask hinzufügen">
-                            <img src="./assets/icons/check-dark.svg" alt="" aria-hidden="true" />
+                          <button
+                            class="icon-button"
+                            id="taskSubtaskClear"
+                            type="button"
+                            aria-label="Subtask-Feld leeren"
+                          ></button>
+                          <span
+                            class="task-inline-divider"
+                            aria-hidden="true"
+                          ></span>
+                          <button
+                            class="icon-button"
+                            id="taskSubtaskAdd"
+                            type="button"
+                            aria-label="Subtask hinzufügen"
+                          >
+                            <img
+                              src="./assets/icons/check-dark.svg"
+                              alt=""
+                              aria-hidden="true"
+                            />
                           </button>
                         </div>
                       </div>
@@ -154,13 +307,33 @@
                 </div>
 
                 <div class="task-form-footer">
-                  <p><span class="task-required">*</span>This field is required</p>
+                  <p>
+                    <span class="task-required">*</span>This field is required
+                  </p>
                   <div class="task-form-actions">
-                    <button class="btn btn--secondary btn--form task-clear-button" id="taskClearButton" type="button">
-                      <span>Clear</span><img src="./assets/icons/close.svg" alt="" aria-hidden="true" />
+                    <button
+                      class="btn btn--secondary btn--form task-clear-button"
+                      id="taskClearButton"
+                      type="button"
+                    >
+                      <span>Clear</span
+                      ><img
+                        src="./assets/icons/close.svg"
+                        alt=""
+                        aria-hidden="true"
+                      />
                     </button>
-                    <button class="btn btn--primary btn--form task-submit-button" id="taskSubmitButton" type="submit">
-                      <span>Create Task</span><img src="./assets/icons/check.svg" alt="" aria-hidden="true" />
+                    <button
+                      class="btn btn--primary btn--form task-submit-button"
+                      id="taskSubmitButton"
+                      type="submit"
+                    >
+                      <span>Create Task</span
+                      ><img
+                        src="./assets/icons/check.svg"
+                        alt=""
+                        aria-hidden="true"
+                      />
                     </button>
                   </div>
                 </div>

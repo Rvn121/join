@@ -14,7 +14,6 @@ function isSignUpEmailValid(email) {
   return /^[^\s@]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+$/i.test(email.trim());
 }
 
-
 /**
  * DE: Prüft Vor- und Nachnamen.
  * EN: Checks first and last name.
@@ -25,7 +24,6 @@ function isFullNameValid(name) {
   const names = name.trim().split(/\s+/);
   return names.length >= 2;
 }
-
 
 /**
  * DE: Erstellt Initialen aus erstem und letztem Namen.
@@ -40,7 +38,6 @@ function createInitials(name) {
   return (firstLetter + lastLetter).toUpperCase();
 }
 
-
 /**
  * DE: Prüft, ob beide Passwörter gleich sind.
  * EN: Checks whether both passwords match.
@@ -50,7 +47,6 @@ function doPasswordsMatch() {
   const password = document.getElementById("signUpPassword").value;
   return password && password === repeatPassword.value;
 }
-
 
 /**
  * DE: Prüft alle Bedingungen für den Sign-up-Button.
@@ -63,7 +59,6 @@ function areSignUpFieldsFilled() {
   }
   return true;
 }
-
 
 /**
  * DE: Prüft alle Bedingungen für den Sign-up-Button.
@@ -78,7 +73,6 @@ function canRegisterUser() {
   return doPasswordsMatch() && privacyAccepted.checked;
 }
 
-
 /**
  * DE: Aktiviert den Registrierungsbutton passend zum Formular.
  * EN: Enables the registration button according to the form.
@@ -86,7 +80,6 @@ function canRegisterUser() {
 function updateRegisterButton() {
   signUpButton.disabled = !canRegisterUser();
 }
-
 
 /**
  * DE: Zeigt einen Registrierungsfehler.
@@ -99,7 +92,6 @@ function showSignUpError(id, message) {
   document.getElementById(id).classList.add("input-error");
 }
 
-
 /**
  * DE: Entfernt einen Registrierungsfehler.
  * EN: Clears one registration error.
@@ -110,7 +102,6 @@ function clearSignUpError(id) {
   document.getElementById(id).classList.remove("input-error");
 }
 
-
 /**
  * DE: Prüft die Passwortbestätigung während der Eingabe.
  * EN: Checks password confirmation while typing.
@@ -118,9 +109,11 @@ function clearSignUpError(id) {
 function validatePasswordMatchLive() {
   clearSignUpError("repeatPassword");
   if (!repeatPassword.value || doPasswordsMatch()) return;
-  showSignUpError("repeatPassword", "Your passwords don't match. Please try again.");
+  showSignUpError(
+    "repeatPassword",
+    "Your passwords don't match. Please try again.",
+  );
 }
-
 
 /**
  * DE: Prüft die Eingaben vor dem Speichern.
@@ -140,7 +133,6 @@ function validateSignUp() {
   return !document.querySelector("#signUpForm .input-error");
 }
 
-
 /**
  * DE: Erstellt die Daten des neuen Benutzers.
  * EN: Creates the new user's data.
@@ -157,7 +149,6 @@ function createUserData() {
   };
 }
 
-
 /**
  * DE: Meldet eine bereits verwendete E-Mail.
  * EN: Reports an email address that is already in use.
@@ -167,7 +158,6 @@ function showDuplicateEmailError() {
   document.getElementById("signUpEmail").focus();
 }
 
-
 /**
  * DE: Öffnet nach der Registrierung wieder den Login.
  * EN: Opens the login again after registration.
@@ -176,11 +166,10 @@ function showDuplicateEmailError() {
 function finishRegistration(user) {
   showToast("You signed up successfully.");
   const loginEmail = document.getElementById("email");
-  if (!loginEmail) return window.location.href = "./index.html";
+  if (!loginEmail) return (window.location.href = "./index.html");
   loginEmail.value = user.email;
   window.setTimeout(closeSignUp, 900);
 }
-
 
 /**
  * DE: Speichert einen neuen Benutzer.
@@ -196,7 +185,6 @@ async function registerUser() {
   finishRegistration(user);
 }
 
-
 /**
  * DE: Verarbeitet die Registrierung.
  * EN: Handles registration.
@@ -209,11 +197,11 @@ async function handleSignUpSubmit(event) {
   try {
     await registerUser();
   } catch {
-    document.getElementById("signUpMessage").textContent = "Firebase connection failed.";
+    document.getElementById("signUpMessage").textContent =
+      "Firebase connection failed.";
   }
   updateRegisterButton();
 }
-
 
 /**
  * DE: Aktualisiert das Symbol eines Passwortfeldes.
@@ -232,7 +220,6 @@ function updatePasswordIcon(input, icon) {
   }
 }
 
-
 /**
  * DE: Schaltet die Passwortsichtbarkeit um.
  * EN: Toggles password visibility.
@@ -246,7 +233,6 @@ function togglePasswordVisibility(button) {
   updatePasswordToggle(button);
 }
 
-
 /**
  * DE: Aktualisiert Symbol und Beschriftung eines Passwort-Buttons.
  * EN: Updates a password button icon and label.
@@ -258,7 +244,6 @@ function updatePasswordToggle(button) {
   const label = input.type === "password" ? "Show password" : "Hide password";
   button.setAttribute("aria-label", label);
 }
-
 
 /**
  * DE: Verknüpft ein Passwortfeld mit seinem Sichtbarkeits-Button.
@@ -276,7 +261,6 @@ function initializePasswordToggle(button) {
   });
 }
 
-
 /**
  * DE: Aktualisiert das Checkbox-Symbol.
  * EN: Updates the checkbox icon.
@@ -286,7 +270,6 @@ function updatePrivacyCheckboxIcon() {
   if (privacyAccepted.checked) icon.src = "./assets/icons/checked.svg";
   else icon.src = "./assets/icons/checkbox.svg";
 }
-
 
 /**
  * DE: Initialisiert die Passwort-Buttons.
@@ -299,7 +282,6 @@ function initializePasswordToggles() {
   }
 }
 
-
 /**
  * DE: Initialisiert die Registrierung.
  * EN: Initializes sign up.
@@ -307,7 +289,9 @@ function initializePasswordToggles() {
 function initializeSignUp() {
   initializePasswordToggles();
   privacyAccepted.addEventListener("change", updatePrivacyCheckboxIcon);
-  document.getElementById("signUpPassword").addEventListener("input", validatePasswordMatchLive);
+  document
+    .getElementById("signUpPassword")
+    .addEventListener("input", validatePasswordMatchLive);
   repeatPassword.addEventListener("input", validatePasswordMatchLive);
   for (let i = 0; i < signUpInputs.length; i++) {
     signUpInputs[i].addEventListener("input", updateRegisterButton);
@@ -317,6 +301,5 @@ function initializeSignUp() {
   updatePrivacyCheckboxIcon();
   updateRegisterButton();
 }
-
 
 document.addEventListener("DOMContentLoaded", initializeSignUp);

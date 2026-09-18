@@ -74,10 +74,11 @@
   cursor: pointer;
 }
 
-
 .task-field input[type="date"] {
   position: relative;
   padding-right: 48px;
+  appearance: none;
+  -moz-appearance: textfield;
 }
 
 .task-field input[type="date"]::-webkit-calendar-picker-indicator {
@@ -165,6 +166,10 @@
   color: var(--join-white);
 }
 
+.task-field input[type="date"].date-empty:not(:focus) {
+  color: transparent;
+}
+
 .task-field input[type="date"].date-empty:not(:focus)::-webkit-datetime-edit {
   opacity: 0;
 }
@@ -216,7 +221,10 @@
   box-shadow: 0 0 4px var(--shadow-button);
   cursor: pointer;
   font-size: var(--fs-lg);
-  transition: background var(--click-transition), color var(--click-transition), box-shadow var(--click-transition);
+  transition:
+    background var(--click-transition),
+    color var(--click-transition),
+    box-shadow var(--click-transition);
 }
 
 .task-priority input {
