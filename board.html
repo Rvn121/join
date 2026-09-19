@@ -117,7 +117,7 @@
                   >
                     Add task
                     <img
-                      src="./assets/icons/add.svg"
+                      src="./assets/icons/add-solo-white.svg"
                       alt=""
                       aria-hidden="true"
                     />
@@ -266,15 +266,13 @@
                 >
                 <span class="task-date-control">
                   <input
-                    class="date-empty"
                     id="taskDueDate"
                     name="dueDate"
-                    type="date"
+                    type="text"
+                    placeholder="dd/mm/yyyy"
+                    maxlength="10"
                     lang="en-GB"
                   />
-                  <span class="task-date-placeholder" aria-hidden="true"
-                    >dd/mm/yyyy</span
-                  >
                   <button
                     class="task-date-picker"
                     id="taskDatePicker"
@@ -402,14 +400,14 @@
                     placeholder="Add new subtask"
                     maxlength="30"
                   />
-                  <div class="task-subtask-input-actions">
+                  <div class="task-subtask-input-actions" hidden>
                     <button
                       class="icon-button"
                       id="taskSubtaskClear"
                       type="button"
                       aria-label="Subtask-Feld leeren"
                     >
-                      ×
+                      <img src="./assets/icons/close.svg" alt="" aria-hidden="true" />
                     </button>
                     <span class="task-inline-divider" aria-hidden="true"></span>
                     <button
@@ -419,7 +417,7 @@
                       aria-label="Subtask hinzufügen"
                     >
                       <img
-                        src="./assets/icons/check-dark.svg"
+                        src="./assets/icons/check-d.svg"
                         alt=""
                         aria-hidden="true"
                       />
@@ -439,7 +437,7 @@
                 id="taskClearButton"
                 type="button"
               >
-                <span>Clear</span
+                <span>Cancel</span
                 ><img
                   src="./assets/icons/close.svg"
                   alt=""

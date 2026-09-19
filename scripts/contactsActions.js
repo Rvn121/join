@@ -22,6 +22,9 @@ function deleteGuestContact(contact) {
   if (index < 0) return;
   contactState.contacts.splice(index, 1);
   saveGuestContacts();
+  const tasks = getGuestTaskData();
+  for (const task of tasks) removeContactFromTask(task, contact);
+  setGuestTaskData(tasks);
 }
 
 
@@ -30,6 +33,8 @@ function deleteGuestContact(contact) {
  * EN: Logs the user out after deleting the own account.
  */
 function finishOwnAccountDeletion() {
+  sessionStorage.removeItem(USER_MODE_KEY);
+  sessionStorage.removeItem(CURRENT_USER_KEY);
   localStorage.removeItem(USER_MODE_KEY);
   localStorage.removeItem(CURRENT_USER_KEY);
   window.location.href = "./index.html";

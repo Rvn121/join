@@ -37,29 +37,42 @@
 }
 
 .task-contact-dropdown {
+  --contact-option-height: 48px;
   position: absolute;
   z-index: 12;
   top: calc(100% + 4px);
   left: 0;
   width: 100%;
-  max-height: 230px;
+  max-height: calc(5 * var(--contact-option-height) + 1px);
+  overflow-x: hidden;
   overflow-y: auto;
-  border-radius: 0 0 10px 10px;
+  border-bottom: 1px solid var(--join-border);
+  border-radius: 10px;
   background: var(--card-background);
-  box-shadow: 0 4px 8px var(--task-card-shadow);
+  box-shadow: 0 0 14px 3px var(--shadow-dialog);
 }
 
 .task-contact-option {
   display: flex;
-  min-height: 48px;
+  height: var(--contact-option-height);
   align-items: center;
   gap: 12px;
   padding: 6px 14px;
+  border-radius: 10px;
   cursor: pointer;
 }
 
 .task-contact-option:hover {
   background: var(--contact-list-hover);
+}
+
+.task-contact-option:has(input:checked) {
+  background: var(--join-dark);
+  color: var(--join-white);
+}
+
+.task-contact-option:has(input:checked):hover {
+  background: var(--join-dark-active);
 }
 
 .task-contact-option > span:nth-child(2) {
@@ -83,11 +96,12 @@
 }
 
 .task-contact-option input:checked {
-  background-color: var(--card-background);
-  background-image: url("../assets/icons/check-dark.svg");
+  border: none;
+  background-color: transparent;
+  background-image: url("../assets/icons/checked-white.png");
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 13px;
+  background-size: contain;
   filter: none;
 }
 
@@ -145,14 +159,16 @@
 }
 
 .task-subtask-list {
+  list-style-type: disc;
+  list-style-position: inside;
   margin: 8px 0 0;
-  padding: 0 0 0 22px;
+  padding: 0;
 }
 
 .task-subtask-list li {
   position: relative;
   min-height: 36px;
-  padding: 8px 84px 8px 2px;
+  padding: 8px 84px 8px 12px;
   border-radius: 8px;
   font-size: var(--fs-small);
   transition: background var(--click-transition);
@@ -175,6 +191,30 @@
 
 .task-subtask-list li:hover > div,
 .task-subtask-list li:focus-within > div {
+  display: flex;
+}
+
+.task-subtask-list li.task-subtask-editing {
+  padding: 0;
+  border-radius: 0;
+  list-style: none;
+  background: var(--card-background);
+}
+
+.task-subtask-editing input {
+  height: 36px;
+  padding: 0 84px 0 12px;
+  border: none;
+  border-bottom: 1px solid var(--join-border);
+  border-radius: 0;
+  font-size: var(--fs-small);
+}
+
+.task-subtask-editing:focus-within input {
+  border-bottom-color: var(--join-border-hover);
+}
+
+.task-subtask-list li.task-subtask-editing > div {
   display: flex;
 }
 

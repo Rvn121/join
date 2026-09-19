@@ -3,11 +3,21 @@
  * EN: Renders the subtasks below the input.
  */
 function renderFormSubtasks() {
+  const editor = taskSubtaskList.querySelector("[data-subtask-editor]");
+  const draftId = editor?.closest("[data-form-subtask-id]").dataset.formSubtaskId;
+  const draft = editor?.value;
   let html = "";
   for (let i = 0; i < taskFormState.subtasks.length; i++) {
-    html += getFormSubtaskTemplate(taskFormState.subtasks[i]);
+    const subtask = taskFormState.subtasks[i];
+    html += String(subtask.id) === String(taskFormState.editingSubtaskId)
+      ? getFormSubtaskEditorTemplate(subtask)
+      : getFormSubtaskTemplate(subtask);
   }
   taskSubtaskList.innerHTML = html;
+  if (draftId === String(taskFormState.editingSubtaskId)) {
+    const nextEditor = taskSubtaskList.querySelector("[data-subtask-editor]");
+    if (nextEditor) nextEditor.value = draft;
+  }
 }
 
 
@@ -26,27 +36,24 @@ function findFormSubtask(subtaskId) {
 
 
 /**
- * DE: Leert das Subtask-Eingabefeld und beendet Bearbeiten.
- * EN: Clears the subtask input and stops editing.
+ * DE: Leert das Eingabefeld fuer neue Subtasks.
+ * EN: Clears the input for new subtasks.
  */
 function clearSubtaskInput() {
   taskSubtaskInput.value = "";
-  taskFormState.editingSubtaskId = null;
   updateSubtaskInputActions();
   taskSubtaskInput.focus();
 }
 
 
 /**
- * DE: Speichert einen neuen oder bearbeiteten Subtask.
- * EN: Stores a new or edited subtask.
+ * DE: Fuegt einen neuen Subtask hinzu.
+ * EN: Adds a new subtask.
  */
 function addOrUpdateSubtask() {
   const title = taskSubtaskInput.value.trim();
   if (!title) return;
-  const subtask = findFormSubtask(taskFormState.editingSubtaskId);
-  if (subtask) subtask.title = title;
-  else taskFormState.subtasks.push({ id: createTaskId(), title: title, done: false });
+  taskFormState.subtasks.push({ id: createTaskId(), title: title, done: false });
   renderFormSubtasks();
   clearSubtaskInput();
 }
@@ -61,8 +68,40 @@ function editFormSubtask(subtaskId) {
   const subtask = findFormSubtask(subtaskId);
   if (!subtask) return;
   taskFormState.editingSubtaskId = subtask.id;
-  taskSubtaskInput.value = subtask.title;
-  updateSubtaskInputActions();
+  renderFormSubtasks();
+  const editor = taskSubtaskList.querySelector("[data-subtask-editor]");
+  editor.focus();
+  editor.setSelectionRange(editor.value.length, editor.value.length);
+}
+
+/** DE: Bestaetigt die Aenderung direkt in der Zeile. EN: Confirms the inline edit. */
+function saveFormSubtask(subtaskId) {
+  const editor = taskSubtaskList.querySelector("[data-subtask-editor]");
+  const subtask = findFormSubtask(subtaskId);
+  if (!editor || !subtask) return;
+  const title = editor.value.trim();
+  if (!title) return editor.focus();
+  subtask.title = title;
+  taskFormState.editingSubtaskId = null;
+  renderFormSubtasks();
+  taskSubtaskInput.focus();
+}
+
+/** DE: Startet Bearbeiten per Doppelklick. EN: Starts editing on double-click. */
+function handleSubtaskDoubleClick(event) {
+  if (event.target.closest("button, input")) return;
+  const row = event.target.closest("[data-form-subtask-id]");
+  if (row) editFormSubtask(row.dataset.formSubtaskId);
+}
+
+/** DE: Enter bestaetigt, Escape verwirft die Aenderung. EN: Enter confirms, Escape cancels. */
+function handleSubtaskEditorKeydown(event) {
+  if (!event.target.matches("[data-subtask-editor]") || event.isComposing) return;
+  if (event.key !== "Enter" && event.key !== "Escape") return;
+  event.preventDefault();
+  if (event.key === "Enter") return saveFormSubtask(taskFormState.editingSubtaskId);
+  taskFormState.editingSubtaskId = null;
+  renderFormSubtasks();
   taskSubtaskInput.focus();
 }
 
@@ -73,6 +112,9 @@ function editFormSubtask(subtaskId) {
  * @param {string} subtaskId - DE: Subtask-ID. EN: Subtask id.
  */
 function deleteFormSubtask(subtaskId) {
+  if (String(taskFormState.editingSubtaskId) === String(subtaskId)) {
+    taskFormState.editingSubtaskId = null;
+  }
   for (let i = 0; i < taskFormState.subtasks.length; i++) {
     if (String(taskFormState.subtasks[i].id) !== String(subtaskId)) continue;
     taskFormState.subtasks.splice(i, 1);
@@ -90,8 +132,10 @@ function deleteFormSubtask(subtaskId) {
 function handleFormSubtaskAction(event) {
   const editButton = event.target.closest("[data-edit-subtask]");
   const deleteButton = event.target.closest("[data-delete-subtask]");
+  const saveButton = event.target.closest("[data-save-subtask]");
   if (editButton) editFormSubtask(editButton.getAttribute("data-edit-subtask"));
   if (deleteButton) deleteFormSubtask(deleteButton.getAttribute("data-delete-subtask"));
+  if (saveButton) saveFormSubtask(saveButton.dataset.saveSubtask);
 }
 
 
@@ -111,12 +155,7 @@ function handleSubtaskKeydown(event) {
  * EN: Adapts the subtask field icons to the current input.
  */
 function updateSubtaskInputActions() {
-  const hasText = Boolean(taskSubtaskInput.value.trim());
-  const clearButton = document.getElementById("taskSubtaskClear");
-  const divider = document.querySelector(".task-subtask-input-actions .task-inline-divider");
-  const icon = document.querySelector("#taskSubtaskAdd img");
-  clearButton.hidden = !hasText;
-  divider.hidden = !hasText;
-  icon.src = hasText ? "./assets/icons/check-dark.svg" : "./assets/icons/add.svg";
+  const hasText = taskSubtaskInput.value.length > 0;
+  document.querySelector(".task-subtask-input-actions").hidden = !hasText;
 }
 

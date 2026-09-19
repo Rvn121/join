@@ -165,9 +165,27 @@ function startBoardDrag(event) {
   const card = event.target.closest("[data-task-id]");
   if (!card) return;
   boardState.draggingTaskId = card.getAttribute("data-task-id");
+  boardColumns.style.setProperty("--board-drop-height", card.offsetHeight + "px");
   card.classList.add("task-card--dragging");
   event.dataTransfer.effectAllowed = "move";
   event.dataTransfer.setData("text/plain", boardState.draggingTaskId);
+  updateBoardDropTargets();
+}
+
+/** DE: Zeigt benachbarte Ziele sowie entfernte Ziele in Zeigernaehe. EN: Shows adjacent and nearby drop targets. */
+function updateBoardDropTargets(event) {
+  const task = getBoardTask(boardState.draggingTaskId);
+  if (!task) return;
+  const statuses = [TASK_STATUS_TODO, TASK_STATUS_PROGRESS, TASK_STATUS_FEEDBACK, TASK_STATUS_DONE];
+  const sourceIndex = statuses.indexOf(task.status);
+  for (let i = 0; i < statuses.length; i++) {
+    const column = getBoardColumnContainer(statuses[i]);
+    const bounds = column.closest("[data-board-status]").getBoundingClientRect();
+    const nearby = event && event.clientX >= bounds.left - 32 && event.clientX <= bounds.right + 32 &&
+      event.clientY >= bounds.top - 32 && event.clientY <= bounds.bottom + 32;
+    const visible = i !== sourceIndex && (Math.abs(i - sourceIndex) === 1 || Boolean(nearby));
+    column.classList.toggle("board-column-tasks--drop", visible);
+  }
 }
 
 
@@ -177,10 +195,11 @@ function startBoardDrag(event) {
  * @param {DragEvent} event - DE: Drag-Ereignis. EN: Drag event.
  */
 function allowBoardDrop(event) {
-  const column = event.target.closest("[data-drop-status]");
+  if (!boardState.draggingTaskId) return;
+  updateBoardDropTargets(event);
+  const column = event.target.closest("[data-board-status]");
   if (!column) return;
   event.preventDefault();
-  column.classList.add("board-column-tasks--drop");
   event.dataTransfer.dropEffect = "move";
 }
 
@@ -191,10 +210,7 @@ function allowBoardDrop(event) {
  * @param {DragEvent} event - DE: Drag-Ereignis. EN: Drag event.
  */
 function leaveBoardDrop(event) {
-  const column = event.target.closest("[data-drop-status]");
-  if (column && !column.contains(event.relatedTarget)) {
-    column.classList.remove("board-column-tasks--drop");
-  }
+  if (!event.relatedTarget) updateBoardDropTargets();
 }
 
 
@@ -203,6 +219,7 @@ function leaveBoardDrop(event) {
  * EN: Removes all drag markers from the board.
  */
 function clearBoardDragStyles() {
+  boardColumns.style.removeProperty("--board-drop-height");
   const cards = document.querySelectorAll(".task-card--dragging");
   const columns = document.querySelectorAll(".board-column-tasks--drop");
   for (let i = 0; i < cards.length; i++) cards[i].classList.remove("task-card--dragging");
@@ -237,11 +254,11 @@ async function moveBoardTask(taskId, status) {
  * @param {DragEvent} event - DE: Drag-Ereignis. EN: Drag event.
  */
 function dropBoardTask(event) {
-  const column = event.target.closest("[data-drop-status]");
-  if (!column) return;
+  const column = event.target.closest("[data-board-status]");
+  if (!column || !boardState.draggingTaskId) return;
   event.preventDefault();
   const taskId = event.dataTransfer.getData("text/plain") || boardState.draggingTaskId;
-  const status = column.getAttribute("data-drop-status");
+  const status = column.getAttribute("data-board-status");
   clearBoardDragStyles();
   boardState.draggingTaskId = null;
   moveBoardTask(taskId, status);
@@ -267,7 +284,7 @@ function endBoardDrag() {
 async function handleBoardTaskSaved(task, editing) {
   closeTaskFormDialog();
   await refreshBoard();
-  showToast(editing ? "Task successfully updated." : "Task successfully created.");
+  showToast(editing ? "Task successfully updated." : "Task added to board");
 }
 
 
@@ -281,7 +298,7 @@ function initializeBoardEvents() {
   boardColumns.addEventListener("click", handleBoardAddTask);
   boardColumns.addEventListener("keydown", handleBoardCardKeydown);
   boardColumns.addEventListener("dragstart", startBoardDrag);
-  boardColumns.addEventListener("dragover", allowBoardDrop);
+  document.addEventListener("dragover", allowBoardDrop);
   boardColumns.addEventListener("dragleave", leaveBoardDrop);
   boardColumns.addEventListener("drop", dropBoardTask);
   boardColumns.addEventListener("dragend", endBoardDrag);
@@ -295,6 +312,7 @@ function initializeBoardEvents() {
  * @returns {Promise<void>}
  */
 async function initializeBoard() {
+  if (!protectCurrentPage()) return;
   await initializeTaskForm();
   initializeTaskDialogs();
   initializeBoardEvents();

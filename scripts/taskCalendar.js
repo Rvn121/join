@@ -44,7 +44,7 @@ function toggleTaskCalendar(event) {
   }
   if (!taskCalendar) createTaskCalendar();
   if (taskCalendar.matches(":popover-open")) return taskCalendar.hidePopover();
-  const selected = taskDueDate.value;
+  const selected = parseTaskDueDate(taskDueDate.value);
   taskCalendarMonth = selected ? new Date(selected + "T12:00:00") : new Date();
   taskCalendarMonth.setDate(1);
   renderTaskCalendar();
@@ -70,7 +70,7 @@ function renderTaskCalendar() {
   for (let day = 1; day <= days; day++) {
     const value = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
     html += '<button type="button" data-date="' + value + '" aria-label="' + day + ' ' + heading +
-      '" aria-pressed="' + (value === taskDueDate.value) + '">' + day + '</button>';
+      '" aria-pressed="' + (value === parseTaskDueDate(taskDueDate.value)) + '">' + day + '</button>';
   }
   taskCalendar.innerHTML = html + '</div>';
 }
@@ -86,7 +86,7 @@ function handleTaskCalendarClick(event) {
     positionTaskCalendar();
     return;
   }
-  taskDueDate.value = button.dataset.date;
+  taskDueDate.value = formatTaskDate(button.dataset.date);
   taskDueDate.dispatchEvent(new Event("input", {bubbles: true}));
   taskDueDate.dispatchEvent(new Event("change", {bubbles: true}));
   taskCalendar.hidePopover();

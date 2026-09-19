@@ -91,12 +91,12 @@ function canManageContact(contact) {
  * @returns {Array|null} DE: Kontakte. EN: Contacts.
  */
 function getStoredGuestContacts() {
-  const storedContacts = localStorage.getItem(CONTACTS_GUEST_KEY);
-  if (!storedContacts) return null;
+  const storedContacts = sessionStorage.getItem(CONTACTS_GUEST_KEY);
+  if (!storedContacts) return [];
   try {
     return JSON.parse(storedContacts);
   } catch {
-    return null;
+    return [];
   }
 }
 
@@ -107,21 +107,17 @@ function getStoredGuestContacts() {
  */
 function saveGuestContacts() {
   const contacts = JSON.stringify(contactState.contacts);
-  localStorage.setItem(CONTACTS_GUEST_KEY, contacts);
+  sessionStorage.setItem(CONTACTS_GUEST_KEY, contacts);
 }
 
 
 /**
- * DE: Erstellt beim ersten Gastzugriff eine lokale Kontaktkopie.
- * EN: Creates a local contact copy on the first guest access.
+ * DE: Liest ausschliesslich Kontakte der aktuellen Gastsitzung.
+ * EN: Reads only contacts from the current guest session.
  * @returns {Promise<Array>} DE: Kontakte. EN: Contacts.
  */
 async function loadGuestContacts() {
-  const storedContacts = getStoredGuestContacts();
-  if (storedContacts) return storedContacts;
-  const contacts = await getContacts();
-  localStorage.setItem(CONTACTS_GUEST_KEY, JSON.stringify(contacts));
-  return contacts;
+  return getStoredGuestContacts();
 }
 
 
@@ -324,6 +320,7 @@ function initializeContactEvents() {
  * @returns {Promise<void>}
  */
 async function initializeContacts() {
+  if (!protectCurrentPage()) return;
   initializeContactEvents();
   initializeContactResizer();
   contactState.contacts = await loadContacts();

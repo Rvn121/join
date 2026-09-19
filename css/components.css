@@ -5,7 +5,7 @@
 .task-dropdown-input-wrap,
 .board-search {
   width: 100%;
-  border: 1px solid var(--join-text-secondary);
+  border: 1px solid var(--join-border);
   border-radius: 10px;
   outline: none;
   background: var(--card-background);

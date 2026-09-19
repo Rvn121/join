@@ -1,5 +1,8 @@
 /** DE: Erstellt eine vollständige Firebase-URL. EN: Creates a complete Firebase URL. */
 function getFirebaseUrl(path = "") {
+  if (getUserMode() === "guest" || (isProtectedPage() && !getUserMode())) {
+    throw new Error("Database access requires a registered user session.");
+  }
   return FIREBASE_BASE_URL + "/" + path + ".json";
 }
 
@@ -174,11 +177,10 @@ async function deleteUser(userId) {
 /** DE: Liest Tasks aus Firebase oder aus der lokalen Gastsicht. EN: Reads tasks from Firebase or the local guest view. */
 async function getTasks() {
   try {
-    const guestTasks = getUserMode() === "guest" ? getGuestTaskData() : null;
-    if (guestTasks) return guestTasks;
+    if (getUserMode() === "guest") return getGuestTaskData();
+    if (getUserMode() !== "user") return [];
     const tasks = await getFirebaseData("tasks");
     const taskList = mapStoredTasks(tasks);
-    if (getUserMode() === "guest") setGuestTaskData(taskList);
     return taskList;
   } catch {
     return [];
@@ -195,6 +197,9 @@ async function saveTasks(tasks) {
 
 /** DE: Liest alle Kontakte mit ihren Firebase-IDs. EN: Reads all contacts including their Firebase ids. */
 async function getContacts() {
+  if (getUserMode() === "guest") {
+    return JSON.parse(sessionStorage.getItem("joinGuestContacts") || "[]");
+  }
   try {
     return mapFirebaseCollection(await getFirebaseData("contacts"));
   } catch {

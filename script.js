@@ -88,8 +88,9 @@ function validateLoginForm() {
  * @param {object} user - DE: Benutzer. EN: User.
  */
 function saveUserSession(user) {
-  localStorage.setItem(USER_MODE_KEY, "user");
-  localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+  clearGuestLocalData();
+  sessionStorage.setItem(USER_MODE_KEY, "user");
+  sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
 }
 
 
@@ -145,9 +146,20 @@ async function handleLoginSubmit(event) {
  * EN: Opens the summary in guest mode.
  */
 function openGuestSummary() {
-  localStorage.setItem(USER_MODE_KEY, "guest");
-  localStorage.removeItem(CURRENT_USER_KEY);
+  clearGuestLocalData();
+  sessionStorage.setItem(USER_MODE_KEY, "guest");
+  sessionStorage.removeItem(CURRENT_USER_KEY);
+  sessionStorage.setItem("joinGuestContacts", JSON.stringify(createGuestDemoContacts()));
   window.location.href = "./summary.html";
+}
+
+/** DE: Erstellt die drei lokalen Gastkontakte. EN: Creates the three local guest contacts. */
+function createGuestDemoContacts() {
+  return [
+    { id: "guest-emma", name: "Tante Emma", email: "Email1@join.com", initials: "TE", color: "orange" },
+    { id: "guest-jacke", name: "Jacke wie Hose", email: "Email2@join.com", initials: "JH", color: "purple" },
+    { id: "guest-probier", name: "Probier Mal", email: "Email3@join.com", initials: "PM", color: "teal" },
+  ].map(contact => ({ ...contact, phone: "+4908154711", isRegistered: false, userId: null }));
 }
 
 
@@ -156,6 +168,7 @@ function openGuestSummary() {
  * EN: Opens the sign-up dialog.
  */
 function openSignUp() {
+  signUpDialog.dataset.dialogMotion = "none";
   if (loginDialog.open) loginDialog.close();
   document.body.classList.add("signup-visible");
   openFloatingDialog(signUpDialog, false, closeSignUp);
@@ -178,6 +191,7 @@ async function closeSignUp() {
  * EN: Initializes the landing page.
  */
 function initializeLandingPage() {
+  clearGuestForLogin();
   startLandingAnimation();
   loginForm.addEventListener("submit", handleLoginSubmit);
   guestLoginButton.addEventListener("click", openGuestSummary);

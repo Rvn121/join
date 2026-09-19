@@ -26,6 +26,8 @@ function openTaskFormDialog(status, task) {
  */
 function setTaskFormDialogMode(editing) {
   taskFormDialog.classList.toggle("task-form-dialog--edit", editing);
+  if (editing) taskFormDialog.dataset.dialogMotion = "none";
+  else delete taskFormDialog.dataset.dialogMotion;
 }
 
 
@@ -77,9 +79,9 @@ function openTaskDetail(taskId) {
  * DE: Schließt die Detailansicht.
  * EN: Closes the detail view.
  */
-function closeTaskDetail() {
+function closeTaskDetail(animated = true) {
   activeTaskDetailId = null;
-  return closeFloatingDialog(taskDetailDialog);
+  return closeFloatingDialog(taskDetailDialog, animated);
 }
 
 
@@ -168,7 +170,7 @@ async function deleteActiveTask() {
 async function editActiveTask() {
   const task = getBoardTask(activeTaskDetailId);
   if (!task) return;
-  if (await closeTaskDetail()) openTaskFormDialog(task.status, task);
+  if (await closeTaskDetail(false)) openTaskFormDialog(task.status, task);
 }
 
 

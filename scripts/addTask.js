@@ -4,6 +4,7 @@
  * @returns {Promise<void>}
  */
 async function initializeAddTask() {
+  if (!protectCurrentPage()) return;
   await initializeTaskForm();
   prepareTaskForm(TASK_STATUS_TODO, null);
 }

@@ -68,30 +68,83 @@
 .task-field select {
   padding-right: 46px;
   appearance: none;
-  background-image: url("../assets/icons/arrow_drop_down.svg");
-  background-repeat: no-repeat;
-  background-position: right 24px center;
   cursor: pointer;
 }
 
-.task-field input[type="date"] {
+.task-field select:has(option[value=""]:checked) {
+  color: var(--join-text-secondary);
+}
+
+.task-field select option {
+  color: var(--join-text);
+}
+
+.task-field .select-wrap::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: 24px;
+  width: 8px;
+  height: 5px;
+  background: url("../assets/icons/arrow_drop_down.svg") center / contain no-repeat;
+  transform: translateY(-50%);
+  transition: transform var(--click-transition);
+  pointer-events: none;
+}
+
+.task-field .select-wrap:has(select:open)::before {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+@supports (appearance: base-select) {
+  .task-field select,
+  .task-field select::picker(select) {
+    appearance: base-select;
+  }
+
+  .task-field select {
+    align-items: center;
+  }
+
+  .task-field select::picker-icon {
+    display: none;
+  }
+
+  .task-field select::picker(select) {
+    inset: auto;
+    position-area: block-end span-inline-end;
+    position-try: none;
+    max-height: 345px;
+    margin-top: 4px;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    border: none;
+    border-bottom: 1px solid var(--join-border);
+    border-radius: 10px;
+    background: var(--card-background);
+    color: var(--join-text);
+    box-shadow: 0 0 14px 3px var(--shadow-dialog);
+  }
+
+  .task-field select option {
+    min-height: 48px;
+    padding: 6px 14px;
+    border-radius: 10px;
+  }
+
+  .task-field select option:hover,
+  .task-field select option:focus {
+    background: var(--contact-list-hover);
+  }
+}
+
+.task-date-control input {
   position: relative;
   padding-right: 48px;
   appearance: none;
   -moz-appearance: textfield;
-}
-
-.task-field input[type="date"]::-webkit-calendar-picker-indicator {
-  position: absolute;
-  top: 50%;
-  right: 16px;
-  width: 22px;
-  height: 22px;
-  margin: 0;
-  padding: 0;
-  transform: translateY(-50%);
-  opacity: 0;
-  pointer-events: none;
 }
 
 .task-date-picker {
@@ -166,32 +219,11 @@
   color: var(--join-white);
 }
 
-.task-field input[type="date"].date-empty:not(:focus) {
-  color: transparent;
-}
-
-.task-field input[type="date"].date-empty:not(:focus)::-webkit-datetime-edit {
-  opacity: 0;
-}
-
 .task-field > .task-date-control {
   position: relative;
   margin-bottom: 0;
 }
 
-.task-date-placeholder {
-  position: absolute;
-  top: 50%;
-  left: 16px;
-  transform: translateY(-50%);
-  color: var(--join-text-secondary);
-  pointer-events: none;
-  display: none;
-}
-
-.date-empty:not(:focus) + .task-date-placeholder {
-  display: block;
-}
 .task-input-error {
   border-color: var(--join-error) !important;
 }

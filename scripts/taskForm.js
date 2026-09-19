@@ -67,7 +67,7 @@ function validateRequiredTaskField(field, message) {
  */
 function validateTaskForm() {
   const titleValid = validateRequiredTaskField(taskTitle, "Please enter a title.");
-  const dateValid = validateRequiredTaskField(taskDueDate, "Please select a due date.");
+  const dateValid = validateTaskDueDate();
   const categoryValid = validateRequiredTaskField(taskCategory, "Please select a category.");
   if (!titleValid) taskTitle.focus();
   else if (!dateValid) taskDueDate.focus();
@@ -111,7 +111,7 @@ function createTaskFromForm() {
     id: taskFormState.editingTaskId || createTaskId(),
     title: taskTitle.value.trim(),
     description: taskDescription.value.trim(),
-    dueDate: taskDueDate.value,
+    dueDate: parseTaskDueDate(taskDueDate.value),
     priority: getSelectedTaskPriority(),
     assignedTo: taskFormState.selectedContactIds.slice(),
     category: taskCategory.value,
@@ -160,7 +160,7 @@ function resetTaskFormValues() {
 function fillTaskForm(task) {
   taskTitle.value = task.title || "";
   taskDescription.value = task.description || "";
-  taskDueDate.value = task.dueDate || "";
+  taskDueDate.value = task.dueDate ? formatTaskDate(task.dueDate) : "";
   updateTaskDateAppearance();
   taskCategory.value = task.category || "";
   taskForm.querySelector('input[value="' + normalizeTaskPriority(task.priority) + '"]').checked = true;
@@ -209,7 +209,7 @@ function updateTaskFormButtons(editing) {
  * EN: Handles the secondary form button.
  */
 function handleTaskClearButton() {
-  if (taskFormState.editingTaskId && typeof closeTaskFormDialog === "function") {
+  if (taskForm.closest("dialog") && typeof closeTaskFormDialog === "function") {
     closeTaskFormDialog();
     return;
   }
@@ -264,11 +264,19 @@ async function handleTaskFormSubmit(event) {
 
 
 /**
- * DE: Aktualisiert den Platzhalter des Datumsfelds.
- * EN: Updates the date field placeholder.
+ * DE: Entfernt Datumsfehler nach einer Eingabe oder Formularaktualisierung.
+ * EN: Clears date errors after input or a form update.
  */
 function updateTaskDateAppearance() {
-  taskDueDate.classList.toggle("date-empty", !taskDueDate.value);
+  clearTaskFieldError(taskDueDate);
+}
+
+/** DE: Prueft das Datum im Format dd/mm/yyyy. EN: Validates the date in dd/mm/yyyy format. */
+function validateTaskDueDate() {
+  if (!validateRequiredTaskField(taskDueDate, "Please select a due date.")) return false;
+  if (parseTaskDueDate(taskDueDate.value)) return true;
+  showTaskFieldError(taskDueDate, "Please enter a valid date (dd/mm/yyyy).");
+  return false;
 }
 
 /** DE: Öffnet den Kalender am Icon. EN: Opens the calendar at its icon. */
@@ -289,6 +297,8 @@ function initializeTaskFormEvents() {
   taskSubtaskInput.addEventListener("keydown", handleSubtaskKeydown);
   taskSubtaskInput.addEventListener("input", updateSubtaskInputActions);
   taskSubtaskList.addEventListener("click", handleFormSubtaskAction);
+  taskSubtaskList.addEventListener("dblclick", handleSubtaskDoubleClick);
+  taskSubtaskList.addEventListener("keydown", handleSubtaskEditorKeydown);
   document.getElementById("taskSubtaskAdd").addEventListener("click", addOrUpdateSubtask);
   document.getElementById("taskSubtaskClear").addEventListener("click", clearSubtaskInput);
   taskClearButton.addEventListener("click", handleTaskClearButton);

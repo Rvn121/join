@@ -119,6 +119,7 @@ function renderSummaryDeadline(tasks) {
  * @returns {Promise<void>}
  */
 async function initializeSummary() {
+  if (!protectCurrentPage()) return;
   const tasks = normalizeTaskList(await getTasks());
   renderSummaryNumbers(tasks);
   renderSummaryDeadline(tasks);

@@ -229,6 +229,12 @@ function getAssignedContactTemplate(contact, selected, ownContact) {
  * @param {object} subtask - DE: Subtask. EN: Subtask.
  * @returns {string} DE: Subtask-HTML. EN: Subtask HTML.
  */
+function getFormSubtaskEditorTemplate(subtask) {
+  const id = escapeTaskHtml(subtask.id);
+  return `<li class="task-subtask-editing" data-form-subtask-id="${id}"><input data-subtask-editor type="text" value="${escapeTaskHtml(subtask.title)}" maxlength="30" aria-label="Subtask bearbeiten" /><div class="task-subtask-actions"><button class="icon-button" type="button" data-delete-subtask="${id}" aria-label="Subtask löschen"><img src="./assets/icons/delete.svg" alt="" /></button><span class="task-inline-divider" aria-hidden="true"></span><button class="icon-button" type="button" data-save-subtask="${id}" aria-label="Änderung bestätigen"><img src="./assets/icons/check-d.svg" alt="" /></button></div></li>`;
+}
+
+/** DE: Erstellt eine Subtask-Zeile. EN: Creates a subtask row. */
 function getFormSubtaskTemplate(subtask) {
   return `<li data-form-subtask-id="${escapeTaskHtml(subtask.id)}"><span class="task-subtask-title">${escapeTaskHtml(subtask.title)}</span><div class="task-subtask-actions"><button class="icon-button" type="button" data-edit-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask bearbeiten"><img src="./assets/icons/edit.svg" alt="" /></button><span class="task-inline-divider" aria-hidden="true"></span><button class="icon-button" type="button" data-delete-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask löschen"><img src="./assets/icons/delete.svg" alt="" /></button></div></li>`;
 }

@@ -139,7 +139,7 @@ function saveGuestContact(contact) {
  */
 function updateCurrentUserSession(user) {
   if (!user || isGuestContactMode()) return;
-  localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+  sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
   updateUserInitials();
 }
 

@@ -4,9 +4,6 @@
  * @returns {Promise<Array>} DE: Kontakte. EN: Contacts.
  */
 async function loadTaskFormContacts() {
-  if (getUserMode() !== "guest") return getContacts();
-  const localContacts = localStorage.getItem("joinGuestContacts");
-  if (localContacts) return JSON.parse(localContacts);
   return getContacts();
 }
 
@@ -37,13 +34,14 @@ function isTaskContactSelected(contactId) {
 
 
 /**
- * DE: Erstellt die Liste im Assigned-to-Dropdown.
- * EN: Creates the list in the assigned-to dropdown.
+ * DE: Zeigt nur registrierte Benutzer im Assigned-to-Dropdown.
+ * EN: Shows only registered users in the assigned-to dropdown.
  */
 function renderTaskContactDropdown() {
   let html = "";
   for (let i = 0; i < taskFormState.contacts.length; i++) {
     const contact = taskFormState.contacts[i];
+    if (getUserMode() !== "guest" && contact.isRegistered !== true) continue;
     const selected = isTaskContactSelected(contact.id);
     html += getAssignedContactTemplate(contact, selected, isOwnTaskContact(contact));
   }
@@ -143,6 +141,8 @@ function renderTaskSelectedContacts() {
  * @param {boolean} checked - DE: Checkboxstatus. EN: Checkbox state.
  */
 function updateTaskContactSelection(contactId, checked) {
+  const contact = findFormContact(contactId);
+  if (checked && (!contact || (getUserMode() !== "guest" && contact.isRegistered !== true))) return;
   const id = String(contactId);
   const index = taskFormState.selectedContactIds.indexOf(id);
   if (checked && index < 0) taskFormState.selectedContactIds.push(id);

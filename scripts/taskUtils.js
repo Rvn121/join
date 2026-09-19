@@ -209,6 +209,16 @@ function formatTaskDate(dateValue) {
   return parts[2] + "/" + parts[1] + "/" + parts[0];
 }
 
+/** DE: Wandelt ein gueltiges dd/mm/yyyy-Datum in ISO um. EN: Converts a valid dd/mm/yyyy date to ISO. */
+function parseTaskDueDate(value) {
+  const match = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(value.trim());
+  if (!match || Number(match[3]) === 0) return "";
+  const iso = match[3] + "-" + match[2] + "-" + match[1];
+  const date = new Date(iso + "T12:00:00Z");
+  if (Number.isNaN(date.getTime()) || date.toISOString().slice(0, 10) !== iso) return "";
+  return iso;
+}
+
 
 
 

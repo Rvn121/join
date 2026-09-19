@@ -47,8 +47,8 @@
 }
 
 .board-add-task img {
-  width: 32px;
-  height: 32px;
+  width: 18.67px;
+  height: 18.67px;
   filter: brightness(0) invert(1);
 }
 
@@ -108,9 +108,17 @@
   transition: border-color var(--click-transition), background var(--click-transition);
 }
 
-.board-column-tasks--drop {
-  border-color: var(--join-blue);
-  background: var(--task-drop-zone);
+.board-column-tasks--drop::after {
+  content: "";
+  display: block;
+  height: var(--board-drop-height, 180px);
+  border: 1px dashed var(--join-border);
+  border-radius: 24px;
+  pointer-events: none;
+}
+
+.board-column-tasks--drop > .board-empty {
+  display: none;
 }
 
 .board-empty {

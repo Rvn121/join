@@ -12,7 +12,10 @@ const appToast = document.getElementById("appToast");
  * @returns {string|null} DE: Modus. EN: Mode.
  */
 function getUserMode() {
-  return localStorage.getItem(USER_MODE_KEY);
+  const mode = sessionStorage.getItem(USER_MODE_KEY);
+  if (mode === "guest") return mode;
+  if (mode === "user" && getCurrentUser()?.userId) return mode;
+  return null;
 }
 
 
@@ -22,8 +25,9 @@ function getUserMode() {
  * @returns {object|null} DE: Benutzer. EN: User.
  */
 function getCurrentUser() {
-  const user = localStorage.getItem(CURRENT_USER_KEY);
-  return user ? JSON.parse(user) : null;
+  const user = sessionStorage.getItem(CURRENT_USER_KEY);
+  try { return user ? JSON.parse(user) : null; }
+  catch { return null; }
 }
 
 
@@ -42,8 +46,10 @@ function isProtectedPage() {
  * EN: Redirects signed-out visitors to login.
  */
 function protectCurrentPage() {
-  if (!isProtectedPage() || getUserMode()) return;
+  if (!isProtectedPage() || getUserMode()) return true;
+  document.documentElement.hidden = true;
   window.location.replace("./index.html");
+  return false;
 }
 
 
@@ -223,6 +229,8 @@ function toggleProfileMenu() {
  * EN: Clears guest-only local test data.
  */
 function clearGuestLocalData() {
+  sessionStorage.removeItem("joinGuestContacts");
+  sessionStorage.removeItem("joinGuestTasks");
   localStorage.removeItem("joinGuestContacts");
   localStorage.removeItem("joinGuestTasks");
 }
@@ -234,8 +242,8 @@ function clearGuestLocalData() {
  * @returns {Array|null} DE: Gast-Tasks. EN: Guest tasks.
  */
 function getGuestTaskData() {
-  const tasks = localStorage.getItem("joinGuestTasks");
-  return tasks ? JSON.parse(tasks) : null;
+  const tasks = sessionStorage.getItem("joinGuestTasks");
+  return tasks ? JSON.parse(tasks) : [];
 }
 
 
@@ -245,7 +253,7 @@ function getGuestTaskData() {
  * @param {Array} tasks - DE: Tasks. EN: Tasks.
  */
 function setGuestTaskData(tasks) {
-  localStorage.setItem("joinGuestTasks", JSON.stringify(tasks));
+  sessionStorage.setItem("joinGuestTasks", JSON.stringify(tasks));
 }
 
 
@@ -285,6 +293,8 @@ function mapStoredTasks(data) {
  */
 function logoutUser() {
   clearGuestLocalData();
+  sessionStorage.removeItem(USER_MODE_KEY);
+  sessionStorage.removeItem(CURRENT_USER_KEY);
   localStorage.removeItem(USER_MODE_KEY);
   localStorage.removeItem(CURRENT_USER_KEY);
   window.location.href = "./index.html";
@@ -298,6 +308,8 @@ function logoutUser() {
 function clearGuestForLogin() {
   if (getUserMode() !== "guest") return;
   clearGuestLocalData();
+  sessionStorage.removeItem(USER_MODE_KEY);
+  sessionStorage.removeItem(CURRENT_USER_KEY);
   localStorage.removeItem(USER_MODE_KEY);
   localStorage.removeItem(CURRENT_USER_KEY);
 }
@@ -308,7 +320,7 @@ function clearGuestForLogin() {
  * EN: Initializes shared app behavior.
  */
 function initializeCommonApp() {
-  protectCurrentPage();
+  if (!protectCurrentPage()) return;
   updateUserInitials();
   updatePublicLayout();
   updateHelpButton();
@@ -319,6 +331,19 @@ function initializeCommonApp() {
 
 
 document.addEventListener("DOMContentLoaded", initializeCommonApp);
+window.addEventListener("pageshow", (event) => {
+  if (!protectCurrentPage()) return;
+  if (event?.persisted && isProtectedPage()) {
+    document.documentElement.hidden = true;
+    window.location.reload();
+  }
+});
+// Remove persistent session data left by older versions.
+localStorage.removeItem(USER_MODE_KEY);
+localStorage.removeItem(CURRENT_USER_KEY);
+localStorage.removeItem("joinGuestContacts");
+localStorage.removeItem("joinGuestTasks");
+protectCurrentPage();
 if (profileButton) profileButton.addEventListener("click", toggleProfileMenu);
 if (logoutButton) logoutButton.addEventListener("click", logoutUser);
 const loginLinks = document.querySelectorAll("[data-login-link]");
@@ -353,6 +378,10 @@ document.addEventListener("pointerdown", closeOutsideElements);
 /** DE: Einheitlicher horizontaler Ein-/Ausflug. EN: Shared horizontal entrance/exit. */
 async function animateFloatingElement(element, entering) {
   const previous = floatingAnimations.get(element);
+  if (element.dataset.dialogMotion === "none") {
+    if (previous) previous.cancel();
+    return true;
+  }
   const current = previous ? getComputedStyle(element).translate : null;
   if (previous) previous.cancel();
   const distance = window.innerWidth - element.getBoundingClientRect().left + 24;
@@ -395,10 +424,11 @@ function openFloatingDialog(dialog, modal = true, onClose = () => closeFloatingD
 }
 
 /** DE: Wartet vor dem Schließen auf den Ausflug. EN: Waits for exit before closing. */
-async function closeFloatingDialog(dialog) {
+async function closeFloatingDialog(dialog, animated = true) {
   if (!dialog || !dialog.open) return false;
   const element = dialog.querySelector(".contact-dialog-card") || dialog;
-  if (!await animateFloatingElement(element, false)) return false;
+  if (animated && !await animateFloatingElement(element, false)) return false;
+  if (!animated) floatingAnimations.get(element)?.cancel();
   dialog.close();
   return true;
 }
