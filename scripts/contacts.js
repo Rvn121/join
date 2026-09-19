@@ -242,10 +242,15 @@ function startContactDetailAnimation() {
  */
 function renderContactDetail() {
   const contact = getSelectedContact();
-  if (!contact) return contactDetail.replaceChildren();
+  if (!contact) {
+    contactDetail.replaceChildren();
+    updateMobileContactView();
+    return;
+  }
   contactDetail.innerHTML = getContactDetailTemplate(contact, canManageContact(contact));
   startContactDetailAnimation();
   initializeContactDetailEvents();
+  updateMobileContactView();
 }
 
 
@@ -305,12 +310,55 @@ function handleAddContactClick() {
 
 
 /**
+ * DE: Prüft, ob die mobile Kontaktansicht aktiv ist.
+ * EN: Checks whether the mobile contact view is active.
+ * @returns {boolean} DE: Mobilstatus. EN: Mobile state.
+ */
+function isMobileContactView() {
+  return window.innerWidth <= 991;
+}
+
+
+/**
+ * DE: Schaltet auf Mobile zwischen Liste und Detailansicht um.
+ * EN: Switches between list and detail view on mobile.
+ */
+function updateMobileContactView() {
+  const showDetail = isMobileContactView() && Boolean(contactState.selectedId);
+  document.body.classList.toggle("contacts-detail-open", showDetail);
+}
+
+
+/**
+ * DE: Kehrt auf Mobile zur Kontaktliste zurück.
+ * EN: Returns to the contact list on mobile.
+ */
+function closeMobileContactDetail() {
+  contactState.selectedId = null;
+  renderContacts();
+  renderContactDetail();
+}
+
+
+/**
+ * DE: Initialisiert die Ereignisse der mobilen Kontaktansicht.
+ * EN: Initializes the mobile contact view events.
+ */
+function initializeMobileContactEvents() {
+  const backButton = document.getElementById("contactsMobileBack");
+  if (backButton) backButton.addEventListener("click", closeMobileContactDetail);
+  window.addEventListener("resize", updateMobileContactView);
+}
+
+
+/**
  * DE: Initialisiert die Ereignisse der Kontaktseite.
  * EN: Initializes the contact page events.
  */
 function initializeContactEvents() {
   document.getElementById("addContactButton").addEventListener("click", handleAddContactClick);
   initializeContactFormEvents();
+  initializeMobileContactEvents();
 }
 
 

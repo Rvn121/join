@@ -114,6 +114,36 @@ function renderSummaryDeadline(tasks) {
 
 
 /**
+ * DE: Prüft, ob die mobile Summary angezeigt wird.
+ * EN: Checks whether the mobile summary is displayed.
+ * @returns {boolean} DE: Mobilstatus. EN: Mobile state.
+ */
+function isMobileSummaryView() {
+  return window.innerWidth <= 991;
+}
+
+
+/**
+ * DE: Beendet die mobile Begrüßungsansicht.
+ * EN: Ends the mobile greeting view.
+ */
+function hideMobileSummaryGreeting() {
+  document.body.classList.remove("summary-mobile-greeting-active");
+}
+
+
+/**
+ * DE: Zeigt auf Mobile kurz die Begrüßungsansicht.
+ * EN: Briefly shows the greeting view on mobile.
+ */
+function showMobileSummaryGreeting() {
+  if (!isMobileSummaryView()) return;
+  document.body.classList.add("summary-mobile-greeting-active");
+  window.setTimeout(hideMobileSummaryGreeting, 1200);
+}
+
+
+/**
  * DE: Initialisiert das Summary-Dashboard aus den Boarddaten.
  * EN: Initializes the summary dashboard from board data.
  * @returns {Promise<void>}
@@ -124,6 +154,7 @@ async function initializeSummary() {
   renderSummaryNumbers(tasks);
   renderSummaryDeadline(tasks);
   renderSummaryGreeting();
+  showMobileSummaryGreeting();
 }
 
 

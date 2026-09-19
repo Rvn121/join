@@ -1,4 +1,8 @@
-@media (max-width: 1200px) {
+.contacts-mobile-back {
+  display: none;
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
   .app-sidebar {
     width: 190px;
     min-width: 190px;
@@ -21,201 +25,129 @@
   }
 }
 
-@media (max-width: 900px) {
-  .header-content {
-    height: 150px;
+@media (max-width: 991px) {
+  html,
+  body {
+    width: 100%;
+    min-width: 320px;
+    min-height: 100%;
+    overflow-x: hidden;
   }
 
-  .signup-area {
-    top: 42px;
-    right: 32px;
-    gap: 20px;
-    font-size: var(--fs-body);
+  body {
+    min-height: 100dvh;
   }
 
-  body.logo-corner .join-logo {
-    top: 40px;
-    left: 32px;
-    width: 82px;
+  html,
+  body {
+    scrollbar-width: none;
   }
 
-  .login-dialog {
-    width: min(660px, calc(100vw - 40px));
-  }
-}
-
-@media (max-width: 850px) {
-  .app-sidebar {
-    width: 150px;
-    min-width: 150px;
+  html::-webkit-scrollbar,
+  body::-webkit-scrollbar {
+    display: none;
   }
 
-  .sidebar-logo-link {
-    padding: 40px 0 60px;
+  h1 {
+    font-size: 32px;
   }
 
-  .sidebar-logo {
-    width: 64px;
-  }
-
-  .sidebar-link {
-    padding-inline: 22px;
-    font-size: var(--fs-small);
-  }
-
-  .sidebar-footer {
-    padding-left: 14px;
-  }
-
-  .app-header,
-  .app-header-content {
-    min-height: 80px;
-  }
-
-  .app-header-content {
-    padding-inline: 28px;
-  }
-
-  .app-title {
-    font-size: var(--fs-body);
-  }
-
-  .user-placeholder {
-    width: 46px;
-    height: 46px;
-  }
-
-  .app-main,
-  .app-content {
-    min-height: calc(100vh - 80px);
-  }
-
-  .app-content {
-    padding: 52px 40px 72px;
-  }
-}
-
-@media (max-width: 620px) {
-  .signup-area {
-    top: 30px;
-    right: 20px;
-    gap: 12px;
-    font-size: var(--fs-small);
-  }
-
-  body.logo-corner .join-logo {
-    top: 28px;
-    left: 20px;
-    width: 64px;
-  }
-
-  .btn--sm {
-    min-height: 36px;
-    padding-inline: 14px;
-    font-size: var(--fs-small);
-  }
-
-  .login-dialog {
-    top: 52%;
-    width: calc(100vw - 32px);
-    min-height: 390px;
-    border-radius: 24px;
-  }
-
-  .login-form {
-    min-height: 390px;
-    padding: 38px 24px 40px;
-  }
-
-  .login-heading {
-    margin-bottom: 28px;
-  }
-
-  .heading-line {
-    width: 116px;
-    margin-top: 12px;
-  }
-
-  .login-actions {
-    gap: 14px;
-  }
-
-  .btn {
-    min-height: 44px;
-    padding-inline: 18px;
-    font-size: var(--fs-body);
-  }
-
-  .footer-content {
-    min-height: 72px;
-  }
-
-  .footer-content a {
-    font-size: var(--fs-label);
+  h2 {
+    font-size: 20px;
   }
 
   .app-frame {
     display: block;
+    min-height: 100dvh;
   }
 
   .app-sidebar {
     position: fixed;
-    z-index: 25;
+    z-index: 30;
     top: auto;
+    right: 0;
     bottom: 0;
     left: 0;
     width: 100%;
     min-width: 0;
-    height: auto;
-    min-height: 0;
+    height: 80px;
+    min-height: 80px;
     flex-direction: row;
-    overflow-y: visible;
+    overflow: visible;
     box-shadow: 0 -3px 8px var(--shadow-card);
   }
 
-  .sidebar-logo-link {
+  .sidebar-logo-link,
+  .sidebar-footer {
     display: none;
   }
 
   .sidebar-nav {
     flex: 1;
     flex-direction: row;
-    flex-wrap: nowrap;
     gap: 0;
   }
 
   .sidebar-link {
     min-width: 0;
+    min-height: 80px;
     flex: 1;
-    justify-content: center;
-    padding: 6px 4px;
-  }
-
-  .app-navigation .sidebar-link {
     flex-direction: column;
-    gap: 2px;
+    justify-content: center;
+    gap: 4px;
+    padding: 6px 4px;
+    border-radius: 0 !important;
+    font-size: 12px;
+    text-align: center;
   }
 
-  .external-navigation .sidebar-link {
+  .sidebar-link-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .external-layout .external-navigation {
+    display: flex;
+    flex: 1;
+  }
+
+  .external-layout .external-navigation .sidebar-link {
     flex-direction: row;
     gap: 8px;
   }
 
-  .sidebar-footer {
-    display: none;
+  .external-layout .sidebar-footer {
+    display: flex;
+    margin: 0;
     flex: 2;
     flex-direction: row;
     gap: 0;
     padding: 0;
   }
 
-  .external-layout .sidebar-footer {
-    display: flex;
+  .external-layout .sidebar-footer-link {
+    width: 50%;
+    min-height: 80px;
+    justify-content: center;
+    padding: 6px;
+    text-align: center;
   }
 
-  .sidebar-footer-link {
-    width: 50%;
-    justify-content: center;
+  .app-page {
+    min-height: 100dvh;
+    padding-bottom: 80px;
+  }
+
+  .app-header {
+    position: sticky;
+    z-index: 25;
+    top: 0;
+    min-height: 80px;
+  }
+
+  .app-header-content {
+    min-height: 80px;
+    padding: 0 16px;
   }
 
   .app-header-logo-link {
@@ -223,65 +155,158 @@
   }
 
   .app-header-logo {
-    width: 32px;
+    width: 40px;
     height: auto;
   }
 
-  .component-toast {
-    bottom: 88px;
+  .app-title,
+  .help-button {
+    display: none;
+  }
+
+  .app-header-actions {
+    gap: 12px;
+  }
+
+  .user-placeholder {
+    width: 40px;
+    height: 40px;
+  }
+
+  .user-initials {
+    font-size: 16px;
+  }
+
+  .profile-menu {
+    position: fixed;
+    top: 64px;
+    right: 16px;
+    min-width: 150px;
+    border-radius: 0 0 16px 16px;
+  }
+
+  .app-main,
+  .app-content {
+    min-height: calc(100dvh - 160px);
   }
 
   .app-content {
-    padding: 36px 20px 96px;
+    max-width: none;
+    padding: 24px 16px 104px;
+  }
+
+  .content-page {
+    width: 100%;
+    max-width: none;
   }
 
   .content-heading-row {
     align-items: flex-start;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
   }
 
   .content-heading-row p {
-    font-size: var(--fs-lg);
+    font-size: 16px;
   }
 
   .content-heading-divider {
-    width: 90px;
+    width: 80px;
     height: 3px;
   }
 
-  .signup-card {
-    padding: 36px 20px;
+  .help-heading {
+    margin-bottom: 18px;
   }
 
-  .help-heading {
-    align-items: flex-start;
+  .help-heading .back-button {
+    width: 36px;
+    height: 36px;
+  }
+
+  .content-page p,
+  .content-page li {
+    font-size: 14px;
+    line-height: 1.25;
+  }
+
+  .content-page section > * + * {
+    margin-top: 12px;
   }
 
   .help-step {
-    padding-left: 38px;
+    padding-left: 40px;
   }
 
   .help-follow-up {
     margin-left: 0;
   }
+
+  .component-toast {
+    bottom: 96px;
+    max-width: calc(100vw - 32px);
+    min-height: 54px;
+    padding: 0 20px;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  .app-main,
+  .app-content {
+    scrollbar-width: none;
+  }
+
+  .app-main::-webkit-scrollbar,
+  .app-content::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (max-width: 576px) {
+  .app-header-content {
+    padding-inline: 14px;
+  }
+
+  .app-content {
+    padding-inline: 14px;
+  }
+
+  .sidebar-link {
+    font-size: 11px;
+  }
+
+  .profile-menu {
+    right: 10px;
+  }
+
+  .content-page p,
+  .content-page li {
+    font-size: 13px;
+  }
+
+  .btn {
+    min-height: 44px;
+    padding-inline: 16px;
+    font-size: 16px;
+  }
 }
 
 @media (max-width: 380px) {
-  .app-header-content {
-    padding-inline: 18px;
+  .sidebar-link {
+    font-size: 10px;
   }
 
-  .app-title {
-    max-width: 180px;
-    font-size: var(--fs-small);
+  .sidebar-link-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .app-content {
+    padding-inline: 12px;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .signup-area,
-  .login-dialog,
-  .footer-content,
   .sidebar-link,
   .sidebar-footer-link,
   .btn {

@@ -64,6 +64,7 @@ function fillContactDialogInputs(contact) {
  */
 function fillContactDialog(mode, contact = null) {
   contactState.dialogMode = mode;
+  contactDialog.dataset.mode = mode;
   contactState.editingId = contact ? contact.id : null;
   setContactDialogTexts(mode);
   setContactDialogSecondaryIcon(mode);

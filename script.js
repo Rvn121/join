@@ -28,12 +28,51 @@ function showLoginDialog() {
 
 
 /**
- * DE: Startet die Intro-Animation.
- * EN: Starts the intro animation.
+ * DE: Prüft, ob die mobile Landingpage aktiv ist.
+ * EN: Checks whether the mobile landing page is active.
+ * @returns {boolean} DE: Mobile Ansicht. EN: Mobile view.
  */
-function startLandingAnimation() {
+function isMobileLandingView() {
+  return window.matchMedia("(max-width: 991px)").matches;
+}
+
+
+/**
+ * DE: Zeigt Logo-Ecke und Login gleichzeitig in der mobilen Ansicht.
+ * EN: Shows the corner logo and login together in the mobile view.
+ */
+function showMobileLanding() {
+  moveLogoToCorner();
+  showLoginDialog();
+}
+
+
+/**
+ * DE: Startet die weichere mobile Intro-Animation.
+ * EN: Starts the smoother mobile intro animation.
+ */
+function startMobileLandingAnimation() {
+  window.setTimeout(showMobileLanding, 550);
+}
+
+
+/**
+ * DE: Startet die bisherige Desktop-Intro-Animation.
+ * EN: Starts the existing desktop intro animation.
+ */
+function startDesktopLandingAnimation() {
   window.setTimeout(moveLogoToCorner, 1100);
   window.setTimeout(showLoginDialog, 1800);
+}
+
+
+/**
+ * DE: Startet die passende Intro-Animation für die Bildschirmgröße.
+ * EN: Starts the matching intro animation for the screen size.
+ */
+function startLandingAnimation() {
+  if (isMobileLandingView()) return startMobileLandingAnimation();
+  startDesktopLandingAnimation();
 }
 
 
