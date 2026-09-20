@@ -28,6 +28,30 @@ function app({ protectedPage = false, session = storage(), local = storage() } =
   return { context, session, local, redirects, requests, events };
 }
 
+test('summary greeting appears once per login, including after navigation or reload', () => {
+  const first = app();
+  function summary(context, width = 428) {
+    const classes = new Set();
+    context.document.body.classList = { add: name => classes.add(name), remove: name => classes.delete(name) };
+    context.window.innerWidth = width;
+    context.window.setTimeout = () => {};
+    vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'scripts/summary.js'), 'utf8'), context);
+    context.showMobileSummaryGreeting();
+    return classes.has('summary-mobile-greeting-active');
+  }
+  first.context.openGuestSummary();
+  assert.equal(summary(first.context), true);
+  const next = app({ session: first.session });
+  assert.equal(summary(next.context), false);
+  next.context.logoutUser();
+  next.context.saveUserSession({ name: 'Test User' });
+  assert.equal(summary(next.context), true);
+  assert.equal(summary(next.context), false);
+  next.context.openGuestSummary();
+  assert.equal(summary(next.context, 1280), false);
+  assert.equal(summary(next.context, 428), false);
+});
+
 test('guest starts with demo contacts and performs task/contact CRUD with zero network requests', async () => {
   const { context: c, requests } = app();
   c.openGuestSummary();

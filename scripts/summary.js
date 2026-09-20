@@ -137,6 +137,8 @@ function hideMobileSummaryGreeting() {
  * EN: Briefly shows the greeting view on mobile.
  */
 function showMobileSummaryGreeting() {
+  if (sessionStorage.getItem(SUMMARY_GREETING_PENDING_KEY) !== "true") return;
+  sessionStorage.removeItem(SUMMARY_GREETING_PENDING_KEY);
   if (!isMobileSummaryView()) return;
   document.body.classList.add("summary-mobile-greeting-active");
   window.setTimeout(hideMobileSummaryGreeting, 1200);

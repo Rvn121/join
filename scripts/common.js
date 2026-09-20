@@ -1,5 +1,6 @@
 const USER_MODE_KEY = "joinUserMode";
 const CURRENT_USER_KEY = "joinCurrentUser";
+const SUMMARY_GREETING_PENDING_KEY = "joinSummaryGreetingPending";
 const userInitials = document.getElementById("userInitials");
 const profileButton = document.getElementById("profileButton");
 const profileMenu = document.getElementById("profileMenu");
@@ -292,6 +293,7 @@ function mapStoredTasks(data) {
  * EN: Logs out the current access.
  */
 function logoutUser() {
+  sessionStorage.removeItem(SUMMARY_GREETING_PENDING_KEY);
   clearGuestLocalData();
   sessionStorage.removeItem(USER_MODE_KEY);
   sessionStorage.removeItem(CURRENT_USER_KEY);
@@ -307,6 +309,7 @@ function logoutUser() {
  */
 function clearGuestForLogin() {
   if (getUserMode() !== "guest") return;
+  sessionStorage.removeItem(SUMMARY_GREETING_PENDING_KEY);
   clearGuestLocalData();
   sessionStorage.removeItem(USER_MODE_KEY);
   sessionStorage.removeItem(CURRENT_USER_KEY);

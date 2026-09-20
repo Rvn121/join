@@ -158,6 +158,46 @@
   cursor: grabbing;
 }
 
+.task-card {
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+.task-card--touch-preview {
+  position: fixed;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.85;
+  transform: translate(-50%, -30%) rotate(3deg);
+  transition: none;
+}
+
+.task-card--insert-before::before,
+.task-card--insert-after::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  left: 0;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--join-blue);
+  box-shadow: 0 0 8px var(--join-blue);
+  pointer-events: none;
+}
+
+.task-card--insert-before::before {
+  top: -8px;
+}
+
+.task-card--insert-after::after {
+  bottom: -8px;
+}
+
+.board-column-tasks--insert-empty {
+  border-color: var(--join-blue);
+  background: var(--join-dark-soft);
+}
+
 .task-category {
   display: inline-flex;
   padding: 4px 14px;

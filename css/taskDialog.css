@@ -10,6 +10,22 @@
   background: var(--task-overlay);
 }
 
+html:has(.task-detail-dialog[open]),
+body:has(.task-detail-dialog[open]),
+html:has(.task-form-dialog[open]),
+body:has(.task-form-dialog[open]) {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+.task-detail-dialog {
+  width: min(560px, calc(100vw - 20px));
+  max-width: calc(100vw - 20px);
+  max-height: calc(100dvh - 16px);
+  overflow: hidden;
+  border-radius: 30px;
+}
+
 .task-dialog-shell {
   position: relative;
   width: min(1116px, calc(100vw - 48px));
@@ -52,11 +68,13 @@
 
 .task-detail-shell {
   position: relative;
-  width: min(560px, calc(100vw - 32px));
+  width: 100%;
   max-height: calc(100vh - 40px);
   padding: 44px 42px 32px;
   overflow-y: auto;
-  border-radius: 24px;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  border-radius: 30px;
   background: var(--card-background);
 }
 
@@ -102,6 +120,8 @@
   align-items: center;
   gap: 8px;
   margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .task-detail-data img {
@@ -132,6 +152,11 @@
   gap: 12px;
   margin-bottom: 8px;
   font-size: var(--fs-small);
+}
+
+.task-detail-section li > span:not(.contact-avatar):not(.task-avatar) {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .task-detail-subtasks {

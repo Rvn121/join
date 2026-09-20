@@ -1,4 +1,12 @@
 @media (min-width: 992px) and (max-width: 1250px) {
+  .board-add-task {
+    flex-shrink: 0;
+    gap: 10px;
+    padding-inline: 16px;
+    font-size: 16px;
+    white-space: nowrap;
+  }
+
   .board-columns {
     grid-template-columns: repeat(2, minmax(220px, 1fr));
   }
@@ -19,7 +27,91 @@
   }
 
   .add-task-page > h1 {
-    margin-bottom: 24px;
+    margin-bottom: 32px;
+    font-size: 44px;
+  }
+
+  .task-form--page .task-field > span,
+  .task-form--page .task-field > label,
+  .task-form--page .task-priority-field legend,
+  .task-form--page .task-field input,
+  .task-form--page .task-field textarea,
+  .task-form--page .task-field select,
+  .task-form--page .task-subtask-list li,
+  .task-form--page .task-priority,
+  .task-form--page .task-priority:has(input:checked) {
+    font-size: 16px;
+  }
+
+  .task-form--page .task-form-column .task-field,
+  .task-form--page .task-priority-field {
+    margin: 0 0 16px;
+  }
+
+  .task-form--page .task-field > span,
+  .task-form--page .task-field > label,
+  .task-form--page .task-priority-field legend {
+    margin-bottom: 4px;
+  }
+
+  .task-form--page .task-field > .task-date-control {
+    margin-bottom: 0;
+  }
+
+  .task-form--page .task-form-column .task-field-error {
+    position: static;
+    min-height: 0;
+    margin-top: 4px;
+    font-size: 16px;
+    line-height: 1.2;
+  }
+
+  .task-form--page .task-field-error:empty,
+  .task-form--page .task-subtask-list:empty {
+    display: none;
+  }
+
+  .task-form--page .task-field input:where(:not([type="checkbox"])) {
+    height: 36px;
+  }
+
+  .task-form--page .task-field select,
+  .task-form--page .task-dropdown-input-wrap input {
+    height: 42px;
+  }
+
+  .task-form--page .task-field textarea {
+    min-height: 78px;
+    padding: 14px 16px;
+  }
+
+  .task-form--page .task-priority {
+    height: 36px;
+  }
+
+  .task-form--page .task-form-footer > p {
+    font-size: 16px;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+
+  .task-form--page .task-form-actions {
+    position: fixed;
+    z-index: 20;
+    right: 0;
+    bottom: 80px;
+    left: 0;
+    width: 100%;
+    min-height: 80px;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 28px;
+    padding: 12px 16px;
+    background: var(--page-background);
+  }
+
+  .task-form--page .task-form-actions .btn {
+    font-size: 20px;
   }
 
   .task-form-columns {
@@ -31,7 +123,10 @@
     display: none;
   }
 
-  .task-form--page .task-form-footer,
+  .task-form--page .task-form-footer {
+    margin-top: 0;
+  }
+
   .task-form--dialog .task-form-footer {
     margin-top: 24px;
   }
@@ -88,6 +183,8 @@
     grid-column: 2;
     grid-row: 1;
     padding: 0;
+    justify-content: center;
+    gap: 0;
     font-size: 0;
   }
 
@@ -145,27 +242,38 @@
   .summary-heading-row {
     align-items: flex-start;
     flex-direction: column;
-    gap: 4px;
-    margin-bottom: 18px;
+    gap: 8px;
+    margin-bottom: 32px;
+  }
+
+  .summary-heading-row h1 {
+    font-size: 44px;
+  }
+
+  .summary-heading-row p {
+    font-size: 18px;
   }
 
   .summary-heading-row .content-heading-divider {
+    order: 1;
     width: 80px;
     height: 3px;
+    margin-top: 4px;
   }
 
   .summary-layout {
     display: block;
+    margin-top: 0;
   }
 
   .summary-grid {
     width: 100%;
     grid-template-columns: repeat(6, 1fr);
-    gap: 12px;
+    gap: 20px;
   }
 
   .summary-card {
-    min-height: 78px;
+    min-height: 100px;
     border-radius: 16px;
   }
 
@@ -176,14 +284,14 @@
 
   .summary-card--urgent {
     grid-column: span 6;
-    min-height: 86px;
+    min-height: 100px;
     gap: 12px;
     padding: 10px;
   }
 
   .summary-card--third {
     grid-column: span 2;
-    min-height: 78px;
+    min-height: 104px;
   }
 
   .summary-icon {
@@ -205,13 +313,13 @@
 
   .summary-number,
   .summary-urgent-count strong {
-    font-size: 36px;
+    font-size: 40px;
   }
 
   .summary-label,
   .summary-urgent-count small,
   .summary-deadline small {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .summary-urgent-divider {
@@ -219,7 +327,7 @@
   }
 
   .summary-deadline strong {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   .summary-greeting {
@@ -254,10 +362,12 @@
   }
 
   .task-dialog-shell {
-    width: calc(100vw - 24px);
-    max-height: calc(100dvh - 24px);
-    padding: 54px 18px 24px;
-    border-radius: 22px;
+    width: 100%;
+    max-height: calc(100dvh - 16px);
+    padding: 54px 20px 24px;
+    border-radius: 30px;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
     scrollbar-width: none;
   }
 
@@ -280,9 +390,86 @@
     gap: 0;
   }
 
+  .task-form-dialog {
+    width: min(525px, calc(100vw - 20px));
+    max-width: calc(100vw - 20px);
+    max-height: calc(100dvh - 16px);
+    overflow: hidden;
+    border-radius: 30px;
+  }
+
   .task-form-dialog--edit .task-dialog-shell {
-    width: calc(100vw - 24px);
-    padding: 68px 18px 24px;
+    width: 100%;
+    max-height: calc(100dvh - 16px);
+    padding: 60px 20px 24px;
+    border-radius: 30px;
+  }
+
+  .task-form-dialog--edit .task-form-columns {
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+
+  .task-form-dialog .task-form-column .task-field,
+  .task-form-dialog .task-priority-field {
+    margin-bottom: 16px;
+  }
+
+  .task-form-dialog .task-field > span,
+  .task-form-dialog .task-field > label,
+  .task-form-dialog .task-priority-field legend {
+    margin-bottom: 6px;
+    font-size: 16px;
+  }
+
+  .task-form-dialog .task-field > .task-date-control {
+    margin-bottom: 0;
+  }
+
+  .task-form-dialog .task-field input:where(:not([type="checkbox"])),
+  .task-form-dialog .task-field select {
+    height: 36px;
+    font-size: 16px;
+  }
+
+  .task-form-dialog .task-field textarea {
+    min-height: 80px;
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+
+  .task-form-dialog .task-priority,
+  .task-form-dialog .task-priority:has(input:checked) {
+    height: 40px;
+    gap: 4px;
+    padding-inline: 4px;
+    font-size: 16px;
+  }
+
+  .task-form-dialog .task-field-error:empty,
+  .task-form-dialog .task-subtask-list:empty {
+    display: none;
+  }
+
+  .task-form-dialog .task-subtask-list li {
+    padding-right: 72px;
+    font-size: 16px;
+  }
+
+  .task-form-dialog .task-subtask-list li > div {
+    display: flex;
+  }
+
+  .task-form-dialog--edit .task-form--dialog .task-form-footer {
+    flex-shrink: 0;
+    margin-top: 12px;
+  }
+
+  .task-form-dialog--edit .task-submit-button {
+    min-height: 48px;
+    padding-inline: 12px;
+    font-size: 20px;
   }
 
   .task-form-dialog--edit .task-dialog-close {
@@ -294,11 +481,65 @@
     width: auto;
   }
 
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    margin-top: 0;
+  }
+
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-footer > p {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.2;
+  }
+
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-actions {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-actions .btn {
+    padding-inline: 10px;
+    font-size: 16px;
+  }
+
+  .task-form-dialog:not(.task-form-dialog--edit) .task-dialog-shell {
+    padding: 24px 20px 16px;
+  }
+
+  .task-form-dialog:not(.task-form-dialog--edit) .task-dialog-shell > h2 {
+    margin-bottom: 16px;
+    padding-right: 32px;
+  }
+
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-column .task-field,
+  .task-form-dialog:not(.task-form-dialog--edit) .task-priority-field {
+    margin-bottom: 12px;
+  }
+
+  .task-form-dialog:not(.task-form-dialog--edit) .task-field > span,
+  .task-form-dialog:not(.task-form-dialog--edit) .task-field > label,
+  .task-form-dialog:not(.task-form-dialog--edit) .task-priority-field legend {
+    margin-bottom: 4px;
+  }
+
+  .task-form-dialog:not(.task-form-dialog--edit) .task-field > .task-date-control {
+    margin-bottom: 0;
+  }
+
+  .task-form-dialog:not(.task-form-dialog--edit) .task-field textarea {
+    min-height: 64px;
+    padding-block: 10px;
+  }
+
   .task-detail-shell {
-    width: calc(100vw - 20px);
-    max-height: calc(100dvh - 20px);
+    width: 100%;
+    max-height: calc(100dvh - 16px);
     padding: 40px 20px 24px;
-    border-radius: 22px;
+    border-radius: 30px;
     scrollbar-width: none;
   }
 
@@ -337,16 +578,7 @@
     padding-inline: 12px;
   }
 
-  .summary-grid {
-    gap: 8px;
-  }
-
-  .summary-card {
-    min-height: 72px;
-  }
-
   .summary-card--urgent {
-    min-height: 80px;
     gap: 8px;
   }
 
@@ -359,11 +591,6 @@
   .summary-icon img {
     width: 42px;
     height: 42px;
-  }
-
-  .summary-number,
-  .summary-urgent-count strong {
-    font-size: 32px;
   }
 }
 
@@ -379,6 +606,6 @@
   .summary-label,
   .summary-urgent-count small,
   .summary-deadline small {
-    font-size: 10px;
+    font-size: 12px;
   }
 }

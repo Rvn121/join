@@ -5,6 +5,8 @@ const boardState = {
   contacts: [],
   search: "",
   draggingTaskId: null,
+  touchDrag: null,
+  suppressClickUntil: 0,
 };
 
 /**
@@ -105,6 +107,7 @@ async function refreshBoard() {
  * @param {MouseEvent} event - DE: Mausereignis. EN: Mouse event.
  */
 function handleBoardCardClick(event) {
+  if (Date.now() < boardState.suppressClickUntil) return;
   const card = event.target.closest("[data-task-id]");
   if (!card || event.target.closest("button")) return;
   openTaskDetail(card.getAttribute("data-task-id"));
@@ -162,6 +165,10 @@ function updateBoardSearch() {
  * @param {DragEvent} event - DE: Drag-Ereignis. EN: Drag event.
  */
 function startBoardDrag(event) {
+  if (boardState.touchDrag) {
+    event.preventDefault();
+    return;
+  }
   const card = event.target.closest("[data-task-id]");
   if (!card) return;
   boardState.draggingTaskId = card.getAttribute("data-task-id");
@@ -234,14 +241,14 @@ function clearBoardDragStyles() {
  * @param {string} status - DE: Neuer Status. EN: New status.
  * @returns {Promise<void>}
  */
-async function moveBoardTask(taskId, status) {
+async function moveBoardTask(taskId, status, beforeTaskId = null) {
   const task = getBoardTask(taskId);
-  if (!task || task.status === status) return;
+  if (!task) return;
   try {
-    task.status = normalizeTaskStatus(status);
-    await storeTask(task);
+    const tasks = normalizeTaskList(await getTasks());
+    await saveTasks(reorderBoardTasks(tasks, taskId, normalizeTaskStatus(status), beforeTaskId));
     await refreshBoard();
-    showToast("Task status successfully updated.");
+    showToast("Task successfully moved.");
   } catch {
     showToast("Could not move the task. Please try again.");
   }
@@ -293,6 +300,13 @@ async function handleBoardTaskSaved(task, editing) {
  * EN: Initializes the board events.
  */
 function initializeBoardEvents() {
+  boardColumns.addEventListener("touchstart", startBoardTouch, { passive: true });
+  document.addEventListener("touchmove", moveBoardTouch, { passive: false });
+  document.addEventListener("touchend", finishBoardTouch, { passive: false });
+  document.addEventListener("touchcancel", cancelBoardTouch);
+  boardColumns.addEventListener("contextmenu", event => {
+    if (boardState.touchDrag) event.preventDefault();
+  });
   boardSearchInput.addEventListener("input", updateBoardSearch);
   boardColumns.addEventListener("click", handleBoardCardClick);
   boardColumns.addEventListener("click", handleBoardAddTask);
@@ -319,5 +333,143 @@ async function initializeBoard() {
   await refreshBoard();
 }
 
+
+/** Starts a long press; moving before activation keeps normal page scrolling. */
+function startBoardTouch(event) {
+  cancelBoardTouch();
+  const card = event.target.closest("[data-task-id]");
+  if (event.touches.length !== 1 || !card || event.target.closest("button, input, a")) return;
+  const touch = event.touches[0];
+  const drag = { card, x: touch.clientX, y: touch.clientY, active: false };
+  boardState.touchDrag = drag;
+  drag.timer = window.setTimeout(() => {
+    drag.active = true;
+    boardState.draggingTaskId = card.getAttribute("data-task-id");
+    drag.preview = card.cloneNode(true);
+    drag.preview.removeAttribute("id");
+    drag.preview.querySelectorAll("[id]").forEach(node => node.removeAttribute("id"));
+    drag.preview.classList.add("task-card--touch-preview");
+    drag.preview.setAttribute("aria-hidden", "true");
+    drag.preview.style.width = card.offsetWidth + "px";
+    document.body.appendChild(drag.preview);
+    card.classList.add("task-card--dragging");
+    boardColumns.style.setProperty("--board-drop-height", card.offsetHeight + "px");
+    updateBoardTouchTarget(drag);
+    animateBoardTouch();
+  }, 350);
+}
+
+/** Moves the preview after a long press, without scrolling the page by touch. */
+function moveBoardTouch(event) {
+  const drag = boardState.touchDrag;
+  if (!drag) return;
+  if (event.touches.length !== 1) return cancelBoardTouch();
+  const touch = event.touches[0];
+  if (!drag.active) {
+    if (Math.hypot(touch.clientX - drag.x, touch.clientY - drag.y) > 8) cancelBoardTouch();
+    return;
+  }
+  event.preventDefault();
+  drag.x = touch.clientX;
+  drag.y = touch.clientY;
+}
+
+/** Scrolls near the viewport edges so off-screen status columns can be reached. */
+function animateBoardTouch() {
+  const drag = boardState.touchDrag;
+  if (!drag || !drag.active) return;
+  drag.preview.style.left = drag.x + "px";
+  drag.preview.style.top = drag.y + "px";
+  // A scrolled-out header must not move the upper scroll zone above the viewport.
+  const top = Math.max(0, document.querySelector(".app-header").getBoundingClientRect().bottom);
+  const bottom = document.querySelector(".app-sidebar").getBoundingClientRect().top;
+  const lowerEdge = bottom > top ? bottom : window.innerHeight;
+  if (drag.y < top + 64) window.scrollBy(0, -10);
+  else if (drag.y > lowerEdge - 64) window.scrollBy(0, 10);
+  updateBoardTouchTarget(drag);
+  drag.frame = window.requestAnimationFrame(animateBoardTouch);
+}
+
+/** Saves the target status only when a touch ends over a board column. */
+function finishBoardTouch(event) {
+  const drag = boardState.touchDrag;
+  if (!drag) return;
+  let status = null;
+  let beforeTaskId = null;
+  const taskId = boardState.draggingTaskId;
+  if (drag.active) {
+    event.preventDefault();
+    const touch = event.changedTouches[0];
+    drag.x = touch.clientX;
+    drag.y = touch.clientY;
+    updateBoardTouchTarget(drag);
+    status = drag.status;
+    beforeTaskId = drag.beforeTaskId;
+  }
+  cancelBoardTouch();
+  if (status && taskId) moveBoardTask(taskId, status, beforeTaskId);
+}
+
+/** Clears timers and visuals on release, cancellation or a second touch. */
+function cancelBoardTouch() {
+  const drag = boardState.touchDrag;
+  if (!drag) return;
+  window.clearTimeout(drag.timer);
+  window.cancelAnimationFrame(drag.frame);
+  drag.preview?.remove();
+  clearBoardInsertionMarker();
+  if (drag.active) {
+    boardState.suppressClickUntil = Date.now() + 500;
+    endBoardDrag();
+  }
+  boardState.touchDrag = null;
+}
+
+/** Reorders tasks while preserving the relative order and data of all other cards. */
+function reorderBoardTasks(tasks, taskId, status, beforeTaskId) {
+  const task = tasks.find(item => item.id === taskId);
+  if (!task || beforeTaskId === taskId) return tasks;
+  const remaining = tasks.filter(item => item.id !== taskId);
+  let index = remaining.findIndex(item => item.id === beforeTaskId && item.status === status);
+  if (index < 0) {
+    index = remaining.length;
+    for (let i = remaining.length - 1; i >= 0; i--) {
+      if (remaining[i].status === status) { index = i + 1; break; }
+    }
+  }
+  remaining.splice(index, 0, { ...task, status });
+  return remaining;
+}
+
+/** Shows an insertion line at the actual drop position without shifting hit targets. */
+function updateBoardTouchTarget(drag) {
+  clearBoardInsertionMarker();
+  drag.status = null;
+  drag.beforeTaskId = null;
+  const target = document.elementFromPoint(drag.x, drag.y);
+  const section = target?.closest("[data-board-status]");
+  if (!section) return;
+  drag.status = section.getAttribute("data-board-status");
+  const column = section.querySelector("[data-drop-status]");
+  const cards = Array.from(column.querySelectorAll("[data-task-id]"))
+    .filter(card => card.getAttribute("data-task-id") !== boardState.draggingTaskId);
+  const next = cards.find(card => {
+    const bounds = card.getBoundingClientRect();
+    return drag.y < bounds.top + bounds.height / 2;
+  });
+  if (next) {
+    drag.beforeTaskId = next.getAttribute("data-task-id");
+    next.classList.add("task-card--insert-before");
+  } else if (cards.length) {
+    cards[cards.length - 1].classList.add("task-card--insert-after");
+  } else {
+    column.classList.add("board-column-tasks--insert-empty");
+  }
+}
+
+function clearBoardInsertionMarker() {
+  document.querySelectorAll(".task-card--insert-before, .task-card--insert-after, .board-column-tasks--insert-empty")
+    .forEach(node => node.classList.remove("task-card--insert-before", "task-card--insert-after", "board-column-tasks--insert-empty"));
+}
 
 document.addEventListener("DOMContentLoaded", initializeBoard);

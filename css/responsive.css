@@ -74,7 +74,7 @@
     min-height: 80px;
     flex-direction: row;
     overflow: visible;
-    box-shadow: 0 -3px 8px var(--shadow-card);
+    box-shadow: 0 0 4px rgb(0 0 0 / 40%);
   }
 
   .sidebar-logo-link,
@@ -88,6 +88,21 @@
     gap: 0;
   }
 
+  .app-navigation {
+    align-items: center;
+    justify-content: space-between;
+    padding-inline: clamp(0px, calc((100vw - 320px) / 2), 16px);
+  }
+
+  .app-navigation .sidebar-link {
+    width: 80px;
+    height: 76px;
+    min-height: 76px;
+    flex: 0 0 80px;
+    gap: 8px;
+    padding: 8px 0;
+  }
+
   .sidebar-link {
     min-width: 0;
     min-height: 80px;
@@ -96,14 +111,24 @@
     justify-content: center;
     gap: 4px;
     padding: 6px 4px;
-    border-radius: 0 !important;
-    font-size: 12px;
+    border-radius: 16px;
+    font-size: 16px;
     text-align: center;
   }
 
   .sidebar-link-icon {
-    width: 24px;
-    height: 24px;
+    width: 20px;
+    height: 20px;
+  }
+
+  .app-sidebar .sidebar-nav .sidebar-link:hover,
+  .app-sidebar .sidebar-nav .sidebar-link:focus-visible {
+    border-radius: 16px;
+  }
+
+  .app-sidebar .app-navigation .sidebar-link:focus-visible {
+    background: var(--join-dark-active);
+    color: var(--join-white);
   }
 
   .external-layout .external-navigation {
@@ -130,6 +155,7 @@
     min-height: 80px;
     justify-content: center;
     padding: 6px;
+    border-radius: 30px;
     text-align: center;
   }
 
@@ -271,10 +297,6 @@
     padding-inline: 14px;
   }
 
-  .sidebar-link {
-    font-size: 11px;
-  }
-
   .profile-menu {
     right: 10px;
   }
@@ -292,15 +314,6 @@
 }
 
 @media (max-width: 380px) {
-  .sidebar-link {
-    font-size: 10px;
-  }
-
-  .sidebar-link-icon {
-    width: 22px;
-    height: 22px;
-  }
-
   .app-content {
     padding-inline: 12px;
   }

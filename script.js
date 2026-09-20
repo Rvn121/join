@@ -128,6 +128,7 @@ function validateLoginForm() {
  */
 function saveUserSession(user) {
   clearGuestLocalData();
+  sessionStorage.setItem(SUMMARY_GREETING_PENDING_KEY, "true");
   sessionStorage.setItem(USER_MODE_KEY, "user");
   sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
 }
@@ -186,6 +187,7 @@ async function handleLoginSubmit(event) {
  */
 function openGuestSummary() {
   clearGuestLocalData();
+  sessionStorage.setItem(SUMMARY_GREETING_PENDING_KEY, "true");
   sessionStorage.setItem(USER_MODE_KEY, "guest");
   sessionStorage.removeItem(CURRENT_USER_KEY);
   sessionStorage.setItem("joinGuestContacts", JSON.stringify(createGuestDemoContacts()));
