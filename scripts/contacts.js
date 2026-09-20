@@ -94,7 +94,10 @@ function getStoredGuestContacts() {
   const storedContacts = sessionStorage.getItem(CONTACTS_GUEST_KEY);
   if (!storedContacts) return [];
   try {
-    return JSON.parse(storedContacts);
+    return JSON.parse(storedContacts).map(contact => ({
+      ...contact,
+      phone: contact.phone === "+4908154711" ? "+49 0815 4711" : contact.phone,
+    }));
   } catch {
     return [];
   }
@@ -232,6 +235,10 @@ function renderContacts() {
  * EN: Starts the entrance animation of the detail view.
  */
 function startContactDetailAnimation() {
+  if (isMobileContactView()) {
+    contactDetail.getAnimations().forEach(animation => animation.cancel());
+    return;
+  }
   animateFloatingElement(contactDetail, true);
 }
 

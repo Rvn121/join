@@ -105,7 +105,7 @@ test('demo contacts have the requested data, reset on guest login and are absent
   const contacts = await c.getContacts();
   assert.deepEqual(Array.from(contacts, item => item.name), ['Tante Emma', 'Jacke wie Hose', 'Probier Mal']);
   assert.deepEqual(Array.from(contacts, item => item.email), ['Email1@join.com', 'Email2@join.com', 'Email3@join.com']);
-  assert.ok(contacts.every(item => item.phone === '+4908154711' && item.isRegistered === false));
+  assert.ok(contacts.every(item => item.phone === '+49 0815 4711' && item.isRegistered === false));
   vm.runInContext('contactState.contacts = getStoredGuestContacts()', c);
   c.deleteGuestContact(contacts[0]);
   assert.equal((await c.getContacts()).length, 2);

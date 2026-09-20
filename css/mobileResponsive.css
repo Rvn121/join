@@ -97,6 +97,14 @@
     align-self: center;
   }
 
+  .contacts-mobile-back img {
+    width: 38.4px;
+    height: 38.4px;
+    max-width: none;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
   .contact-detail {
     margin-top: 28px;
   }
@@ -118,6 +126,68 @@
 
   .contact-information-title {
     margin: 28px 0 20px;
+  }
+
+  .contact-detail-actions {
+    display: none;
+  }
+
+  .contact-more-button {
+    position: fixed;
+    z-index: 28;
+    right: 16px;
+    bottom: 96px;
+    display: flex;
+    width: 56px;
+    height: 56px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1px solid var(--join-dark);
+    border-radius: 56px;
+    background: var(--join-dark);
+    box-shadow: 0 4px 4px rgb(0 0 0 / 25%);
+  }
+
+  .contact-more-button img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: none;
+    object-position: -5px -1px;
+    border-radius: inherit;
+  }
+
+  .contact-mobile-actions:popover-open {
+    position: fixed;
+    inset: auto 8px 96px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0;
+    padding: 16px;
+    border: 0;
+    border-radius: 20px 20px 0 20px;
+    background: var(--card-background);
+    box-shadow: 0 4px 4px var(--shadow-button);
+  }
+
+  .contact-mobile-actions .contact-action {
+    width: 100%;
+    min-height: 28px;
+    justify-content: flex-start;
+    font-size: 16px;
+    padding: 8px;
+    border-radius: 8px;
+  }
+
+  .contact-mobile-actions .contact-action:hover,
+  .contact-mobile-actions .contact-action:focus-visible,
+  .contact-mobile-actions .contact-action:active {
+    background: var(--contact-list-hover);
+    color: var(--join-accent);
+    font-weight: var(--fw-bold);
   }
 
   .contact-dialog-card {
@@ -222,7 +292,7 @@
     display: none;
   }
 
-  .contact-dialog[data-mode="add"] .contact-dialog-card {
+  .contact-dialog:is([data-mode="add"], [data-mode="edit"]) .contact-dialog-card {
     --contact-mobile-brand-height: clamp(240px, 41dvh, 314px);
     top: 14px;
     width: calc(100vw - 20px);
@@ -232,7 +302,7 @@
     transform: translateX(-50%);
   }
 
-  .contact-dialog[data-mode="add"] .contact-dialog-brand {
+  .contact-dialog:is([data-mode="add"], [data-mode="edit"]) .contact-dialog-brand {
     display: flex;
     min-height: var(--contact-mobile-brand-height);
     flex: 0 0 var(--contact-mobile-brand-height);
@@ -241,63 +311,79 @@
     padding: 32px 20px;
   }
 
-  .contact-dialog[data-mode="add"] .contact-dialog-brand h2 {
+  .contact-dialog:is([data-mode="add"], [data-mode="edit"]) .contact-dialog-brand h2 {
     font-size: clamp(36px, 11.7vw, 44px);
   }
 
-  .contact-dialog[data-mode="add"] .contact-dialog-brand p {
+  .contact-dialog:is([data-mode="add"], [data-mode="edit"]) .contact-dialog-brand p {
     margin-top: 6px;
     font-size: 18px;
   }
 
-  .contact-dialog[data-mode="add"] .contact-dialog-line {
+  .contact-dialog:is([data-mode="add"], [data-mode="edit"]) .contact-dialog-line {
     width: 82px;
     margin-top: 12px;
   }
 
-  .contact-dialog[data-mode="add"] .contact-dialog-form-area {
+  .contact-dialog:is([data-mode="add"], [data-mode="edit"]) .contact-dialog-form-area {
     flex: 1 0 auto;
     padding: 82px 14px 48px;
   }
 
-  .contact-dialog[data-mode="add"] .contact-dialog-close {
+  .contact-dialog:is([data-mode="add"], [data-mode="edit"]) .contact-dialog-close {
     top: calc(20px - var(--contact-mobile-brand-height));
     right: 14px;
   }
 
-  .contact-dialog[data-mode="add"] .contact-dialog-avatar {
+  .contact-dialog:is([data-mode="add"], [data-mode="edit"]) .contact-dialog-avatar {
     position: absolute;
     top: -56px;
     width: 112px;
     height: 112px;
   }
 
-  .contact-dialog[data-mode="add"] .contact-dialog-avatar > img {
+  .contact-dialog:is([data-mode="add"], [data-mode="edit"]) .contact-dialog-avatar > img,
+  .contact-dialog[data-mode="edit"] .contact-avatar--dialog {
     width: 112px;
     height: 112px;
   }
 
-  .contact-dialog[data-mode="add"] .component-input {
+  .contact-dialog[data-mode="edit"] .contact-avatar--dialog {
+    font-size: 40px;
+  }
+
+  .contact-dialog[data-mode="edit"] .contact-dialog-brand p:empty,
+  .contact-dialog[data-mode="edit"] #contactCancelIcon {
+    display: none;
+  }
+
+  .contact-dialog[data-mode="edit"] #contactCancelButton {
+    min-height: 46px;
+    height: 46px;
+    font-size: 20px;
+  }
+
+  .contact-dialog:is([data-mode="add"], [data-mode="edit"]) .component-input {
     margin-bottom: 14px;
   }
 
-  .contact-dialog[data-mode="add"] .component-input input {
+  .contact-dialog:is([data-mode="add"], [data-mode="edit"]) .component-input input {
     height: 36px;
     padding-left: 16px;
     font-size: 18px;
   }
 
-  .contact-dialog[data-mode="add"] .component-input > img {
+  .contact-dialog:is([data-mode="add"], [data-mode="edit"]) .component-input > img {
     top: 18px;
     width: 20px;
     height: 20px;
   }
 
-  .contact-dialog[data-mode="add"] .contact-form-actions {
+  .contact-dialog:is([data-mode="add"], [data-mode="edit"]) .contact-form-actions {
     margin-top: 28px;
   }
 
-  .contact-dialog[data-mode="add"] #contactSubmitButton {
+  .contact-dialog:is([data-mode="add"], [data-mode="edit"]) #contactSubmitButton {
     min-height: 46px;
     height: 46px;
     padding-inline: 12px;

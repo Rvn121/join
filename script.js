@@ -200,7 +200,7 @@ function createGuestDemoContacts() {
     { id: "guest-emma", name: "Tante Emma", email: "Email1@join.com", initials: "TE", color: "orange" },
     { id: "guest-jacke", name: "Jacke wie Hose", email: "Email2@join.com", initials: "JH", color: "purple" },
     { id: "guest-probier", name: "Probier Mal", email: "Email3@join.com", initials: "PM", color: "teal" },
-  ].map(contact => ({ ...contact, phone: "+4908154711", isRegistered: false, userId: null }));
+  ].map(contact => ({ ...contact, phone: "+49 0815 4711", isRegistered: false, userId: null }));
 }
 
 

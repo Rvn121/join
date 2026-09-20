@@ -206,6 +206,11 @@
   font-size: 36px;
 }
 
+.contact-more-button,
+.contact-mobile-actions {
+  display: none;
+}
+
 .contact-detail-actions {
   display: flex;
   gap: 20px;

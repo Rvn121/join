@@ -119,6 +119,13 @@ function getContactActionsTemplate(canManage) {
     <div class="contact-detail-actions">
       ${getContactActionTemplate("edit", "Edit", "edit.svg", "edit_hover.svg")}
       ${getContactActionTemplate("delete", "Delete", "delete.svg", "delete_hover.svg")}
+    </div>
+    <button class="contact-more-button" type="button" popovertarget="contactMobileActions" aria-label="Contact actions">
+      <img src="./assets/icons/3points.svg" alt="" />
+    </button>
+    <div class="contact-mobile-actions" id="contactMobileActions" popover="auto">
+      ${getContactActionTemplate("edit", "Edit", "edit.svg", "edit_hover.svg")}
+      ${getContactActionTemplate("delete", "Delete", "delete.svg", "delete_hover.svg")}
     </div>`;
 }
 

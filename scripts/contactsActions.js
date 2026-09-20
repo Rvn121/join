@@ -150,10 +150,13 @@ function initializeContactActionHover(button) {
  * EN: Initializes the buttons of the contact detail view.
  */
 function initializeContactDetailEvents() {
-  const editButton = contactDetail.querySelector('[data-contact-action="edit"]');
-  const deleteButton = contactDetail.querySelector('[data-contact-action="delete"]');
-  if (editButton) editButton.addEventListener("click", editSelectedContact);
-  if (deleteButton) deleteButton.addEventListener("click", deleteSelectedContact);
-  initializeContactActionHover(editButton);
-  initializeContactActionHover(deleteButton);
+  contactDetail.querySelectorAll('[data-contact-action]').forEach(button => {
+    button.addEventListener("click", () => {
+      const menu = document.getElementById("contactMobileActions");
+      if (menu?.matches(":popover-open")) menu.hidePopover();
+      if (button.dataset.contactAction === "edit") editSelectedContact();
+      else deleteSelectedContact();
+    });
+    initializeContactActionHover(button);
+  });
 }
