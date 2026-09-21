@@ -224,9 +224,9 @@ function getTaskDetailTemplate(task, contacts) {
     <section class="task-detail-section"><h3>Assigned To:</h3><ul>${getTaskDetailContactsTemplate(task, contacts)}</ul></section>
     <section class="task-detail-section"><h3>Subtasks</h3><div class="task-detail-subtasks">${getTaskDetailSubtasksTemplate(task.subtasks)}</div></section>
     <div class="task-detail-actions">
-      <button type="button" data-task-delete><img src="./assets/icons/delete.svg" alt="" />Delete</button>
+      <button type="button" data-task-delete><img src="./assets/icons/delete.svg" alt="" /><img src="./assets/icons/delete_hover.svg" alt="" /><span data-label="Delete">Delete</span></button>
       <span aria-hidden="true"></span>
-      <button type="button" data-task-edit><img src="./assets/icons/edit.svg" alt="" />Edit</button>
+      <button type="button" data-task-edit><img src="./assets/icons/edit.svg" alt="" /><img src="./assets/icons/edit_hover.svg" alt="" /><span data-label="Edit">Edit</span></button>
     </div>`;
 }
 

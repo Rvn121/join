@@ -275,8 +275,33 @@
   transition: color var(--click-transition);
 }
 
-.task-detail-actions button:hover {
-  color: var(--join-blue);
+.task-detail-actions button span {
+  display: inline-grid;
+}
+
+.task-detail-actions button span::after {
+  height: 0;
+  grid-area: 1 / 1;
+  content: attr(data-label);
+  font-weight: var(--fw-bold);
+  visibility: hidden;
+}
+
+.task-detail-actions button:hover,
+.task-detail-actions button:focus-visible {
+  color: var(--join-border-hover);
+  font-weight: var(--fw-bold);
+}
+
+.task-detail-actions button img:last-of-type,
+.task-detail-actions button:hover img:first-of-type,
+.task-detail-actions button:focus-visible img:first-of-type {
+  display: none;
+}
+
+.task-detail-actions button:hover img:last-of-type,
+.task-detail-actions button:focus-visible img:last-of-type {
+  display: block;
 }
 
 .task-detail-actions img {

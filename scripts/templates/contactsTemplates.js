@@ -112,7 +112,7 @@ function getContactActionTemplate(action, label, icon, hoverIcon) {
     <button class="contact-action" type="button" data-contact-action="${action}">
       <img src="./assets/icons/${icon}" data-default-icon="./assets/icons/${icon}"
         data-hover-icon="./assets/icons/${hoverIcon}" alt="" aria-hidden="true" />
-      <span>${label}</span>
+      <span data-label="${label}">${label}</span>
     </button>`;
 }
 

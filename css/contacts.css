@@ -224,9 +224,22 @@
   object-fit: contain;
 }
 
+.contact-action span {
+  display: inline-grid;
+}
+
+.contact-action span::after {
+  height: 0;
+  grid-area: 1 / 1;
+  content: attr(data-label);
+  font-weight: var(--fw-bold);
+  visibility: hidden;
+}
+
 .contact-action:hover,
 .contact-action:focus-visible {
-  color: var(--join-blue);
+  color: var(--join-border-hover);
+  font-weight: var(--fw-bold);
 }
 
 .contact-information-title {
