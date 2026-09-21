@@ -74,15 +74,11 @@ function getSummaryGreeting() {
  * EN: Renders the greeting for user or guest.
  */
 function renderSummaryGreeting() {
-  const container = document.getElementById("summaryGreeting");
-  const greetingLine = document.createElement("span");
-  greetingLine.textContent = getSummaryGreeting() + (getUserMode() === "guest" ? "!" : ",");
-  container.replaceChildren(greetingLine);
-  if (getUserMode() === "guest") return;
-  const user = getCurrentUser();
-  const nameLine = document.createElement("strong");
-  nameLine.textContent = user && user.name ? user.name : "";
-  container.appendChild(nameLine);
+  const guest = getUserMode() === "guest";
+  const nameLine = document.getElementById("summaryUserName");
+  document.getElementById("summaryGreetingText").textContent = getSummaryGreeting() + (guest ? "!" : ",");
+  nameLine.hidden = guest;
+  nameLine.textContent = guest ? "" : getCurrentUser()?.name || "";
 }
 
 

@@ -152,12 +152,6 @@
   flex-wrap: wrap;
 }
 
-.contacts-mobile-back,
-.contact-more-button,
-.contact-mobile-actions {
-  display: none;
-}
-
 .contact-detail {
   margin-top: 32px;
 }
@@ -364,29 +358,6 @@
     display: block;
   }
 
-  .contacts-mobile-back {
-    position: absolute;
-    top: 48px;
-    right: 16px;
-    display: inline-flex;
-    width: 32px;
-    height: 32px;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    transition: background var(--click-transition);
-  }
-
-  .contacts-mobile-back:hover,
-  .contacts-mobile-back:focus-visible {
-    background: var(--join-dark-soft);
-  }
-
-  .contacts-mobile-back img {
-    width: 32px;
-    height: 32px;
-  }
-
   .contact-detail {
     margin-top: 48px;
   }
@@ -414,68 +385,5 @@
 
   .contact-information-title {
     margin: 21px 0;
-  }
-
-  .contact-detail-actions {
-    display: none;
-  }
-
-  .contact-more-button {
-    position: fixed;
-    z-index: 28;
-    right: 16px;
-    bottom: 112px;
-    display: flex;
-    width: 56px;
-    height: 56px;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-    border: 0;
-    border-radius: 50%;
-    background: var(--join-dark);
-    box-shadow: 0 4px 4px var(--shadow-button);
-    transition: background var(--click-transition);
-  }
-
-  .contact-more-button:hover,
-  .contact-more-button:focus-visible {
-    background: var(--join-accent);
-    outline: none;
-  }
-
-  .contact-more-button img {
-    width: 64px;
-    height: 64px;
-    object-fit: none;
-    object-position: -4px 0;
-    border-radius: inherit;
-  }
-
-  .contact-mobile-actions:popover-open {
-    position: fixed;
-    inset: auto 16px 176px auto;
-    display: flex;
-    width: 116px;
-    flex-direction: column;
-    margin: 0;
-    padding: 10px;
-    border: 0;
-    border-radius: 20px 20px 0 20px;
-    background: var(--card-background);
-    box-shadow: 0 4px 4px var(--shadow-button);
-  }
-
-  .contact-mobile-actions .contact-action {
-    width: 96px;
-    min-height: 40px;
-    padding: 8px;
-    border-radius: 8px;
-  }
-
-  .contact-mobile-actions .contact-action:hover,
-  .contact-mobile-actions .contact-action:focus-visible {
-    background: var(--join-surface-hover);
-    color: var(--join-dark);
   }
 }

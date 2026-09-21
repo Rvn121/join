@@ -100,86 +100,6 @@ function updateHelpButton() {
 
 
 /**
- * DE: Erstellt einen Link für das Profilmenü.
- * EN: Creates a link for the profile menu.
- * @param {string} label - DE: Linktext. EN: Link label.
- * @param {string} href - DE: Ziel. EN: Target.
- * @returns {HTMLAnchorElement} DE: Link. EN: Link.
- */
-function createProfileMenuLink(label, href) {
-  const link = document.createElement("a");
-  link.href = href;
-  link.textContent = label;
-  return link;
-}
-
-
-/**
- * DE: Ergänzt Legal Notice und Privacy Policy im Profilmenü.
- * EN: Adds Legal Notice and Privacy Policy to the profile menu.
- */
-function addProfileMenuLinks() {
-  if (!profileMenu || !logoutButton || profileMenu.querySelector("a")) return;
-  const legalLink = createProfileMenuLink("Legal Notice", "./legalNotice.html");
-  const privacyLink = createProfileMenuLink("Privacy Policy", "./privacyPolicy.html");
-  profileMenu.insertBefore(privacyLink, logoutButton);
-  profileMenu.insertBefore(legalLink, privacyLink);
-}
-
-
-/**
- * DE: Gibt den Icon-Pfad für einen Navigationslink zurück.
- * EN: Returns the icon path for a navigation link.
- * @param {HTMLAnchorElement} link - DE: Navigationslink. EN: Navigation link.
- * @returns {string} DE: Icon-Pfad. EN: Icon path.
- */
-function getSidebarIconPath(link) {
-  const href = link.getAttribute("href");
-  if (href === "./summary.html") return "./assets/icons/summary.svg";
-  if (href === "./addTask.html") return "./assets/icons/edit_square.svg";
-  if (href === "./board.html") return "./assets/icons/board.svg";
-  if (href === "./contacts.html") return "./assets/icons/contact.svg";
-  return "";
-}
-
-
-/**
- * DE: Ergänzt die Icons in der Hauptnavigation.
- * EN: Adds the icons to the main navigation.
- */
-function addSidebarNavigationIcons() {
-  const links = document.querySelectorAll(".app-navigation .sidebar-link");
-  for (let i = 0; i < links.length; i++) {
-    const iconPath = getSidebarIconPath(links[i]);
-    if (!iconPath || links[i].querySelector("img")) continue;
-    const icon = document.createElement("img");
-    icon.className = "sidebar-link-icon";
-    icon.src = iconPath;
-    icon.alt = "";
-    icon.setAttribute("aria-hidden", "true");
-    links[i].prepend(icon);
-  }
-}
-
-
-/**
- * DE: Ergänzt das Login-Icon in der Seitenleiste.
- * EN: Adds the login icon to the sidebar.
- */
-function addLoginLinkIcons() {
-  for (let i = 0; i < loginLinks.length; i++) {
-    if (loginLinks[i].querySelector("img")) continue;
-    const icon = document.createElement("img");
-    icon.className = "sidebar-link-icon";
-    icon.src = "./assets/icons/login.svg";
-    icon.alt = "";
-    icon.setAttribute("aria-hidden", "true");
-    loginLinks[i].prepend(icon);
-  }
-}
-
-
-/**
  * DE: Zeigt eine kurze Rückmeldung als Toast an.
  * EN: Shows a short feedback message as a toast.
  * @param {string} message - DE: Meldung. EN: Message.
@@ -327,9 +247,6 @@ function initializeCommonApp() {
   updateUserInitials();
   updatePublicLayout();
   updateHelpButton();
-  addProfileMenuLinks();
-  addSidebarNavigationIcons();
-  addLoginLinkIcons();
 }
 
 
@@ -352,86 +269,4 @@ if (logoutButton) logoutButton.addEventListener("click", logoutUser);
 const loginLinks = document.querySelectorAll("[data-login-link]");
 for (let i = 0; i < loginLinks.length; i++) {
   loginLinks[i].addEventListener("click", clearGuestForLogin);
-}
-const floatingAnimations = new WeakMap();
-const floatingDialogClosers = new Map();
-
-/** DE: Schließt Menüs und Dialoge bei Klick außerhalb. EN: Dismisses outside clicks. */
-function closeOutsideElements(event) {
-  if (profileMenu && !profileMenu.hidden &&
-      !profileMenu.contains(event.target) && !profileButton?.contains(event.target)) {
-    profileMenu.hidden = true;
-    profileButton?.setAttribute("aria-expanded", "false");
-  }
-  const dialogs = Array.from(floatingDialogClosers.entries()).reverse();
-  for (const [dialog, close] of dialogs) {
-    if (!dialog.open) continue;
-    if (event.target !== dialog && dialog.contains(event.target)) break;
-    const surface = dialog.querySelector(".contact-dialog-card") || dialog;
-    const bounds = surface.getBoundingClientRect();
-    const inside = event.clientX >= bounds.left && event.clientX <= bounds.right &&
-      event.clientY >= bounds.top && event.clientY <= bounds.bottom;
-    if (!inside) close();
-    break;
-  }
-}
-
-document.addEventListener("pointerdown", closeOutsideElements);
-
-/** DE: Einheitlicher horizontaler Ein-/Ausflug. EN: Shared horizontal entrance/exit. */
-async function animateFloatingElement(element, entering) {
-  const previous = floatingAnimations.get(element);
-  if (element.dataset.dialogMotion === "none") {
-    if (previous) previous.cancel();
-    return true;
-  }
-  const current = previous ? getComputedStyle(element).translate : null;
-  if (previous) previous.cancel();
-  const distance = window.innerWidth - element.getBoundingClientRect().left + 24;
-  const outside = distance + "px 0px";
-  const animation = element.animate([
-    { translate: current || (entering ? outside : "0px 0px") },
-    { translate: entering ? "0px 0px" : outside },
-  ], {
-    duration: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 300,
-    easing: "ease-in-out",
-    fill: "forwards",
-  });
-  floatingAnimations.set(element, animation);
-  try {
-    await animation.finished;
-    return true;
-  } catch {
-    return false;
-  } finally {
-    if (floatingAnimations.get(element) === animation) {
-      floatingAnimations.delete(element);
-      animation.cancel();
-    }
-  }
-}
-
-/** DE: Öffnet einen Dialog mit gemeinsamer Animation. EN: Opens an animated dialog. */
-function openFloatingDialog(dialog, modal = true, onClose = () => closeFloatingDialog(dialog)) {
-  floatingDialogClosers.delete(dialog);
-  floatingDialogClosers.set(dialog, onClose);
-  if (!dialog.open) {
-    if (modal) dialog.showModal();
-    else dialog.show();
-  }
-  dialog.oncancel = (event) => {
-    event.preventDefault();
-    onClose();
-  };
-  return animateFloatingElement(dialog.querySelector(".contact-dialog-card") || dialog, true);
-}
-
-/** DE: Wartet vor dem Schließen auf den Ausflug. EN: Waits for exit before closing. */
-async function closeFloatingDialog(dialog, animated = true) {
-  if (!dialog || !dialog.open) return false;
-  const element = dialog.querySelector(".contact-dialog-card") || dialog;
-  if (animated && !await animateFloatingElement(element, false)) return false;
-  if (!animated) floatingAnimations.get(element)?.cancel();
-  dialog.close();
-  return true;
 }

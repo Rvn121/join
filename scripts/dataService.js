@@ -179,9 +179,7 @@ async function getTasks() {
   try {
     if (getUserMode() === "guest") return getGuestTaskData();
     if (getUserMode() !== "user") return [];
-    const tasks = await getFirebaseData("tasks");
-    const taskList = mapStoredTasks(tasks);
-    return taskList;
+    return mapStoredTasks(await getFirebaseData("tasks"));
   } catch {
     return [];
   }
@@ -251,12 +249,6 @@ async function updateContact(contactId, contact) {
 /** DE: Löscht einen Kontakt aus Firebase. EN: Deletes a contact from Firebase. */
 async function deleteContact(contactId) {
   await deleteFirebaseData("contacts/" + contactId);
-}
-
-
-/** DE: Speichert alle Kontakte für ältere Aufrufer. EN: Stores all contacts for legacy callers. */
-async function saveContacts(contacts) {
-  await putFirebaseData("contacts", contacts);
 }
 
 

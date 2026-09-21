@@ -60,6 +60,12 @@ Die Tests liegen unter `tests/` und laufen mit dem in Node.js eingebauten Test-R
 node --test tests/
 ```
 
+## Team
+
+- [Rouven Loske](https://github.com/Rvn121)
+- [Tobias Hagemann](https://github.com/tobiashagemannmedia)
+- [Kevin B.](https://github.com/blaetteprivat-cloud)
+
 ## Browser-Support
 
 Geprüft in aktuellen Versionen von Chrome, Firefox, Safari und Edge – jeweils Desktop und Mobile.

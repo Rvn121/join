@@ -322,16 +322,26 @@ function openTaskDatePicker(event) {
   toggleTaskCalendar(event);
 }
 
-/** DE: Initialisiert Formularereignisse. EN: Initializes form events. */
-function initializeTaskFormEvents() {
-  document.getElementById("taskDatePicker").addEventListener("pointerdown", rememberTaskCalendarState);
-  document.getElementById("taskDatePicker").addEventListener("click", openTaskDatePicker);
+/** DE: Initialisiert die Ereignisse des Fälligkeitsdatums. EN: Initializes the due date events. */
+function initializeTaskDateEvents() {
+  const datePicker = document.getElementById("taskDatePicker");
+  datePicker.addEventListener("pointerdown", rememberTaskCalendarState);
+  datePicker.addEventListener("click", openTaskDatePicker);
   taskDueDate.addEventListener("input", maskTaskDueDate);
   taskDueDate.addEventListener("change", validateTaskDueDateInput);
+}
+
+/** DE: Initialisiert die Ereignisse der Kontaktzuweisung. EN: Initializes the contact assignment events. */
+function initializeTaskContactEvents() {
   taskAssignedSearch.addEventListener("focus", openTaskContactDropdown);
   taskAssignedSearch.addEventListener("input", filterTaskContacts);
   taskContactDropdown.addEventListener("change", handleTaskContactChange);
   if (taskAssignedToggle) taskAssignedToggle.addEventListener("click", toggleTaskContactDropdown);
+  document.addEventListener("click", closeTaskDropdownOutside);
+}
+
+/** DE: Initialisiert die Subtask-Ereignisse. EN: Initializes the subtask events. */
+function initializeTaskSubtaskEvents() {
   taskSubtaskInput.addEventListener("keydown", handleSubtaskKeydown);
   taskSubtaskInput.addEventListener("input", updateSubtaskInputActions);
   taskSubtaskList.addEventListener("click", handleFormSubtaskAction);
@@ -341,9 +351,15 @@ function initializeTaskFormEvents() {
   document.addEventListener("pointerdown", handleSubtaskEditorPointerDown);
   document.getElementById("taskSubtaskAdd").addEventListener("click", addOrUpdateSubtask);
   document.getElementById("taskSubtaskClear").addEventListener("click", clearSubtaskInput);
+}
+
+/** DE: Initialisiert Formularereignisse. EN: Initializes form events. */
+function initializeTaskFormEvents() {
+  initializeTaskDateEvents();
+  initializeTaskContactEvents();
+  initializeTaskSubtaskEvents();
   taskClearButton.addEventListener("click", handleTaskClearButton);
   taskForm.addEventListener("submit", handleTaskFormSubmit);
-  document.addEventListener("click", closeTaskDropdownOutside);
 }
 
 

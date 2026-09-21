@@ -22,7 +22,7 @@ function app({ protectedPage = false, session = storage(), local = storage() } =
     fetch: async url => { requests.push(url); return { ok: true, json: async () => ({}) }; },
     FIREBASE_BASE_URL: 'https://example.invalid',
   });
-  for (const file of ['scripts/common.js', 'scripts/dataService.js', 'scripts/taskUtils.js', 'scripts/contacts.js', 'scripts/contactsForm.js', 'scripts/contactsActions.js', 'scripts/taskFormContacts.js', 'script.js']) {
+  for (const file of ['scripts/common.js', 'scripts/overlays.js', 'scripts/dataService.js', 'scripts/taskUtils.js', 'scripts/contacts.js', 'scripts/contactsForm.js', 'scripts/contactsActions.js', 'scripts/taskFormContacts.js', 'script.js']) {
     vm.runInContext(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), context, { filename: file });
   }
   return { context, session, local, redirects, requests, events };

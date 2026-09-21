@@ -15,14 +15,29 @@
         </a>
 
         <nav class="sidebar-nav app-navigation" aria-label="Hauptnavigation">
-          <a class="sidebar-link" href="./summary.html">Summary</a>
-          <a class="sidebar-link" href="./addTask.html">Add Task</a>
-          <a class="sidebar-link" href="./board.html">Board</a>
-          <a class="sidebar-link" href="./contacts.html">Contacts</a>
+          <a class="sidebar-link" href="./summary.html">
+            <img class="sidebar-link-icon" src="./assets/icons/summary.svg" alt="" aria-hidden="true" />
+            Summary
+          </a>
+          <a class="sidebar-link" href="./addTask.html">
+            <img class="sidebar-link-icon" src="./assets/icons/edit_square.svg" alt="" aria-hidden="true" />
+            Add Task
+          </a>
+          <a class="sidebar-link" href="./board.html">
+            <img class="sidebar-link-icon" src="./assets/icons/board.svg" alt="" aria-hidden="true" />
+            Board
+          </a>
+          <a class="sidebar-link" href="./contacts.html">
+            <img class="sidebar-link-icon" src="./assets/icons/contact.svg" alt="" aria-hidden="true" />
+            Contacts
+          </a>
         </nav>
 
         <nav class="sidebar-nav external-navigation" aria-label="Login">
-          <a class="sidebar-link" href="./index.html" data-login-link>Log in</a>
+          <a class="sidebar-link" href="./index.html" data-login-link>
+            <img class="sidebar-link-icon" src="./assets/icons/login.svg" alt="" aria-hidden="true" />
+            Log in
+          </a>
         </nav>
 
         <footer class="sidebar-footer">
@@ -164,6 +179,7 @@
     </div>
 
     <script src="./scripts/common.js"></script>
+    <script src="./scripts/overlays.js"></script>
     <script src="./scripts/firebaseConfig.js"></script>
     <script src="./scripts/dataService.js"></script>
     <script src="./scripts/help.js"></script>

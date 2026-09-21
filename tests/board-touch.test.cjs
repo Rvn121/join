@@ -24,7 +24,9 @@ function setup() {
       cancelAnimationFrame() {},
     },
   });
-  vm.runInContext(fs.readFileSync(path.join(__dirname, '../scripts/board.js'), 'utf8'), context);
+  for (const file of ['scripts/board.js', 'scripts/boardTouch.js']) {
+    vm.runInContext(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), context, { filename: file });
+  }
   const animate = context.animateBoardTouch;
   context.animateBoardTouch = () => {};
   context.updateBoardDropTargets = () => {};

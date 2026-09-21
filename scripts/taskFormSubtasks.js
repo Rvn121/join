@@ -6,6 +6,19 @@ function renderFormSubtasks() {
   const editor = taskSubtaskList.querySelector("[data-subtask-editor]");
   const draftId = editor?.closest("[data-form-subtask-id]").dataset.formSubtaskId;
   const draft = editor?.value;
+  taskSubtaskList.innerHTML = getFormSubtasksHtml();
+  if (draftId !== String(taskFormState.editingSubtaskId)) return;
+  const nextEditor = taskSubtaskList.querySelector("[data-subtask-editor]");
+  if (nextEditor) nextEditor.value = draft;
+}
+
+
+/**
+ * DE: Baut das HTML aller Subtasks, der bearbeitete Subtask als Editor.
+ * EN: Builds the HTML of all subtasks, the edited subtask as an editor.
+ * @returns {string} DE: HTML. EN: HTML.
+ */
+function getFormSubtasksHtml() {
   let html = "";
   for (let i = 0; i < taskFormState.subtasks.length; i++) {
     const subtask = taskFormState.subtasks[i];
@@ -13,11 +26,7 @@ function renderFormSubtasks() {
       ? getFormSubtaskEditorTemplate(subtask)
       : getFormSubtaskTemplate(subtask);
   }
-  taskSubtaskList.innerHTML = html;
-  if (draftId === String(taskFormState.editingSubtaskId)) {
-    const nextEditor = taskSubtaskList.querySelector("[data-subtask-editor]");
-    if (nextEditor) nextEditor.value = draft;
-  }
+  return html;
 }
 
 

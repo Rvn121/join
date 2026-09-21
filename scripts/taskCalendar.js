@@ -7,15 +7,9 @@ function rememberTaskCalendarState() {
   taskCalendarOpenOnPointerDown = Boolean(taskCalendar?.matches(":popover-open"));
 }
 
-/** DE: Erstellt den Kalender im Vordergrund. EN: Creates the calendar popover. */
-function createTaskCalendar() {
-  taskCalendar = document.createElement("div");
-  taskCalendar.id = "taskCalendar";
-  taskCalendar.className = "task-calendar";
-  taskCalendar.setAttribute("popover", "auto");
-  taskCalendar.setAttribute("role", "dialog");
-  taskCalendar.setAttribute("aria-label", "Choose due date");
-  taskDueDate.parentElement.append(taskCalendar);
+/** DE: Verbindet den Kalender-Popover aus dem HTML mit seinen Ereignissen. EN: Wires up the calendar popover from the HTML. */
+function initializeTaskCalendar() {
+  taskCalendar = document.getElementById("taskCalendar");
   taskCalendar.addEventListener("click", handleTaskCalendarClick);
   taskCalendar.addEventListener("toggle", () => {
     document.getElementById("taskDatePicker").setAttribute("aria-expanded",
@@ -42,8 +36,13 @@ function toggleTaskCalendar(event) {
     if (taskCalendar?.matches(":popover-open")) taskCalendar.hidePopover();
     return;
   }
-  if (!taskCalendar) createTaskCalendar();
+  if (!taskCalendar) initializeTaskCalendar();
   if (taskCalendar.matches(":popover-open")) return taskCalendar.hidePopover();
+  openTaskCalendar();
+}
+
+/** DE: Öffnet den Kalender im Monat des gewählten Datums. EN: Opens the calendar in the month of the selected date. */
+function openTaskCalendar() {
   const selected = parseTaskDueDate(taskDueDate.value);
   taskCalendarMonth = selected ? new Date(selected + "T12:00:00") : new Date();
   taskCalendarMonth.setDate(1);
@@ -57,22 +56,29 @@ function toggleTaskCalendar(event) {
 
 /** DE: Baut das Monatsraster. EN: Builds the month grid. */
 function renderTaskCalendar() {
-  const year = taskCalendarMonth.getFullYear();
-  const month = taskCalendarMonth.getMonth();
   const heading = taskCalendarMonth.toLocaleDateString("en-GB", {month: "long", year: "numeric"});
   let html = '<div class="task-calendar-heading"><button type="button" data-month="-1" aria-label="Previous month">‹</button>';
   html += '<strong aria-live="polite">' + heading + '</strong><button type="button" data-month="1" aria-label="Next month">›</button></div>';
   html += '<div class="task-calendar-grid">';
   for (const weekday of ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]) html += '<span>' + weekday + '</span>';
+  taskCalendar.innerHTML = html + getTaskCalendarDaysHtml(heading) + '</div>';
+}
+
+/** DE: Baut die Tagesbuttons des aktuellen Monats. EN: Builds the day buttons of the current month. */
+function getTaskCalendarDaysHtml(heading) {
+  const year = taskCalendarMonth.getFullYear();
+  const month = taskCalendarMonth.getMonth();
   const offset = (new Date(year, month, 1).getDay() + 6) % 7;
-  for (let i = 0; i < offset; i++) html += '<span></span>';
   const days = new Date(year, month + 1, 0).getDate();
+  const selected = parseTaskDueDate(taskDueDate.value);
+  let html = '';
+  for (let i = 0; i < offset; i++) html += '<span></span>';
   for (let day = 1; day <= days; day++) {
     const value = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
     html += '<button type="button" data-date="' + value + '" aria-label="' + day + ' ' + heading +
-      '" aria-pressed="' + (value === parseTaskDueDate(taskDueDate.value)) + '">' + day + '</button>';
+      '" aria-pressed="' + (value === selected) + '">' + day + '</button>';
   }
-  taskCalendar.innerHTML = html + '</div>';
+  return html;
 }
 
 /** DE: Verarbeitet Monat und Datumsauswahl. EN: Handles month/date selection. */

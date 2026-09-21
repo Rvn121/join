@@ -10,38 +10,36 @@
   <body class="app-body" data-page="board" data-protected-page="true">
     <div class="app-frame">
       <aside class="app-sidebar">
-        <a
-          class="sidebar-logo-link"
-          href="./summary.html"
-          aria-label="Zur Summary"
-        >
-          <img
-            class="sidebar-logo"
-            src="./assets/img/join_logo_white.svg"
-            alt="Join"
-          />
+        <a class="sidebar-logo-link" href="./summary.html" aria-label="Zur Summary">
+          <img class="sidebar-logo" src="./assets/img/join_logo_white.svg" alt="Join" />
         </a>
         <nav class="sidebar-nav app-navigation" aria-label="Hauptnavigation">
-          <a class="sidebar-link" href="./summary.html">Summary</a>
-          <a class="sidebar-link" href="./addTask.html">Add Task</a>
-          <a
-            class="sidebar-link sidebar-link-active"
-            href="./board.html"
-            aria-current="page"
-            >Board</a
-          >
-          <a class="sidebar-link" href="./contacts.html">Contacts</a>
+          <a class="sidebar-link" href="./summary.html">
+            <img class="sidebar-link-icon" src="./assets/icons/summary.svg" alt="" aria-hidden="true" />
+            Summary
+          </a>
+          <a class="sidebar-link" href="./addTask.html">
+            <img class="sidebar-link-icon" src="./assets/icons/edit_square.svg" alt="" aria-hidden="true" />
+            Add Task
+          </a>
+          <a class="sidebar-link sidebar-link-active" href="./board.html" aria-current="page">
+            <img class="sidebar-link-icon" src="./assets/icons/board.svg" alt="" aria-hidden="true" />
+            Board
+          </a>
+          <a class="sidebar-link" href="./contacts.html">
+            <img class="sidebar-link-icon" src="./assets/icons/contact.svg" alt="" aria-hidden="true" />
+            Contacts
+          </a>
         </nav>
         <nav class="sidebar-nav external-navigation" aria-label="Login">
-          <a class="sidebar-link" href="./index.html" data-login-link>Log in</a>
+          <a class="sidebar-link" href="./index.html" data-login-link>
+            <img class="sidebar-link-icon" src="./assets/icons/login.svg" alt="" aria-hidden="true" />
+            Log in
+          </a>
         </nav>
         <footer class="sidebar-footer">
-          <a class="sidebar-footer-link" href="./privacyPolicy.html"
-            >Privacy Policy</a
-          >
-          <a class="sidebar-footer-link" href="./legalNotice.html"
-            >Legal notice</a
-          >
+          <a class="sidebar-footer-link" href="./privacyPolicy.html">Privacy Policy</a>
+          <a class="sidebar-footer-link" href="./legalNotice.html">Legal notice</a>
         </footer>
       </aside>
 
@@ -49,39 +47,17 @@
         <header class="app-header">
           <div class="app-header-content">
             <div class="app-header-brand">
-              <a
-                class="app-header-logo-link"
-                href="./summary.html"
-                aria-label="Zur Summary"
-              >
-                <img
-                  class="app-header-logo"
-                  src="./assets/img/join_logo.svg"
-                  alt="Join"
-                />
+              <a class="app-header-logo-link" href="./summary.html" aria-label="Zur Summary">
+                <img class="app-header-logo" src="./assets/img/join_logo.svg" alt="Join" />
               </a>
               <span class="app-title">Kanban Project Management Tool</span>
             </div>
             <div class="app-header-actions">
-              <a
-                class="help-button"
-                id="helpButton"
-                href="./help.html"
-                aria-label="Hilfe"
-              >
+              <a class="help-button" id="helpButton" href="./help.html" aria-label="Hilfe">
                 <img src="./assets/icons/help.svg" alt="" aria-hidden="true" />
               </a>
-              <button
-                class="user-placeholder"
-                id="profileButton"
-                type="button"
-                aria-label="Benutzerprofil"
-              >
-                <span
-                  class="user-initials"
-                  id="userInitials"
-                  aria-hidden="true"
-                ></span>
+              <button class="user-placeholder" id="profileButton" type="button" aria-label="Benutzerprofil">
+                <span class="user-initials" id="userInitials" aria-hidden="true"></span>
               </button>
               <div class="profile-menu" id="profileMenu" hidden>
                 <a href="./help.html">Help</a>
@@ -100,30 +76,13 @@
                 <h1>Board</h1>
                 <div class="board-tools">
                   <label class="board-search" for="boardSearchInput">
-                    <input
-                      id="boardSearchInput"
-                      type="search"
-                      placeholder="Find Task"
-                      autocomplete="off"
-                    />
+                    <input id="boardSearchInput" type="search" placeholder="Find Task" autocomplete="off" />
                     <span aria-hidden="true"></span>
-                    <img
-                      src="./assets/icons/search.svg"
-                      alt=""
-                      aria-hidden="true"
-                    />
+                    <img src="./assets/icons/search.svg" alt="" aria-hidden="true" />
                   </label>
-                  <button
-                    class="btn btn--primary btn--action board-add-task"
-                    id="boardAddTaskButton"
-                    type="button"
-                  >
+                  <button class="btn btn--primary btn--action board-add-task" id="boardAddTaskButton" type="button">
                     Add task
-                    <img
-                      src="./assets/icons/add-solo-white.svg"
-                      alt=""
-                      aria-hidden="true"
-                    />
+                    <img src="./assets/icons/add-solo-white.svg" alt="" aria-hidden="true" />
                   </button>
                 </div>
               </div>
@@ -138,18 +97,10 @@
                       data-add-task-status="todo"
                       aria-label="Task zu To do hinzufügen"
                     >
-                      <img
-                        src="./assets/icons/add.svg"
-                        alt=""
-                        aria-hidden="true"
-                      />
+                      <img src="./assets/icons/add.svg" alt="" aria-hidden="true" />
                     </button>
                   </div>
-                  <div
-                    class="board-column-tasks"
-                    id="boardTodo"
-                    data-drop-status="todo"
-                  ></div>
+                  <div class="board-column-tasks" id="boardTodo" data-drop-status="todo"></div>
                 </section>
 
                 <section class="board-column" data-board-status="inProgress">
@@ -161,18 +112,10 @@
                       data-add-task-status="inProgress"
                       aria-label="Task zu In progress hinzufügen"
                     >
-                      <img
-                        src="./assets/icons/add.svg"
-                        alt=""
-                        aria-hidden="true"
-                      />
+                      <img src="./assets/icons/add.svg" alt="" aria-hidden="true" />
                     </button>
                   </div>
-                  <div
-                    class="board-column-tasks"
-                    id="boardInProgress"
-                    data-drop-status="inProgress"
-                  ></div>
+                  <div class="board-column-tasks" id="boardInProgress" data-drop-status="inProgress"></div>
                 </section>
 
                 <section class="board-column" data-board-status="awaitFeedback">
@@ -184,27 +127,15 @@
                       data-add-task-status="awaitFeedback"
                       aria-label="Task zu Await feedback hinzufügen"
                     >
-                      <img
-                        src="./assets/icons/add.svg"
-                        alt=""
-                        aria-hidden="true"
-                      />
+                      <img src="./assets/icons/add.svg" alt="" aria-hidden="true" />
                     </button>
                   </div>
-                  <div
-                    class="board-column-tasks"
-                    id="boardAwaitFeedback"
-                    data-drop-status="awaitFeedback"
-                  ></div>
+                  <div class="board-column-tasks" id="boardAwaitFeedback" data-drop-status="awaitFeedback"></div>
                 </section>
 
                 <section class="board-column" data-board-status="done">
                   <div class="board-column-heading"><h2>Done</h2></div>
-                  <div
-                    class="board-column-tasks"
-                    id="boardDone"
-                    data-drop-status="done"
-                  ></div>
+                  <div class="board-column-tasks" id="boardDone" data-drop-status="done"></div>
                 </section>
               </div>
             </section>
@@ -213,11 +144,7 @@
       </div>
     </div>
 
-    <dialog
-      class="task-form-dialog"
-      id="taskFormDialog"
-      aria-labelledby="taskFormDialogTitle"
-    >
+    <dialog class="task-form-dialog" id="taskFormDialog" aria-labelledby="taskFormDialogTitle">
       <div class="task-dialog-shell">
         <button
           class="icon-button task-dialog-close"
@@ -226,27 +153,13 @@
           aria-label="Dialog schließen"
         ><img src="./assets/icons/close.svg" alt="" aria-hidden="true" /></button>
         <h2 id="taskFormDialogTitle">Add Task</h2>
-        <form
-          class="task-form task-form--dialog"
-          id="taskForm"
-          novalidate
-          data-default-status="todo"
-        >
+        <form class="task-form task-form--dialog" id="taskForm" novalidate data-default-status="todo">
           <div class="task-form-columns">
             <div class="task-form-column">
               <label class="task-field task-field--title" for="taskTitle">
                 <span>Title<span class="task-required">*</span></span>
-                <input
-                  id="taskTitle"
-                  name="title"
-                  type="text"
-                  placeholder="Enter a title"
-                  maxlength="80"
-                />
-                <small
-                  class="task-field-error"
-                  data-error-for="taskTitle"
-                ></small>
+                <input id="taskTitle" name="title" type="text" placeholder="Enter a title" maxlength="80" />
+                <small class="task-field-error" data-error-for="taskTitle"></small>
               </label>
               <label class="task-field" for="taskDescription">
                 <span>Description</span>
@@ -256,15 +169,10 @@
                   placeholder="Enter a Description"
                   maxlength="1000"
                 ></textarea>
-                <small
-                  class="task-field-error"
-                  data-error-for="taskDescription"
-                ></small>
+                <small class="task-field-error" data-error-for="taskDescription"></small>
               </label>
               <div class="task-field">
-                <label for="taskDueDate"
-                  >Due date<span class="task-required">*</span></label
-                >
+                <label for="taskDueDate">Due date<span class="task-required">*</span></label>
                 <span class="task-date-control">
                   <input
                     id="taskDueDate"
@@ -284,17 +192,11 @@
                     aria-label="Open calendar"
                     aria-controls="taskDueDate"
                   >
-                    <img
-                      src="./assets/icons/event.svg"
-                      alt=""
-                      aria-hidden="true"
-                    />
+                    <img src="./assets/icons/event.svg" alt="" aria-hidden="true" />
                   </button>
+                  <div class="task-calendar" id="taskCalendar" popover="auto" role="dialog" aria-label="Choose due date"></div>
                 </span>
-                <small
-                  class="task-field-error"
-                  data-error-for="taskDueDate"
-                ></small>
+                <small class="task-field-error" data-error-for="taskDueDate"></small>
               </div>
             </div>
 
@@ -314,12 +216,7 @@
                     />
                   </label>
                   <label class="task-priority task-priority--medium">
-                    <input
-                      type="radio"
-                      name="priority"
-                      value="medium"
-                      checked
-                    />
+                    <input type="radio" name="priority" value="medium" checked />
                     <span>Medium</span
                     ><img
                       src="./assets/icons/prio-medium.svg"
@@ -356,24 +253,12 @@
                       aria-label="Assigned-to-Liste öffnen oder schließen"
                       aria-expanded="false"
                     >
-                      <img
-                        src="./assets/icons/arrow_drop_down.svg"
-                        alt=""
-                        aria-hidden="true"
-                      />
+                      <img src="./assets/icons/arrow_drop_down.svg" alt="" aria-hidden="true" />
                     </button>
                   </div>
-                  <div
-                    class="task-contact-dropdown"
-                    id="taskContactDropdown"
-                    hidden
-                  ></div>
+                  <div class="task-contact-dropdown" id="taskContactDropdown" hidden></div>
                 </div>
-                <div
-                  class="task-selected-contacts"
-                  id="taskSelectedContacts"
-                  aria-live="polite"
-                ></div>
+                <div class="task-selected-contacts" id="taskSelectedContacts" aria-live="polite"></div>
               </div>
 
               <label class="task-field" for="taskCategory">
@@ -387,42 +272,20 @@
                     <option value="User Story">User Story</option>
                   </select>
                 </div>
-                <small
-                  class="task-field-error"
-                  data-error-for="taskCategory"
-                ></small>
+                <small class="task-field-error" data-error-for="taskCategory"></small>
               </label>
 
               <div class="task-field task-subtask-field">
                 <label for="taskSubtaskInput">Subtasks</label>
                 <div class="task-subtask-input-wrap">
-                  <input
-                    id="taskSubtaskInput"
-                    type="text"
-                    placeholder="Add new subtask"
-                    maxlength="30"
-                  />
+                  <input id="taskSubtaskInput" type="text" placeholder="Add new subtask" maxlength="30" />
                   <div class="task-subtask-input-actions" hidden>
-                    <button
-                      class="icon-button"
-                      id="taskSubtaskClear"
-                      type="button"
-                      aria-label="Subtask-Feld leeren"
-                    >
+                    <button class="icon-button" id="taskSubtaskClear" type="button" aria-label="Subtask-Feld leeren">
                       <img src="./assets/icons/close.svg" alt="" aria-hidden="true" />
                     </button>
                     <span class="task-inline-divider" aria-hidden="true"></span>
-                    <button
-                      class="icon-button"
-                      id="taskSubtaskAdd"
-                      type="button"
-                      aria-label="Subtask hinzufügen"
-                    >
-                      <img
-                        src="./assets/icons/check-d.svg"
-                        alt=""
-                        aria-hidden="true"
-                      />
+                    <button class="icon-button" id="taskSubtaskAdd" type="button" aria-label="Subtask hinzufügen">
+                      <img src="./assets/icons/check-d.svg" alt="" aria-hidden="true" />
                     </button>
                   </div>
                 </div>
@@ -434,11 +297,7 @@
           <div class="task-form-footer">
             <p><span class="task-required">*</span>This field is required</p>
             <div class="task-form-actions">
-              <button
-                class="btn btn--secondary btn--form task-clear-button"
-                id="taskClearButton"
-                type="button"
-              >
+              <button class="btn btn--secondary btn--form task-clear-button" id="taskClearButton" type="button">
                 <span>Cancel</span
                 ><img
                   src="./assets/icons/close.svg"
@@ -446,11 +305,7 @@
                   aria-hidden="true"
                 />
               </button>
-              <button
-                class="btn btn--primary btn--form task-submit-button"
-                id="taskSubmitButton"
-                type="submit"
-              >
+              <button class="btn btn--primary btn--form task-submit-button" id="taskSubmitButton" type="submit">
                 <span>Create Task</span
                 ><img
                   src="./assets/icons/check.svg"
@@ -464,17 +319,14 @@
       </div>
     </dialog>
 
-    <dialog
-      class="task-detail-dialog"
-      id="taskDetailDialog"
-      aria-labelledby="taskDetailTitle"
-    >
+    <dialog class="task-detail-dialog" id="taskDetailDialog" aria-labelledby="taskDetailTitle">
       <div class="task-detail-shell" id="taskDetailContent"></div>
     </dialog>
 
     <div class="component-toast" id="appToast" hidden aria-live="polite"></div>
 
     <script src="./scripts/common.js"></script>
+    <script src="./scripts/overlays.js"></script>
     <script src="./scripts/firebaseConfig.js"></script>
     <script src="./scripts/dataService.js"></script>
     <script src="./scripts/avatarColors.js"></script>
@@ -485,6 +337,7 @@
     <script src="./scripts/taskFormContacts.js"></script>
     <script src="./scripts/taskFormSubtasks.js"></script>
     <script src="./scripts/taskDialog.js"></script>
+    <script src="./scripts/boardTouch.js"></script>
     <script src="./scripts/board.js"></script>
   </body>
 </html>
