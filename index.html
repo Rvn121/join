@@ -6,12 +6,6 @@
     <title>Join</title>
     <link rel="icon" type="image/svg+xml" href="./assets/icons/favicon.svg" />
     <link rel="stylesheet" href="./style.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
-      rel="stylesheet"
-    />
   </head>
   <body>
     <div class="page-frame">
@@ -136,6 +130,7 @@
                 id="signUpEmail"
                 type="email"
                 placeholder="Email"
+                autocomplete="email"
                 data-required
               />
               <img src="./assets/icons/mail.svg" alt="" aria-hidden="true" />
@@ -148,6 +143,7 @@
                 id="signUpPassword"
                 type="password"
                 placeholder="Password"
+                autocomplete="new-password"
                 data-required
               />
               <button
@@ -170,6 +166,7 @@
                 id="repeatPassword"
                 type="password"
                 placeholder="Confirm Password"
+                autocomplete="new-password"
                 data-required
               />
               <button

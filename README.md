@@ -19,7 +19,7 @@ Das Layout ist responsiv und für Desktop sowie Mobile (ab 320 px Breite) ausgel
 
 - HTML, CSS und JavaScript ohne Frameworks oder Build-Tools
 - Firebase Realtime Database als Backend
-- [Inter](https://fonts.google.com/specimen/Inter) als Schriftart (Google Fonts)
+- [Inter](https://rsms.me/inter/) als Schriftart, lokal eingebunden unter `assets/fonts/` (keine CDNs)
 
 Join ist eine Multi-Page Application: Jede Seite ist eine eigene HTML-Datei, es gibt kein clientseitiges Routing.
 
