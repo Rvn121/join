@@ -83,6 +83,10 @@
   object-fit: scale-down;
 }
 
+.sidebar-link-active .sidebar-link-icon {
+  filter: brightness(0) invert(1);
+}
+
 .external-navigation {
   display: none;
 }
@@ -142,7 +146,7 @@
   min-height: 96px;
   border-bottom: unset;
   background: var(--card-background);
-  box-shadow: 0 3px 8px var(--shadow-card);
+  box-shadow: 0 4px 4px var(--shadow-header);
 }
 
 .app-header-content {
@@ -157,7 +161,6 @@
 .app-header-brand {
   display: flex;
   align-items: center;
-  gap: 12px;
 }
 
 .app-header-logo-link {
@@ -172,7 +175,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 16px;
 }
 
 .help-button,
@@ -188,19 +191,19 @@
 }
 
 .help-button {
-  width: 34px;
-  height: 34px;
+  width: 32px;
+  height: 32px;
 }
 
 .help-button img {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   object-fit: contain;
 }
 
 .user-placeholder {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   background: var(--card-background);
   box-shadow: inset 0 0 0 3px var(--join-dark);
@@ -221,27 +224,30 @@
 .profile-menu {
   position: absolute;
   z-index: 5;
-  top: 64px;
+  top: 72px;
   right: 0;
-  min-width: 150px;
-  padding: 8px;
+  width: 150px;
+  padding: 10px;
   border-radius: 20px 0 20px 20px;
   background: var(--join-dark);
-  box-shadow: 0 4px 12px var(--shadow-medium);
+  box-shadow: 0 0 4px var(--shadow-strong);
 }
 
 .profile-menu a,
 .profile-menu button {
-  display: block;
+  display: flex;
   width: 100%;
-  padding: 10px 12px;
+  min-height: 46px;
+  align-items: center;
+  padding: 8px 16px;
   border: unset;
-  border-radius: 6px;
+  border-radius: 8px;
   background: transparent;
   color: var(--join-muted-light);
   font: inherit;
   text-align: left;
   text-decoration: none;
+  white-space: nowrap;
   transition: background var(--click-transition), color var(--click-transition);
 }
 

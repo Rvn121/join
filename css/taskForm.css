@@ -56,6 +56,10 @@
   padding: 0 16px;
 }
 
+.task-field--title input {
+  padding: 0 21px;
+}
+
 .task-field textarea {
   display: block;
   min-height: 120px;
@@ -68,107 +72,46 @@
 .task-field select {
   padding-right: 46px;
   appearance: none;
+  background-image: url("../assets/icons/arrow_drop_down.svg");
+  background-repeat: no-repeat;
+  background-position: right 24px center;
   cursor: pointer;
 }
 
-.task-field select:has(option[value=""]:checked) {
-  color: var(--join-text-secondary);
-}
-
-.task-field select option {
-  color: var(--join-text);
-}
-
-.task-field .select-wrap::before {
-  content: "";
-  position: absolute;
-  z-index: 1;
-  top: 50%;
-  right: 24px;
-  width: 8px;
-  height: 5px;
-  background: url("../assets/icons/arrow_drop_down.svg") center / contain no-repeat;
-  transform: translateY(-50%);
-  transition: transform var(--click-transition);
-  pointer-events: none;
-}
-
-.task-field .select-wrap:has(select:open)::before {
-  transform: translateY(-50%) rotate(180deg);
-}
-
-@supports (appearance: base-select) {
-  .task-field select,
-  .task-field select::picker(select) {
-    appearance: base-select;
-  }
-
-  .task-field select {
-    align-items: center;
-  }
-
-  .task-field select::picker-icon {
-    display: none;
-  }
-
-  .task-field select::picker(select) {
-    inset: auto;
-    position-area: block-end span-inline-end;
-    position-try: none;
-    max-height: 345px;
-    margin-top: 4px;
-    padding: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    border: none;
-    border-bottom: 1px solid var(--join-border);
-    border-radius: 10px;
-    background: var(--card-background);
-    color: var(--join-text);
-    box-shadow: 0 0 14px 3px var(--shadow-dialog);
-  }
-
-  .task-field select option {
-    min-height: 48px;
-    padding: 6px 14px;
-    border-radius: 10px;
-  }
-
-  .task-field select option:hover,
-  .task-field select option:focus {
-    background: var(--contact-list-hover);
-  }
+.task-field > .task-date-control {
+  position: relative;
+  display: block;
+  margin-bottom: 0;
 }
 
 .task-date-control input {
-  position: relative;
+  width: 100%;
   padding-right: 48px;
-  appearance: none;
-  -moz-appearance: textfield;
 }
 
 .task-date-picker {
   position: absolute;
   top: 50%;
-  right: 10px;
+  right: 16px;
   display: inline-flex;
+  width: 24px;
+  height: 24px;
   align-items: center;
   justify-content: center;
-  width: 34px;
-  height: 34px;
   padding: 0;
-  border-radius: 6px;
+  border-radius: 4px;
   background: transparent;
   transform: translateY(-50%);
+  cursor: pointer;
 }
 
 .task-date-picker img {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
 }
 
 .task-date-picker:focus-visible {
-  outline: 2px solid var(--join-border-hover);
+  outline: 2px solid var(--join-accent);
 }
 
 .task-calendar {
@@ -178,12 +121,12 @@
   margin: 0;
   padding: 12px;
   overflow-y: auto;
-  border: 1px solid var(--join-border);
+  border: 0;
   border-radius: 10px;
   background: var(--card-background);
   color: var(--join-dark);
-  box-shadow: 0 4px 16px var(--shadow-dialog);
-  font-size: 14px;
+  box-shadow: 0 0 14px var(--shadow-dialog);
+  font-size: var(--fs-body);
 }
 
 .task-calendar-heading {
@@ -201,29 +144,25 @@
 }
 
 .task-calendar button {
-  min-height: 32px;
   min-width: 28px;
+  min-height: 32px;
   padding: 4px;
-  border-radius: 6px;
+  border-radius: 8px;
   background: transparent;
   color: inherit;
+  cursor: pointer;
 }
 
 .task-calendar button:hover,
 .task-calendar button:focus-visible {
-  background: var(--join-dark-soft);
+  background: var(--join-surface-hover);
+  outline: none;
 }
 
 .task-calendar button[aria-pressed="true"] {
   background: var(--join-dark);
   color: var(--join-white);
 }
-
-.task-field > .task-date-control {
-  position: relative;
-  margin-bottom: 0;
-}
-
 .task-input-error {
   border-color: var(--join-error) !important;
 }
@@ -250,13 +189,10 @@
   gap: 8px;
   border-radius: 10px;
   background: var(--card-background);
-  box-shadow: 0 0 4px var(--shadow-button);
+  box-shadow: 0 0 4px var(--shadow-strong);
   cursor: pointer;
   font-size: var(--fs-lg);
-  transition:
-    background var(--click-transition),
-    color var(--click-transition),
-    box-shadow var(--click-transition);
+  transition: background var(--click-transition), color var(--click-transition), box-shadow var(--click-transition);
 }
 
 .task-priority input {

@@ -5,7 +5,7 @@
 .task-dropdown-input-wrap,
 .board-search {
   width: 100%;
-  border: 1px solid var(--join-border);
+  border: 1px solid var(--join-text-secondary);
   border-radius: 10px;
   outline: none;
   background: var(--card-background);
@@ -51,13 +51,24 @@
 
 .component-input {
   position: relative;
-  width: 420px;
+  width: 422px;
   max-width: 100%;
-  margin-bottom: 22px;
+  margin-bottom: 24px;
 }
 
 .component-input input {
-  padding: 0 50px 0 20px;
+  padding: 0 53px 0 21px;
+}
+
+.component-input .field-error {
+  display: block;
+  margin-top: 8px;
+  font-size: var(--fs-error);
+  line-height: 14px;
+}
+
+.component-input .field-error:empty {
+  display: none;
 }
 
 .component-input > img {
@@ -96,9 +107,6 @@
 .avatar--gold { --avatar-color: var(--avatar-gold); }
 .avatar--royal { --avatar-color: var(--avatar-royal); }
 .avatar--lime { --avatar-color: var(--avatar-lime); }
-.avatar--amber { --avatar-color: var(--avatar-amber); }
-.avatar--violet { --avatar-color: var(--avatar-violet); }
-.avatar--red { --avatar-color: var(--avatar-red); }
 
 /* Icon button – round, transparent, shared hover circle.
    Also drives the hover circle of a native <select> via .select-wrap::after */
@@ -130,12 +138,6 @@
   height: 16px;
 }
 
-.back-button img {
-  width: 32px;
-  height: 32px;
-  object-fit: contain;
-}
-
 .select-wrap {
   position: relative;
 }
@@ -149,19 +151,28 @@
   pointer-events: none;
 }
 
+/* Overlays – slide-in comes from common.js (animateFloatingElement); page stays put while one is open */
+body:has(dialog[open]:not(.login-dialog):not(.signup-dialog)) {
+  overflow: hidden;
+}
+
 /* Toast */
 .component-toast {
   position: fixed;
   z-index: 40;
-  bottom: 80px;
+  top: 50%;
   left: 50%;
   display: inline-flex;
-  min-height: 66px;
+  min-width: 326px;
+  min-height: 74px;
   align-items: center;
+  justify-content: center;
   padding: 0 32px;
   border-radius: 20px;
   background: var(--join-dark);
   color: var(--join-white);
+  box-shadow: 0 0 4px var(--shadow-dialog);
   font-size: var(--fs-lg);
-  transform: translateX(-50%);
+  text-align: center;
+  transform: translate(-50%, -50%);
 }

@@ -105,7 +105,7 @@
 }
 
 .btn--sm {
-  min-height: 42px;
-  padding-inline: 20px;
+  min-height: 49px;
+  padding-inline: 16px;
   font-size: var(--fs-body);
 }

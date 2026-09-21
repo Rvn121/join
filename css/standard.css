@@ -1,7 +1,6 @@
 /* Layout and typography tokens – all color tokens live in colors.css */
 :root {
   --content-width: 1440px;
-  --page-width: 1920px;
   --click-transition: 100ms ease;
 
   --fs-body: 16px;
@@ -10,6 +9,7 @@
   --fs-lead: 27px;
   --fs-lg: 20px;
   --fs-button: 21px;
+  --fs-h1: 61px;
   --fs-display: 64px;
   --fs-h1-mobile: 47px;
   --fs-badge-lg: 23px;

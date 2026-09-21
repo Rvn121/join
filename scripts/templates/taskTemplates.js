@@ -81,7 +81,8 @@ function getTaskProgressTemplate(task) {
   const done = countDoneSubtasks(task.subtasks);
   const progress = getSubtaskProgress(task.subtasks);
   const label = done + "/" + task.subtasks.length + " Subtasks";
-  return `<div class="task-card-progress" title="${label}"><span><i style="width:${progress}%"></i></span><small>${label}</small></div>`;
+  const detail = done + " of " + task.subtasks.length + " subtasks done";
+  return `<div class="task-card-progress" data-progress-label="${detail}" tabindex="0"><span><i style="width:${progress}%"></i></span><small>${label}</small></div>`;
 }
 
 
@@ -190,7 +191,7 @@ function getTaskDetailTemplate(task, contacts) {
   const priority = getPriorityLabel(task.priority);
   const priorityIcon = getPriorityIcon(task.priority);
   return `
-    <button class="icon-button task-detail-close" type="button" data-task-detail-close aria-label="Taskdetails schließen">×</button>
+    <button class="icon-button task-detail-close" type="button" data-task-detail-close aria-label="Taskdetails schließen"><img src="./assets/icons/close.svg" alt="" aria-hidden="true" /></button>
     <span class="task-category ${categoryClass}">${escapeTaskHtml(task.category)}</span>
     <h2 id="taskDetailTitle">${escapeTaskHtml(task.title)}</h2>
     <p class="task-detail-description">${escapeTaskHtml(task.description || "No description")}</p>
