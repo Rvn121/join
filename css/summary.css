@@ -164,7 +164,7 @@
 
 .summary-greeting {
   display: flex;
-  flex-shrink: 0;
+  min-width: 0;
   flex-direction: column;
   gap: 3px;
   color: var(--join-dark);
@@ -199,6 +199,14 @@
   .summary-card--urgent {
     gap: 24px;
     padding: 20px 24px;
+  }
+
+  .summary-greeting span {
+    font-size: 36px;
+  }
+
+  .summary-greeting strong {
+    font-size: var(--fs-h1-mobile);
   }
 }
 
