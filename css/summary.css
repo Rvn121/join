@@ -179,7 +179,7 @@
   font-size: var(--fs-display);
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 1200px) {
   .summary-layout {
     align-items: flex-start;
     flex-direction: column;
@@ -190,13 +190,8 @@
   }
 }
 
-@media (max-width: 850px) {
-  .summary-grid {
-    width: min(100%, 560px);
-  }
-}
+@media (max-width: 991px) {
 
-@media (max-width: 620px) {
   .summary-heading-row {
     margin-bottom: 40px;
   }
@@ -293,7 +288,7 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 576px) {
   .summary-card--urgent {
     gap: 12px;
   }

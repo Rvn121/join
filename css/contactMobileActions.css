@@ -4,7 +4,7 @@
   display: none;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 991px) {
   .contact-detail-actions {
     display: none;
   }

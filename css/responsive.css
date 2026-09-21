@@ -21,29 +21,9 @@
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 991px) {
   .header-content {
     height: 150px;
-  }
-
-  .signup-area {
-    top: 42px;
-    right: 32px;
-    gap: 20px;
-    font-size: var(--fs-body);
-  }
-
-  body.logo-corner .join-logo {
-    top: 40px;
-    left: 32px;
-    width: 82px;
-  }
-}
-
-@media (max-width: 850px) {
-  .app-sidebar {
-    width: 150px;
-    min-width: 150px;
   }
 
   .sidebar-logo-link {
@@ -63,11 +43,6 @@
     padding-left: 14px;
   }
 
-  .app-header,
-  .app-header-content {
-    min-height: 80px;
-  }
-
   .app-header-content {
     padding-inline: 28px;
   }
@@ -76,22 +51,11 @@
     font-size: var(--fs-body);
   }
 
-  .user-placeholder {
-    width: 46px;
-    height: 46px;
-  }
-
   .app-main,
   .app-content {
     min-height: calc(100vh - 80px);
   }
 
-  .app-content {
-    padding: 52px 40px 72px;
-  }
-}
-
-@media (max-width: 620px) {
   body:not(.logo-corner) .page-frame {
     background: var(--join-dark);
   }

@@ -168,7 +168,7 @@ body[data-page="contacts"] .component-toast {
   font-size: var(--fs-label);
 }
 
-@media (max-width: 1260px) {
+@media (max-width: 1200px) {
   .contact-dialog-card {
     width: calc(100vw - 48px);
   }
@@ -206,7 +206,7 @@ body[data-page="contacts"] .component-toast {
   }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 991px) {
   .contact-dialog-brand {
     width: 320px;
     flex-basis: 320px;
@@ -217,26 +217,11 @@ body[data-page="contacts"] .component-toast {
     font-size: 44px;
   }
 
-  .contact-dialog-brand p {
-    font-size: var(--fs-lg);
-    white-space: normal;
-  }
-
   .contact-dialog-form-area {
     gap: 20px;
     padding-inline: 28px;
   }
 
-  .contact-dialog-avatar {
-    display: none;
-  }
-
-  .contact-dialog-close {
-    right: 28px;
-  }
-}
-
-@media (max-width: 700px) {
   .contact-dialog-card {
     width: min(396px, calc(100vw - 32px));
     height: auto;

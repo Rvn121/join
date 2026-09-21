@@ -47,7 +47,7 @@ function applyContactPanelWidth(width) {
  * @param {PointerEvent} event - DE: Zeigerereignis. EN: Pointer event.
  */
 function startContactPanelResize(event) {
-  if (window.innerWidth <= 700) return;
+  if (window.innerWidth <= 991) return;
   resizeStartX = event.clientX;
   resizeStartWidth = contactsPanel.getBoundingClientRect().width;
   isContactPanelResizing = true;
@@ -84,7 +84,7 @@ function stopContactPanelResize() {
  * @param {KeyboardEvent} event - DE: Tastaturereignis. EN: Keyboard event.
  */
 function resizeContactPanelWithKeyboard(event) {
-  if (window.innerWidth <= 700) return;
+  if (window.innerWidth <= 991) return;
   if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
   event.preventDefault();
   const currentWidth = contactsPanel.getBoundingClientRect().width;

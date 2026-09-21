@@ -244,7 +244,7 @@ body:has(dialog[open]:not(.login-dialog):not(.signup-dialog)) {
   fill: currentColor;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 991px) {
   .task-card-move {
     position: absolute;
     top: 16px;

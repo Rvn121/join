@@ -1,10 +1,10 @@
-@media (max-width: 1250px) {
+@media (max-width: 1200px) {
   .board-columns {
     grid-template-columns: repeat(2, minmax(220px, 1fr));
   }
 }
 
-@media (max-width: 1050px) {
+@media (max-width: 991px) {
   .task-form-columns {
     grid-template-columns: 1fr;
     gap: 0;
@@ -12,10 +12,6 @@
 
   .task-form-divider {
     display: none;
-  }
-
-  .task-dialog-shell {
-    width: min(720px, calc(100vw - 40px));
   }
 
   .task-form--dialog .task-form-columns {
@@ -26,9 +22,7 @@
   .task-form--dialog .task-form-footer {
     margin-top: 32px;
   }
-}
 
-@media (max-width: 850px) {
   .board-heading-row {
     align-items: flex-start;
     flex-direction: column;
@@ -42,9 +36,7 @@
   .board-search {
     flex: 1;
   }
-}
 
-@media (max-width: 700px) {
   .board-columns {
     grid-template-columns: 1fr;
   }
@@ -136,9 +128,7 @@
     content: "*This field is required";
     font-size: var(--fs-body);
   }
-}
 
-@media (max-width: 620px) {
   .add-task-page > h1 {
     margin-bottom: 40px;
   }
@@ -355,7 +345,7 @@
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 576px) {
   .task-priority-options {
     gap: 8px;
   }

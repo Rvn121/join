@@ -45,7 +45,7 @@ select {
   font: inherit;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 991px) {
   h1 {
     font-size: var(--fs-h1-mobile);
   }

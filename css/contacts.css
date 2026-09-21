@@ -265,7 +265,7 @@
   text-decoration: none;
 }
 
-@media (max-width: 1250px) {
+@media (max-width: 1200px) {
   .contacts-panel {
     width: 360px;
   }
@@ -284,24 +284,8 @@
   }
 }
 
-@media (max-width: 850px) {
-  .contacts-workspace {
-    height: calc(100vh - 80px);
-  }
+@media (max-width: 991px) {
 
-  .contact-avatar--large {
-    width: 92px;
-    height: 92px;
-    font-size: 32px;
-  }
-
-  .contact-detail-title h2 {
-    font-size: 36px;
-    line-height: 43px;
-  }
-}
-
-@media (max-width: 620px) {
   .contacts-workspace {
     height: auto;
     min-height: calc(100vh - 80px);

@@ -46,9 +46,11 @@
 
 .board-add-task {
   min-height: 48px;
+  flex-shrink: 0;
   padding: 0 16px;
   border-radius: 10px;
   gap: 4px;
+  white-space: nowrap;
 }
 
 .board-add-task img {

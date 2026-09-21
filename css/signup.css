@@ -187,7 +187,7 @@ body.signup-visible .login-dialog {
   pointer-events: none;
 }
 
-@media (max-width: 620px) {
+@media (max-width: 991px) {
   .signup-dialog,
   .signup-card {
     width: calc(100vw - 32px);
