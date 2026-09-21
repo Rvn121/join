@@ -209,15 +209,15 @@ function animateBoardTouch() {
 /**
  * DE: Scrollt die Seite, wenn der Finger nahe am oberen oder unteren Rand ist.
  * EN: Scrolls the page when the finger is near the top or bottom edge.
- * @param {number} y - DE: Fingerposition. EN: Finger position.
+ * @param {number} touchY - DE: Vertikale Fingerposition. EN: Vertical finger position.
  */
-function scrollBoardTouchEdges(y) {
+function scrollBoardTouchEdges(touchY) {
   // A scrolled-out header must not move the upper scroll zone above the viewport.
   const top = Math.max(0, document.querySelector(".app-header").getBoundingClientRect().bottom);
   const bottom = document.querySelector(".app-sidebar").getBoundingClientRect().top;
   const lowerEdge = bottom > top ? bottom : window.innerHeight;
-  if (y < top + 64) window.scrollBy(0, -10);
-  else if (y > lowerEdge - 64) window.scrollBy(0, 10);
+  if (touchY < top + 64) window.scrollBy(0, -10);
+  else if (touchY > lowerEdge - 64) window.scrollBy(0, 10);
 }
 
 

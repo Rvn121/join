@@ -121,7 +121,6 @@
 .sidebar-footer-link:hover,
 .sidebar-footer-link:focus-visible {
   color: var(--join-accent);
-  font-weight: var(--fw-bold);
 }
 
 .sidebar-footer-link-active,

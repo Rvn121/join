@@ -61,11 +61,7 @@ function openTaskCalendar() {
 /** DE: Baut das Monatsraster. EN: Builds the month grid. */
 function renderTaskCalendar() {
   const heading = taskCalendarMonth.toLocaleDateString("en-GB", {month: "long", year: "numeric"});
-  let html = '<div class="task-calendar-heading"><button type="button" data-month="-1" aria-label="Previous month">‹</button>';
-  html += '<strong aria-live="polite">' + heading + '</strong><button type="button" data-month="1" aria-label="Next month">›</button></div>';
-  html += '<div class="task-calendar-grid">';
-  for (const weekday of ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"]) html += '<span>' + weekday + '</span>';
-  taskCalendar.innerHTML = html + getTaskCalendarDaysHtml(heading) + '</div>';
+  taskCalendar.innerHTML = getTaskCalendarTemplate(heading, getTaskCalendarDaysHtml(heading));
 }
 
 /**
@@ -80,12 +76,11 @@ function getTaskCalendarDaysHtml(heading) {
   const offset = (new Date(year, month, 1).getDay() + 6) % 7;
   const days = new Date(year, month + 1, 0).getDate();
   const selected = parseTaskDueDate(taskDueDate.value);
-  let html = '';
-  for (let i = 0; i < offset; i++) html += '<span></span>';
+  let html = "";
+  for (let i = 0; i < offset; i++) html += getTaskCalendarOffsetTemplate();
   for (let day = 1; day <= days; day++) {
-    const value = year + '-' + String(month + 1).padStart(2, '0') + '-' + String(day).padStart(2, '0');
-    html += '<button type="button" data-date="' + value + '" aria-label="' + day + ' ' + heading +
-      '" aria-pressed="' + (value === selected) + '">' + day + '</button>';
+    const value = year + "-" + String(month + 1).padStart(2, "0") + "-" + String(day).padStart(2, "0");
+    html += getTaskCalendarDayTemplate(day, value, heading, value === selected);
   }
   return html;
 }

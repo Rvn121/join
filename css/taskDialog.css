@@ -193,6 +193,7 @@
   padding: 7px 16px;
   border-radius: 10px;
   font-size: var(--fs-lg);
+  overflow-wrap: anywhere;
 }
 
 .task-detail-section li .task-avatar {

@@ -129,21 +129,21 @@
           <form class="contact-form" id="contactForm" novalidate>
             <div class="component-input">
               <label class="sr-only" for="contactName">Name</label>
-              <input id="contactName" name="contactName" type="text" placeholder="Name" autocomplete="name" />
+              <input id="contactName" name="contactName" type="text" placeholder="Name" autocomplete="name" maxlength="60" />
               <img src="./assets/icons/person.svg" alt="" aria-hidden="true" />
               <span class="field-error" id="contactNameError"></span>
             </div>
 
             <div class="component-input">
               <label class="sr-only" for="contactEmail">Email</label>
-              <input id="contactEmail" name="contactEmail" type="email" placeholder="Email" autocomplete="email" />
+              <input id="contactEmail" name="contactEmail" type="email" placeholder="Email" autocomplete="email" maxlength="80" />
               <img src="./assets/icons/mail.svg" alt="" aria-hidden="true" />
               <span class="field-error" id="contactEmailError"></span>
             </div>
 
             <div class="component-input">
               <label class="sr-only" for="contactPhone">Phone</label>
-              <input id="contactPhone" name="contactPhone" type="tel" placeholder="Phone" autocomplete="tel" />
+              <input id="contactPhone" name="contactPhone" type="tel" placeholder="Phone" autocomplete="tel" maxlength="25" />
               <img src="./assets/icons/call.svg" alt="" aria-hidden="true" />
               <span class="field-error" id="contactPhoneError"></span>
             </div>

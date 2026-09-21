@@ -12,11 +12,7 @@ const contactSubmitButton = document.getElementById("contactSubmitButton");
  */
 function renderDialogAvatar(contact) {
   const avatar = document.getElementById("contactDialogAvatar");
-  if (!contact) {
-    avatar.innerHTML = '<img src="./assets/icons/profil.svg" alt="" aria-hidden="true" />';
-    return;
-  }
-  avatar.innerHTML = getContactDialogAvatarTemplate(contact);
+  avatar.innerHTML = contact ? getContactDialogAvatarTemplate(contact) : getContactDialogPlaceholderTemplate();
 }
 
 

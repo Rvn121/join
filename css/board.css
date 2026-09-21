@@ -73,7 +73,6 @@
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 24px;
-  align-items: start;
 }
 
 .board-column {
@@ -243,6 +242,7 @@
 
 .task-card h3 {
   margin: 0;
+  overflow-wrap: anywhere;
   color: var(--join-dark);
   font-size: var(--fs-body);
   line-height: 19px;

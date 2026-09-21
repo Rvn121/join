@@ -125,11 +125,11 @@ function getTaskCardTemplate(task, contacts) {
  * @returns {string} DE: Eintrag-HTML. EN: Entry HTML.
  */
 function getTaskMoveOptionTemplate(status, direction, label) {
-  const up = "M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z";
-  const down = "M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z";
+  const arrowUpPath = "M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z";
+  const arrowDownPath = "M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z";
   return `
     <button class="task-move-option" type="button" role="menuitem" data-move-status="${escapeTaskHtml(status)}">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="${direction === "up" ? up : down}" /></svg>
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="${direction === "up" ? arrowUpPath : arrowDownPath}" /></svg>
       <span>${escapeTaskHtml(label)}</span>
     </button>`;
 }
@@ -265,4 +265,49 @@ function getFormSubtaskEditorTemplate(subtask) {
  */
 function getFormSubtaskTemplate(subtask) {
   return `<li data-form-subtask-id="${escapeTaskHtml(subtask.id)}"><span class="task-subtask-title">${escapeTaskHtml(subtask.title)}</span><div class="task-subtask-actions"><button class="icon-button" type="button" data-edit-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask bearbeiten"><img src="./assets/icons/edit.svg" alt="" /></button><span class="task-inline-divider" aria-hidden="true"></span><button class="icon-button" type="button" data-delete-subtask="${escapeTaskHtml(subtask.id)}" aria-label="Subtask löschen"><img src="./assets/icons/delete.svg" alt="" /></button></div></li>`;
+}
+
+
+/**
+ * DE: Erstellt das HTML des Kalender-Popups mit Monatsnavigation und Wochentagen.
+ * EN: Creates the HTML of the calendar popup with month navigation and weekdays.
+ * @param {string} heading - DE: Beschriftung des Monats. EN: Month heading.
+ * @param {string} daysHtml - DE: HTML der Tagesbuttons. EN: HTML of the day buttons.
+ * @returns {string} DE: Kalender-HTML. EN: Calendar HTML.
+ */
+function getTaskCalendarTemplate(heading, daysHtml) {
+  return `
+    <div class="task-calendar-heading">
+      <button type="button" data-month="-1" aria-label="Previous month">‹</button>
+      <strong aria-live="polite">${escapeTaskHtml(heading)}</strong>
+      <button type="button" data-month="1" aria-label="Next month">›</button>
+    </div>
+    <div class="task-calendar-grid">
+      <span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span>
+      ${daysHtml}
+    </div>`;
+}
+
+
+/**
+ * DE: Erstellt einen leeren Platzhalter vor dem ersten Tag des Monats.
+ * EN: Creates an empty placeholder before the first day of the month.
+ * @returns {string} DE: Platzhalter-HTML. EN: Placeholder HTML.
+ */
+function getTaskCalendarOffsetTemplate() {
+  return "<span></span>";
+}
+
+
+/**
+ * DE: Erstellt den Button eines Kalendertages.
+ * EN: Creates the button of one calendar day.
+ * @param {number} day - DE: Tag im Monat. EN: Day of month.
+ * @param {string} value - DE: Datum im Format YYYY-MM-DD. EN: Date in YYYY-MM-DD format.
+ * @param {string} heading - DE: Beschriftung des Monats. EN: Month heading.
+ * @param {boolean} selected - DE: Ausgewählt. EN: Selected.
+ * @returns {string} DE: Button-HTML. EN: Button HTML.
+ */
+function getTaskCalendarDayTemplate(day, value, heading, selected) {
+  return `<button type="button" data-date="${value}" aria-label="${day} ${escapeTaskHtml(heading)}" aria-pressed="${selected}">${day}</button>`;
 }

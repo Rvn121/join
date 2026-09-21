@@ -30,6 +30,16 @@ function getContactDialogAvatarTemplate(contact) {
 
 
 /**
+ * DE: Erstellt das Platzhalterbild für einen neuen Kontakt im Dialog.
+ * EN: Creates the placeholder image for a new contact in the dialog.
+ * @returns {string} DE: HTML-Inhalt. EN: HTML content.
+ */
+function getContactDialogPlaceholderTemplate() {
+  return '<img src="./assets/icons/profil.svg" alt="" aria-hidden="true" />';
+}
+
+
+/**
  * DE: Erstellt das HTML für einen Kontakt in der Kontaktliste.
  * EN: Creates the HTML for one contact in the contact list.
  * @param {object} contact - DE: Kontakt. EN: Contact.
