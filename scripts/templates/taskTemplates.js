@@ -102,6 +102,9 @@ function getTaskCardTemplate(task, contacts) {
   return `
     <article class="task-card" draggable="true" data-task-id="${escapeTaskHtml(task.id)}" tabindex="0">
       <span class="task-category ${categoryClass}">${category}</span>
+      <button class="task-card-move" type="button" data-move-task="${escapeTaskHtml(task.id)}" aria-label="Move task" aria-haspopup="menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z" /></svg>
+      </button>
       <h3>${title}</h3>
       <p class="task-card-description">${description}</p>
       ${getTaskProgressTemplate(task)}
@@ -110,6 +113,25 @@ function getTaskCardTemplate(task, contacts) {
         <img class="task-card-priority" src="${priorityIcon}" alt="${getPriorityLabel(task.priority)}" />
       </div>
     </article>`;
+}
+
+
+/**
+ * DE: Erstellt einen Eintrag des mobilen „Move to“-Menüs.
+ * EN: Creates one entry of the mobile "Move to" menu.
+ * @param {string} status - DE: Zielstatus. EN: Target status.
+ * @param {string} direction - DE: „up“ oder „down“. EN: "up" or "down".
+ * @param {string} label - DE: Spaltenname. EN: Column label.
+ * @returns {string} DE: Eintrag-HTML. EN: Entry HTML.
+ */
+function getTaskMoveOptionTemplate(status, direction, label) {
+  const up = "M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z";
+  const down = "M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z";
+  return `
+    <button class="task-move-option" type="button" role="menuitem" data-move-status="${escapeTaskHtml(status)}">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="${direction === "up" ? up : down}" /></svg>
+      <span>${escapeTaskHtml(label)}</span>
+    </button>`;
 }
 
 

@@ -7,6 +7,7 @@ const boardState = {
   draggingTaskId: null,
   touchDrag: null,
   suppressClickUntil: 0,
+  moveTaskId: null,
 };
 
 /**
@@ -122,7 +123,7 @@ function handleBoardCardClick(event) {
 function handleBoardCardKeydown(event) {
   if (event.key !== "Enter" && event.key !== " ") return;
   const card = event.target.closest("[data-task-id]");
-  if (!card) return;
+  if (!card || event.target.closest("button")) return;
   event.preventDefault();
   openTaskDetail(card.getAttribute("data-task-id"));
 }

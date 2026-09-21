@@ -176,3 +176,102 @@ body:has(dialog[open]:not(.login-dialog):not(.signup-dialog)) {
   text-align: center;
   transform: translate(-50%, -50%);
 }
+
+/* Move-to menu (mobile board) */
+.task-card-move {
+  display: none;
+}
+
+.task-move-menu {
+  position: fixed;
+  inset: auto;
+  min-width: 106px;
+  margin: 0;
+  padding: 6px 8px 16px;
+  border: 0;
+  border-radius: 0 20px 20px 20px;
+  background: var(--join-dark);
+  box-shadow: 0 0 5px 3px var(--shadow-soft);
+  color: var(--join-white);
+}
+
+.task-move-menu:popover-open {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.task-move-menu-title {
+  padding: 6px 9px 0;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-bold);
+  line-height: 20px;
+}
+
+.task-move-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.task-move-option {
+  display: flex;
+  min-width: 90px;
+  min-height: 28px;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 5px 4px 2px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+  transition: background var(--click-transition);
+}
+
+.task-move-option:hover,
+.task-move-option:focus-visible {
+  background: var(--join-dark-active);
+  outline: none;
+}
+
+.task-move-option svg {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+@media (max-width: 620px) {
+  .task-card-move {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    width: 24px;
+    height: 26px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 1.5px solid var(--join-dark);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--join-dark);
+    cursor: pointer;
+    transition: background var(--click-transition);
+  }
+
+  .task-card-move:hover,
+  .task-card-move:focus-visible {
+    background: var(--join-surface-hover);
+    outline: none;
+  }
+
+  .task-card-move svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+}

@@ -8,6 +8,105 @@ function initializeBoardTouchEvents() {
   document.addEventListener("touchend", finishBoardTouch, { passive: false });
   document.addEventListener("touchcancel", cancelBoardTouch);
   boardColumns.addEventListener("contextmenu", preventBoardTouchContextMenu);
+  initializeBoardMoveMenu();
+}
+
+
+/**
+ * DE: Registriert die Ereignisse des mobilen „Move to“-Menüs.
+ * EN: Registers the events of the mobile "Move to" menu.
+ */
+function initializeBoardMoveMenu() {
+  const menu = document.getElementById("taskMoveMenu");
+  boardColumns.addEventListener("click", openBoardMoveMenu);
+  menu.addEventListener("click", selectBoardMoveOption);
+  document.addEventListener("scroll", closeBoardMoveMenuOnScroll, { capture: true, passive: true });
+}
+
+
+/**
+ * DE: Gibt die Nachbarspalten eines Tasks als Menüeinträge zurück.
+ * EN: Returns the neighbouring columns of a task as menu entries.
+ * @param {object} task - DE: Task. EN: Task.
+ * @returns {Array<{status: string, direction: string}>} DE: Einträge. EN: Entries.
+ */
+function getBoardMoveOptions(task) {
+  const statuses = [TASK_STATUS_TODO, TASK_STATUS_PROGRESS, TASK_STATUS_FEEDBACK, TASK_STATUS_DONE];
+  const index = statuses.indexOf(task.status);
+  const options = [];
+  if (index > 0) options.push({ status: statuses[index - 1], direction: "up" });
+  if (index < statuses.length - 1) options.push({ status: statuses[index + 1], direction: "down" });
+  return options;
+}
+
+
+/**
+ * DE: Rendert die Einträge des „Move to“-Menüs für einen Task.
+ * EN: Renders the "Move to" menu entries for a task.
+ * @param {object} task - DE: Task. EN: Task.
+ */
+function renderBoardMoveMenu(task) {
+  const options = getBoardMoveOptions(task);
+  let html = "";
+  for (let i = 0; i < options.length; i++) {
+    html += getTaskMoveOptionTemplate(options[i].status, options[i].direction, getBoardStatusLabel(options[i].status));
+  }
+  document.getElementById("taskMoveMenuList").innerHTML = html;
+}
+
+
+/**
+ * DE: Setzt das Menü mit der spitzen Ecke an das Icon der Karte (Figma: 15 px links vom Icon).
+ * EN: Places the menu with its sharp corner at the card icon (Figma: 15 px left of the icon).
+ * @param {HTMLElement} button - DE: Icon-Button. EN: Icon button.
+ */
+function positionBoardMoveMenu(button) {
+  const menu = document.getElementById("taskMoveMenu");
+  const bounds = button.getBoundingClientRect();
+  const left = Math.min(bounds.left - 15, window.innerWidth - menu.offsetWidth - 16);
+  menu.style.top = bounds.top + "px";
+  menu.style.left = Math.max(16, left) + "px";
+}
+
+
+/**
+ * DE: Öffnet das „Move to“-Menü über den Icon-Button einer Karte.
+ * EN: Opens the "Move to" menu from a card's icon button.
+ * @param {MouseEvent} event - DE: Mausereignis. EN: Mouse event.
+ */
+function openBoardMoveMenu(event) {
+  const button = event.target.closest("[data-move-task]");
+  if (!button) return;
+  const taskId = button.getAttribute("data-move-task");
+  const task = getBoardTask(taskId);
+  if (!task) return;
+  boardState.moveTaskId = taskId;
+  renderBoardMoveMenu(task);
+  document.getElementById("taskMoveMenu").showPopover();
+  positionBoardMoveMenu(button);
+}
+
+
+/**
+ * DE: Verschiebt den Task in die gewählte Spalte.
+ * EN: Moves the task to the chosen column.
+ * @param {MouseEvent} event - DE: Mausereignis. EN: Mouse event.
+ */
+function selectBoardMoveOption(event) {
+  const option = event.target.closest("[data-move-status]");
+  if (!option || !boardState.moveTaskId) return;
+  document.getElementById("taskMoveMenu").hidePopover();
+  moveBoardTask(boardState.moveTaskId, option.getAttribute("data-move-status"));
+}
+
+
+/**
+ * DE: Schließt das Menü beim Scrollen, damit es nicht von seiner Karte getrennt stehen bleibt.
+ * EN: Closes the menu on scroll so it does not stay detached from its card.
+ */
+function closeBoardMoveMenuOnScroll() {
+  const menu = document.getElementById("taskMoveMenu");
+  if (menu.matches(":popover-open")) menu.hidePopover();
 }
 
 
