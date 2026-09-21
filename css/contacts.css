@@ -5,6 +5,7 @@
 .contacts-workspace {
   display: flex;
   width: 100%;
+  max-width: var(--content-width);
   height: calc(100vh - 96px);
   min-height: 0;
 }
