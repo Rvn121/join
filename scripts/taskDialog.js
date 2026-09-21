@@ -41,6 +41,16 @@ function closeTaskFormDialog() {
 
 
 /**
+ * DE: Schließt den Formulardialog bei Klick auf den Hintergrund.
+ * EN: Closes the form dialog when clicking the backdrop.
+ * @param {MouseEvent} event - DE: Mausereignis. EN: Mouse event.
+ */
+function closeTaskFormBackdrop(event) {
+  if (event.target === taskFormDialog) closeTaskFormDialog();
+}
+
+
+/**
  * DE: Rendert den aktuell geöffneten Task erneut.
  * EN: Renders the currently opened task again.
  */
@@ -74,6 +84,16 @@ function openTaskDetail(taskId) {
 function closeTaskDetail(animated = true) {
   activeTaskDetailId = null;
   return closeFloatingDialog(taskDetailDialog, animated);
+}
+
+
+/**
+ * DE: Schließt die Detailansicht bei Klick auf den Hintergrund.
+ * EN: Closes the detail view when clicking the backdrop.
+ * @param {MouseEvent} event - DE: Mausereignis. EN: Mouse event.
+ */
+function closeTaskDetailBackdrop(event) {
+  if (event.target === taskDetailDialog) closeTaskDetail();
 }
 
 
