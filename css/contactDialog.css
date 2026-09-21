@@ -185,6 +185,15 @@ body[data-page="contacts"] .component-toast {
     left: 36px;
   }
 
+  .contact-dialog-brand h2 {
+    width: auto;
+    font-size: var(--fs-h1-mobile);
+  }
+
+  .contact-dialog-brand p {
+    font-size: var(--fs-lg);
+  }
+
   .contact-dialog-form-area {
     display: flex;
     align-items: center;
