@@ -317,7 +317,11 @@ function validateTaskDueDate() {
   return false;
 }
 
-/** DE: Öffnet den Kalender am Icon. EN: Opens the calendar at its icon. */
+/**
+ * DE: Öffnet den Kalender am Icon.
+ * EN: Opens the calendar at its icon.
+ * @param {Event} event - DE: Auslösendes Ereignis. EN: Triggering event.
+ */
 function openTaskDatePicker(event) {
   toggleTaskCalendar(event);
 }

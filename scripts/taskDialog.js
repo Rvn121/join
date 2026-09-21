@@ -78,6 +78,8 @@ function openTaskDetail(taskId) {
 /**
  * DE: Schließt die Detailansicht.
  * EN: Closes the detail view.
+ * @param {boolean} [animated] - DE: Mit Schließanimation. EN: With a closing animation.
+ * @returns {Promise<void>}
  */
 function closeTaskDetail(animated = true) {
   activeTaskDetailId = null;

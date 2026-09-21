@@ -28,7 +28,11 @@ function positionTaskCalendar() {
   taskCalendar.style.maxHeight = Math.max(80, window.innerHeight - icon.bottom - 16) + "px";
 }
 
-/** DE: Öffnet oder schließt den Kalender. EN: Toggles the date popover. */
+/**
+ * DE: Öffnet oder schließt den Kalender.
+ * EN: Toggles the date popover.
+ * @param {Event} [event] - DE: Auslösendes Ereignis. EN: Triggering event.
+ */
 function toggleTaskCalendar(event) {
   const closeFromPointer = event?.detail > 0 && taskCalendarOpenOnPointerDown;
   taskCalendarOpenOnPointerDown = false;
@@ -64,7 +68,12 @@ function renderTaskCalendar() {
   taskCalendar.innerHTML = html + getTaskCalendarDaysHtml(heading) + '</div>';
 }
 
-/** DE: Baut die Tagesbuttons des aktuellen Monats. EN: Builds the day buttons of the current month. */
+/**
+ * DE: Baut die Tagesbuttons des aktuellen Monats.
+ * EN: Builds the day buttons of the current month.
+ * @param {string} heading - DE: Beschriftung des Monats. EN: Month heading.
+ * @returns {string} DE: HTML der Tagesbuttons. EN: HTML of the day buttons.
+ */
 function getTaskCalendarDaysHtml(heading) {
   const year = taskCalendarMonth.getFullYear();
   const month = taskCalendarMonth.getMonth();
@@ -81,7 +90,11 @@ function getTaskCalendarDaysHtml(heading) {
   return html;
 }
 
-/** DE: Verarbeitet Monat und Datumsauswahl. EN: Handles month/date selection. */
+/**
+ * DE: Verarbeitet Monat und Datumsauswahl.
+ * EN: Handles month/date selection.
+ * @param {MouseEvent} event - DE: Klickereignis. EN: Click event.
+ */
 function handleTaskCalendarClick(event) {
   const button = event.target.closest("button");
   if (!button) return;

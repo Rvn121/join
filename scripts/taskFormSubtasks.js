@@ -83,7 +83,11 @@ function editFormSubtask(subtaskId) {
   editor.setSelectionRange(editor.value.length, editor.value.length);
 }
 
-/** DE: Bestaetigt die Aenderung direkt in der Zeile. EN: Confirms the inline edit. */
+/**
+ * DE: Bestaetigt die Aenderung direkt in der Zeile.
+ * EN: Confirms the inline edit.
+ * @param {string} subtaskId - DE: ID der Subtask. EN: Id of the subtask.
+ */
 function saveFormSubtask(subtaskId) {
   const editor = taskSubtaskList.querySelector("[data-subtask-editor]");
   const subtask = findFormSubtask(subtaskId);
@@ -135,14 +139,22 @@ function handleSubtaskEditorFocusOut(event) {
 }
 
 
-/** DE: Startet Bearbeiten per Doppelklick. EN: Starts editing on double-click. */
+/**
+ * DE: Startet Bearbeiten per Doppelklick.
+ * EN: Starts editing on double-click.
+ * @param {MouseEvent} event - DE: Klickereignis. EN: Click event.
+ */
 function handleSubtaskDoubleClick(event) {
   if (event.target.closest("button, input")) return;
   const row = event.target.closest("[data-form-subtask-id]");
   if (row) editFormSubtask(row.dataset.formSubtaskId);
 }
 
-/** DE: Enter bestaetigt, Escape verwirft die Aenderung. EN: Enter confirms, Escape cancels. */
+/**
+ * DE: Enter bestaetigt, Escape verwirft die Aenderung.
+ * EN: Enter confirms, Escape cancels.
+ * @param {KeyboardEvent} event - DE: Tastaturereignis. EN: Keyboard event.
+ */
 function handleSubtaskEditorKeydown(event) {
   if (!event.target.matches("[data-subtask-editor]") || event.isComposing) return;
   if (event.key !== "Enter" && event.key !== "Escape") return;

@@ -180,7 +180,11 @@ function startBoardDrag(event) {
   updateBoardDropTargets();
 }
 
-/** DE: Zeigt benachbarte Ziele sowie entfernte Ziele in Zeigernaehe. EN: Shows adjacent and nearby drop targets. */
+/**
+ * DE: Zeigt benachbarte Ziele sowie entfernte Ziele in Zeigernaehe.
+ * EN: Shows adjacent and nearby drop targets.
+ * @param {DragEvent} [event] - DE: Drag-Ereignis. EN: Drag event.
+ */
 function updateBoardDropTargets(event) {
   const task = getBoardTask(boardState.draggingTaskId);
   if (!task) return;
@@ -240,6 +244,7 @@ function clearBoardDragStyles() {
  * EN: Updates the status of a moved task.
  * @param {string} taskId - DE: Task-ID. EN: Task id.
  * @param {string} status - DE: Neuer Status. EN: New status.
+ * @param {string|null} [beforeTaskId] - DE: ID des Tasks, vor dem eingefügt wird. EN: Id of the task to insert before.
  * @returns {Promise<void>}
  */
 async function moveBoardTask(taskId, status, beforeTaskId = null) {

@@ -209,7 +209,12 @@ function formatTaskDate(dateValue) {
   return parts[2] + "/" + parts[1] + "/" + parts[0];
 }
 
-/** DE: Wandelt ein gueltiges dd/mm/yyyy-Datum in ISO um. EN: Converts a valid dd/mm/yyyy date to ISO. */
+/**
+ * DE: Wandelt ein gueltiges dd/mm/yyyy-Datum in ISO um.
+ * EN: Converts a valid dd/mm/yyyy date to ISO.
+ * @param {string} value - DE: Datum im Format dd/mm/yyyy. EN: Date in dd/mm/yyyy format.
+ * @returns {string} DE: ISO-Datum oder leerer String. EN: ISO date or an empty string.
+ */
 function parseTaskDueDate(value) {
   const match = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(value.trim());
   if (!match || Number(match[3]) === 0) return "";
