@@ -191,13 +191,11 @@
 
 .contact-detail-title {
   display: flex;
-  min-width: 0;
   flex-direction: column;
   gap: 8px;
 }
 
 .contact-detail-title h2 {
-  overflow-wrap: anywhere;
   font-size: var(--fs-h1-mobile);
   font-weight: var(--fw-medium);
   line-height: 56px;
