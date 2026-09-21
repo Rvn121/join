@@ -87,6 +87,45 @@ function saveFormSubtask(subtaskId) {
   taskSubtaskInput.focus();
 }
 
+/**
+ * DE: Übernimmt die Änderung beim Verlassen der Zeile (leerer Text wird verworfen) und beendet den Bearbeitungsmodus.
+ * EN: Commits the edit when the row is left (empty text is discarded) and ends the editing mode.
+ */
+function commitSubtaskEdit() {
+  const editor = taskSubtaskList.querySelector("[data-subtask-editor]");
+  const subtask = findFormSubtask(taskFormState.editingSubtaskId);
+  if (!editor || !subtask) return;
+  const title = editor.value.trim();
+  if (title) subtask.title = title;
+  taskFormState.editingSubtaskId = null;
+  renderFormSubtasks();
+}
+
+
+/**
+ * DE: Klick oder Tipp außerhalb der Bearbeitungszeile übernimmt die Änderung.
+ * EN: A click or tap outside the editing row commits the edit.
+ * @param {PointerEvent} event - DE: Zeigerereignis. EN: Pointer event.
+ */
+function handleSubtaskEditorPointerDown(event) {
+  if (taskFormState.editingSubtaskId === null) return;
+  if (event.target.closest(".task-subtask-editing")) return;
+  commitSubtaskEdit();
+}
+
+
+/**
+ * DE: Verlassen der Zeile per Tastatur (Tab) übernimmt die Änderung; Mausklicks regelt pointerdown.
+ * EN: Leaving the row via keyboard (Tab) commits the edit; mouse clicks are handled by pointerdown.
+ * @param {FocusEvent} event - DE: Fokusereignis. EN: Focus event.
+ */
+function handleSubtaskEditorFocusOut(event) {
+  if (!event.target.closest(".task-subtask-editing") || !event.relatedTarget) return;
+  if (event.relatedTarget.closest(".task-subtask-editing")) return;
+  commitSubtaskEdit();
+}
+
+
 /** DE: Startet Bearbeiten per Doppelklick. EN: Starts editing on double-click. */
 function handleSubtaskDoubleClick(event) {
   if (event.target.closest("button, input")) return;

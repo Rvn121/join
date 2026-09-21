@@ -271,6 +271,44 @@ function updateTaskDateAppearance() {
   clearTaskFieldError(taskDueDate);
 }
 
+/**
+ * DE: Setzt die Schrägstriche nach Tag und Monat.
+ * EN: Inserts the slashes after day and month.
+ * @param {string} digits - DE: Nur Ziffern. EN: Digits only.
+ * @returns {string} DE: Datum als dd/mm/yyyy (ggf. unvollständig). EN: Date as dd/mm/yyyy (possibly partial).
+ */
+function formatTaskDateDigits(digits) {
+  const parts = [digits.slice(0, 2), digits.slice(2, 4), digits.slice(4, 8)];
+  return parts.filter(Boolean).join("/");
+}
+
+
+/**
+ * DE: Erzwingt das Format dd/mm/yyyy während der Eingabe (nur Ziffern, Schrägstriche automatisch).
+ * EN: Enforces the dd/mm/yyyy format while typing (digits only, slashes added automatically).
+ * @param {InputEvent} event - DE: Eingabeereignis. EN: Input event.
+ */
+function maskTaskDueDate(event) {
+  let digits = taskDueDate.value.replace(/\D/g, "").slice(0, 8);
+  const deletedSeparator = event.inputType === "deleteContentBackward"
+    && formatTaskDateDigits(digits).length > taskDueDate.value.length;
+  if (deletedSeparator) digits = digits.slice(0, -1);
+  taskDueDate.value = formatTaskDateDigits(digits);
+  clearTaskFieldError(taskDueDate);
+}
+
+
+/**
+ * DE: Markiert ein unvollständiges oder ungültiges Datum beim Verlassen des Feldes.
+ * EN: Flags an incomplete or invalid date when leaving the field.
+ */
+function validateTaskDueDateInput() {
+  clearTaskFieldError(taskDueDate);
+  if (!taskDueDate.value || parseTaskDueDate(taskDueDate.value)) return;
+  showTaskFieldError(taskDueDate, "Please enter a valid date (dd/mm/yyyy).");
+}
+
+
 /** DE: Prueft das Datum im Format dd/mm/yyyy. EN: Validates the date in dd/mm/yyyy format. */
 function validateTaskDueDate() {
   if (!validateRequiredTaskField(taskDueDate, "Please select a due date.")) return false;
@@ -288,8 +326,8 @@ function openTaskDatePicker(event) {
 function initializeTaskFormEvents() {
   document.getElementById("taskDatePicker").addEventListener("pointerdown", rememberTaskCalendarState);
   document.getElementById("taskDatePicker").addEventListener("click", openTaskDatePicker);
-  taskDueDate.addEventListener("input", updateTaskDateAppearance);
-  taskDueDate.addEventListener("change", updateTaskDateAppearance);
+  taskDueDate.addEventListener("input", maskTaskDueDate);
+  taskDueDate.addEventListener("change", validateTaskDueDateInput);
   taskAssignedSearch.addEventListener("focus", openTaskContactDropdown);
   taskAssignedSearch.addEventListener("input", filterTaskContacts);
   taskContactDropdown.addEventListener("change", handleTaskContactChange);
@@ -299,6 +337,8 @@ function initializeTaskFormEvents() {
   taskSubtaskList.addEventListener("click", handleFormSubtaskAction);
   taskSubtaskList.addEventListener("dblclick", handleSubtaskDoubleClick);
   taskSubtaskList.addEventListener("keydown", handleSubtaskEditorKeydown);
+  taskSubtaskList.addEventListener("focusout", handleSubtaskEditorFocusOut);
+  document.addEventListener("pointerdown", handleSubtaskEditorPointerDown);
   document.getElementById("taskSubtaskAdd").addEventListener("click", addOrUpdateSubtask);
   document.getElementById("taskSubtaskClear").addEventListener("click", clearSubtaskInput);
   taskClearButton.addEventListener("click", handleTaskClearButton);
