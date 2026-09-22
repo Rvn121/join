@@ -250,6 +250,14 @@
   transition: background var(--click-transition), color var(--click-transition);
 }
 
+.profile-menu a[href$="help.html"] {
+  display: none;
+}
+
+.app-header-actions:has(.help-button[hidden]) .profile-menu a[href$="help.html"] {
+  display: flex;
+}
+
 .profile-menu a:hover,
 .profile-menu a:focus-visible,
 .profile-menu button:hover,

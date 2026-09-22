@@ -256,6 +256,10 @@
     display: none;
   }
 
+  .profile-menu a[href$="help.html"] {
+    display: flex;
+  }
+
   .user-placeholder {
     width: 40px;
     height: 40px;
