@@ -12,10 +12,21 @@ let activeTaskDetailId = null;
 function openTaskFormDialog(status, task) {
   if (!taskFormDialog) return;
   setTaskFormDialogMode(Boolean(task));
+  if (!task) showMobileHeaderAndMenu();
   prepareTaskForm(status, task || null);
   openFloatingDialog(taskFormDialog).then((opened) => {
     if (opened && taskFormDialog.open) taskTitle.focus({ preventScroll: true });
   });
+}
+
+
+/**
+ * DE: Scrollt nach oben, damit Header und Menue neben dem mobilen Dialog sichtbar bleiben (Figma).
+ * EN: Scrolls to the top so header and menu stay visible next to the mobile dialog (Figma).
+ */
+function showMobileHeaderAndMenu() {
+  if (!window.matchMedia("(max-width: 991px)").matches) return;
+  window.scrollTo(0, 0);
 }
 
 

@@ -166,10 +166,11 @@ function updateBoardSearch() {
  * @param {DragEvent} event - DE: Drag-Ereignis. EN: Drag event.
  */
 function startBoardDrag(event) {
-  if (boardState.touchDrag) {
+  if (boardState.touchDrag?.active) {
     event.preventDefault();
     return;
   }
+  cancelBoardTouch();
   const card = event.target.closest("[data-task-id]");
   if (!card) return;
   boardState.draggingTaskId = card.getAttribute("data-task-id");

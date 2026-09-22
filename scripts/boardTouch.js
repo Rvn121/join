@@ -132,7 +132,7 @@ function startBoardTouch(event) {
   const touch = event.touches[0];
   const drag = { card, x: touch.clientX, y: touch.clientY, active: false };
   boardState.touchDrag = drag;
-  drag.timer = window.setTimeout(() => activateBoardTouch(drag), 350);
+  drag.timer = window.setTimeout(() => activateBoardTouch(drag), 250);
 }
 
 

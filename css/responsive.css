@@ -62,12 +62,19 @@
     min-height: calc(100vh - 80px);
   }
 
+  .page-frame {
+    transition: background 400ms ease-in-out;
+  }
+
   body:not(.logo-corner) .page-frame {
     background: var(--join-dark);
   }
 
   .join-logo {
     width: 100px;
+    transition:
+      transform var(--intro-motion),
+      opacity 1ms linear 200ms;
   }
 
   .join-logo--light {
@@ -80,9 +87,7 @@
   }
 
   body.logo-corner .join-logo {
-    top: 37px;
-    left: 38px;
-    width: 64px;
+    transform: translate(calc(38px - 50vw), calc(37px - 50vh)) scale(0.64);
   }
 
   .signup-area {
@@ -314,6 +319,84 @@
     flex: 1;
     font-size: var(--fs-small);
   }
+
+  .external-layout .external-navigation {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .external-layout .sidebar-footer-link {
+    padding-inline: 4px;
+    white-space: normal;
+  }
+}
+
+@media (max-width: 991px) and (max-height: 780px) {
+  .page-frame {
+    display: flex;
+    flex-direction: column;
+    overflow: visible;
+  }
+
+  .join-logo {
+    position: absolute;
+    top: 50vh;
+    left: 50vw;
+  }
+
+  .site-main {
+    display: flex;
+    order: 1;
+    min-height: 0;
+    flex-direction: column;
+    align-items: center;
+    padding: 132px 16px 0;
+  }
+
+  .site-header {
+    position: static;
+    order: 2;
+  }
+
+  .header-content {
+    display: flex;
+    height: auto;
+    justify-content: center;
+    padding-top: 24px;
+  }
+
+  .site-footer {
+    position: static;
+    order: 3;
+  }
+
+  .login-dialog {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: translateY(8px);
+  }
+
+  body.login-visible .login-dialog {
+    transform: none;
+  }
+
+  body.signup-visible .login-dialog {
+    position: absolute;
+  }
+
+  .signup-area {
+    position: static;
+    transform: translateY(-8px);
+  }
+
+  body.login-visible .signup-area {
+    transform: none;
+  }
+
+  .footer-content {
+    padding: 24px 0 32px;
+  }
 }
 
 @media (orientation: landscape) and (max-height: 500px) and (pointer: coarse) {
@@ -345,6 +428,8 @@
 @media (prefers-reduced-motion: reduce) {
   .signup-area,
   .login-dialog,
+  .join-logo,
+  .page-frame,
   .footer-content,
   .sidebar-link,
   .sidebar-footer-link,

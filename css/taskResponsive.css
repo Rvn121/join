@@ -81,11 +81,17 @@
   }
 
   .task-form-dialog:not(.task-form-dialog--edit) {
+    top: 80px;
+    bottom: 80px;
     width: 100vw;
     max-width: none;
-    height: 100vh;
+    height: auto;
     max-height: none;
     margin: 0;
+  }
+
+  .task-form-dialog:not(.task-form-dialog--edit)::backdrop {
+    background: transparent;
   }
 
   .task-dialog-shell {
@@ -94,6 +100,10 @@
     max-height: none;
     padding: 48px 16px 32px;
     border-radius: 0;
+  }
+
+  .task-form-dialog:not(.task-form-dialog--edit) .task-dialog-shell {
+    height: 100%;
   }
 
   .task-dialog-shell > h2 {
@@ -130,34 +140,27 @@
   }
 
   .task-form-dialog:not(.task-form-dialog--edit) .task-form-footer {
-    position: fixed;
-    z-index: 20;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    flex-direction: row;
-    margin: 0;
-    padding: 12px 16px;
-    background: var(--card-background);
+    position: static;
+    justify-content: flex-start;
+    margin: 32px 0 0;
+    padding: 0 0 80px;
   }
 
-  .task-form-dialog:not(.task-form-dialog--edit) .task-form-columns {
-    padding-bottom: 80px;
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-footer > p {
+    font-size: var(--fs-body);
   }
 
   .task-form-dialog:not(.task-form-dialog--edit) .task-form-actions {
+    position: fixed;
+    z-index: 20;
+    right: 0;
+    bottom: 80px;
+    left: 0;
     width: auto;
+    justify-content: flex-end;
     gap: 32px;
-  }
-
-  .task-form--dialog .task-form-footer > p {
-    display: none;
-  }
-
-  .task-form-dialog:not(.task-form-dialog--edit) .task-form-columns::after {
-    display: block;
-    content: "*This field is required";
-    font-size: var(--fs-body);
+    padding: 12px 16px;
+    background: var(--card-background);
   }
 
   .add-task-page > h1 {
@@ -306,31 +309,25 @@
   }
 
   .task-form--page .task-form-footer {
+    justify-content: flex-start;
+    padding-bottom: 24px;
+  }
+
+  .task-form--page .task-form-footer > p {
+    font-size: var(--fs-body);
+  }
+
+  .task-form--page .task-form-actions {
     position: fixed;
     z-index: 20;
     right: 0;
     bottom: 80px;
     left: 0;
-    flex-direction: row;
+    width: auto;
     justify-content: flex-end;
-    margin: 0;
+    gap: 32px;
     padding: 12px 16px;
     background: var(--page-background);
-  }
-
-  .task-form--page .task-form-footer > p {
-    display: none;
-  }
-
-  .task-form--page .task-form-columns::after {
-    display: block;
-    content: "*This field is required";
-    font-size: var(--fs-body);
-  }
-
-  .task-form--page .task-form-actions {
-    width: auto;
-    gap: 32px;
   }
 
   .task-form-actions .btn--form {

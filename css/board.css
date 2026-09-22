@@ -317,6 +317,7 @@
 
 .task-card-footer {
   display: flex;
+  margin-top: auto;
   align-items: center;
   justify-content: space-between;
   min-height: 32px;

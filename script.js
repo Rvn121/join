@@ -38,21 +38,12 @@ function isMobileLandingView() {
 
 
 /**
- * DE: Zeigt Logo-Ecke und Login gleichzeitig in der mobilen Ansicht.
- * EN: Shows the corner logo and login together in the mobile view.
- */
-function showMobileLanding() {
-  moveLogoToCorner();
-  showLoginDialog();
-}
-
-
-/**
- * DE: Startet die weichere mobile Intro-Animation.
- * EN: Starts the smoother mobile intro animation.
+ * DE: Startet die mobile Intro-Animation: erst die Logofahrt, dann das Login.
+ * EN: Starts the mobile intro animation: the logo travel first, then the login.
  */
 function startMobileLandingAnimation() {
-  window.setTimeout(showMobileLanding, 550);
+  window.setTimeout(moveLogoToCorner, 700);
+  window.setTimeout(showLoginDialog, 1120);
 }
 
 
