@@ -317,9 +317,18 @@
 }
 
 @media (orientation: landscape) and (max-height: 500px) and (pointer: coarse) {
+  html,
+  body {
+    overflow: hidden;
+  }
+
+  dialog[open] {
+    display: none;
+  }
+
   body::before {
     position: fixed;
-    z-index: 100;
+    z-index: 9999;
     inset: 0;
     display: flex;
     align-items: center;
