@@ -136,7 +136,7 @@ function validateSingleSignUpField(field, getMessage) {
   const message = getMessage();
   clearSignUpFieldError(field);
   if (!message) {
-    if (!document.querySelector(".signup-form .input-error")) signUpMessage.textContent = "";
+    if (document.activeElement === field) signUpMessage.textContent = "";
     return true;
   }
   showSharedSignUpError(field, message);
@@ -258,6 +258,29 @@ function revalidateMarkedField(field, validator) {
 
 
 /**
+ * DE: Zeigt beim Fokus den Fehler des aktuell gewählten Feldes.
+ * EN: Shows the error of the currently focused field.
+ * @param {HTMLElement} field - DE: Formularfeld. EN: Form field.
+ * @param {Function} getMessage - DE: Fehlerfunktion. EN: Error function.
+ */
+function showFocusedSignUpError(field, getMessage) {
+  if (!field.classList.contains("input-error")) return;
+  signUpMessage.textContent = getMessage();
+}
+
+
+/**
+ * DE: Verknüpft den Fokus eines Feldes mit seiner Fehlermeldung.
+ * EN: Connects a field focus with its validation message.
+ * @param {HTMLElement} field - DE: Formularfeld. EN: Form field.
+ * @param {Function} getMessage - DE: Fehlerfunktion. EN: Error function.
+ */
+function addSignUpFocusFeedback(field, getMessage) {
+  field.addEventListener("focus", () => showFocusedSignUpError(field, getMessage));
+}
+
+
+/**
  * DE: Initialisiert die Feldvalidierung.
  * EN: Initializes field validation.
  */
@@ -267,6 +290,11 @@ function initializeSignUpValidation() {
   signUpPassword.addEventListener("blur", () => validateSingleSignUpField(signUpPassword, getPasswordErrorMessage));
   repeatPassword.addEventListener("blur", () => validateSingleSignUpField(repeatPassword, getRepeatPasswordErrorMessage));
   privacyAccepted.addEventListener("change", () => validateSingleSignUpField(privacyAccepted, getPrivacyErrorMessage));
+  addSignUpFocusFeedback(signUpName, getNameErrorMessage);
+  addSignUpFocusFeedback(signUpEmail, getEmailErrorMessage);
+  addSignUpFocusFeedback(signUpPassword, getPasswordErrorMessage);
+  addSignUpFocusFeedback(repeatPassword, getRepeatPasswordErrorMessage);
+  addSignUpFocusFeedback(privacyAccepted, getPrivacyErrorMessage);
 }
 
 

@@ -179,8 +179,8 @@
   }
 
   .signup-back-button {
-    top: 38px;
-    left: 24px;
+    top: 40px;
+    left: 40px;
   }
 
   .signup-page-logo {
@@ -219,5 +219,12 @@
   .signup-validation-message {
     height: 40px;
     line-height: 20px;
+  }
+}
+
+
+@media (max-width: 330px) {
+  .signup-back-button {
+    left: 24px;
   }
 }
