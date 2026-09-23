@@ -32,7 +32,8 @@ join/
 ├── script.js               # Script der Startseite (Login)
 ├── scripts/
 │   ├── common.js          # seitenübergreifende UI- und Session-Logik
-│   ├── dataService.js     # gesamter Datenzugriff (Firebase)
+│   ├── dataService.js     # Firebase-Basis und Benutzerzugriff
+│   ├── dataServiceRelations.js # Tasks, Kontakte und Relationen
 │   ├── templates/         # Funktionen, die HTML-Strings zurückgeben
 │   └── <seite>.js         # eine Datei pro Seite
 ├── css/

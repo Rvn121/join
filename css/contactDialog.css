@@ -1,7 +1,7 @@
 .contact-dialog {
   width: 100vw;
   max-width: none;
-  height: 100vh;
+  height: 100dvh;
   max-height: none;
   margin: 0;
   padding: 0;
@@ -21,7 +21,7 @@
   display: flex;
   width: min(1212px, calc(100vw - 48px));
   height: 592px;
-  max-height: calc(100vh - 48px);
+  max-height: calc(100dvh - 48px);
   border-radius: 30px;
   overflow: hidden;
   background: var(--card-background);
@@ -234,7 +234,7 @@ body[data-page="contacts"] .component-toast {
   .contact-dialog-card {
     width: min(396px, calc(100vw - 32px));
     height: auto;
-    max-height: calc(100vh - 32px);
+    max-height: calc(100dvh - 32px);
     flex-direction: column;
     overflow-y: auto;
     box-shadow: 0 0 4px var(--shadow-strong);

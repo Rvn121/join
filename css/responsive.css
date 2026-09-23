@@ -3,93 +3,76 @@
     padding-inline: 64px;
   }
 }
-
 @media (max-width: 1200px) {
   .app-sidebar {
     width: 190px;
     min-width: 190px;
   }
-
   .sidebar-link {
     padding-inline: 30px;
   }
-
   .sidebar-footer {
-    padding-left: 22px;
+    padding-left: 0;
   }
-
+  .sidebar-footer-link {
+    padding-left: 30px;
+  }
   .app-header-content {
     padding-inline: 40px;
   }
-
   .app-content {
     padding-inline: 56px;
   }
 }
-
 @media (max-width: 991px) {
   .header-content {
     height: 150px;
   }
-
   .sidebar-logo-link {
     padding: 40px 0 60px;
   }
-
   .sidebar-logo {
     width: 64px;
   }
-
   .sidebar-link {
     padding-inline: 22px;
     font-size: var(--fs-small);
   }
-
   .sidebar-footer {
-    padding-left: 14px;
+    padding-left: 0;
   }
-
   .app-header-content {
     padding-inline: 28px;
   }
-
   .app-title {
     font-size: var(--fs-body);
   }
-
   .app-main,
   .app-content {
-    min-height: calc(100vh - 80px);
+    min-height: calc(100dvh - 80px);
   }
-
   .page-frame {
     transition: background 400ms ease-in-out;
   }
-
   body:not(.logo-corner) .page-frame {
     background: var(--join-dark);
   }
-
   .join-logo {
     width: 100px;
     transition:
       transform var(--intro-motion),
       opacity 1ms linear 200ms;
   }
-
   .join-logo--light {
     display: block;
   }
-
   body:not(.logo-corner) .join-logo--dark,
   body.logo-corner .join-logo--light {
     opacity: 0;
   }
-
   body.logo-corner .join-logo {
     transform: translate(calc(38px - 50vw), calc(37px - 50vh)) scale(0.64);
   }
-
   .signup-area {
     position: fixed;
     top: calc(50% + 268px);
@@ -100,59 +83,47 @@
     white-space: nowrap;
     transform: translate(-50%, -8px);
   }
-
   body.login-visible .signup-area {
     transform: translate(-50%, 0);
   }
-
   .signup-area .btn--sm {
     min-height: 49px;
     padding-inline: 22px;
   }
-
   .login-dialog {
     width: calc(100vw - 32px);
   }
-
   .login-form {
     padding: 32px 16px;
   }
-
   .login-form .component-input,
   .login-form .form-message {
     width: 364px;
   }
-
   .heading-line {
     width: 88px;
   }
-
   .login-actions {
     flex-direction: column;
     gap: 21px;
   }
-
   .login-actions .btn {
     width: 180px;
     min-height: 51px;
     padding-inline: 0;
     font-size: var(--fs-body);
   }
-
   .btn {
     min-height: 44px;
     padding-inline: 18px;
     font-size: var(--fs-body);
   }
-
   .footer-content {
     padding-bottom: 22px;
   }
-
   .app-frame {
     display: block;
   }
-
   .app-sidebar {
     position: fixed;
     z-index: 30;
@@ -171,19 +142,16 @@
     overflow: visible;
     box-shadow: 0 0 4px var(--shadow-strong);
   }
-
   .sidebar-logo-link,
   body:not(.external-layout) .sidebar-footer {
     display: none;
   }
-
   .sidebar-nav {
     flex: 1;
     flex-direction: row;
     justify-content: space-evenly;
     gap: 0;
   }
-
   .sidebar-link,
   .external-layout .sidebar-footer-link {
     width: 80px;
@@ -198,123 +166,95 @@
     font-size: var(--fs-body);
     text-align: center;
   }
-
   .sidebar-link-icon {
     width: 24px;
     height: 24px;
   }
-
   .app-navigation .sidebar-link:not(.sidebar-link-active):hover,
   .app-navigation .sidebar-link:not(.sidebar-link-active):focus-visible {
     border-radius: 16px;
   }
-
-  .external-layout .app-sidebar {
-    justify-content: space-between;
-  }
-
   .external-layout .app-sidebar {
     justify-content: space-evenly;
   }
-
   .external-layout .external-navigation {
     flex: 0 0 auto;
   }
-
   .external-layout .sidebar-footer {
     display: contents;
   }
-
   .external-layout .sidebar-footer-link {
     width: auto;
     min-width: 80px;
     padding-inline: 12px;
     white-space: nowrap;
   }
-
   .app-header,
   .app-header-content {
     min-height: 80px;
   }
-
   .app-header-content {
     padding: 20px 16px;
   }
-
   .app-header-logo-link {
     display: flex;
     flex: 0 0 auto;
   }
-
   .app-header-logo {
     width: 32px;
     height: 40px;
   }
-
   .app-title,
   .help-button {
     display: none;
   }
-
   .profile-menu a[href$="help.html"] {
     display: flex;
   }
-
   .user-placeholder {
     width: 40px;
     height: 40px;
     box-shadow: inset 0 0 0 2px var(--join-dark);
   }
-
   .user-initials {
     font-size: var(--fs-body);
   }
-
   .profile-menu {
     top: 52px;
   }
-
   .app-main {
-    min-height: calc(100vh - 80px);
+    min-height: calc(100dvh - 80px);
     padding-bottom: 80px;
   }
-
   .app-content {
     min-height: 0;
     padding: 48px clamp(10px, 4vw, 16px) 64px;
   }
-
   .content-heading-row {
     align-items: flex-start;
     flex-direction: column;
     gap: 0;
   }
-
   .content-heading-row p {
     margin-top: 8px;
     font-size: var(--fs-lg);
   }
-
   .content-heading-divider {
     width: 90px;
     height: 3px;
     order: 1;
     margin-top: 13px;
   }
-
   .help-heading {
     align-items: flex-start;
   }
-
   .help-step {
     padding-left: 38px;
   }
-
   .help-follow-up {
     margin-left: 0;
   }
 }
-
 @media (max-width: 380px) {
   .sidebar-link,
   .external-layout .sidebar-footer-link {
@@ -323,31 +263,26 @@
     flex: 1;
     font-size: var(--fs-small);
   }
-
   .external-layout .external-navigation {
     min-width: 0;
     flex: 1;
   }
-
   .external-layout .sidebar-footer-link {
     padding-inline: 4px;
     white-space: normal;
   }
 }
-
 @media (max-width: 991px) and (max-height: 780px) {
   .page-frame {
     display: flex;
     flex-direction: column;
     overflow: visible;
   }
-
   .join-logo {
     position: absolute;
     top: 50vh;
     left: 50vw;
   }
-
   .site-main {
     display: flex;
     order: 1;
@@ -356,79 +291,40 @@
     align-items: center;
     padding: 132px 16px 0;
   }
-
   .site-header {
     position: static;
     order: 2;
   }
-
   .header-content {
     display: flex;
     height: auto;
     justify-content: center;
     padding-top: 24px;
   }
-
   .site-footer {
     position: static;
     order: 3;
   }
-
   .login-dialog {
     position: relative;
     top: auto;
     left: auto;
     transform: translateY(8px);
   }
-
   body.login-visible .login-dialog {
     transform: none;
   }
-
-  body.signup-visible .login-dialog {
-    position: absolute;
-  }
-
   .signup-area {
     position: static;
     transform: translateY(-8px);
   }
-
   body.login-visible .signup-area {
     transform: none;
   }
-
   .footer-content {
     padding: 24px 0 32px;
   }
 }
-
-@media (orientation: landscape) and (max-height: 500px) and (pointer: coarse) {
-  html,
-  body {
-    overflow: hidden;
-  }
-
-  dialog[open] {
-    display: none;
-  }
-
-  body::before {
-    position: fixed;
-    z-index: 9999;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    background: var(--join-dark);
-    color: var(--join-white);
-    content: "Please rotate your device";
-    font-size: var(--fs-lead);
-    text-align: center;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .signup-area,
   .login-dialog,
@@ -440,7 +336,6 @@
   .btn {
     transition-duration: 1ms;
   }
-
   .task-form-dialog[open] .task-dialog-shell,
   .task-detail-dialog[open] .task-detail-shell,
   .contact-dialog-card {

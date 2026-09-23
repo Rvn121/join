@@ -172,7 +172,7 @@
   min-height: 12px;
   margin-top: 4px;
   font-size: var(--fs-error);
-  line-height: 12px;
+  line-height: 1.2;
 }
 
 .task-priority-options {

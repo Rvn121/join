@@ -1,29 +1,12 @@
 const signUpForm = document.getElementById("signUpForm");
 const signUpButton = document.getElementById("registerButton");
-const signUpInputs = signUpForm.querySelectorAll("[data-required]");
-const privacyAccepted = document.getElementById("privacyAccepted");
+const signUpName = document.getElementById("signUpName");
+const signUpEmail = document.getElementById("signUpEmail");
+const signUpPassword = document.getElementById("signUpPassword");
 const repeatPassword = document.getElementById("repeatPassword");
-
-/**
- * DE: Prüft eine E-Mail-Adresse mit Provider und Endung.
- * EN: Checks an email address with provider and top-level domain.
- * @param {string} email - DE: E-Mail. EN: Email.
- * @returns {boolean} DE: Gültigkeit. EN: Validity.
- */
-function isSignUpEmailValid(email) {
-  return /^[^\s@]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+$/i.test(email.trim());
-}
-
-/**
- * DE: Prüft Vor- und Nachnamen.
- * EN: Checks first and last name.
- * @param {string} name - DE: Name. EN: Name.
- * @returns {boolean} DE: Gültigkeit. EN: Validity.
- */
-function isFullNameValid(name) {
-  const names = name.trim().split(/\s+/);
-  return names.length >= 2;
-}
+const privacyAccepted = document.getElementById("privacyAccepted");
+const signUpMessage = document.getElementById("signUpMessage");
+const SIGN_UP_EMAIL_KEY = "joinRegisteredEmail";
 
 /**
  * DE: Erstellt Initialen aus erstem und letztem Namen.
@@ -38,100 +21,148 @@ function createInitials(name) {
   return (firstLetter + lastLetter).toUpperCase();
 }
 
-/**
- * DE: Prüft, ob beide Passwörter gleich sind.
- * EN: Checks whether both passwords match.
- * @returns {boolean} DE: Status. EN: Status.
- */
-function doPasswordsMatch() {
-  const password = document.getElementById("signUpPassword").value;
-  return password && password === repeatPassword.value;
-}
 
 /**
- * DE: Prüft alle Bedingungen für den Sign-up-Button.
- * EN: Checks every condition for the sign-up button.
- * @returns {boolean} DE: Formularstatus. EN: Form status.
+ * DE: Entfernt die Fehlermarkierung eines Registrierungsfeldes.
+ * EN: Clears the error state of one registration field.
+ * @param {HTMLElement} field - DE: Formularfeld. EN: Form field.
  */
-function areSignUpFieldsFilled() {
-  for (let i = 0; i < signUpInputs.length; i++) {
-    if (!signUpInputs[i].value.trim()) return false;
+function clearSignUpFieldError(field) {
+  field.classList.remove("input-error");
+}
+
+
+/**
+ * DE: Markiert ein Registrierungsfeld als fehlerhaft.
+ * EN: Marks one registration field as invalid.
+ * @param {HTMLElement} field - DE: Formularfeld. EN: Form field.
+ */
+function markSignUpFieldError(field) {
+  field.classList.add("input-error");
+}
+
+
+/**
+ * DE: Gibt den Fehlertext für den Namen zurück.
+ * EN: Returns the validation message for the name.
+ * @returns {string} DE: Fehlermeldung. EN: Error message.
+ */
+function getNameErrorMessage() {
+  if (signUpName.validity.valid) return "";
+  return "Please enter your first and last name.";
+}
+
+
+/**
+ * DE: Gibt den Fehlertext für die E-Mail zurück.
+ * EN: Returns the validation message for the email.
+ * @returns {string} DE: Fehlermeldung. EN: Error message.
+ */
+function getEmailErrorMessage() {
+  if (signUpEmail.validity.valid) return "";
+  if (signUpEmail.validity.valueMissing) return "Please enter your email address.";
+  return "Please enter a valid email address.";
+}
+
+
+/**
+ * DE: Gibt den Fehlertext für das Passwort zurück.
+ * EN: Returns the validation message for the password.
+ * @returns {string} DE: Fehlermeldung. EN: Error message.
+ */
+function getPasswordErrorMessage() {
+  return signUpPassword.validity.valid ? "" : "Please enter a password.";
+}
+
+
+/**
+ * DE: Gibt den Fehlertext für die Passwortbestätigung zurück.
+ * EN: Returns the validation message for the password confirmation.
+ * @returns {string} DE: Fehlermeldung. EN: Error message.
+ */
+function getRepeatPasswordErrorMessage() {
+  if (repeatPassword.validity.valueMissing) return "Please confirm your password.";
+  if (signUpPassword.value !== repeatPassword.value) return "Passwords do not match.";
+  return "";
+}
+
+
+/**
+ * DE: Gibt den Fehlertext für die Datenschutzzustimmung zurück.
+ * EN: Returns the validation message for the privacy consent.
+ * @returns {string} DE: Fehlermeldung. EN: Error message.
+ */
+function getPrivacyErrorMessage() {
+  return privacyAccepted.checked ? "" : "Please accept the Privacy Policy.";
+}
+
+
+/**
+ * DE: Erstellt die Liste aller Registrierungsprüfungen.
+ * EN: Creates the list of all sign-up validations.
+ * @returns {Array} DE: Prüfliste. EN: Validation list.
+ */
+function getSignUpValidations() {
+  return [
+    [signUpName, getNameErrorMessage()],
+    [signUpEmail, getEmailErrorMessage()],
+    [signUpPassword, getPasswordErrorMessage()],
+    [repeatPassword, getRepeatPasswordErrorMessage()],
+    [privacyAccepted, getPrivacyErrorMessage()],
+  ];
+}
+
+
+/**
+ * DE: Zeigt genau eine zentrale Validierungsmeldung an.
+ * EN: Shows exactly one shared validation message.
+ * @param {HTMLElement} field - DE: Fehlerhaftes Feld. EN: Invalid field.
+ * @param {string} message - DE: Fehlermeldung. EN: Error message.
+ */
+function showSharedSignUpError(field, message) {
+  markSignUpFieldError(field);
+  signUpMessage.textContent = message;
+}
+
+
+/**
+ * DE: Prüft ein einzelnes Feld ohne andere Markierungen zu verändern.
+ * EN: Validates one field without changing other error states.
+ * @param {HTMLElement} field - DE: Formularfeld. EN: Form field.
+ * @param {Function} getMessage - DE: Fehlerfunktion. EN: Error function.
+ * @returns {boolean} DE: Gültigkeit. EN: Validity.
+ */
+function validateSingleSignUpField(field, getMessage) {
+  const message = getMessage();
+  clearSignUpFieldError(field);
+  if (!message) {
+    if (!document.querySelector(".signup-form .input-error")) signUpMessage.textContent = "";
+    return true;
   }
-  return true;
+  showSharedSignUpError(field, message);
+  return false;
 }
 
-/**
- * DE: Prüft alle Bedingungen für den Sign-up-Button.
- * EN: Checks every condition for the sign-up button.
- * @returns {boolean} DE: Formularstatus. EN: Form status.
- */
-function canRegisterUser() {
-  const name = document.getElementById("signUpName").value;
-  const email = document.getElementById("signUpEmail").value;
-  if (!areSignUpFieldsFilled()) return false;
-  if (!isFullNameValid(name) || !isSignUpEmailValid(email)) return false;
-  return doPasswordsMatch() && privacyAccepted.checked;
-}
 
 /**
- * DE: Aktiviert den Registrierungsbutton passend zum Formular.
- * EN: Enables the registration button according to the form.
- */
-function updateRegisterButton() {
-  signUpButton.disabled = !canRegisterUser();
-}
-
-/**
- * DE: Zeigt einen Registrierungsfehler.
- * EN: Shows a registration error.
- * @param {string} id - DE: Feld-ID. EN: Field id.
- * @param {string} message - DE: Meldung. EN: Message.
- */
-function showSignUpError(id, message) {
-  document.getElementById(`${id}Error`).textContent = message;
-  document.getElementById(id).classList.add("input-error");
-}
-
-/**
- * DE: Entfernt einen Registrierungsfehler.
- * EN: Clears one registration error.
- * @param {string} id - DE: Feld-ID. EN: Field id.
- */
-function clearSignUpError(id) {
-  document.getElementById(`${id}Error`).textContent = "";
-  document.getElementById(id).classList.remove("input-error");
-}
-
-/**
- * DE: Prüft die Passwortbestätigung während der Eingabe.
- * EN: Checks password confirmation while typing.
- */
-function validatePasswordMatchLive() {
-  clearSignUpError("repeatPassword");
-  if (!repeatPassword.value || doPasswordsMatch()) return;
-  showSignUpError(
-    "repeatPassword",
-    "Your passwords don't match. Please try again.",
-  );
-}
-
-/**
- * DE: Prüft die Eingaben vor dem Speichern.
- * EN: Validates inputs before saving.
- * @returns {boolean} DE: Formularstatus. EN: Form status.
+ * DE: Prüft alle Eingaben und zeigt den ersten Fehler an.
+ * EN: Validates all inputs and displays the first error.
+ * @returns {boolean} DE: Formularstatus. EN: Form state.
  */
 function validateSignUp() {
-  clearSignUpError("signUpName");
-  clearSignUpError("signUpEmail");
-  validatePasswordMatchLive();
-  if (!isFullNameValid(document.getElementById("signUpName").value)) {
-    showSignUpError("signUpName", "Please enter your first and last name.");
+  const validations = getSignUpValidations();
+  let firstInvalid = null;
+  for (let i = 0; i < validations.length; i++) {
+    clearSignUpFieldError(validations[i][0]);
+    if (!validations[i][1]) continue;
+    markSignUpFieldError(validations[i][0]);
+    if (!firstInvalid) firstInvalid = validations[i];
   }
-  if (!isSignUpEmailValid(document.getElementById("signUpEmail").value)) {
-    showSignUpError("signUpEmail", "Enter a valid email address.");
-  }
-  return !document.querySelector("#signUpForm .input-error");
+  signUpMessage.textContent = firstInvalid ? firstInvalid[1] : "";
+  if (firstInvalid) firstInvalid[0].focus();
+  return !firstInvalid;
 }
+
 
 /**
  * DE: Erstellt die Daten des neuen Benutzers.
@@ -139,37 +170,39 @@ function validateSignUp() {
  * @returns {object} DE: Benutzer. EN: User.
  */
 function createUserData() {
-  const name = document.getElementById("signUpName").value.trim();
-  const email = document.getElementById("signUpEmail").value.trim();
+  const name = signUpName.value.trim();
   return {
     name: name,
-    email: email,
+    email: signUpEmail.value.trim(),
     initials: createInitials(name),
     color: getRandomAvatarColor(),
   };
 }
+
 
 /**
  * DE: Meldet eine bereits verwendete E-Mail.
  * EN: Reports an email address that is already in use.
  */
 function showDuplicateEmailError() {
-  showSignUpError("signUpEmail", "This email address is already in use.");
-  document.getElementById("signUpEmail").focus();
+  showSharedSignUpError(signUpEmail, "This email address is already in use.");
+  signUpEmail.focus();
 }
+
 
 /**
  * DE: Öffnet nach der Registrierung wieder den Login.
- * EN: Opens the login again after registration.
+ * EN: Returns to login after registration.
  * @param {object} user - DE: Benutzer. EN: User.
  */
 function finishRegistration(user) {
+  sessionStorage.setItem(SIGN_UP_EMAIL_KEY, user.email);
   showToast("You signed up successfully.");
-  const loginEmail = document.getElementById("email");
-  if (!loginEmail) return (window.location.href = "./index.html");
-  loginEmail.value = user.email;
-  window.setTimeout(closeSignUp, 900);
+  window.setTimeout(() => {
+    window.location.href = "./index.html";
+  }, 850);
 }
+
 
 /**
  * DE: Speichert einen neuen Benutzer.
@@ -180,10 +213,10 @@ async function registerUser() {
   const user = createUserData();
   const existingUser = await getUserByEmail(user.email);
   if (existingUser) return showDuplicateEmailError();
-  const password = document.getElementById("signUpPassword").value;
-  await registerUserWithContact(user, password);
+  await registerUserWithContact(user, signUpPassword.value);
   finishRegistration(user);
 }
+
 
 /**
  * DE: Verarbeitet die Registrierung.
@@ -192,74 +225,14 @@ async function registerUser() {
  */
 async function handleSignUpSubmit(event) {
   event.preventDefault();
-  if (!validateSignUp() || !canRegisterUser()) return;
+  signUpMessage.textContent = "";
+  if (!validateSignUp()) return;
   signUpButton.disabled = true;
-  try {
-    await registerUser();
-  } catch {
-    document.getElementById("signUpMessage").textContent =
-      "Firebase connection failed.";
-  }
-  updateRegisterButton();
+  try { await registerUser(); }
+  catch { signUpMessage.textContent = "Firebase connection failed."; }
+  finally { signUpButton.disabled = false; }
 }
 
-/**
- * DE: Aktualisiert das Symbol eines Passwortfeldes.
- * EN: Updates a password field icon.
- * @param {HTMLInputElement} input - DE: Passwortfeld. EN: Password field.
- * @param {HTMLImageElement} icon - DE: Icon. EN: Icon.
- */
-function updatePasswordIcon(input, icon) {
-  if (!input.value) {
-    input.type = "password";
-    icon.src = "./assets/icons/lock.svg";
-  } else if (input.type === "password") {
-    icon.src = "./assets/icons/visibility_off.svg";
-  } else {
-    icon.src = "./assets/icons/visibility.svg";
-  }
-}
-
-/**
- * DE: Schaltet die Passwortsichtbarkeit um.
- * EN: Toggles password visibility.
- * @param {HTMLButtonElement} button - DE: Schaltfläche. EN: Button.
- */
-function togglePasswordVisibility(button) {
-  const input = document.getElementById(button.getAttribute("data-target"));
-  if (!input.value) return;
-  if (input.type === "password") input.type = "text";
-  else input.type = "password";
-  updatePasswordToggle(button);
-}
-
-/**
- * DE: Aktualisiert Symbol und Beschriftung eines Passwort-Buttons.
- * EN: Updates a password button icon and label.
- * @param {HTMLButtonElement} button - DE: Schaltfläche. EN: Button.
- */
-function updatePasswordToggle(button) {
-  const input = document.getElementById(button.getAttribute("data-target"));
-  updatePasswordIcon(input, button.querySelector("img"));
-  const label = input.type === "password" ? "Show password" : "Hide password";
-  button.setAttribute("aria-label", label);
-}
-
-/**
- * DE: Verknüpft ein Passwortfeld mit seinem Sichtbarkeits-Button.
- * EN: Connects a password field with its visibility button.
- * @param {HTMLButtonElement} button - DE: Schaltfläche. EN: Button.
- */
-function initializePasswordToggle(button) {
-  const input = document.getElementById(button.getAttribute("data-target"));
-  updatePasswordToggle(button);
-  input.addEventListener("input", function () {
-    updatePasswordToggle(button);
-  });
-  button.addEventListener("click", function () {
-    togglePasswordVisibility(button);
-  });
-}
 
 /**
  * DE: Aktualisiert das Checkbox-Symbol.
@@ -267,39 +240,69 @@ function initializePasswordToggle(button) {
  */
 function updatePrivacyCheckboxIcon() {
   const icon = document.getElementById("privacyCheckboxIcon");
-  if (privacyAccepted.checked) icon.src = "./assets/icons/checked.svg";
-  else icon.src = "./assets/icons/checkbox.svg";
+  icon.src = privacyAccepted.checked
+    ? "./assets/icons/checked.svg"
+    : "./assets/icons/checkbox.svg";
 }
 
+
 /**
- * DE: Initialisiert die Passwort-Buttons.
- * EN: Initializes password buttons.
+ * DE: Prüft ein bereits markiertes Feld während der Eingabe erneut.
+ * EN: Revalidates an already marked field while typing.
+ * @param {HTMLElement} field - DE: Formularfeld. EN: Form field.
+ * @param {Function} validator - DE: Prüffunktion. EN: Validator.
  */
-function initializePasswordToggles() {
-  const buttons = document.querySelectorAll("[data-password-toggle]");
-  for (let i = 0; i < buttons.length; i++) {
-    initializePasswordToggle(buttons[i]);
-  }
+function revalidateMarkedField(field, validator) {
+  if (field.classList.contains("input-error")) validator();
 }
+
+
+/**
+ * DE: Initialisiert die Feldvalidierung.
+ * EN: Initializes field validation.
+ */
+function initializeSignUpValidation() {
+  signUpName.addEventListener("blur", () => validateSingleSignUpField(signUpName, getNameErrorMessage));
+  signUpEmail.addEventListener("blur", () => validateSingleSignUpField(signUpEmail, getEmailErrorMessage));
+  signUpPassword.addEventListener("blur", () => validateSingleSignUpField(signUpPassword, getPasswordErrorMessage));
+  repeatPassword.addEventListener("blur", () => validateSingleSignUpField(repeatPassword, getRepeatPasswordErrorMessage));
+  privacyAccepted.addEventListener("change", () => validateSingleSignUpField(privacyAccepted, getPrivacyErrorMessage));
+}
+
+
+/**
+ * DE: Initialisiert das Live-Feedback der Registrierung.
+ * EN: Initializes live sign-up feedback.
+ */
+function initializeSignUpLiveFeedback() {
+  signUpName.addEventListener("input", () => revalidateMarkedField(signUpName, () => validateSingleSignUpField(signUpName, getNameErrorMessage)));
+  signUpEmail.addEventListener("input", () => revalidateMarkedField(signUpEmail, () => validateSingleSignUpField(signUpEmail, getEmailErrorMessage)));
+  signUpPassword.addEventListener("input", handlePasswordInput);
+  repeatPassword.addEventListener("input", () => validateSingleSignUpField(repeatPassword, getRepeatPasswordErrorMessage));
+}
+
+
+/**
+ * DE: Prüft Passwort und Bestätigung während der Eingabe erneut.
+ * EN: Revalidates password and confirmation while typing.
+ */
+function handlePasswordInput() {
+  revalidateMarkedField(signUpPassword, () => validateSingleSignUpField(signUpPassword, getPasswordErrorMessage));
+  if (repeatPassword.value) validateSingleSignUpField(repeatPassword, getRepeatPasswordErrorMessage);
+}
+
 
 /**
  * DE: Initialisiert die Registrierung.
  * EN: Initializes sign up.
  */
 function initializeSignUp() {
-  initializePasswordToggles();
+  initializeSignUpValidation();
+  initializeSignUpLiveFeedback();
   privacyAccepted.addEventListener("change", updatePrivacyCheckboxIcon);
-  document
-    .getElementById("signUpPassword")
-    .addEventListener("input", validatePasswordMatchLive);
-  repeatPassword.addEventListener("input", validatePasswordMatchLive);
-  for (let i = 0; i < signUpInputs.length; i++) {
-    signUpInputs[i].addEventListener("input", updateRegisterButton);
-  }
-  privacyAccepted.addEventListener("change", updateRegisterButton);
   signUpForm.addEventListener("submit", handleSignUpSubmit);
   updatePrivacyCheckboxIcon();
-  updateRegisterButton();
 }
+
 
 document.addEventListener("DOMContentLoaded", initializeSignUp);

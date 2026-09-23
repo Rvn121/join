@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,36 +33,39 @@
           <div class="component-input">
             <label class="sr-only" for="signUpName">Name</label>
             <input
-              id="signUpName"
+              id="signUpName" aria-describedby="signUpMessage"
               type="text"
               placeholder="Name"
               maxlength="60"
+              pattern=".*\S+\s+\S+.*"
+              required
               data-required
             />
             <img src="./assets/icons/person.svg" alt="" aria-hidden="true" />
-            <span class="field-error" id="signUpNameError"></span>
           </div>
 
           <div class="component-input">
             <label class="sr-only" for="signUpEmail">Email</label>
             <input
-              id="signUpEmail"
+              id="signUpEmail" aria-describedby="signUpMessage"
               type="email"
               placeholder="Email"
               autocomplete="email"
+              pattern="[^@\s]+@[^@\s.]+\.[A-Za-z]{2,}"
+              required
               data-required
             />
             <img src="./assets/icons/mail.svg" alt="" aria-hidden="true" />
-            <span class="field-error" id="signUpEmailError"></span>
           </div>
 
           <div class="component-input">
             <label class="sr-only" for="signUpPassword">Password</label>
             <input
-              id="signUpPassword"
+              id="signUpPassword" aria-describedby="signUpMessage"
               type="password"
               placeholder="Password"
               autocomplete="new-password"
+              required
               data-required
             />
             <button
@@ -74,16 +77,16 @@
             >
               <img src="./assets/icons/lock.svg" alt="" aria-hidden="true" />
             </button>
-            <span class="field-error" id="signUpPasswordError"></span>
           </div>
 
           <div class="component-input">
             <label class="sr-only" for="repeatPassword">Confirm Password</label>
             <input
-              id="repeatPassword"
+              id="repeatPassword" aria-describedby="signUpMessage"
               type="password"
               placeholder="Confirm Password"
               autocomplete="new-password"
+              required
               data-required
             />
             <button
@@ -95,11 +98,12 @@
             >
               <img src="./assets/icons/lock.svg" alt="" aria-hidden="true" />
             </button>
-            <span class="field-error" id="repeatPasswordError"></span>
           </div>
 
+          <p class="signup-validation-message" id="signUpMessage" aria-live="polite"></p>
+
           <label class="privacy-check" for="privacyAccepted">
-            <input id="privacyAccepted" type="checkbox" />
+            <input id="privacyAccepted" aria-describedby="signUpMessage" type="checkbox" required />
             <img
               class="privacy-checkbox-icon"
               id="privacyCheckboxIcon"
@@ -113,12 +117,10 @@
             >
           </label>
 
-          <p class="form-message" id="signUpMessage" aria-live="polite"></p>
           <button
             class="btn btn--primary"
             id="registerButton"
             type="submit"
-            disabled
           >
             Sign up
           </button>
@@ -137,6 +139,7 @@
     <script src="./scripts/overlays.js"></script>
     <script src="./scripts/firebaseConfig.js"></script>
     <script src="./scripts/dataService.js"></script>
+    <script src="./scripts/dataServiceRelations.js"></script>
     <script src="./scripts/avatarColors.js"></script>
     <script src="./scripts/signUp.js"></script>
   </body>

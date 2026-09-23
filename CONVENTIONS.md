@@ -21,7 +21,8 @@ join/
 ├── script.js             # Script der Startseite (Login)
 ├── scripts/
 │   ├── common.js         # seitenübergreifende UI- und Session-Logik
-│   ├── dataService.js    # gesamter Datenzugriff (Firebase)
+│   ├── dataService.js    # Firebase-Basis und Benutzerzugriff
+│   ├── dataServiceRelations.js # Tasks, Kontakte und Relationen
 │   ├── templates/        # Funktionen, die HTML-Strings zurückgeben
 │   └── <seite>.js        # eine Datei pro Seite
 ├── css/
@@ -38,7 +39,7 @@ join/
 ### JavaScript
 
 - Jede Seite bekommt eine eigene JS-Datei, benannt wie die HTML-Datei (`board.html` → `board.js`).
-- Was mehrere Seiten brauchen, kommt in `common.js` (UI, Session) oder `dataService.js` (Daten). Seiten-Scripts machen kein eigenes `fetch`.
+- Was mehrere Seiten brauchen, kommt in `common.js` (UI, Session) oder in die `dataService`-Dateien (Daten). Seiten-Scripts machen kein eigenes `fetch`.
 
 ### CSS
 
@@ -102,7 +103,7 @@ Schriftgewichte liegen ebenfalls als Token vor: `--fw-medium` (500), `--fw-semib
 
 ## 5. Neue Seite anlegen
 
-1. `<seite>.html` im Root anlegen, `style.css` einbinden, danach `common.js`, `dataService.js` und `<seite>.js`.
+1. `<seite>.html` im Root anlegen, `style.css` einbinden, danach `common.js`, `dataService.js`, `dataServiceRelations.js` und `<seite>.js`.
 2. `scripts/<seite>.js` anlegen.
 3. `css/pages/<seite>.css` anlegen und in `style.css` importieren.
 4. Neue Komponenten kommen nach `css/components/`, nicht in die Seiten-Datei.

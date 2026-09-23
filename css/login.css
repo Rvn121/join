@@ -1,9 +1,8 @@
 .page-frame {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100dvh;
   margin: 0;
-  overflow: hidden;
   background: var(--page-background);
   transition: background var(--click-transition);
 }
@@ -50,7 +49,7 @@ body.login-visible .signup-area {
 
 .site-main {
   position: relative;
-  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 .join-logo {
@@ -146,11 +145,16 @@ body.login-visible .login-dialog {
 }
 
 .form-message {
-  min-height: 14px;
+  min-height: 20px;
   margin: 0;
   color: var(--join-error);
   font-size: var(--fs-error);
-  line-height: 14px;
+  line-height: 1.2;
+}
+
+
+.form-message--success {
+  color: var(--join-accent);
 }
 
 .login-form .form-message {

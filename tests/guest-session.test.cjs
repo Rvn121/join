@@ -10,19 +10,28 @@ function storage() {
 }
 
 function app({ protectedPage = false, session = storage(), local = storage() } = {}) {
-  const redirects = [], requests = [], events = {};
+  const redirects = [], requests = [], events = {}, bodyClasses = new Set();
+  const classList = {
+    add: name => bodyClasses.add(name),
+    remove: name => bodyClasses.delete(name),
+    contains: name => bodyClasses.has(name),
+    toggle: (name, force) => force ? bodyClasses.add(name) : bodyClasses.delete(name),
+  };
   const context = vm.createContext({
     sessionStorage: session, localStorage: local,
     document: {
       getElementById: () => null, querySelectorAll: () => [], addEventListener() {},
       documentElement: { hidden: false },
-      body: { getAttribute: key => key === 'data-protected-page' && protectedPage ? 'true' : null },
+      body: {
+        classList,
+        getAttribute: key => key === 'data-protected-page' && protectedPage ? 'true' : null,
+      },
     },
     window: { location: { replace: url => redirects.push(url), reload: () => redirects.push('reload') }, addEventListener: (name, fn) => { events[name] = fn; } },
     fetch: async url => { requests.push(url); return { ok: true, json: async () => ({}) }; },
     FIREBASE_BASE_URL: 'https://example.invalid',
   });
-  for (const file of ['scripts/common.js', 'scripts/overlays.js', 'scripts/dataService.js', 'scripts/taskUtils.js', 'scripts/contacts.js', 'scripts/contactsForm.js', 'scripts/contactsActions.js', 'scripts/taskFormContacts.js', 'script.js']) {
+  for (const file of ['scripts/common.js', 'scripts/overlays.js', 'scripts/dataService.js', 'scripts/dataServiceRelations.js', 'scripts/taskUtils.js', 'scripts/contacts.js', 'scripts/contactsForm.js', 'scripts/contactsActions.js', 'scripts/taskFormContacts.js', 'script.js']) {
     vm.runInContext(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), context, { filename: file });
   }
   return { context, session, local, redirects, requests, events };
@@ -146,11 +155,12 @@ test('all internal pages declare route protection', () => {
   }
 });
 
-test('restoring a protected page from browser cache reloads session-specific content', () => {
+test('restoring a protected page from browser cache rechecks the session without flicker', () => {
   const session = storage();
   session.setItem('joinUserMode', 'guest');
   const { context, events, redirects } = app({ protectedPage: true, session });
+  assert.equal(context.document.body.classList.contains('session-ready'), true);
   events.pageshow({ persisted: true });
-  assert.equal(context.document.documentElement.hidden, true);
-  assert.deepEqual(redirects, ['reload']);
+  assert.equal(context.document.body.classList.contains('session-ready'), true);
+  assert.deepEqual(redirects, []);
 });

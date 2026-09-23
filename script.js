@@ -1,11 +1,11 @@
 const loginDialog = document.getElementById("loginDialog");
-const signUpDialog = document.getElementById("signUpDialog");
 const loginForm = document.getElementById("loginForm");
 const guestLoginButton = document.getElementById("guestLoginButton");
 const emailInput = document.getElementById("email");
 const passwordInput = document.getElementById("password");
 const loginButton = document.getElementById("loginButton");
 const loginMessage = document.getElementById("loginMessage");
+const REGISTERED_EMAIL_KEY = "joinRegisteredEmail";
 const LOGIN_ERROR_MESSAGE = "Check your email and password. Please try again.";
 
 /**
@@ -38,8 +38,8 @@ function isMobileLandingView() {
 
 
 /**
- * DE: Startet die mobile Intro-Animation: erst die Logofahrt, dann das Login.
- * EN: Starts the mobile intro animation: the logo travel first, then the login.
+ * DE: Startet die mobile Intro-Animation.
+ * EN: Starts the mobile intro animation.
  */
 function startMobileLandingAnimation() {
   window.setTimeout(moveLogoToCorner, 700);
@@ -48,8 +48,8 @@ function startMobileLandingAnimation() {
 
 
 /**
- * DE: Startet die bisherige Desktop-Intro-Animation.
- * EN: Starts the existing desktop intro animation.
+ * DE: Startet die Desktop-Intro-Animation.
+ * EN: Starts the desktop intro animation.
  */
 function startDesktopLandingAnimation() {
   window.setTimeout(moveLogoToCorner, 1100);
@@ -58,8 +58,8 @@ function startDesktopLandingAnimation() {
 
 
 /**
- * DE: Startet die passende Intro-Animation für die Bildschirmgröße.
- * EN: Starts the matching intro animation for the screen size.
+ * DE: Startet die passende Intro-Animation.
+ * EN: Starts the matching intro animation.
  */
 function startLandingAnimation() {
   if (isMobileLandingView()) return startMobileLandingAnimation();
@@ -83,6 +83,7 @@ function isEmailValid(email) {
  * EN: Shows the single login error message.
  */
 function showLoginError() {
+  loginMessage.classList.remove("form-message--success");
   emailInput.classList.add("input-error");
   passwordInput.classList.add("input-error");
   loginMessage.textContent = LOGIN_ERROR_MESSAGE;
@@ -90,20 +91,21 @@ function showLoginError() {
 
 
 /**
- * DE: Entfernt den Login-Fehler.
- * EN: Clears the login error state.
+ * DE: Entfernt Login- und Erfolgsmeldungen.
+ * EN: Clears login and success messages.
  */
 function clearLoginError() {
   emailInput.classList.remove("input-error");
   passwordInput.classList.remove("input-error");
+  loginMessage.classList.remove("form-message--success");
   loginMessage.textContent = "";
 }
 
 
 /**
- * DE: Prüft die Login-Felder ohne einzelne Feldmeldungen.
- * EN: Validates the login fields without individual field messages.
- * @returns {boolean} DE: Formularstatus. EN: Form status.
+ * DE: Prüft die Login-Felder.
+ * EN: Validates the login fields.
+ * @returns {boolean} DE: Formularstatus. EN: Form state.
  */
 function validateLoginForm() {
   const valid = isEmailValid(emailInput.value) && Boolean(passwordInput.value);
@@ -132,8 +134,7 @@ function saveUserSession(user) {
  */
 function setLoginLoading(loading) {
   loginButton.disabled = loading;
-  if (loading) loginButton.textContent = "Logging in...";
-  else loginButton.textContent = "Log in";
+  loginButton.textContent = loading ? "Logging in..." : "Log in";
 }
 
 
@@ -144,10 +145,7 @@ function setLoginLoading(loading) {
  */
 async function loginRegisteredUser() {
   const user = await verifyUser(emailInput.value, passwordInput.value);
-  if (!user) {
-    showLoginError();
-    return;
-  }
+  if (!user) return showLoginError();
   saveUserSession(user);
   window.location.href = "./summary.html";
 }
@@ -163,11 +161,8 @@ async function handleLoginSubmit(event) {
   clearLoginError();
   if (!validateLoginForm()) return;
   setLoginLoading(true);
-  try {
-    await loginRegisteredUser();
-  } catch {
-    showLoginError();
-  }
+  try { await loginRegisteredUser(); }
+  catch { showLoginError(); }
   setLoginLoading(false);
 }
 
@@ -185,36 +180,49 @@ function openGuestSummary() {
   window.location.href = "./summary.html";
 }
 
-/** DE: Erstellt die drei lokalen Gastkontakte. EN: Creates the three local guest contacts. */
+
+/**
+ * DE: Erstellt die drei lokalen Gastkontakte.
+ * EN: Creates the three local guest contacts.
+ * @returns {Array} DE: Gastkontakte. EN: Guest contacts.
+ */
 function createGuestDemoContacts() {
-  return [
+  const contacts = [
     { id: "guest-emma", name: "Tante Emma", email: "Email1@join.com", initials: "TE", color: "orange" },
     { id: "guest-jacke", name: "Jacke wie Hose", email: "Email2@join.com", initials: "JH", color: "purple" },
     { id: "guest-probier", name: "Probier Mal", email: "Email3@join.com", initials: "PM", color: "teal" },
-  ].map(contact => ({ ...contact, phone: "+49 0815 4711", isRegistered: false, userId: null }));
+  ];
+  return contacts.map(contact => ({ ...contact, phone: "+49 0815 4711", isRegistered: false, userId: null }));
 }
 
 
 /**
- * DE: Öffnet den Sign-up-Dialog.
- * EN: Opens the sign-up dialog.
+ * DE: Zeigt die Rückmeldung nach einer Registrierung.
+ * EN: Shows the feedback after registration.
+ * @param {string} email - DE: Registrierte E-Mail. EN: Registered email.
  */
-function openSignUp() {
-  signUpDialog.dataset.dialogMotion = "none";
-  if (loginDialog.open) loginDialog.close();
-  document.body.classList.add("signup-visible");
-  openFloatingDialog(signUpDialog, false, closeSignUp);
-}
-
-
-/**
- * DE: Schließt Sign-up und zeigt den Login.
- * EN: Closes sign up and shows login.
- */
-async function closeSignUp() {
-  if (!await closeFloatingDialog(signUpDialog)) return;
-  document.body.classList.remove("signup-visible");
+function showRegistrationSuccess(email) {
+  emailInput.value = email;
+  passwordInput.value = "";
+  loginMessage.textContent = "Registration successful. Enter your password to log in.";
+  loginMessage.classList.add("form-message--success");
+  moveLogoToCorner();
   showLoginDialog();
+  passwordInput.focus();
+}
+
+
+/**
+ * DE: Übernimmt die E-Mail nach der Rückkehr vom Sign-up.
+ * EN: Restores the email after returning from sign up.
+ * @returns {boolean} DE: Registrierungsstatus. EN: Registration state.
+ */
+function restoreRegistration() {
+  const email = sessionStorage.getItem(REGISTERED_EMAIL_KEY);
+  if (!email) return false;
+  sessionStorage.removeItem(REGISTERED_EMAIL_KEY);
+  showRegistrationSuccess(email);
+  return true;
 }
 
 
@@ -224,11 +232,9 @@ async function closeSignUp() {
  */
 function initializeLandingPage() {
   clearGuestForLogin();
-  startLandingAnimation();
+  if (!restoreRegistration()) startLandingAnimation();
   loginForm.addEventListener("submit", handleLoginSubmit);
   guestLoginButton.addEventListener("click", openGuestSummary);
-  document.getElementById("signUpButton").addEventListener("click", openSignUp);
-  document.getElementById("signUpBackButton").addEventListener("click", closeSignUp);
 }
 
 

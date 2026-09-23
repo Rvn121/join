@@ -377,7 +377,6 @@ function initializeContactEvents() {
 async function initializeContacts() {
   if (!protectCurrentPage()) return;
   initializeContactEvents();
-  initializeContactResizer();
   contactState.contacts = await loadContacts();
   renderContacts();
 }

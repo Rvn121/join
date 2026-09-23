@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -13,13 +13,7 @@
         <div class="content-width header-content">
           <div class="signup-area" aria-label="Registrierung">
             <span>Not a Join user?</span>
-            <button
-              class="btn btn--primary btn--sm"
-              id="signUpButton"
-              type="button"
-            >
-              Sign up
-            </button>
+            <a class="btn btn--primary btn--sm" href="./signUp.html">Sign up</a>
           </div>
         </div>
       </header>
@@ -47,6 +41,7 @@
                 type="email"
                 placeholder="Email"
                 autocomplete="email"
+                required
               />
               <img src="./assets/icons/mail.svg" alt="" aria-hidden="true" />
             </div>
@@ -59,6 +54,7 @@
                 type="password"
                 placeholder="Password"
                 autocomplete="current-password"
+                required
               />
               <button
                 class="password-toggle"
@@ -88,126 +84,6 @@
           </form>
         </dialog>
 
-        <dialog
-          class="signup-dialog"
-          id="signUpDialog"
-          aria-labelledby="signUpTitle"
-        >
-          <form
-            class="signup-form signup-dialog-form"
-            id="signUpForm"
-            novalidate
-          >
-            <button
-              class="signup-back-button"
-              id="signUpBackButton"
-              type="button"
-              aria-label="Back to log in"
-            >
-              <img src="./assets/icons/arrow.svg" alt="" aria-hidden="true" />
-            </button>
-
-            <div class="signup-dialog-heading">
-              <h1 id="signUpTitle">Sign up</h1>
-              <span class="heading-line" aria-hidden="true"></span>
-            </div>
-
-            <div class="component-input">
-              <label class="sr-only" for="signUpName">Name</label>
-              <input
-                id="signUpName"
-                type="text"
-                placeholder="Name"
-                maxlength="60"
-                data-required
-              />
-              <img src="./assets/icons/person.svg" alt="" aria-hidden="true" />
-              <span class="field-error" id="signUpNameError"></span>
-            </div>
-
-            <div class="component-input">
-              <label class="sr-only" for="signUpEmail">Email</label>
-              <input
-                id="signUpEmail"
-                type="email"
-                placeholder="Email"
-                autocomplete="email"
-                data-required
-              />
-              <img src="./assets/icons/mail.svg" alt="" aria-hidden="true" />
-              <span class="field-error" id="signUpEmailError"></span>
-            </div>
-
-            <div class="component-input">
-              <label class="sr-only" for="signUpPassword">Password</label>
-              <input
-                id="signUpPassword"
-                type="password"
-                placeholder="Password"
-                autocomplete="new-password"
-                data-required
-              />
-              <button
-                class="password-toggle"
-                type="button"
-                data-password-toggle
-                data-target="signUpPassword"
-                aria-label="Show password"
-              >
-                <img src="./assets/icons/lock.svg" alt="" aria-hidden="true" />
-              </button>
-              <span class="field-error" id="signUpPasswordError"></span>
-            </div>
-
-            <div class="component-input">
-              <label class="sr-only" for="repeatPassword"
-                >Confirm Password</label
-              >
-              <input
-                id="repeatPassword"
-                type="password"
-                placeholder="Confirm Password"
-                autocomplete="new-password"
-                data-required
-              />
-              <button
-                class="password-toggle"
-                type="button"
-                data-password-toggle
-                data-target="repeatPassword"
-                aria-label="Show password"
-              >
-                <img src="./assets/icons/lock.svg" alt="" aria-hidden="true" />
-              </button>
-              <span class="field-error" id="repeatPasswordError"></span>
-            </div>
-
-            <label class="privacy-check" for="privacyAccepted">
-              <input id="privacyAccepted" type="checkbox" />
-              <img
-                class="privacy-checkbox-icon"
-                id="privacyCheckboxIcon"
-                src="./assets/icons/checkbox.svg"
-                alt=""
-                aria-hidden="true"
-              />
-              <span
-                >I accept the
-                <a href="./privacyPolicy.html">Privacy policy</a></span
-              >
-            </label>
-
-            <p class="form-message" id="signUpMessage" aria-live="polite"></p>
-            <button
-              class="btn btn--primary"
-              id="registerButton"
-              type="submit"
-              disabled
-            >
-              Sign up
-            </button>
-          </form>
-        </dialog>
 
         <div class="component-toast" id="appToast" hidden aria-live="polite"></div>
       </main>
@@ -224,8 +100,8 @@
     <script src="./scripts/overlays.js"></script>
     <script src="./scripts/firebaseConfig.js"></script>
     <script src="./scripts/dataService.js"></script>
+    <script src="./scripts/dataServiceRelations.js"></script>
     <script src="./scripts/avatarColors.js"></script>
-    <script src="./scripts/signUp.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>

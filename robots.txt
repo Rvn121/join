@@ -1,9 +1,6 @@
-# Für Kommentare kann eine Raute verwendet werden. Diese Kommentare werden von den Suchmaschinen nicht gelesen. 
-Die Robots Textdatei im Verzeichnis der Website dient dazu, dass Inhalte des Verzeichnisses nicht von 
-Suchmaschinen wie Google verwendet werden können. 
-
-User-Agent: *
+# Search-engine crawler guidance only. This file does not provide access protection.
+User-agent: *
 
 Disallow: /index.html
-Disallow: /datenschutz.html
-Disallow: /impressum.html
+Disallow: /privacyPolicy.html
+Disallow: /legalNotice.html

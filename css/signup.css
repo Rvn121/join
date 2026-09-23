@@ -1,31 +1,10 @@
-.signup-dialog {
-  position: fixed;
-  z-index: 12;
-  top: 50%;
-  left: 50%;
-  width: 598px;
-  max-width: calc(100vw - 32px);
-  margin: 0;
-  padding: 0;
-  border: unset;
-  border-radius: 30px;
-  overflow: visible;
-  background: var(--card-background);
-  box-shadow: 0 0 14px var(--shadow-dialog);
-  transform: translate(-50%, -50%);
-}
-
-.signup-dialog::backdrop {
-  background: transparent;
-}
-
 .signup-page {
   position: relative;
   display: flex;
-  min-height: 100vh;
+  min-height: 100dvh;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 40px 16px;
+  padding: 132px 16px 32px;
 }
 
 .signup-page-logo {
@@ -39,18 +18,11 @@
 .signup-card {
   position: relative;
   width: min(100%, 598px);
+  margin: auto 0;
   border-radius: 30px;
   background: var(--card-background);
   box-shadow: 0 0 14px var(--shadow-dialog);
-}
-
-.signup-card,
-.signup-dialog-form {
   padding: 48px 88px;
-}
-
-.signup-dialog-form {
-  position: relative;
 }
 
 .signup-form {
@@ -109,8 +81,19 @@
   object-fit: scale-down;
 }
 
-.signup-form .component-input:last-of-type {
+.signup-form .component-input {
   margin-bottom: 16px;
+}
+
+.signup-validation-message {
+  width: 100%;
+  height: 20px;
+  margin: -4px 0 12px;
+  overflow: hidden;
+  color: var(--join-error);
+  font-size: var(--fs-error);
+  line-height: 20px;
+  text-align: left;
 }
 
 .privacy-check {
@@ -144,27 +127,23 @@
   text-decoration: none;
 }
 
-.signup-form .form-message {
-  width: 100%;
-  margin-top: 8px;
+
+
+.privacy-check:has(input.input-error) .privacy-checkbox-icon {
+  outline: 2px solid var(--join-error);
+  outline-offset: 2px;
 }
 
-.signup-form .form-message:empty {
-  display: none;
-}
 
 .signup-form .btn--primary {
   min-height: 55px;
-  margin-top: 32px;
+  margin-top: 24px;
 }
 
 .signup-footer {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
   display: flex;
   gap: 16px;
-  transform: translateX(-50%);
+  margin-top: 32px;
   white-space: nowrap;
 }
 
@@ -181,49 +160,64 @@
   color: var(--join-accent);
 }
 
-body.signup-visible .signup-area,
-body.signup-visible .login-dialog {
-  opacity: 0;
-  pointer-events: none;
-}
+
 
 @media (max-width: 991px) {
-  .signup-dialog,
-  .signup-card {
-    width: calc(100vw - 32px);
+  .signup-page {
+    justify-content: flex-start;
+    padding: 142px 16px 24px;
   }
 
-  .signup-card,
-  .signup-dialog-form {
-    padding: 32px 16px;
+  .signup-card {
+    width: min(calc(100vw - 32px), 350px);
+    margin: 28px 0 0;
+    padding: 32px 16px 28px;
   }
 
   .signup-dialog-heading {
-    margin-bottom: 24px;
-  }
-
-  .signup-form .component-input:last-of-type {
-    margin-bottom: 32px;
+    margin-bottom: 20px;
   }
 
   .signup-back-button {
-    top: 40px;
-    left: 40px;
+    top: 38px;
+    left: 24px;
   }
 
   .signup-page-logo {
-    top: 37px;
+    top: 58px;
     left: 38px;
     width: 64px;
   }
 
-  .signup-footer {
-    bottom: 22px;
+  .signup-form .component-input {
+    margin-bottom: 14px;
+  }
+
+  .signup-validation-message {
+    margin: -2px 0 10px;
   }
 
   .signup-form .btn--primary {
     width: 180px;
     min-height: 51px;
+    margin-top: 24px;
     font-size: var(--fs-body);
+  }
+
+  .signup-footer {
+    margin-top: auto;
+    padding-top: 32px;
+  }
+}
+
+
+@media (max-width: 380px) {
+  .signup-card {
+    width: calc(100vw - 32px);
+  }
+
+  .signup-validation-message {
+    height: 40px;
+    line-height: 20px;
   }
 }
