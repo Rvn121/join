@@ -138,10 +138,6 @@
   line-height: 19px;
 }
 
-.contacts-resizer {
-  display: none;
-}
-
 .contacts-detail-stage {
   position: relative;
   min-width: 0;
@@ -289,6 +285,25 @@
 }
 
 @media (max-width: 1200px) {
+  .contacts-heading-row {
+    align-items: flex-start;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 0;
+  }
+
+  .contacts-heading-row p {
+    margin-top: 8px;
+    font-size: var(--fs-lg);
+  }
+
+  .contacts-heading-row .content-heading-divider {
+    width: 90px;
+    height: 3px;
+    order: 1;
+    margin-top: 13px;
+  }
+
   .contacts-panel {
     width: 360px;
   }
