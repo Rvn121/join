@@ -130,23 +130,35 @@ function handleBoardCardKeydown(event) {
 
 
 /**
- * DE: Öffnet den Add-Task-Dialog für einen Status.
- * EN: Opens the Add Task dialog for a status.
+ * DE: Öffnet Add Task mobil als Seite und am Desktop als Dialog.
+ * EN: Opens Add Task as a page on mobile and as a dialog on desktop.
+ * @param {string} status - DE: Zielstatus. EN: Target status.
+ */
+function openBoardTaskForm(status) {
+  const taskStatus = normalizeTaskStatus(status);
+  if (window.matchMedia("(max-width: 991px)").matches) {
+    window.location.href = "./addTask.html?status=" + encodeURIComponent(taskStatus);
+    return;
+  }
+  openTaskFormDialog(taskStatus, null);
+}
+
+
+/**
+ * DE: Öffnet die Task-Erfassung für einen Status.
+ * EN: Opens task creation for one status.
  * @param {MouseEvent} event - DE: Mausereignis. EN: Mouse event.
  */
 function handleBoardAddTask(event) {
   const button = event.target.closest("[data-add-task-status]");
   if (!button) return;
-  openTaskFormDialog(button.getAttribute("data-add-task-status"), null);
+  openBoardTaskForm(button.getAttribute("data-add-task-status"));
 }
 
 
-/**
- * DE: Öffnet den Add-Task-Dialog für den Backlog.
- * EN: Opens the Add Task dialog for the backlog.
- */
+/** DE: Öffnet Add Task für To do. EN: Opens Add Task for To do. */
 function openBoardBacklogTask() {
-  openTaskFormDialog(TASK_STATUS_TODO, null);
+  openBoardTaskForm(TASK_STATUS_TODO);
 }
 
 
