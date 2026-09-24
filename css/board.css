@@ -357,7 +357,7 @@
   border: 2px solid var(--card-background);
   border-radius: 50%;
   background: var(--join-surface-muted);
-  cursor: pointer;
+  cursor: default;
 }
 
 .task-avatar-more img {
@@ -369,25 +369,25 @@
 .task-avatar-overflow-panel {
   position: absolute;
   z-index: 20;
-  right: 0;
+  left: 50%;
   bottom: calc(100% + 8px);
   display: none;
-  max-width: 184px;
+  width: min(200px, calc(100vw - 32px));
   flex-wrap: wrap;
-  gap: 4px;
+  gap: 0;
   padding: 8px;
   border-radius: 12px;
   background: var(--card-background);
   box-shadow: 0 0 10px var(--shadow-medium);
+  transform: translateX(-50%);
 }
 
-.task-avatar-overflow:hover .task-avatar-overflow-panel,
-.task-avatar-overflow:focus-within .task-avatar-overflow-panel {
+.task-avatar-overflow:hover .task-avatar-overflow-panel {
   display: flex;
 }
 
-.task-avatar-overflow-panel .task-avatar {
-  margin: 0;
+.task-avatar-overflow-panel .task-avatar + .task-avatar {
+  margin-left: -8px;
 }
 
 .task-card-priority {
