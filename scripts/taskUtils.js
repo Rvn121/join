@@ -30,6 +30,64 @@ function normalizeTaskStatus(status) {
 
 
 /**
+ * DE: Gibt das heutige Datum im lokalen ISO-Format zurück.
+ * EN: Returns today's date in local ISO format.
+ * @returns {string} DE: Datum als YYYY-MM-DD. EN: Date as YYYY-MM-DD.
+ */
+function getTodayTaskDate() {
+  const today = new Date();
+  const month = String(today.getMonth() + 1).padStart(2, "0");
+  const day = String(today.getDate()).padStart(2, "0");
+  return today.getFullYear() + "-" + month + "-" + day;
+}
+
+
+/**
+ * DE: Vereinheitlicht gespeicherte Task-Datumswerte als ISO-Datum.
+ * EN: Normalizes stored task date values to an ISO date.
+ * @param {string} value - DE: Gespeicherter Datumswert. EN: Stored date value.
+ * @returns {string} DE: ISO-Datum oder leer. EN: ISO date or empty.
+ */
+function normalizeStoredTaskDate(value) {
+  const dateValue = String(value || "").trim();
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dateValue)) return dateValue;
+  const match = /^(\d{2})[\/.](\d{2})[\/.](\d{4})$/.exec(dateValue);
+  if (!match) return "";
+  const iso = match[3] + "-" + match[2] + "-" + match[1];
+  const date = new Date(iso + "T12:00:00Z");
+  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === iso ? iso : "";
+}
+
+
+/**
+ * DE: Prüft, ob ein offener Task überfällig ist.
+ * EN: Checks whether an open task is overdue.
+ * @param {object} task - DE: Task. EN: Task.
+ * @returns {boolean} DE: Überfällig. EN: Overdue.
+ */
+function isTaskOverdue(task) {
+  if (!task || normalizeTaskStatus(task.status) === TASK_STATUS_DONE) return false;
+  const dueDate = normalizeStoredTaskDate(task.dueDate);
+  if (!dueDate) return false;
+  return dueDate < getTodayTaskDate();
+}
+
+
+/**
+ * DE: Prüft, ob ein Task eine noch anstehende offene Deadline hat.
+ * EN: Checks whether a task has an upcoming open deadline.
+ * @param {object} task - DE: Task. EN: Task.
+ * @returns {boolean} DE: Anstehende Deadline. EN: Upcoming deadline.
+ */
+function isTaskUpcomingDeadline(task) {
+  if (!task || normalizeTaskStatus(task.status) === TASK_STATUS_DONE) return false;
+  const dueDate = normalizeStoredTaskDate(task.dueDate);
+  if (!dueDate) return false;
+  return dueDate >= getTodayTaskDate();
+}
+
+
+/**
  * DE: Gibt eine gültige Priorität zurück.
  * EN: Returns a valid priority.
  * @param {string} priority - DE: Priorität. EN: Priority.
@@ -115,7 +173,8 @@ function normalizeTask(task) {
   normalized.priority = normalizeTaskPriority(task.priority);
   normalized.assignedTo = normalizeTaskAssignments(task.assignedTo || task.assignees);
   normalized.subtasks = normalizeSubtasks(task.subtasks);
-  normalized.dueDate = task.dueDate || task.date || "";
+  const storedDate = task.dueDate || task.date || "";
+  normalized.dueDate = normalizeStoredTaskDate(storedDate) || storedDate;
   normalized.category = task.category || task.taskCategory || "User Story";
   return normalized;
 }

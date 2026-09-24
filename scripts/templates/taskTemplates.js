@@ -48,13 +48,54 @@ function getTaskAvatarTemplate(contact) {
  * @param {Array} contacts - DE: Kontakte. EN: Contacts.
  * @returns {string} DE: Avatar-HTML. EN: Avatar HTML.
  */
-function getTaskAvatarsTemplate(task, contacts) {
-  let html = "";
+function getTaskAssignedContacts(task, contacts) {
+  const assigned = [];
   for (let i = 0; i < task.assignedTo.length; i++) {
     const contact = findTaskContact(contacts, task.assignedTo[i]);
-    if (contact) html += getTaskAvatarTemplate(contact);
+    if (contact) assigned.push(contact);
   }
+  return assigned;
+}
+
+
+/**
+ * DE: Erstellt die ausgeklappte Liste weiterer Taskkontakte.
+ * EN: Creates the expanded list of additional task contacts.
+ * @param {object[]} contacts - DE: Weitere Kontakte. EN: Additional contacts.
+ * @returns {string} DE: HTML-Inhalt. EN: HTML content.
+ */
+function getTaskExtraAvatarsTemplate(contacts) {
+  let html = "";
+  for (let i = 0; i < contacts.length; i++) html += getTaskAvatarTemplate(contacts[i]);
   return html;
+}
+
+
+/**
+ * DE: Erstellt den 3-Punkte-Schalter für weitere Taskkontakte.
+ * EN: Creates the three-dots control for additional task contacts.
+ * @param {object[]} contacts - DE: Weitere Kontakte. EN: Additional contacts.
+ * @returns {string} DE: HTML-Inhalt. EN: HTML content.
+ */
+function getTaskAvatarOverflowTemplate(contacts) {
+  if (!contacts.length) return "";
+  const label = contacts.length + " more assigned contact" + (contacts.length === 1 ? "" : "s");
+  return `<span class="task-avatar-overflow"><button class="task-avatar-more" type="button" aria-label="${label}"><img src="./assets/icons/3points.svg" alt="" aria-hidden="true" /></button><span class="task-avatar-overflow-panel" role="group" aria-label="${label}">${getTaskExtraAvatarsTemplate(contacts)}</span></span>`;
+}
+
+
+/**
+ * DE: Erstellt die Avatare eines Tasks ohne Kartenüberlauf.
+ * EN: Creates task avatars without overflowing the card.
+ * @param {object} task - DE: Task. EN: Task.
+ * @param {Array} contacts - DE: Kontakte. EN: Contacts.
+ * @returns {string} DE: Avatar-HTML. EN: Avatar HTML.
+ */
+function getTaskAvatarsTemplate(task, contacts) {
+  const assigned = getTaskAssignedContacts(task, contacts);
+  let html = "";
+  for (let i = 0; i < Math.min(4, assigned.length); i++) html += getTaskAvatarTemplate(assigned[i]);
+  return html + getTaskAvatarOverflowTemplate(assigned.slice(4));
 }
 
 
@@ -95,12 +136,13 @@ function getTaskProgressTemplate(task) {
  */
 function getTaskCardTemplate(task, contacts) {
   const categoryClass = getTaskCategoryClass(task.category);
+  const overdueClass = isTaskOverdue(task) ? " task-card--overdue" : "";
   const title = escapeTaskHtml(task.title);
   const description = escapeTaskHtml(task.description || "");
   const category = escapeTaskHtml(task.category || "User Story");
   const priorityIcon = getPriorityIcon(task.priority);
   return `
-    <article class="task-card" draggable="true" data-task-id="${escapeTaskHtml(task.id)}" tabindex="0">
+    <article class="task-card${overdueClass}" draggable="true" data-task-id="${escapeTaskHtml(task.id)}" tabindex="0">
       <span class="task-category ${categoryClass}">${category}</span>
       <button class="task-card-move" type="button" data-move-task="${escapeTaskHtml(task.id)}" aria-label="Move task" aria-haspopup="menu">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 17.01V10h-2v7.01h-3L15 21l4-3.99h-3zM9 3L5 6.99h3V14h2V6.99h3L9 3z" /></svg>
@@ -306,8 +348,10 @@ function getTaskCalendarOffsetTemplate() {
  * @param {string} value - DE: Datum im Format YYYY-MM-DD. EN: Date in YYYY-MM-DD format.
  * @param {string} heading - DE: Beschriftung des Monats. EN: Month heading.
  * @param {boolean} selected - DE: Ausgewählt. EN: Selected.
+ * @param {boolean} disabled - DE: Vergangenes Datum. EN: Past date.
  * @returns {string} DE: Button-HTML. EN: Button HTML.
  */
-function getTaskCalendarDayTemplate(day, value, heading, selected) {
-  return `<button type="button" data-date="${value}" aria-label="${day} ${escapeTaskHtml(heading)}" aria-pressed="${selected}">${day}</button>`;
+function getTaskCalendarDayTemplate(day, value, heading, selected, disabled = false) {
+  const disabledAttribute = disabled ? " disabled" : "";
+  return `<button type="button" data-date="${value}" aria-label="${day} ${escapeTaskHtml(heading)}" aria-pressed="${selected}"${disabledAttribute}>${day}</button>`;
 }

@@ -142,28 +142,33 @@
   }
 
   .task-form-dialog:not(.task-form-dialog--edit) .task-form-footer {
-    position: static;
-    justify-content: flex-start;
-    margin: 32px 0 0;
-    padding: 0 0 80px;
-  }
-
-  .task-form-dialog:not(.task-form-dialog--edit) .task-form-footer > p {
-    font-size: var(--fs-body);
-  }
-
-  .task-form-dialog:not(.task-form-dialog--edit) .task-form-actions {
     position: fixed;
     z-index: 20;
     right: 0;
     bottom: 80px;
     left: 0;
-    width: auto;
-    justify-content: flex-end;
-    gap: 32px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0;
     padding: 12px 16px;
     background: var(--page-background);
     box-shadow: inset 0 -4px 4px -2px var(--shadow-strong);
+  }
+
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-footer > p {
+    margin: 0;
+    font-size: var(--fs-body);
+  }
+
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-actions {
+    position: static;
+    width: auto;
+    flex: 0 0 auto;
+    gap: 16px;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
   }
 
   .add-task-page > h1 {
@@ -314,25 +319,32 @@
   }
 
   .task-form--page .task-form-footer {
-    justify-content: flex-start;
-    padding-bottom: 24px;
-  }
-
-  .task-form--page .task-form-footer > p {
-    font-size: var(--fs-body);
-  }
-
-  .task-form--page .task-form-actions {
     position: fixed;
     z-index: 20;
     right: 0;
     bottom: 80px;
     left: 0;
-    width: auto;
-    justify-content: flex-end;
-    gap: 32px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0;
     padding: 12px 16px;
     background: var(--page-background);
+  }
+
+  .task-form--page .task-form-footer > p {
+    margin: 0;
+    font-size: var(--fs-body);
+  }
+
+  .task-form--page .task-form-actions {
+    position: static;
+    width: auto;
+    flex: 0 0 auto;
+    justify-content: flex-end;
+    gap: 16px;
+    padding: 0;
+    background: transparent;
   }
 
   .task-form-actions .btn--form {
@@ -346,7 +358,7 @@
   }
 
   .add-task-page {
-    padding-bottom: 168px;
+    padding-bottom: 16px;
   }
 
   .task-subtask-list li > div {
@@ -392,17 +404,34 @@
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 578px) {
+  .task-form--page .task-form-footer,
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .task-form--page .task-form-footer > p,
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-footer > p {
+    width: 100%;
+    line-height: 1.2;
+  }
+
   .task-form--page .task-form-actions,
   .task-form-dialog:not(.task-form-dialog--edit) .task-form-actions {
     width: 100%;
-    gap: 16px;
+    min-width: 0;
+    flex: 0 0 auto;
+    gap: 8px;
   }
 
   .task-form--page .task-form-actions .btn--form,
   .task-form-dialog:not(.task-form-dialog--edit) .task-form-actions .btn--form {
-    flex: 1;
-    padding: 0 8px;
+    min-width: 0;
+    flex: 1 1 0;
+    padding: 0 4px;
   }
 }
 

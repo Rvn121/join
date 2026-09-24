@@ -186,6 +186,12 @@
   outline: none;
 }
 
+.task-card--overdue,
+.task-card--overdue:hover,
+.task-card--overdue:focus-visible {
+  box-shadow: 0 0 0 2px var(--join-error), 0 0 10px var(--task-card-shadow);
+}
+
 .task-card--dragging {
   z-index: 5;
   opacity: 0.88;
@@ -325,11 +331,63 @@
 
 .task-card-avatars {
   display: flex;
+  min-width: 0;
+  max-width: calc(100% - 48px);
   align-items: center;
 }
 
-.task-card-avatars .task-avatar + .task-avatar {
+.task-card-avatars > .task-avatar + .task-avatar,
+.task-card-avatars > .task-avatar + .task-avatar-overflow {
   margin-left: -8px;
+}
+
+.task-avatar-overflow {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 auto;
+}
+
+.task-avatar-more {
+  display: inline-flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 2px solid var(--card-background);
+  border-radius: 50%;
+  background: var(--join-surface-muted);
+  cursor: pointer;
+}
+
+.task-avatar-more img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.task-avatar-overflow-panel {
+  position: absolute;
+  z-index: 20;
+  right: 0;
+  bottom: calc(100% + 8px);
+  display: none;
+  max-width: 184px;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 8px;
+  border-radius: 12px;
+  background: var(--card-background);
+  box-shadow: 0 0 10px var(--shadow-medium);
+}
+
+.task-avatar-overflow:hover .task-avatar-overflow-panel,
+.task-avatar-overflow:focus-within .task-avatar-overflow-panel {
+  display: flex;
+}
+
+.task-avatar-overflow-panel .task-avatar {
+  margin: 0;
 }
 
 .task-card-priority {

@@ -23,7 +23,7 @@ function countTasksByStatus(tasks, status) {
 function countUrgentTasks(tasks) {
   let count = 0;
   for (let i = 0; i < tasks.length; i++) {
-    if (tasks[i].priority === "urgent") count++;
+    if (tasks[i].priority === "urgent" && normalizeTaskStatus(tasks[i].status) !== TASK_STATUS_DONE) count++;
   }
   return count;
 }
@@ -36,7 +36,7 @@ function countUrgentTasks(tasks) {
  * @returns {boolean} DE: Berücksichtigungsstatus. EN: Consideration state.
  */
 function hasOpenTaskDeadline(task) {
-  return Boolean(task.dueDate && task.status !== TASK_STATUS_DONE);
+  return isTaskUpcomingDeadline(task);
 }
 
 

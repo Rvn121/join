@@ -7,5 +7,12 @@
 }
 
 .task-form--page .task-form-footer {
-  margin-top: 124px;
+  margin-top: 32px;
+}
+
+.task-form-footer > p .task-required {
+  position: relative;
+  top: -0.35em;
+  font-size: 0.75em;
+  line-height: 0;
 }

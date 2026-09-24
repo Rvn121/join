@@ -33,10 +33,7 @@
 }
 
 .task-form-divider ~ .task-form-column .task-field-error {
-  position: absolute;
-  top: calc(100% + 4px);
-  left: 0;
-  margin-top: 0;
+  position: static;
 }
 
 .task-field > span,
@@ -163,16 +160,34 @@
   background: var(--join-dark);
   color: var(--join-white);
 }
+
+.task-calendar button:disabled {
+  background: transparent;
+  color: var(--join-text-secondary);
+  cursor: not-allowed;
+  opacity: 0.45;
+}
 .task-input-error {
   border-color: var(--join-error) !important;
 }
 
 .task-field-error {
   display: block;
-  min-height: 12px;
+  height: 20px;
   margin-top: 4px;
+  overflow: hidden;
   font-size: var(--fs-error);
-  line-height: 1.2;
+  line-height: 20px;
+  white-space: nowrap;
+}
+
+.task-form .task-field > input:focus,
+.task-form .task-field > textarea:focus,
+.task-form .task-field select:focus,
+.task-form .task-date-control:focus-within input,
+.task-form .task-dropdown-input-wrap:focus-within,
+.task-form .task-subtask-input-wrap:focus-within > input {
+  border-color: var(--join-border-hover);
 }
 
 .task-priority-options {

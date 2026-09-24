@@ -1,5 +1,6 @@
 .task-assigned-field {
   position: relative;
+  min-height: 122px;
 }
 
 .task-dropdown {
@@ -124,17 +125,31 @@
 
 .task-selected-contacts {
   display: flex;
-  min-height: 36px;
+  width: 100%;
+  height: 42px;
+  min-height: 42px;
+  max-height: 42px;
   align-items: center;
   padding: 6px 4px 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.task-selected-contacts::-webkit-scrollbar {
+  display: none;
 }
 
 .task-selected-contacts:empty {
-  display: none;
+  display: flex;
 }
 
 .task-selected-contacts .task-avatar + .task-avatar {
   margin-left: -7px;
+}
+
+.task-subtask-field {
+  min-height: 248px;
 }
 
 .task-subtask-input-wrap {
@@ -184,8 +199,15 @@
 }
 
 .task-subtask-list {
+  width: 100%;
+  height: 160px;
+  min-height: 160px;
+  max-height: 160px;
   margin: 8px 0 0;
   padding: 0 0 0 32px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
 }
 
 .task-subtask-list li {

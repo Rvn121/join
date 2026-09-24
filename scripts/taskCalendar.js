@@ -76,11 +76,12 @@ function getTaskCalendarDaysHtml(heading) {
   const offset = (new Date(year, month, 1).getDay() + 6) % 7;
   const days = new Date(year, month + 1, 0).getDate();
   const selected = parseTaskDueDate(taskDueDate.value);
+  const today = getTodayTaskDate();
   let html = "";
   for (let i = 0; i < offset; i++) html += getTaskCalendarOffsetTemplate();
   for (let day = 1; day <= days; day++) {
     const value = year + "-" + String(month + 1).padStart(2, "0") + "-" + String(day).padStart(2, "0");
-    html += getTaskCalendarDayTemplate(day, value, heading, value === selected);
+    html += getTaskCalendarDayTemplate(day, value, heading, value === selected, value < today);
   }
   return html;
 }
@@ -92,7 +93,7 @@ function getTaskCalendarDaysHtml(heading) {
  */
 function handleTaskCalendarClick(event) {
   const button = event.target.closest("button");
-  if (!button) return;
+  if (!button || button.disabled) return;
   if (button.dataset.month) {
     taskCalendarMonth.setMonth(taskCalendarMonth.getMonth() + Number(button.dataset.month));
     renderTaskCalendar();

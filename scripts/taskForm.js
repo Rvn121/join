@@ -304,16 +304,23 @@ function maskTaskDueDate(event) {
  */
 function validateTaskDueDateInput() {
   clearTaskFieldError(taskDueDate);
-  if (!taskDueDate.value || parseTaskDueDate(taskDueDate.value)) return;
-  showTaskFieldError(taskDueDate, "Please enter a valid date (dd/mm/yyyy).");
+  if (!taskDueDate.value) return;
+  const dueDate = parseTaskDueDate(taskDueDate.value);
+  if (!dueDate) return showTaskFieldError(taskDueDate, "Please enter a valid date (dd/mm/yyyy).");
+  if (dueDate < getTodayTaskDate()) showTaskFieldError(taskDueDate, "Please select today or a future date.");
 }
 
 
 /** DE: Prueft das Datum im Format dd/mm/yyyy. EN: Validates the date in dd/mm/yyyy format. */
 function validateTaskDueDate() {
   if (!validateRequiredTaskField(taskDueDate, "Please select a due date.")) return false;
-  if (parseTaskDueDate(taskDueDate.value)) return true;
-  showTaskFieldError(taskDueDate, "Please enter a valid date (dd/mm/yyyy).");
+  const dueDate = parseTaskDueDate(taskDueDate.value);
+  if (!dueDate) {
+    showTaskFieldError(taskDueDate, "Please enter a valid date (dd/mm/yyyy).");
+    return false;
+  }
+  if (dueDate >= getTodayTaskDate()) return true;
+  showTaskFieldError(taskDueDate, "Please select today or a future date.");
   return false;
 }
 
