@@ -11,7 +11,6 @@ function createContactInitials(name) {
   return (firstLetter + lastLetter).toUpperCase();
 }
 
-
 /**
  * DE: Prüft, ob Vor- und Nachname eingegeben wurden.
  * EN: Checks whether first and last name were entered.
@@ -23,7 +22,6 @@ function isContactNameValid(name) {
   return names.length >= 2;
 }
 
-
 /**
  * DE: Prüft eine E-Mail-Adresse.
  * EN: Checks an email address.
@@ -34,40 +32,62 @@ function isContactEmailValid(email) {
   return /^[^\s@]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+$/i.test(email.trim());
 }
 
-
 /**
- * DE: Entfernt überflüssige Leerzeichen aus der Telefonnummer.
- * EN: Removes unnecessary spaces from the phone number.
- * @param {string} value - DE: Telefonnummer. EN: Phone number.
- * @returns {string} DE: Bereinigte Telefonnummer. EN: Cleaned phone number.
+ * DE: Entfernt überflüssige Leerzeichen und eine führende 0 aus der Rufnummer.
+ * EN: Removes unnecessary spaces and a leading 0 from the phone number.
+ * @param {string} value - DE: Rufnummer ohne Ländervorwahl. EN: Number without country code.
+ * @returns {string} DE: Bereinigte Rufnummer. EN: Cleaned number.
  */
 function normalizeContactPhone(value) {
-  return value.trim().replace(/\s+/g, " ");
+  return value.trim().replace(/\s+/g, " ").replace(/^0\s*/, "");
 }
 
-
 /**
- * DE: Prüft Ländercode, Vorwahl und Rufnummer.
- * EN: Checks country code, area code and phone number.
- * @param {string} value - DE: Telefonnummer. EN: Phone number.
+ * DE: Prüft, ob die Rufnummer aus 5 bis 14 Ziffern besteht.
+ * EN: Checks whether the number consists of 5 to 14 digits.
+ * @param {string} value - DE: Rufnummer ohne Ländervorwahl. EN: Number without country code.
  * @returns {boolean} DE: Gültigkeit. EN: Validity.
  */
 function isContactPhoneValid(value) {
   const phone = normalizeContactPhone(value);
-  return /^\+\d{1,3} \d{2,5} \d{3,12}$/.test(phone);
+  const digitCount = phone.replace(/ /g, "").length;
+  return /^[\d ]+$/.test(phone) && digitCount >= 5 && digitCount <= 14;
 }
-
 
 /**
- * DE: Formatiert eine gültige Telefonnummer für die Speicherung.
- * EN: Formats a valid phone number for storage.
- * @param {string} value - DE: Telefonnummer. EN: Phone number.
- * @returns {string} DE: Formatierte Telefonnummer. EN: Formatted phone number.
+ * DE: Verbindet die gewählte Ländervorwahl mit der Rufnummer für die Speicherung.
+ * EN: Combines the selected country code with the number for storage.
+ * @param {string} value - DE: Rufnummer ohne Ländervorwahl. EN: Number without country code.
+ * @returns {string} DE: Telefonnummer wie "+49 176 47110815". EN: Phone number like "+49 176 47110815".
  */
 function formatContactPhone(value) {
-  return normalizeContactPhone(value);
+  return contactPhoneCode.value + " " + normalizeContactPhone(value);
 }
 
+/**
+ * DE: Gibt alle Ländervorwahlen der Auswahlliste zurück.
+ * EN: Returns all country codes of the select list.
+ * @returns {string[]} DE: Ländervorwahlen. EN: Country codes.
+ */
+function getContactPhoneCodes() {
+  return Array.from(contactPhoneCode.options, (option) => option.value);
+}
+
+/**
+ * DE: Teilt eine gespeicherte Telefonnummer in Ländervorwahl und Rufnummer.
+ * EN: Splits a stored phone number into country code and number.
+ * @param {string} phone - DE: Gespeicherte Telefonnummer. EN: Stored phone number.
+ * @returns {{code: string, number: string}} DE: Vorwahl und Rufnummer. EN: Code and number.
+ */
+function splitContactPhone(phone) {
+  const value = String(phone || "").trim();
+  const spaced = /^(\+\d{1,3})\s+(.*)$/.exec(value);
+  if (spaced) return { code: spaced[1], number: spaced[2] };
+  const codes = getContactPhoneCodes();
+  const code = codes.find((item) => value.startsWith(item));
+  if (code) return { code: code, number: value.slice(code.length) };
+  return { code: codes[0], number: value };
+}
 
 /**
  * DE: Zeigt einen Validierungsfehler an einem Feld an.
@@ -80,7 +100,6 @@ function showContactFieldError(input, message) {
   input.classList.add("input-error");
 }
 
-
 /**
  * DE: Entfernt den Validierungsfehler eines Feldes.
  * EN: Clears the validation error of one field.
@@ -90,7 +109,6 @@ function clearContactFieldError(input) {
   document.getElementById(input.id + "Error").textContent = "";
   input.classList.remove("input-error");
 }
-
 
 /**
  * DE: Entfernt alle Fehlermeldungen aus dem Kontaktformular.
@@ -103,7 +121,6 @@ function clearContactFormErrors() {
   document.getElementById("contactFormMessage").textContent = "";
 }
 
-
 /**
  * DE: Prüft, ob die Telefonnummer im aktuellen Dialog Pflicht ist.
  * EN: Checks whether the phone number is required in the current dialog.
@@ -115,7 +132,6 @@ function isPhoneRequired() {
   return Boolean(contact && !contact.isRegistered);
 }
 
-
 /**
  * DE: Prüft das Namensfeld und zeigt bei Bedarf einen Fehler.
  * EN: Checks the name field and shows an error when needed.
@@ -124,7 +140,6 @@ function validateContactName() {
   if (isContactNameValid(contactName.value)) return;
   showContactFieldError(contactName, "Please enter a first and last name.");
 }
-
 
 /**
  * DE: Prüft das E-Mail-Feld und zeigt bei Bedarf einen Fehler.
@@ -135,26 +150,23 @@ function validateContactEmail() {
   showContactFieldError(contactEmail, "Enter a valid email address.");
 }
 
-
 /**
  * DE: Zeigt die Fehlermeldung für die Telefonnummer an.
  * EN: Shows the phone number error message.
  */
 function showPhoneError() {
-  showContactFieldError(contactPhone, "Use the format +49 176 47110815.");
+  showContactFieldError(contactPhone, "Enter a valid phone number.");
 }
-
 
 /**
  * DE: Prüft das Telefonnummernfeld und zeigt bei Bedarf einen Fehler.
  * EN: Checks the phone field and shows an error when needed.
  */
 function validateContactPhone() {
-  if (!contactPhone.value && !isPhoneRequired()) return;
+  if (!contactPhone.value.trim() && !isPhoneRequired()) return;
   if (isContactPhoneValid(contactPhone.value)) return;
   showPhoneError();
 }
-
 
 /**
  * DE: Prüft alle Felder des Kontaktformulars.
@@ -168,7 +180,6 @@ function validateContactForm() {
   validateContactPhone();
   return !contactForm.querySelector(".input-error");
 }
-
 
 /**
  * DE: Prüft, ob eine E-Mail-Adresse bereits verwendet wird.
@@ -187,7 +198,6 @@ function hasDuplicateContactEmail(email, ignoredId = null) {
   return false;
 }
 
-
 /**
  * DE: Übernimmt geschützte Daten eines bestehenden Kontakts.
  * EN: Copies protected data from an existing contact.
@@ -202,7 +212,6 @@ function addExistingContactData(draft, existing) {
   draft.userId = existing.userId;
 }
 
-
 /**
  * DE: Erstellt die Formulardaten für einen Kontakt.
  * EN: Creates the form data for a contact.
@@ -215,7 +224,6 @@ function createContactDraft() {
   return draft;
 }
 
-
 /**
  * DE: Erstellt die frei änderbaren Daten eines Kontaktentwurfs.
  * EN: Creates the editable data of a contact draft.
@@ -225,7 +233,9 @@ function createBasicContactDraft() {
   return {
     name: contactName.value.trim(),
     email: normalizeEmail(contactEmail.value),
-    phone: contactPhone.value ? formatContactPhone(contactPhone.value) : "",
+    phone: contactPhone.value.trim()
+      ? formatContactPhone(contactPhone.value)
+      : "",
     initials: createContactInitials(contactName.value),
     color: getRandomAvatarColor(),
     isRegistered: false,

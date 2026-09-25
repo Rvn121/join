@@ -92,7 +92,9 @@
   background: transparent;
   color: var(--join-text);
   text-align: left;
-  transition: background var(--click-transition), color var(--click-transition);
+  transition:
+    background var(--click-transition),
+    color var(--click-transition);
 }
 
 .contact-list-item:not(.contact-list-item--active):hover,
@@ -184,7 +186,6 @@
   font-size: var(--fs-h1-mobile);
   font-weight: var(--fw-medium);
 }
-
 
 .contact-detail-title {
   min-width: 0;
@@ -323,7 +324,6 @@
 }
 
 @media (max-width: 991px) {
-
   .contacts-workspace {
     height: auto;
     min-height: calc(100dvh - 80px);
@@ -379,7 +379,7 @@
   }
 
   .contact-detail {
-    margin-top: 48px;
+    margin-top: 32px;
   }
 
   .contact-detail-head {

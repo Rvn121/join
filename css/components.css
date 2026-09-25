@@ -5,13 +5,15 @@
 .task-dropdown-input-wrap,
 .board-search {
   width: 100%;
-  border: 1px solid var(--join-text-secondary);
+  border: 1px solid var(--join-border);
   border-radius: 10px;
   outline: none;
   background: var(--card-background);
   color: var(--join-text);
   font-size: var(--fs-lg);
-  transition: border-color var(--click-transition), box-shadow var(--click-transition);
+  transition:
+    border-color var(--click-transition),
+    box-shadow var(--click-transition);
 }
 
 .component-input input,
@@ -82,6 +84,50 @@
   pointer-events: none;
 }
 
+/* Phone input – country code select inside the input frame */
+.phone-input-field {
+  position: relative;
+}
+
+.phone-input-field select {
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 1px;
+  width: 106px;
+  padding: 0 26px 0 20px;
+  border: unset;
+  border-right: 1px solid var(--join-border);
+  outline: none;
+  appearance: none;
+  background: url("../assets/icons/arrow_drop_down.svg") no-repeat right 8px
+    center;
+  color: var(--join-text);
+  font-size: var(--fs-body);
+  cursor: pointer;
+}
+
+.component-input .phone-input-field input {
+  padding-left: 120px;
+}
+
+.phone-input-field select:focus ~ input:not(.input-error) {
+  border-color: var(--join-border-hover);
+}
+
+@media (max-width: 991px) {
+  .phone-input-field select {
+    top: 8px;
+    bottom: 8px;
+    width: 96px;
+    padding: 0 24px 0 12px;
+  }
+
+  .component-input .phone-input-field input {
+    padding-left: 108px;
+  }
+}
+
 .contact-avatar,
 .task-avatar {
   display: inline-flex;
@@ -95,18 +141,42 @@
 }
 
 /* Avatar color modifiers – set --avatar-color, consumed by .contact-avatar and .task-avatar */
-.avatar--orange { --avatar-color: var(--avatar-orange); }
-.avatar--pink { --avatar-color: var(--avatar-pink); }
-.avatar--indigo { --avatar-color: var(--avatar-indigo); }
-.avatar--purple { --avatar-color: var(--avatar-purple); }
-.avatar--cyan { --avatar-color: var(--avatar-cyan); }
-.avatar--teal { --avatar-color: var(--avatar-teal); }
-.avatar--coral { --avatar-color: var(--avatar-coral); }
-.avatar--apricot { --avatar-color: var(--avatar-apricot); }
-.avatar--magenta { --avatar-color: var(--avatar-magenta); }
-.avatar--gold { --avatar-color: var(--avatar-gold); }
-.avatar--royal { --avatar-color: var(--avatar-royal); }
-.avatar--lime { --avatar-color: var(--avatar-lime); }
+.avatar--orange {
+  --avatar-color: var(--avatar-orange);
+}
+.avatar--pink {
+  --avatar-color: var(--avatar-pink);
+}
+.avatar--indigo {
+  --avatar-color: var(--avatar-indigo);
+}
+.avatar--purple {
+  --avatar-color: var(--avatar-purple);
+}
+.avatar--cyan {
+  --avatar-color: var(--avatar-cyan);
+}
+.avatar--teal {
+  --avatar-color: var(--avatar-teal);
+}
+.avatar--coral {
+  --avatar-color: var(--avatar-coral);
+}
+.avatar--apricot {
+  --avatar-color: var(--avatar-apricot);
+}
+.avatar--magenta {
+  --avatar-color: var(--avatar-magenta);
+}
+.avatar--gold {
+  --avatar-color: var(--avatar-gold);
+}
+.avatar--royal {
+  --avatar-color: var(--avatar-royal);
+}
+.avatar--lime {
+  --avatar-color: var(--avatar-lime);
+}
 
 /* Icon button – round, transparent, shared hover circle.
    Also drives the hover circle of a native <select> via .select-wrap::after */

@@ -3,6 +3,7 @@ const contactForm = document.getElementById("contactForm");
 const contactName = document.getElementById("contactName");
 const contactEmail = document.getElementById("contactEmail");
 const contactPhone = document.getElementById("contactPhone");
+const contactPhoneCode = document.getElementById("contactPhoneCode");
 const contactSubmitButton = document.getElementById("contactSubmitButton");
 
 /**
@@ -12,9 +13,10 @@ const contactSubmitButton = document.getElementById("contactSubmitButton");
  */
 function renderDialogAvatar(contact) {
   const avatar = document.getElementById("contactDialogAvatar");
-  avatar.innerHTML = contact ? getContactDialogAvatarTemplate(contact) : getContactDialogPlaceholderTemplate();
+  avatar.innerHTML = contact
+    ? getContactDialogAvatarTemplate(contact)
+    : getContactDialogPlaceholderTemplate();
 }
-
 
 /**
  * DE: Setzt die Texte des Kontaktformulars passend zum Modus.
@@ -22,12 +24,15 @@ function renderDialogAvatar(contact) {
  * @param {string} mode - DE: Dialogmodus. EN: Dialog mode.
  */
 function setContactDialogTexts(mode) {
-  document.getElementById("contactDialogTitle").textContent = mode === "add" ? "Add contact" : "Edit contact";
-  document.getElementById("contactDialogSubtitle").textContent = mode === "add" ? "Tasks are better with a team!" : "";
-  document.getElementById("contactSubmitLabel").textContent = mode === "add" ? "Create contact" : "Save";
-  document.getElementById("contactCancelLabel").textContent = mode === "add" ? "Cancel" : "Delete";
+  document.getElementById("contactDialogTitle").textContent =
+    mode === "add" ? "Add contact" : "Edit contact";
+  document.getElementById("contactDialogSubtitle").textContent =
+    mode === "add" ? "Tasks are better with a team!" : "";
+  document.getElementById("contactSubmitLabel").textContent =
+    mode === "add" ? "Create contact" : "Save";
+  document.getElementById("contactCancelLabel").textContent =
+    mode === "add" ? "Cancel" : "Delete";
 }
-
 
 /**
  * DE: Setzt das Symbol des zweiten Dialogbuttons passend zum Modus.
@@ -36,9 +41,9 @@ function setContactDialogTexts(mode) {
  */
 function setContactDialogSecondaryIcon(mode) {
   const icon = document.getElementById("contactCancelIcon");
-  icon.src = mode === "add" ? "./assets/icons/close.svg" : "./assets/icons/delete.svg";
+  icon.src =
+    mode === "add" ? "./assets/icons/close.svg" : "./assets/icons/delete.svg";
 }
-
 
 /**
  * DE: Füllt die Eingabefelder des Kontaktdialogs.
@@ -48,9 +53,30 @@ function setContactDialogSecondaryIcon(mode) {
 function fillContactDialogInputs(contact) {
   contactName.value = contact ? contact.name : "";
   contactEmail.value = contact ? contact.email : "";
-  contactPhone.value = contact ? contact.phone : "";
+  fillContactPhoneFields(contact ? contact.phone : "");
 }
 
+/**
+ * DE: Wählt eine Ländervorwahl aus und ergänzt sie, falls sie in der Liste fehlt.
+ * EN: Selects a country code and adds it when it is missing from the list.
+ * @param {string} code - DE: Ländervorwahl wie "+49". EN: Country code like "+49".
+ */
+function selectContactPhoneCode(code) {
+  if (!getContactPhoneCodes().includes(code))
+    contactPhoneCode.add(new Option(code, code));
+  contactPhoneCode.value = code;
+}
+
+/**
+ * DE: Verteilt eine Telefonnummer auf Vorwahl-Auswahl und Rufnummernfeld.
+ * EN: Distributes a phone number to the code select and the number field.
+ * @param {string} phone - DE: Telefonnummer. EN: Phone number.
+ */
+function fillContactPhoneFields(phone) {
+  const parts = splitContactPhone(phone);
+  selectContactPhoneCode(parts.code);
+  contactPhone.value = parts.number;
+}
 
 /**
  * DE: Bereitet den Kontaktdialog für Hinzufügen oder Bearbeiten vor.
@@ -68,7 +94,6 @@ function fillContactDialog(mode, contact = null) {
   renderDialogAvatar(contact);
 }
 
-
 /**
  * DE: Setzt den Fokus auf das Namensfeld.
  * EN: Focuses the name field.
@@ -76,7 +101,6 @@ function fillContactDialog(mode, contact = null) {
 function focusContactName() {
   contactName.focus({ preventScroll: true });
 }
-
 
 /**
  * DE: Öffnet den animierten Kontaktdialog.
@@ -92,7 +116,6 @@ function openContactDialog(mode, contact = null) {
   });
 }
 
-
 /**
  * DE: Schließt den animierten Kontaktdialog.
  * EN: Closes the animated contact dialog.
@@ -100,7 +123,6 @@ function openContactDialog(mode, contact = null) {
 function closeContactDialog() {
   return closeFloatingDialog(contactDialog);
 }
-
 
 /**
  * DE: Erstellt eine lokale ID für einen Gastkontakt.
@@ -111,7 +133,6 @@ function createGuestContactId() {
   const randomPart = Math.random().toString(16).slice(2);
   return "guest-" + Date.now() + "-" + randomPart;
 }
-
 
 /**
  * DE: Speichert einen Kontakt nur in der lokalen Gastansicht.
@@ -128,7 +149,6 @@ function saveGuestContact(contact) {
   return contact;
 }
 
-
 /**
  * DE: Aktualisiert die lokale Sitzung nach einer Profiländerung.
  * EN: Updates the local session after a profile change.
@@ -139,7 +159,6 @@ function updateCurrentUserSession(user) {
   sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
   updateUserInitials();
 }
-
 
 /**
  * DE: Speichert einen bearbeiteten echten Kontakt und sein Benutzerprofil.
@@ -155,7 +174,6 @@ async function updateRealContact(contact) {
   return contact;
 }
 
-
 /**
  * DE: Speichert einen Kontakt passend zum aktuellen Zugangsmodus.
  * EN: Stores a contact according to the current access mode.
@@ -168,7 +186,6 @@ async function saveContact(contact) {
   return updateRealContact(contact);
 }
 
-
 /**
  * DE: Bestimmt die Erfolgsmeldung nach dem Speichern.
  * EN: Determines the success message after saving.
@@ -180,7 +197,6 @@ function getContactSaveMessage(ownProfile) {
   if (ownProfile) return "Profile successfully updated.";
   return "Contact successfully updated.";
 }
-
 
 /**
  * DE: Aktualisiert die Ansicht nach erfolgreichem Speichern.
@@ -197,18 +213,15 @@ async function storeContactDraft(draft) {
   showToast(getContactSaveMessage(ownProfile));
 }
 
-
 /**
  * DE: Zeigt die Rückmeldung für eine doppelte E-Mail-Adresse.
  * EN: Shows feedback for a duplicate email address.
  */
 function showDuplicateContactError() {
-  const message = "A contact with this email address already exists.";
-  showContactFieldError(contactEmail, message);
-  showToast(message);
+  showContactFieldError(contactEmail, "Email already in use.");
+  showToast("A contact with this email address already exists.");
   contactEmail.focus();
 }
-
 
 /**
  * DE: Verarbeitet das Absenden des Kontaktformulars.
@@ -220,7 +233,8 @@ async function handleContactSubmit(event) {
   event.preventDefault();
   if (!validateContactForm()) return;
   const draft = createContactDraft();
-  if (hasDuplicateContactEmail(draft.email, draft.id)) return showDuplicateContactError();
+  if (hasDuplicateContactEmail(draft.email, draft.id))
+    return showDuplicateContactError();
   contactSubmitButton.disabled = true;
   try {
     await storeContactDraft(draft);
@@ -230,17 +244,16 @@ async function handleContactSubmit(event) {
   contactSubmitButton.disabled = false;
 }
 
-
 /**
  * DE: Formatiert die Telefonnummer beim Verlassen des Feldes.
  * EN: Formats the phone number when leaving the field.
  */
 function formatPhoneField() {
-  if (!contactPhone.value) return;
+  if (contactPhone.value.trim().startsWith("+"))
+    fillContactPhoneFields(contactPhone.value);
   if (!isContactPhoneValid(contactPhone.value)) return;
-  contactPhone.value = formatContactPhone(contactPhone.value);
+  contactPhone.value = normalizeContactPhone(contactPhone.value);
 }
-
 
 /**
  * DE: Verarbeitet den zweiten Dialogbutton für Abbrechen oder Löschen.
@@ -256,7 +269,6 @@ function handleContactSecondaryAction() {
   });
 }
 
-
 /**
  * DE: Wechselt das Löschsymbol im Bearbeitungsdialog.
  * EN: Changes the delete icon in the edit dialog.
@@ -265,9 +277,10 @@ function handleContactSecondaryAction() {
 function updateDialogSecondaryIcon(useHover) {
   if (contactState.dialogMode !== "edit") return;
   const icon = document.getElementById("contactCancelIcon");
-  icon.src = useHover ? "./assets/icons/delete_hover.svg" : "./assets/icons/delete.svg";
+  icon.src = useHover
+    ? "./assets/icons/delete_hover.svg"
+    : "./assets/icons/delete.svg";
 }
-
 
 /**
  * DE: Zeigt das Hover-Symbol des zweiten Dialogbuttons.
@@ -277,7 +290,6 @@ function showDialogSecondaryHover() {
   updateDialogSecondaryIcon(true);
 }
 
-
 /**
  * DE: Stellt das normale Symbol des zweiten Dialogbuttons wieder her.
  * EN: Restores the normal icon of the secondary dialog button.
@@ -286,14 +298,15 @@ function hideDialogSecondaryHover() {
   updateDialogSecondaryIcon(false);
 }
 
-
 /**
  * DE: Initialisiert die Ereignisse des Kontaktformulars.
  * EN: Initializes the contact form events.
  */
 function initializeContactFormEvents() {
   const secondaryButton = document.getElementById("contactCancelButton");
-  document.getElementById("contactDialogClose").addEventListener("click", closeContactDialog);
+  document
+    .getElementById("contactDialogClose")
+    .addEventListener("click", closeContactDialog);
   secondaryButton.addEventListener("click", handleContactSecondaryAction);
   secondaryButton.addEventListener("mouseenter", showDialogSecondaryHover);
   secondaryButton.addEventListener("mouseleave", hideDialogSecondaryHover);
