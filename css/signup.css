@@ -59,6 +59,10 @@
   object-fit: contain;
 }
 
+input[type="password"]::-ms-reveal {
+  display: none;
+}
+
 .password-toggle {
   position: absolute;
   top: 24px;
