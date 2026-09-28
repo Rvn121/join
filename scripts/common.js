@@ -160,39 +160,6 @@ function toggleProfileMenu() {
 
 
 /**
- * DE: Entfernt ausschließlich lokale Testdaten des Gastzugangs.
- * EN: Clears guest-only local test data.
- */
-function clearGuestLocalData() {
-  sessionStorage.removeItem("joinGuestContacts");
-  sessionStorage.removeItem("joinGuestTasks");
-  localStorage.removeItem("joinGuestContacts");
-  localStorage.removeItem("joinGuestTasks");
-}
-
-
-/**
- * DE: Liest die lokal gespeicherten Gast-Tasks.
- * EN: Reads the locally stored guest tasks.
- * @returns {Array} DE: Gast-Tasks. EN: Guest tasks.
- */
-function getGuestTaskData() {
-  const tasks = sessionStorage.getItem("joinGuestTasks");
-  return tasks ? JSON.parse(tasks) : [];
-}
-
-
-/**
- * DE: Speichert Tasks ausschließlich in der lokalen Gastsicht.
- * EN: Stores tasks only in the local guest view.
- * @param {Array} tasks - DE: Tasks. EN: Tasks.
- */
-function setGuestTaskData(tasks) {
-  sessionStorage.setItem("joinGuestTasks", JSON.stringify(tasks));
-}
-
-
-/**
  * DE: Kopiert einen gespeicherten Task und ergänzt bei Bedarf seine ID.
  * EN: Copies a stored task and adds its id when needed.
  * @param {object} task - DE: Gespeicherter Task. EN: Stored task.
@@ -297,7 +264,6 @@ function initializePasswordToggles() {
  */
 function logoutUser() {
   sessionStorage.removeItem(SUMMARY_GREETING_PENDING_KEY);
-  clearGuestLocalData();
   sessionStorage.removeItem(USER_MODE_KEY);
   sessionStorage.removeItem(CURRENT_USER_KEY);
   localStorage.removeItem(USER_MODE_KEY);
@@ -313,7 +279,6 @@ function logoutUser() {
 function clearGuestForLogin() {
   if (getUserMode() !== "guest") return;
   sessionStorage.removeItem(SUMMARY_GREETING_PENDING_KEY);
-  clearGuestLocalData();
   sessionStorage.removeItem(USER_MODE_KEY);
   sessionStorage.removeItem(CURRENT_USER_KEY);
   localStorage.removeItem(USER_MODE_KEY);
@@ -351,8 +316,6 @@ window.addEventListener("pageshow", handlePageShow);
 // Remove persistent session data left by older versions.
 localStorage.removeItem(USER_MODE_KEY);
 localStorage.removeItem(CURRENT_USER_KEY);
-localStorage.removeItem("joinGuestContacts");
-localStorage.removeItem("joinGuestTasks");
 
 protectCurrentPage();
 

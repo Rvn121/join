@@ -1,0 +1,50 @@
+@media (max-width: 578px) {
+  .task-form--page .task-form-footer,
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .task-form--page .task-form-footer > p,
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-footer > p {
+    width: 100%;
+    line-height: 1.2;
+  }
+
+  .task-form--page .task-form-actions,
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-actions {
+    width: 100%;
+    min-width: 0;
+    flex: 0 0 auto;
+    gap: 8px;
+  }
+
+  .task-form--page .task-form-actions .btn--form,
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-actions .btn--form {
+    min-width: 0;
+    flex: 1 1 0;
+    padding: 0 4px;
+  }
+}
+
+@media (max-width: 380px) {
+  .task-form-dialog--edit .task-dialog-shell {
+    width: calc(100vw - 16px);
+    padding-inline: 16px;
+  }
+
+  .task-priority-options {
+    grid-template-columns: repeat(auto-fit, minmax(84px, 1fr));
+  }
+
+  .task-priority,
+  .task-priority:has(input:checked) {
+    font-size: var(--fs-small);
+  }
+
+  .task-detail-shell > h2 {
+    font-size: 30px;
+  }
+}

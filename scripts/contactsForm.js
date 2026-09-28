@@ -125,37 +125,12 @@ function closeContactDialog() {
 }
 
 /**
- * DE: Erstellt eine lokale ID für einen Gastkontakt.
- * EN: Creates a local id for a guest contact.
- * @returns {string} DE: Kontakt-ID. EN: Contact id.
- */
-function createGuestContactId() {
-  const randomPart = Math.random().toString(16).slice(2);
-  return "guest-" + Date.now() + "-" + randomPart;
-}
-
-/**
- * DE: Speichert einen Kontakt nur in der lokalen Gastansicht.
- * EN: Stores a contact only in the local guest view.
- * @param {object} contact - DE: Kontakt. EN: Contact.
- * @returns {object} DE: Gespeicherter Kontakt. EN: Stored contact.
- */
-function saveGuestContact(contact) {
-  if (contactState.dialogMode === "add") contact.id = createGuestContactId();
-  const index = getContactIndex(contact.id);
-  if (index >= 0) contactState.contacts[index] = contact;
-  else contactState.contacts.push(contact);
-  saveGuestContacts();
-  return contact;
-}
-
-/**
  * DE: Aktualisiert die lokale Sitzung nach einer Profiländerung.
  * EN: Updates the local session after a profile change.
  * @param {object} user - DE: Benutzer. EN: User.
  */
 function updateCurrentUserSession(user) {
-  if (!user || isGuestContactMode()) return;
+  if (!user) return;
   sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
   updateUserInitials();
 }
@@ -175,13 +150,12 @@ async function updateRealContact(contact) {
 }
 
 /**
- * DE: Speichert einen Kontakt passend zum aktuellen Zugangsmodus.
- * EN: Stores a contact according to the current access mode.
+ * DE: Speichert einen Kontakt in der gemeinsamen Datenbank.
+ * EN: Stores a contact in the shared database.
  * @param {object} contact - DE: Kontakt. EN: Contact.
- * @returns {Promise<object>|object} DE: Kontakt. EN: Contact.
+ * @returns {Promise<object>} DE: Kontakt. EN: Contact.
  */
 async function saveContact(contact) {
-  if (isGuestContactMode()) return saveGuestContact(contact);
   if (contactState.dialogMode === "add") return createContact(contact);
   return updateRealContact(contact);
 }
@@ -205,7 +179,7 @@ function getContactSaveMessage(ownProfile) {
  * @returns {Promise<void>}
  */
 async function storeContactDraft(draft) {
-  const ownProfile = !isGuestContactMode() && isOwnRegisteredContact(draft);
+  const ownProfile = isOwnRegisteredContact(draft);
   const savedContact = await saveContact(draft);
   contactState.selectedId = savedContact.id;
   await refreshContacts();

@@ -34,14 +34,13 @@ function isTaskContactSelected(contactId) {
 
 
 /**
- * DE: Zeigt nur registrierte Benutzer im Assigned-to-Dropdown.
- * EN: Shows only registered users in the assigned-to dropdown.
+ * DE: Zeigt alle Kontakte im Assigned-to-Dropdown.
+ * EN: Shows all contacts in the assigned-to dropdown.
  */
 function renderTaskContactDropdown() {
   let html = "";
   for (let i = 0; i < taskFormState.contacts.length; i++) {
     const contact = taskFormState.contacts[i];
-    if (getUserMode() !== "guest" && contact.isRegistered !== true) continue;
     const selected = isTaskContactSelected(contact.id);
     html += getAssignedContactTemplate(contact, selected, isOwnTaskContact(contact));
   }
@@ -142,7 +141,7 @@ function renderTaskSelectedContacts() {
  */
 function updateTaskContactSelection(contactId, checked) {
   const contact = findFormContact(contactId);
-  if (checked && (!contact || (getUserMode() !== "guest" && contact.isRegistered !== true))) return;
+  if (checked && !contact) return;
   const id = String(contactId);
   const index = taskFormState.selectedContactIds.indexOf(id);
   if (checked && index < 0) taskFormState.selectedContactIds.push(id);

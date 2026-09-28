@@ -1,5 +1,3 @@
-const CONTACTS_GUEST_KEY = "joinGuestContacts";
-const ADMIN_EMAIL = "admin@join.com";
 const contactState = {
   contacts: [],
   selectedId: null,
@@ -8,28 +6,6 @@ const contactState = {
 };
 const contactsList = document.getElementById("contactsList");
 const contactDetail = document.getElementById("contactDetail");
-
-/**
- * DE: Prüft, ob der Gastmodus aktiv ist.
- * EN: Checks whether guest mode is active.
- * @returns {boolean} DE: Gaststatus. EN: Guest status.
- */
-function isGuestContactMode() {
-  return getUserMode() === "guest";
-}
-
-
-/**
- * DE: Prüft, ob der aktuelle Benutzer Administrator ist.
- * EN: Checks whether the current user is an administrator.
- * @returns {boolean} DE: Administratorstatus. EN: Administrator status.
- */
-function isAdminUser() {
-  const user = getCurrentUser();
-  if (!user) return false;
-  return normalizeEmail(user.email) === ADMIN_EMAIL;
-}
-
 
 /**
  * DE: Sucht einen Kontakt im aktuellen Kontaktstatus.
@@ -72,65 +48,22 @@ function isOwnRegisteredContact(contact) {
 
 
 /**
- * DE: Prüft, ob der aktuelle Zugang einen Kontakt verwalten darf.
- * EN: Checks whether the current access may manage a contact.
+ * DE: Erlaubt allen angemeldeten Zugängen die Kontaktverwaltung.
+ * EN: Allows every signed-in access mode to manage contacts.
  * @param {object} contact - DE: Kontakt. EN: Contact.
  * @returns {boolean} DE: Berechtigung. EN: Permission.
  */
 function canManageContact(contact) {
-  if (isGuestContactMode()) return true;
-  if (isAdminUser()) return true;
-  if (!contact.isRegistered) return true;
-  return isOwnRegisteredContact(contact);
+  return Boolean(contact);
 }
 
 
 /**
- * DE: Liest die lokale Kontaktliste des Gastes.
- * EN: Reads the guest's local contact list.
- * @returns {Array|null} DE: Kontakte. EN: Contacts.
- */
-function getStoredGuestContacts() {
-  const storedContacts = sessionStorage.getItem(CONTACTS_GUEST_KEY);
-  if (!storedContacts) return [];
-  try {
-    return JSON.parse(storedContacts).map(contact => ({
-      ...contact,
-      phone: contact.phone === "+4908154711" ? "+49 0815 4711" : contact.phone,
-    }));
-  } catch {
-    return [];
-  }
-}
-
-
-/**
- * DE: Speichert die Kontaktliste des Gastes lokal.
- * EN: Stores the guest contact list locally.
- */
-function saveGuestContacts() {
-  const contacts = JSON.stringify(contactState.contacts);
-  sessionStorage.setItem(CONTACTS_GUEST_KEY, contacts);
-}
-
-
-/**
- * DE: Liest ausschliesslich Kontakte der aktuellen Gastsitzung.
- * EN: Reads only contacts from the current guest session.
- * @returns {Promise<Array>} DE: Kontakte. EN: Contacts.
- */
-async function loadGuestContacts() {
-  return getStoredGuestContacts();
-}
-
-
-/**
- * DE: Lädt die Kontakte passend zum Zugangsmodus.
- * EN: Loads contacts according to the access mode.
+ * DE: Lädt die gemeinsame Kontaktliste.
+ * EN: Loads the shared contact list.
  * @returns {Promise<Array>} DE: Kontakte. EN: Contacts.
  */
 async function loadContacts() {
-  if (isGuestContactMode()) return loadGuestContacts();
   await ensureRegisteredContacts();
   return getContacts();
 }
@@ -297,11 +230,11 @@ function initializeContactListEvents() {
 
 
 /**
- * DE: Lädt echte Kontakte neu oder behält die lokale Gastansicht.
- * EN: Reloads real contacts or keeps the local guest view.
+ * DE: Lädt die gemeinsame Kontaktliste neu.
+ * EN: Reloads the shared contact list.
  */
 async function refreshContacts() {
-  if (!isGuestContactMode()) contactState.contacts = await getContacts();
+  contactState.contacts = await getContacts();
   renderContacts();
   renderContactDetail();
 }

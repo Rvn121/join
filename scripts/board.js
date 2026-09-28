@@ -173,15 +173,25 @@ function updateBoardSearch() {
 
 
 /**
+ * DE: Verhindert Desktop-Drag während eines aktiven Touch-Drags.
+ * EN: Prevents desktop drag while a touch drag is active.
+ * @param {DragEvent} event - DE: Drag-Ereignis. EN: Drag event.
+ * @returns {boolean} DE: Blockierstatus. EN: Block state.
+ */
+function preventTouchBoardDrag(event) {
+  if (!boardState.touchDrag?.active) return false;
+  event.preventDefault();
+  return true;
+}
+
+
+/**
  * DE: Markiert eine Karte beim Start des Drag-and-Drop.
  * EN: Marks a card when drag and drop starts.
  * @param {DragEvent} event - DE: Drag-Ereignis. EN: Drag event.
  */
 function startBoardDrag(event) {
-  if (boardState.touchDrag?.active) {
-    event.preventDefault();
-    return;
-  }
+  if (preventTouchBoardDrag(event)) return;
   cancelBoardTouch();
   const card = event.target.closest("[data-task-id]");
   if (!card) return;

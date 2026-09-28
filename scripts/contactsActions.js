@@ -1,34 +1,4 @@
 /**
- * DE: Sucht den Index eines Kontakts in der lokalen Liste.
- * EN: Finds the index of a contact in the local list.
- * @param {string} contactId - DE: Kontakt-ID. EN: Contact id.
- * @returns {number} DE: Index oder -1. EN: Index or -1.
- */
-function getContactIndex(contactId) {
-  for (let i = 0; i < contactState.contacts.length; i++) {
-    if (contactState.contacts[i].id === contactId) return i;
-  }
-  return -1;
-}
-
-
-/**
- * DE: Löscht einen Kontakt nur aus der lokalen Gastansicht.
- * EN: Deletes a contact only from the local guest view.
- * @param {object} contact - DE: Kontakt. EN: Contact.
- */
-function deleteGuestContact(contact) {
-  const index = getContactIndex(contact.id);
-  if (index < 0) return;
-  contactState.contacts.splice(index, 1);
-  saveGuestContacts();
-  const tasks = getGuestTaskData();
-  for (const task of tasks) removeContactFromTask(task, contact);
-  setGuestTaskData(tasks);
-}
-
-
-/**
  * DE: Meldet den Benutzer nach der eigenen Kontolöschung ab.
  * EN: Logs the user out after deleting the own account.
  */
@@ -77,10 +47,9 @@ async function finishContactDeletion(ownAccount) {
 async function deleteSelectedContact() {
   const contact = getSelectedContact();
   if (!contact || !canManageContact(contact)) return;
-  const ownAccount = !isGuestContactMode() && isOwnRegisteredContact(contact);
+  const ownAccount = isOwnRegisteredContact(contact);
   try {
-    if (isGuestContactMode()) deleteGuestContact(contact);
-    else await deleteContactWithRelations(contact);
+    await deleteContactWithRelations(contact);
     await finishContactDeletion(ownAccount);
   } catch {
     showToast("Could not delete the contact. Please try again.");

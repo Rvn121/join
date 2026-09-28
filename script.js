@@ -120,7 +120,6 @@ function validateLoginForm() {
  * @param {object} user - DE: Benutzer. EN: User.
  */
 function saveUserSession(user) {
-  clearGuestLocalData();
   sessionStorage.setItem(SUMMARY_GREETING_PENDING_KEY, "true");
   sessionStorage.setItem(USER_MODE_KEY, "user");
   sessionStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
@@ -172,27 +171,10 @@ async function handleLoginSubmit(event) {
  * EN: Opens the summary in guest mode.
  */
 function openGuestSummary() {
-  clearGuestLocalData();
   sessionStorage.setItem(SUMMARY_GREETING_PENDING_KEY, "true");
   sessionStorage.setItem(USER_MODE_KEY, "guest");
   sessionStorage.removeItem(CURRENT_USER_KEY);
-  sessionStorage.setItem("joinGuestContacts", JSON.stringify(createGuestDemoContacts()));
   window.location.href = "./summary.html";
-}
-
-
-/**
- * DE: Erstellt die drei lokalen Gastkontakte.
- * EN: Creates the three local guest contacts.
- * @returns {Array} DE: Gastkontakte. EN: Guest contacts.
- */
-function createGuestDemoContacts() {
-  const contacts = [
-    { id: "guest-emma", name: "Tante Emma", email: "Email1@join.com", initials: "TE", color: "orange" },
-    { id: "guest-jacke", name: "Jacke wie Hose", email: "Email2@join.com", initials: "JH", color: "purple" },
-    { id: "guest-probier", name: "Probier Mal", email: "Email3@join.com", initials: "PM", color: "teal" },
-  ];
-  return contacts.map(contact => ({ ...contact, phone: "+49 0815 4711", isRegistered: false, userId: null }));
 }
 
 

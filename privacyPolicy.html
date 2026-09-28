@@ -105,13 +105,13 @@
                 <h3>Tasks and contacts</h3>
                 <p>
                   Tasks (title, description, due date, priority, category, subtasks, assigned contacts) and contacts
-                  (name, e-mail address, phone number) that you create are stored so they are available on all your
-                  devices and to the users you share them with.
+                  (name, e-mail address, phone number) are stored in a shared project database. Registered users and
+                  guests can view and change this shared content.
                 </p>
                 <h3>Guest mode</h3>
                 <p>
-                  In guest mode tasks and contacts are kept only in the local storage of your browser and are removed
-                  when you log out. Nothing is sent to our servers.
+                  The guest login does not create an account. Guests use the same shared tasks and contacts as
+                  registered users. Changes made in guest mode are stored in the Firebase Realtime Database.
                 </p>
               </section>
 
@@ -129,9 +129,9 @@
               <section>
                 <h2>Cookies and local storage</h2>
                 <p>
-                  <span class="content-highlight">Join</span> does not use cookies or tracking tools. Your login state and
-                  guest data are kept in the local storage of your browser and can be removed at any time by logging out
-                  or clearing your browser data.
+                  <span class="content-highlight">Join</span> does not use cookies or tracking tools. The current login
+                  state is kept in the browser session so protected pages can recognize whether you are logged in as a
+                  registered user or as a guest. Shared tasks and contacts are stored in Firebase.
                 </p>
               </section>
 
@@ -147,7 +147,7 @@
               <section>
                 <h2>Contact</h2>
                 <p>Rouven Loske, Tobias Hagemann und Kevin B., Hunoldstr. 52a, 31785 Hameln, rloske90@gmail.com</p>
-                <p>Last updated: September 17, 2026</p>
+                <p>Last updated: September 28, 2026</p>
               </section>
             </section>
           </div>

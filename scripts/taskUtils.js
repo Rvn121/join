@@ -1,4 +1,3 @@
-const TASK_GUEST_STORAGE_KEY = "joinGuestTasks";
 const TASK_STATUS_TODO = "todo";
 const TASK_STATUS_PROGRESS = "inProgress";
 const TASK_STATUS_FEEDBACK = "awaitFeedback";
@@ -161,8 +160,8 @@ function normalizeTaskAssignments(assignments) {
 
 
 /**
- * DE: Normalisiert einen Task aus Firebase oder dem Gastmodus.
- * EN: Normalizes a task from Firebase or guest mode.
+ * DE: Normalisiert einen Task aus Firebase.
+ * EN: Normalizes a task from Firebase.
  * @param {object} task - DE: Task. EN: Task.
  * @returns {object} DE: Normalisierter Task. EN: Normalized task.
  */

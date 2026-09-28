@@ -87,6 +87,19 @@ function getTaskCalendarDaysHtml(heading) {
 }
 
 /**
+ * DE: Wechselt den sichtbaren Monat im Kalender.
+ * EN: Changes the visible month in the calendar.
+ * @param {HTMLButtonElement} button - DE: Monatsbutton. EN: Month button.
+ */
+function changeTaskCalendarMonth(button) {
+  taskCalendarMonth.setMonth(taskCalendarMonth.getMonth() + Number(button.dataset.month));
+  renderTaskCalendar();
+  taskCalendar.querySelector('[data-month="' + button.dataset.month + '"]').focus({ preventScroll: true });
+  positionTaskCalendar();
+}
+
+
+/**
  * DE: Verarbeitet Monat und Datumsauswahl.
  * EN: Handles month/date selection.
  * @param {MouseEvent} event - DE: Klickereignis. EN: Click event.
@@ -94,13 +107,7 @@ function getTaskCalendarDaysHtml(heading) {
 function handleTaskCalendarClick(event) {
   const button = event.target.closest("button");
   if (!button || button.disabled) return;
-  if (button.dataset.month) {
-    taskCalendarMonth.setMonth(taskCalendarMonth.getMonth() + Number(button.dataset.month));
-    renderTaskCalendar();
-    taskCalendar.querySelector('[data-month="' + button.dataset.month + '"]').focus({preventScroll: true});
-    positionTaskCalendar();
-    return;
-  }
+  if (button.dataset.month) return changeTaskCalendarMonth(button);
   taskDueDate.value = formatTaskDate(button.dataset.date);
   taskDueDate.dispatchEvent(new Event("input", {bubbles: true}));
   taskDueDate.dispatchEvent(new Event("change", {bubbles: true}));

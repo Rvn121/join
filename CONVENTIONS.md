@@ -45,12 +45,12 @@ join/
 
 - Nur `style.css` importiert andere Dateien, und zwar in der Reihenfolge base → layout → components → pages. Die übrigen CSS-Dateien enthalten keine `@import`-Anweisungen.
 - Jede Datei hat genau eine Zuständigkeit. Seiten-Layout gehört nicht in `pages/`, und es gibt nicht zwei Systeme für dieselbe Komponente.
-- Media Queries stehen direkt bei der Komponente oder Seite, die sie betreffen – nicht in einer gesammelten Responsive-Datei.
+- Responsive-Regeln liegen in den dafür vorgesehenen Responsive-CSS-Dateien und bleiben nach Bereich getrennt, damit die Seitendateien übersichtlich bleiben.
 - Alle `:root`-Variablen liegen in `base/tokens.css`. Im restlichen CSS nutzen wir die Tokens statt fester Werte. Feste Tokens: `--click-transition: 100ms ease`, `--content-width: 1440px`, `--page-width: 1920px`.
 
 ### Typografie
 
-Die Schrift-Hierarchie liegt in `base/typography.css` und ist aus dem Figma-Design abgeleitet. Sie wird über HTML-Elemente gesetzt, nicht über Klassen – ein `<h2>` sieht auf jeder Seite gleich aus. Einzige Schrift ist Inter, Zeilenhöhe ist überall 1.2. Mobile-Werte gelten ab 620px abwärts.
+Die Schrift-Hierarchie liegt in `base/typography.css` und ist aus dem Figma-Design abgeleitet. Sie wird über HTML-Elemente gesetzt, nicht über Klassen – ein `<h2>` sieht auf jeder Seite gleich aus. Einzige Schrift ist Inter, Zeilenhöhe ist überall 1.2. Mobile-Werte gelten ab 991px abwärts.
 
 | Element     | Desktop    | Mobile     | Verwendung                                   |
 |-------------|------------|------------|----------------------------------------------|
@@ -58,8 +58,8 @@ Die Schrift-Hierarchie liegt in `base/typography.css` und ist aus dem Figma-Desi
 | `h2`        | 27px / 700 | 20px / 700 | Abschnitte, Kanban-Spalten, Dialog-Titel     |
 | `h3`        | 16px / 700 | 16px / 700 | Card-Titel                                   |
 | `p`, `body` | 16px / 400 | 16px / 400 | Fließtext                                    |
-| `small`     | 14px / 400 | 14px / 400 | Hinweise, Meta-Angaben                       |
-| `label`     | 13px / 400 | 13px / 400 | Formular-Labels                              |
+| `small`     | 16px / 400 | 16px / 400 | Hinweise, Meta-Angaben                       |
+| `label`     | 16px / 400 | 16px / 400 | Formular-Labels                              |
 
 Dazu kommen Größen, die keinem Element zugeordnet sind und nur als Token in `tokens.css` liegen:
 
@@ -71,7 +71,7 @@ Dazu kommen Größen, die keinem Element zugeordnet sind und nur als Token in `t
 | `--fs-display`   | 64px / 600 | Summary-Zahlen (Desktop), Name in der Begrüßung (700)       |
 | `--fs-h1-mobile` | 47px       | `h1` ab 620px, Begrüßungszeile (500), Summary-Zahlen Mobile |
 | `--fs-badge-lg`  | 23px / 400 | Kategorie-Badge im Task-Detail-Overlay                      |
-| `--fs-error`     | 12px / 400 | Fehlertext unter Formularfeldern                            |
+| `--fs-error`     | 16px / 400 | Fehlertext unter Formularfeldern                            |
 
 Schriftgewichte liegen ebenfalls als Token vor: `--fw-medium` (500), `--fw-semibold` (600), `--fw-bold` (700).
 
@@ -86,7 +86,7 @@ Schriftgewichte liegen ebenfalls als Token vor: `--fw-medium` (500), `--fw-semib
 - Jede Interaktion gibt sichtbares Feedback (Hover, Toast). Hover verschiebt nichts im Layout. Neu angelegter Content ist sofort zu sehen.
 - Formulare validieren wir selbst, keine HTML5-Standardvalidation.
 - Der Submit-Button ist während des Speicherns deaktiviert. Dropdowns schließen sich bei Klick daneben. Enter im Subtask-Feld schickt nicht das ganze Formular ab.
-- Jede Seite funktioniert bis 320 px runter und auf Desktop. Keine horizontalen Scrollbalken, kein Content, der aus seinem Container läuft.
+- Jede Seite funktioniert bis 320 px runter und auf Desktop. Keine Schrift ist kleiner als 16 px. Keine horizontalen Scrollbalken, kein Content und kein Button läuft aus seinem Container oder überlappt andere Bedienelemente.
 - Die Kanban-Spalten stehen auf Mobile untereinander. Landscape auf Mobile ist deaktiviert, es sei denn, wir haben es bewusst optimiert.
 
 ## 4. Coding-Konventionen

@@ -4,7 +4,7 @@ Join ist ein Kanban-Board zur Aufgabenverwaltung im Team: Tasks werden angelegt,
 
 ## Funktionen
 
-- **Login & Sign up** – Registrierung, Login sowie ein Gast-Login ohne eigenen Account
+- **Login & Sign up** – Registrierung, Login sowie ein Gast-Login ohne eigenen Account; alle Zugänge arbeiten auf denselben Daten
 - **Summary** – Dashboard mit Kennzahlen zu offenen, überfälligen und dringenden Tasks
 - **Board** – Kanban-Board mit Drag & Drop, Suche und Detailansicht pro Task
 - **Add Task** – Formular zum Anlegen von Tasks mit Titel, Beschreibung, Fälligkeitsdatum, Priorität, zugewiesenen Kontakten, Kategorie und Subtasks
@@ -58,7 +58,7 @@ Ein Build-Schritt ist nicht nötig, es gibt keine Abhängigkeiten, die installie
 Die Tests liegen unter `tests/` und laufen mit dem in Node.js eingebauten Test-Runner:
 
 ```bash
-node --test tests/
+node --test tests/*.test.cjs
 ```
 
 ## Team

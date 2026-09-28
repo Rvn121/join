@@ -1,8 +1,10 @@
-/** DE: Liest Tasks aus Firebase oder aus der lokalen Gastsicht. EN: Reads tasks from Firebase or the local guest view. */
+/**
+ * DE: Liest die gemeinsame Taskliste aus Firebase.
+ * EN: Reads the shared task list from Firebase.
+ * @returns {Promise<object[]>} DE: Taskliste. EN: Task list.
+ */
 async function getTasks() {
   try {
-    if (getUserMode() === "guest") return getGuestTaskData();
-    if (getUserMode() !== "user") return [];
     return mapStoredTasks(await getFirebaseData("tasks"));
   } catch {
     return [];
@@ -11,22 +13,22 @@ async function getTasks() {
 
 
 /**
- * DE: Speichert Tasks in Firebase oder nur lokal für den Gast.
- * EN: Stores tasks in Firebase or only locally for the guest.
+ * DE: Speichert die gemeinsame Taskliste in Firebase.
+ * EN: Stores the shared task list in Firebase.
  * @param {object[]} tasks - DE: Zu speichernde Tasks. EN: Tasks to store.
  * @returns {Promise<void>}
  */
 async function saveTasks(tasks) {
-  if (getUserMode() === "guest") return setGuestTaskData(tasks);
   await putFirebaseData("tasks", tasks);
 }
 
 
-/** DE: Liest alle Kontakte mit ihren Firebase-IDs. EN: Reads all contacts including their Firebase ids. */
+/**
+ * DE: Liest alle gemeinsamen Kontakte mit ihren Firebase-IDs.
+ * EN: Reads all shared contacts including their Firebase ids.
+ * @returns {Promise<object[]>} DE: Kontaktliste. EN: Contact list.
+ */
 async function getContacts() {
-  if (getUserMode() === "guest") {
-    return JSON.parse(sessionStorage.getItem("joinGuestContacts") || "[]");
-  }
   try {
     return mapFirebaseCollection(await getFirebaseData("contacts"));
   } catch {

@@ -5,8 +5,8 @@
  * @returns {string} DE: Vollständige Firebase-URL. EN: Complete Firebase URL.
  */
 function getFirebaseUrl(path = "") {
-  if (getUserMode() === "guest" || (isProtectedPage() && !getUserMode())) {
-    throw new Error("Database access requires a registered user session.");
+  if (isProtectedPage() && !getUserMode()) {
+    throw new Error("Database access requires an active session.");
   }
   return FIREBASE_BASE_URL + "/" + path + ".json";
 }

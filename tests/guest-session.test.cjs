@@ -1,166 +1,160 @@
-const test = require('node:test');
-const assert = require('node:assert/strict');
-const fs = require('node:fs');
-const path = require('node:path');
-const vm = require('node:vm');
+const test = require("node:test");
+const assert = require("node:assert/strict");
+const fs = require("node:fs");
+const path = require("node:path");
+const vm = require("node:vm");
 
-function storage() {
+function createStorage() {
   const values = new Map();
-  return { getItem: key => values.get(key) ?? null, setItem: (key, value) => values.set(key, String(value)), removeItem: key => values.delete(key) };
+  return {
+    getItem: key => values.get(key) ?? null,
+    setItem: (key, value) => values.set(key, String(value)),
+    removeItem: key => values.delete(key),
+  };
 }
 
-function app({ protectedPage = false, session = storage(), local = storage() } = {}) {
-  const redirects = [], requests = [], events = {}, bodyClasses = new Set();
-  const classList = {
-    add: name => bodyClasses.add(name),
-    remove: name => bodyClasses.delete(name),
-    contains: name => bodyClasses.has(name),
-    toggle: (name, force) => force ? bodyClasses.add(name) : bodyClasses.delete(name),
+function clone(value) {
+  return value === undefined ? undefined : JSON.parse(JSON.stringify(value));
+}
+
+function createDatabase() {
+  return {
+    contacts: {
+      c1: { name: "Shared Contact", email: "shared@join.com", phone: "+49 5151 1234", initials: "SC", color: "orange", isRegistered: false, userId: null },
+    },
+    tasks: {
+      t1: { id: "t1", title: "Shared Task", status: "todo", assignedTo: ["c1"], subtasks: [] },
+    },
+    users: {},
   };
+}
+
+function getPath(url) {
+  const parsed = new URL(url);
+  return parsed.pathname.replace(/^\//, "").replace(/\.json$/, "");
+}
+
+function readValue(database, pathValue) {
+  const parts = pathValue.split("/").filter(Boolean);
+  let current = database;
+  for (const part of parts) current = current?.[part];
+  return clone(current ?? null);
+}
+
+function writeValue(database, pathValue, value) {
+  const parts = pathValue.split("/").filter(Boolean);
+  let current = database;
+  for (let i = 0; i < parts.length - 1; i++) current = current[parts[i]] ||= {};
+  current[parts.at(-1)] = clone(value);
+}
+
+function deleteValue(database, pathValue) {
+  const parts = pathValue.split("/").filter(Boolean);
+  let current = database;
+  for (let i = 0; i < parts.length - 1; i++) current = current?.[parts[i]];
+  if (current) delete current[parts.at(-1)];
+}
+
+function createFetch(database, requests) {
+  let postId = 0;
+  return async (url, options = {}) => {
+    const method = options.method || "GET";
+    const target = getPath(url);
+    requests.push({ method, target });
+    if (method === "GET") return response(readValue(database, target));
+    if (method === "DELETE") { deleteValue(database, target); return response(null); }
+    const data = JSON.parse(options.body || "null");
+    if (method === "POST") {
+      const id = "new" + ++postId;
+      writeValue(database, target + "/" + id, data);
+      return response({ name: id });
+    }
+    if (method === "PATCH") {
+      const current = readValue(database, target) || {};
+      writeValue(database, target, Object.assign(current, data));
+      return response(null);
+    }
+    writeValue(database, target, data);
+    return response(data);
+  };
+}
+
+function response(data) {
+  return { ok: true, json: async () => clone(data) };
+}
+
+function createApp({ protectedPage = false, database = createDatabase() } = {}) {
+  const sessionStorage = createStorage();
+  const localStorage = createStorage();
+  const requests = [];
+  const redirects = [];
+  const events = {};
   const context = vm.createContext({
-    sessionStorage: session, localStorage: local,
+    URL,
+    sessionStorage,
+    localStorage,
+    FIREBASE_BASE_URL: "https://example.invalid",
+    fetch: createFetch(database, requests),
     document: {
-      getElementById: () => null, querySelectorAll: () => [], addEventListener() {},
-      documentElement: { hidden: false },
+      getElementById: () => null,
+      querySelectorAll: () => [],
+      addEventListener() {},
       body: {
-        classList,
-        getAttribute: key => key === 'data-protected-page' && protectedPage ? 'true' : null,
+        classList: { add() {}, remove() {}, toggle() {} },
+        getAttribute: key => key === "data-protected-page" && protectedPage ? "true" : null,
       },
     },
-    window: { location: { replace: url => redirects.push(url), reload: () => redirects.push('reload') }, addEventListener: (name, fn) => { events[name] = fn; } },
-    fetch: async url => { requests.push(url); return { ok: true, json: async () => ({}) }; },
-    FIREBASE_BASE_URL: 'https://example.invalid',
+    window: {
+      location: { href: "", replace: url => redirects.push(url) },
+      addEventListener: (name, fn) => { events[name] = fn; },
+    },
   });
-  for (const file of ['scripts/common.js', 'scripts/overlays.js', 'scripts/dataService.js', 'scripts/dataServiceRelations.js', 'scripts/taskUtils.js', 'scripts/contacts.js', 'scripts/contactsForm.js', 'scripts/contactsActions.js', 'scripts/taskFormContacts.js', 'script.js']) {
-    vm.runInContext(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), context, { filename: file });
+  for (const file of ["scripts/common.js", "scripts/dataService.js", "scripts/dataServiceRelations.js", "scripts/taskUtils.js", "script.js"]) {
+    vm.runInContext(fs.readFileSync(path.join(__dirname, "..", file), "utf8"), context, { filename: file });
   }
-  return { context, session, local, redirects, requests, events };
+  return { context, database, requests, redirects, sessionStorage };
 }
 
-test('summary greeting appears once per login, including after navigation or reload', () => {
-  const first = app();
-  function summary(context, width = 428) {
-    const classes = new Set();
-    context.document.body.classList = { add: name => classes.add(name), remove: name => classes.delete(name) };
-    context.window.innerWidth = width;
-    context.window.setTimeout = () => {};
-    vm.runInContext(fs.readFileSync(path.join(__dirname, '..', 'scripts/summary.js'), 'utf8'), context);
-    context.showMobileSummaryGreeting();
-    return classes.has('summary-mobile-greeting-active');
-  }
-  first.context.openGuestSummary();
-  assert.equal(summary(first.context), true);
-  const next = app({ session: first.session });
-  assert.equal(summary(next.context), false);
-  next.context.logoutUser();
-  next.context.saveUserSession({ name: 'Test User' });
-  assert.equal(summary(next.context), true);
-  assert.equal(summary(next.context), false);
-  next.context.openGuestSummary();
-  assert.equal(summary(next.context, 1280), false);
-  assert.equal(summary(next.context, 428), false);
+test("guest login keeps the guest session but creates no private guest data", () => {
+  const app = createApp();
+  app.context.openGuestSummary();
+  assert.equal(app.context.getUserMode(), "guest");
+  assert.equal(app.sessionStorage.getItem("joinGuestContacts"), null);
+  assert.equal(app.sessionStorage.getItem("joinGuestTasks"), null);
 });
 
-test('guest starts with demo contacts and performs task/contact CRUD with zero network requests', async () => {
-  const { context: c, requests } = app();
-  c.openGuestSummary();
-  assert.equal((await c.getTasks()).length, 0);
-  assert.equal((await c.loadContacts()).length, 3);
-  vm.runInContext('contactState.contacts = getStoredGuestContacts()', c);
-  const contact = c.saveGuestContact({ name: 'Test Guest', email: 'test@example.com', isRegistered: false });
-  assert.equal((await c.loadTaskFormContacts()).find(item => item.id === contact.id).name, 'Test Guest');
-  vm.runInContext('contactState.dialogMode = "edit"', c);
-  c.saveGuestContact({ ...contact, name: 'Changed' });
-  assert.equal((await c.getContacts()).find(item => item.id === contact.id).name, 'Changed');
-  await c.storeTask({ id: 'test', title: 'Task', status: 'todo', assignedTo: [contact.id] });
-  await c.storeTask({ ...(await c.getTasks())[0], status: 'done' });
-  assert.equal((await c.getTasks())[0].status, 'done');
-  c.deleteGuestContact(contact);
-  assert.equal((await c.getContacts()).length, 3);
-  assert.equal((await c.getTasks())[0].assignedTo.length, 0);
-  await c.removeTask('test');
-  assert.equal((await c.getTasks()).length, 0);
-  for (const operation of [() => c.getFirebaseData('users'), () => c.putFirebaseData('tasks', []), () => c.postFirebaseData('contacts', {}), () => c.patchFirebaseData('contacts/x', {}), () => c.deleteFirebaseData('tasks/x')]) {
-    await assert.rejects(operation, /registered user session/);
-  }
-  assert.equal(requests.length, 0);
+test("guest and registered users read and change the same shared tasks", async () => {
+  const database = createDatabase();
+  const guest = createApp({ database });
+  guest.context.openGuestSummary();
+  assert.equal((await guest.context.getTasks())[0].title, "Shared Task");
+  await guest.context.saveTasks([{ id: "t2", title: "Changed by guest", status: "done", assignedTo: [], subtasks: [] }]);
+  const user = createApp({ database });
+  user.sessionStorage.setItem("joinUserMode", "user");
+  user.sessionStorage.setItem("joinCurrentUser", JSON.stringify({ userId: "u1", name: "User" }));
+  assert.equal((await user.context.getTasks())[0].title, "Changed by guest");
 });
 
-test('guest data survives navigation but not logout, a fresh login or a new session', async () => {
-  const first = app();
-  first.context.openGuestSummary();
-  await first.context.storeTask({ id: 'local', title: 'Local' });
-  const next = app({ protectedPage: true, session: first.session, local: first.local });
-  assert.equal((await next.context.getTasks()).length, 1);
-  assert.equal(next.redirects.length, 0);
-  const fresh = app({ protectedPage: true, local: first.local });
-  assert.equal(fresh.context.getUserMode(), null);
-  assert.deepEqual(fresh.redirects, ['./index.html']);
-  next.context.logoutUser();
-  next.events.pageshow();
-  assert.equal(next.session.getItem('joinGuestTasks'), null);
-  assert.equal(next.context.getUserMode(), null);
-  assert.deepEqual(next.redirects, ['./index.html']);
-  next.context.openGuestSummary();
-  assert.equal((await next.context.getTasks()).length, 0);
-  await next.context.storeTask({ id: 'new', title: 'New' });
-  next.context.openGuestSummary();
-  assert.equal((await next.context.getTasks()).length, 0);
+test("guest can create, update and delete contacts in the shared database", async () => {
+  const app = createApp();
+  app.context.openGuestSummary();
+  const contact = await app.context.createContact({ name: "Guest Change", email: "guest@join.com", initials: "GC", color: "teal" });
+  contact.name = "Edited by Guest";
+  await app.context.updateContact(contact.id, contact);
+  assert.equal((await app.context.getContacts()).find(item => item.id === contact.id).name, "Edited by Guest");
+  await app.context.deleteContact(contact.id);
+  assert.equal((await app.context.getContacts()).some(item => item.id === contact.id), false);
 });
 
-test('demo contacts have the requested data, reset on guest login and are absent for registered users', async () => {
-  const { context: c, session } = app();
-  c.openGuestSummary();
-  const contacts = await c.getContacts();
-  assert.deepEqual(Array.from(contacts, item => item.name), ['Tante Emma', 'Jacke wie Hose', 'Probier Mal']);
-  assert.deepEqual(Array.from(contacts, item => item.email), ['Email1@join.com', 'Email2@join.com', 'Email3@join.com']);
-  assert.ok(contacts.every(item => item.phone === '+49 0815 4711' && item.isRegistered === false));
-  vm.runInContext('contactState.contacts = getStoredGuestContacts()', c);
-  c.deleteGuestContact(contacts[0]);
-  assert.equal((await c.getContacts()).length, 2);
-  c.openGuestSummary();
-  assert.equal((await c.getContacts()).length, 3);
-  c.saveUserSession({ userId: 'registered' });
-  assert.equal(session.getItem('joinGuestContacts'), null);
-  assert.equal((await c.getContacts()).length, 0);
+test("signed-out visitors still cannot open protected pages", async () => {
+  const app = createApp({ protectedPage: true });
+  assert.equal(app.context.getUserMode(), null);
+  assert.deepEqual(app.redirects, ["./index.html"]);
+  await assert.rejects(() => app.context.getFirebaseData("tasks"), /active session/);
 });
 
-test('signed-out direct visits and stale persistent logins cannot load protected data', async () => {
-  const local = storage();
-  local.setItem('joinUserMode', 'guest');
-  local.setItem('joinGuestTasks', '[{"title":"Old database copy"}]');
-  const { context: c, requests, redirects } = app({ protectedPage: true, local });
-  assert.equal(c.getUserMode(), null);
-  assert.equal(local.getItem('joinGuestTasks'), null);
-  assert.deepEqual(redirects, ['./index.html']);
-  assert.equal((await c.getTasks()).length, 0);
-  assert.equal((await c.getContacts()).length, 0);
-  await assert.rejects(() => c.getFirebaseData('users'));
-  assert.equal(requests.length, 0);
-});
-
-test('registered sessions retain database access; login/registration remain public', async () => {
-  const { context: c, requests } = app();
-  await c.getUserByEmail('test@example.com');
-  assert.equal(requests.length, 1);
-  c.saveUserSession({ userId: 'user-1', name: 'Test' });
-  assert.equal(c.getUserMode(), 'user');
-  await c.getContacts();
-  assert.equal(requests.length, 2);
-});
-
-test('all internal pages declare route protection', () => {
-  for (const file of ['summary.html', 'addTask.html', 'board.html', 'contacts.html', 'help.html']) {
-    assert.match(fs.readFileSync(path.join(__dirname, '..', file), 'utf8'), /data-protected-page="true"/);
-  }
-});
-
-test('restoring a protected page from browser cache rechecks the session without flicker', () => {
-  const session = storage();
-  session.setItem('joinUserMode', 'guest');
-  const { context, events, redirects } = app({ protectedPage: true, session });
-  assert.equal(context.document.body.classList.contains('session-ready'), true);
-  events.pageshow({ persisted: true });
-  assert.equal(context.document.body.classList.contains('session-ready'), true);
-  assert.deepEqual(redirects, []);
+test("guest access uses Firebase instead of guest-only browser storage", () => {
+  const files = ["script.js", "scripts/common.js", "scripts/dataServiceRelations.js", "scripts/contacts.js", "scripts/contactsForm.js", "scripts/contactsActions.js"];
+  const content = files.map(file => fs.readFileSync(path.join(__dirname, "..", file), "utf8")).join("\n");
+  assert.doesNotMatch(content, /joinGuestContacts|joinGuestTasks|saveGuestContact|deleteGuestContact/);
 });

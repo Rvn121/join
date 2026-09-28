@@ -9,6 +9,7 @@
 @import url("./css/buttons.css");
 @import url("./css/components.css");
 @import url("./css/contacts.css");
+@import url("./css/contactsMobile.css");
 @import url("./css/contactMobileActions.css");
 @import url("./css/contactDialog.css");
 @import url("./css/addTask.css");
@@ -19,3 +20,4 @@
 @import url("./css/summary.css");
 @import url("./css/responsive.css");
 @import url("./css/taskResponsive.css");
+@import url("./css/taskResponsiveSmall.css");

@@ -28,8 +28,11 @@
 
 html,
 body {
+  width: 100%;
+  max-width: 100%;
   margin: 0;
   min-height: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -44,6 +47,7 @@ button,
 input,
 textarea,
 select {
+  min-width: 0;
   font: inherit;
 }
 
@@ -60,12 +64,18 @@ a {
 }
 
 button,
+a,
 [role="button"] {
   cursor: pointer;
 }
 
 a {
   color: inherit;
+}
+
+img,
+svg {
+  max-width: 100%;
 }
 
 .sr-only {
