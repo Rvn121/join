@@ -75,6 +75,18 @@
   background: var(--join-blue);
 }
 
+.contact-dialog[data-mode="edit"] .contact-dialog-brand h2 {
+  top: 266px;
+}
+
+.contact-dialog[data-mode="edit"] .contact-dialog-brand p {
+  display: none;
+}
+
+.contact-dialog[data-mode="edit"] .contact-dialog-line {
+  top: 340px;
+}
+
 .contact-dialog-form-area {
   position: relative;
   min-width: 0;
