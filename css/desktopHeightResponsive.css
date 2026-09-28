@@ -112,8 +112,8 @@
   }
 
   .summary-grid {
-    max-width: 510px;
-    flex: 1 1 510px;
+    max-width: 560px;
+    flex: 1 1 560px;
     row-gap: 12px;
   }
 
@@ -128,18 +128,15 @@
     border-radius: 20px;
   }
 
-  .summary-card--urgent,
-  .summary-card--third {
-    height: 96px;
-  }
-
   .summary-card--urgent {
+    height: 96px;
     gap: 16px;
     padding: 12px 20px;
   }
 
   .summary-card--third {
-    padding: 10px 0;
+    height: 120px;
+    padding: 8px 0;
   }
 
   .summary-icon,
@@ -332,12 +329,6 @@
 
   .login-form {
     padding-block: 18px;
-  }
-
-  .summary-card,
-  .summary-card--urgent,
-  .summary-card--third {
-    height: 88px;
   }
 
   .task-subtask-list {

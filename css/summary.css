@@ -59,7 +59,7 @@
 .summary-card--third {
   width: calc((100% - 56px) / 3);
   flex-direction: column;
-  padding: 25px 0;
+  padding: 14px 0;
   text-align: center;
 }
 
@@ -181,7 +181,6 @@
   color: var(--join-accent);
   font-size: var(--fs-display);
 }
-
 @media (max-width: 1399px) {
   .summary-layout {
     gap: 64px;
@@ -200,6 +199,9 @@
     gap: 24px;
     padding: 20px 24px;
   }
+  .summary-card--third {
+    padding: 7px 0;
+  }
 
   .summary-greeting span {
     font-size: 36px;
@@ -209,7 +211,6 @@
     font-size: var(--fs-h1-mobile);
   }
 }
-
 @media (max-width: 1200px) {
   .summary-layout {
     align-items: flex-start;
@@ -224,7 +225,6 @@
     order: -1;
   }
 }
-
 @media (max-width: 991px) {
 
   .summary-heading-row {
@@ -256,6 +256,7 @@
   .summary-card--third {
     width: calc((100% - 48px) / 3);
     height: 116px;
+    padding: 8px 4px;
   }
 
   .summary-icon,
@@ -323,7 +324,6 @@
     font-size: var(--fs-h1-mobile);
   }
 }
-
 @media (max-width: 576px) {
   .summary-grid {
     row-gap: 14px;
@@ -371,8 +371,8 @@
 
   .summary-card--third {
     width: calc((100% - 28px) / 3);
-    height: 104px;
-    padding: 14px 4px;
+    height: 112px;
+    padding: 8px 4px;
   }
 
   .summary-number,
@@ -380,7 +380,6 @@
     font-size: 44px;
   }
 }
-
 @media (max-width: 360px) {
   .summary-card--urgent {
     grid-template-columns: minmax(0, 0.9fr) 1px minmax(0, 1.3fr);

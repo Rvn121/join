@@ -96,9 +96,11 @@
 }
 
 .board-column-add {
+  position: relative;
   display: inline-flex;
   width: 24px;
   height: 24px;
+  flex: 0 0 24px;
   align-items: center;
   justify-content: center;
   padding: 0;
@@ -107,13 +109,15 @@
   background: transparent;
   color: var(--join-dark);
   cursor: pointer;
-  transition: border-color var(--click-transition), color var(--click-transition);
+  transition:
+    border-color var(--click-transition),
+    color var(--click-transition);
 }
 
 .board-column-add:hover,
 .board-column-add:focus-visible {
-  border-color: var(--join-blue);
-  color: var(--join-blue);
+  border-color: var(--join-accent);
+  color: var(--join-accent);
   outline: none;
 }
 
@@ -121,10 +125,18 @@
   display: none;
 }
 
+.board-column-add::before,
 .board-column-add::after {
-  width: 8px;
-  height: 8px;
-  background-size: 2px 8px, 8px 2px;
+  position: absolute;
+  width: 10px;
+  height: 2px;
+  border-radius: 1px;
+  background: currentColor;
+  content: "";
+}
+
+.board-column-add::after {
+  transform: rotate(90deg);
 }
 
 .board-column-tasks {
