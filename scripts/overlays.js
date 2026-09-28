@@ -1,5 +1,6 @@
 const floatingAnimations = new WeakMap();
 const floatingDialogClosers = new Map();
+const modalDialogs = new Set();
 
 /**
  * DE: Schließt Menüs und Dialoge bei Klick außerhalb.
@@ -46,6 +47,39 @@ function isPointInsideDialog(dialog, event) {
 }
 
 document.addEventListener("pointerdown", closeOutsideElements);
+
+
+/**
+ * DE: Aktualisiert die Scroll-Sperre für geöffnete modale Dialoge.
+ * EN: Updates the page scroll lock for open modal dialogs.
+ */
+function updateModalPageLock() {
+  document.body.classList.toggle("modal-open", modalDialogs.size > 0);
+}
+
+
+/**
+ * DE: Registriert einen modalen Dialog für die Scroll-Sperre.
+ * EN: Registers a modal dialog for the page scroll lock.
+ * @param {HTMLDialogElement} dialog - DE: Dialog. EN: Dialog.
+ * @param {boolean} modal - DE: Modalstatus. EN: Modal state.
+ */
+function registerModalDialog(dialog, modal) {
+  if (!modal) return;
+  modalDialogs.add(dialog);
+  updateModalPageLock();
+}
+
+
+/**
+ * DE: Entfernt einen Dialog aus der Scroll-Sperre.
+ * EN: Removes a dialog from the page scroll lock.
+ * @param {HTMLDialogElement} dialog - DE: Dialog. EN: Dialog.
+ */
+function unregisterModalDialog(dialog) {
+  modalDialogs.delete(dialog);
+  updateModalPageLock();
+}
 
 
 /**
@@ -136,6 +170,7 @@ function openFloatingDialog(dialog, modal = true, onClose = () => closeFloatingD
     if (modal) dialog.showModal();
     else dialog.show();
   }
+  registerModalDialog(dialog, modal);
   dialog.oncancel = (event) => {
     event.preventDefault();
     onClose();
@@ -156,5 +191,6 @@ async function closeFloatingDialog(dialog, animated = true) {
   if (animated && !await animateFloatingElement(element, false)) return false;
   if (!animated) floatingAnimations.get(element)?.cancel();
   dialog.close();
+  unregisterModalDialog(dialog);
   return true;
 }

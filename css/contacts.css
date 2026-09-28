@@ -286,7 +286,7 @@
   text-decoration: none;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1399px) {
   .contacts-heading-row {
     align-items: flex-start;
     flex-direction: column;
@@ -305,7 +305,9 @@
     order: 1;
     margin-top: 13px;
   }
+}
 
+@media (max-width: 1200px) {
   .contacts-panel {
     width: 360px;
   }

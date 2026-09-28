@@ -39,7 +39,6 @@
   .task-form--dialog .task-form-columns {
     gap: 0;
   }
-  .task-form--page .task-form-footer,
   .task-form--dialog .task-form-footer {
     margin-top: 32px;
   }
@@ -54,10 +53,6 @@
 
   .board-search {
     flex: 1;
-  }
-
-  .board-columns {
-    grid-template-columns: 1fr;
   }
 
   .board-column-tasks {
@@ -208,9 +203,17 @@
 
   .board-columns {
     display: flex;
+    width: 100%;
     flex-direction: column;
     align-items: stretch;
     gap: 26px;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .board-column {
+    width: 100%;
+    min-width: 0;
   }
 
   .board-column-heading {
@@ -232,20 +235,21 @@
 
   .board-column-tasks {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 16px;
     margin: -8px;
     padding: 8px;
-    overflow: visible;
+    overflow-x: auto;
+    overflow-y: hidden;
   }
 
   .board-column-tasks--drop::after {
-    width: 100%;
+    flex: 0 0 252px;
   }
 
   .task-card {
-    width: 100%;
-    flex: 1 1 auto;
+    width: 252px;
+    flex: 0 0 252px;
     margin: 0;
   }
 
@@ -274,7 +278,7 @@
   .task-field,
   .task-priority-field,
   .task-form-divider ~ .task-form-column .task-field {
-    margin-bottom: 16px;
+    margin-bottom: 15px;
   }
 
   .task-field--title input,

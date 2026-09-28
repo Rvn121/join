@@ -29,7 +29,7 @@
 
 .task-priority-field,
 .task-form-divider ~ .task-form-column .task-field {
-  margin-bottom: 24px;
+  margin-bottom: 15px;
 }
 
 .task-form-divider ~ .task-form-column .task-field-error {

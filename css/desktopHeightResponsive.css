@@ -179,7 +179,7 @@
   .task-field,
   .task-priority-field,
   .task-form-divider ~ .task-form-column .task-field {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
   }
 
   .task-field > span,
@@ -204,9 +204,6 @@
     max-height: 96px;
   }
 
-  .task-form--page .task-form-footer {
-    margin-top: 12px;
-  }
 
   .board-heading-row {
     margin-bottom: 20px;
@@ -332,8 +329,8 @@
   }
 
   .task-subtask-list {
-    height: 80px;
-    min-height: 80px;
-    max-height: 80px;
+    height: 96px;
+    min-height: 96px;
+    max-height: 96px;
   }
 }

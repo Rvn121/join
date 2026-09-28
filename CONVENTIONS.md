@@ -86,8 +86,8 @@ Schriftgewichte liegen ebenfalls als Token vor: `--fw-medium` (500), `--fw-semib
 - Jede Interaktion gibt sichtbares Feedback (Hover, Toast). Hover verschiebt nichts im Layout. Neu angelegter Content ist sofort zu sehen.
 - Formulare validieren wir selbst, keine HTML5-Standardvalidation.
 - Der Submit-Button ist während des Speicherns deaktiviert. Dropdowns schließen sich bei Klick daneben. Enter im Subtask-Feld schickt nicht das ganze Formular ab.
-- Jede Seite funktioniert bis 320 px runter und auf Desktop. Keine Schrift ist kleiner als 16 px. Keine horizontalen Scrollbalken, kein Content und kein Button läuft aus seinem Container oder überlappt andere Bedienelemente.
-- Die Kanban-Spalten stehen auf Mobile untereinander. Landscape auf Mobile ist deaktiviert, es sei denn, wir haben es bewusst optimiert.
+- Jede Seite funktioniert bis 320 px runter und auf Desktop. Keine Schrift ist kleiner als 16 px. Es gibt keinen horizontalen Seiten-Scroll; auf Mobile dürfen nur die Task-Reihen innerhalb einer Kanban-Spalte intern horizontal scrollen. Kein Content und kein Button läuft aus seinem Container oder überlappt andere Bedienelemente.
+- Die Kanban-Spalten stehen auf Mobile untereinander. Die Tasks innerhalb einer Kanban-Spalte stehen nebeneinander und sind innerhalb dieser Spalte horizontal nach rechts scrollbar. Landscape auf Mobile ist deaktiviert, es sei denn, wir haben es bewusst optimiert.
 
 ## 4. Coding-Konventionen
 
