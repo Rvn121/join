@@ -133,20 +133,24 @@ function saveUserSession(user) {
  */
 function setLoginLoading(loading) {
   loginButton.disabled = loading;
-  loginButton.textContent = loading ? "Logging in..." : "Log in";
+  loginButton.setAttribute("aria-busy", String(loading));
 }
 
 
 /**
  * DE: Meldet einen registrierten Benutzer an.
  * EN: Logs in a registered user.
- * @returns {Promise<void>}
+ * @returns {Promise<boolean>} DE: Login erfolgreich. EN: Login successful.
  */
 async function loginRegisteredUser() {
   const user = await verifyUser(emailInput.value, passwordInput.value);
-  if (!user) return showLoginError();
+  if (!user) {
+    showLoginError();
+    return false;
+  }
   saveUserSession(user);
   window.location.href = "./summary.html";
+  return true;
 }
 
 
@@ -160,8 +164,9 @@ async function handleLoginSubmit(event) {
   clearLoginError();
   if (!validateLoginForm()) return;
   setLoginLoading(true);
-  try { await loginRegisteredUser(); }
-  catch { showLoginError(); }
+  try {
+    if (await loginRegisteredUser()) return;
+  } catch { showLoginError(); }
   setLoginLoading(false);
 }
 
