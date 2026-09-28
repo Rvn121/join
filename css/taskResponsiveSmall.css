@@ -48,3 +48,19 @@
     font-size: 30px;
   }
 }
+
+@media (max-width: 360px) {
+  .task-form--page .task-form-actions .btn--form,
+  .task-form-dialog:not(.task-form-dialog--edit) .task-form-actions .btn--form {
+    min-height: 48px;
+    padding-inline: 6px;
+    gap: 2px;
+    font-size: var(--fs-body);
+  }
+
+  .task-form--page .task-submit-button img,
+  .task-form-dialog:not(.task-form-dialog--edit) .task-submit-button img {
+    width: 20px;
+    height: 20px;
+  }
+}

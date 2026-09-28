@@ -42,6 +42,7 @@
   .contacts-detail-stage {
     display: none;
     min-height: calc(100dvh - 80px);
+    overflow-y: visible;
     padding: 48px 16px 200px;
   }
 

@@ -1,5 +1,5 @@
 .contacts-main {
-  overflow: hidden;
+  overflow-x: clip;
 }
 
 .contacts-workspace {
@@ -144,7 +144,8 @@
   position: relative;
   min-width: 0;
   flex: 1;
-  overflow: hidden;
+  overflow-x: clip;
+  overflow-y: auto;
   padding: 116px 96px 96px 55px;
   background: var(--page-background);
 }

@@ -37,12 +37,14 @@
 .task-field select:focus,
 .task-dropdown-input-wrap:focus-within,
 .board-search:focus-within {
-  border-color: var(--join-border-hover);
+  border: 1px solid var(--join-border-hover);
 }
 
 .component-input input.input-error,
-.task-input-error {
-  border-color: var(--join-error);
+.task-input-error,
+.component-input input.input-error:focus,
+.task-input-error:focus {
+  border: 1px solid var(--join-error);
 }
 
 .component-input .field-error,
@@ -112,7 +114,12 @@
 }
 
 .phone-input-field select:focus ~ input:not(.input-error) {
-  border-color: var(--join-border-hover);
+  border: 1px solid var(--join-border-hover);
+}
+
+.phone-input-field input.input-error,
+.phone-input-field select:focus ~ input.input-error {
+  border: 1px solid var(--join-error);
 }
 
 @media (max-width: 991px) {

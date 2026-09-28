@@ -1,0 +1,348 @@
+/* Compact desktop layout for short browser windows. */
+@media (min-width: 992px) {
+  .app-sidebar {
+    overflow: clip;
+  }
+}
+
+@media (min-width: 992px) and (max-height: 720px) {
+  .app-sidebar {
+    overflow: clip;
+  }
+
+  .sidebar-logo-link {
+    padding: 24px 0 0;
+  }
+
+  .sidebar-logo {
+    width: 100px;
+  }
+
+  .sidebar-nav {
+    margin-top: 50px;
+    gap: 6px;
+  }
+
+  .sidebar-link {
+    min-height: 46px;
+    padding-block: 5px;
+  }
+
+  .sidebar-link-icon {
+    width: 24px;
+    height: 24px;
+  }
+
+  .sidebar-footer {
+    gap: 0;
+    padding-bottom: 16px;
+  }
+
+  .sidebar-footer-link {
+    min-height: 32px;
+    padding-block: 4px;
+  }
+
+  .app-header,
+  .app-header-content {
+    min-height: 80px;
+  }
+
+  .app-main,
+  .app-content {
+    min-height: calc(100dvh - 80px);
+  }
+
+  .app-content {
+    padding: 32px 40px 36px;
+  }
+
+  .profile-menu {
+    top: 60px;
+  }
+
+  .header-content {
+    height: 96px;
+  }
+
+  .signup-area {
+    top: 24px;
+    right: 64px;
+  }
+
+  body.logo-corner .join-logo {
+    transform:
+      translate(calc(max(48px, (100vw - var(--content-width)) / 2 + 48px) - 50vw), calc(24px - 50vh))
+      scale(0.3);
+  }
+
+  .login-form {
+    padding: 24px 96px;
+  }
+
+  .login-heading,
+  .signup-dialog-heading {
+    margin-bottom: 18px;
+  }
+
+  .login-form .component-input {
+    margin-bottom: 16px;
+  }
+
+  .login-form .form-message {
+    margin: 6px 0 18px;
+  }
+
+  .login-actions {
+    gap: 20px;
+  }
+
+  .footer-content {
+    padding-bottom: 14px;
+  }
+
+  .summary-heading-row {
+    margin-bottom: 20px;
+  }
+
+  .summary-layout {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .summary-grid {
+    max-width: 510px;
+    flex: 1 1 510px;
+    row-gap: 12px;
+  }
+
+  .summary-greeting {
+    min-width: 0;
+    flex: 1 1 200px;
+    order: 0;
+  }
+
+  .summary-card {
+    height: 96px;
+    border-radius: 20px;
+  }
+
+  .summary-card--urgent,
+  .summary-card--third {
+    height: 96px;
+  }
+
+  .summary-card--urgent {
+    gap: 16px;
+    padding: 12px 20px;
+  }
+
+  .summary-card--third {
+    padding: 10px 0;
+  }
+
+  .summary-icon,
+  .summary-icon img,
+  .summary-icon--urgent {
+    width: 44px;
+    height: 44px;
+    flex-basis: 44px;
+  }
+
+  .summary-number,
+  .summary-urgent-count strong {
+    font-size: 44px;
+  }
+
+  .summary-urgent-divider {
+    height: 58px;
+  }
+
+  .summary-greeting span {
+    font-size: 28px;
+  }
+
+  .summary-greeting strong {
+    font-size: 36px;
+  }
+
+  .add-task-page > h1 {
+    margin-bottom: 20px;
+  }
+
+  .task-form-columns {
+    gap: 16px;
+  }
+
+  .task-form-divider {
+    min-height: 360px;
+  }
+
+  .task-field,
+  .task-priority-field,
+  .task-form-divider ~ .task-form-column .task-field {
+    margin-bottom: 10px;
+  }
+
+  .task-field > span,
+  .task-field > label,
+  .task-priority-field legend {
+    margin-bottom: 4px;
+  }
+
+  .task-field textarea {
+    min-height: 80px;
+    max-height: 96px;
+    padding-block: 12px;
+  }
+
+  .task-priority {
+    height: 44px;
+  }
+
+  .task-subtask-list {
+    height: 96px;
+    min-height: 96px;
+    max-height: 96px;
+  }
+
+  .task-form--page .task-form-footer {
+    margin-top: 12px;
+  }
+
+  .board-heading-row {
+    margin-bottom: 20px;
+  }
+
+  .task-card {
+    gap: 16px;
+  }
+
+  .contacts-workspace {
+    height: calc(100dvh - 80px);
+  }
+
+  .contacts-panel-header {
+    padding-top: 16px;
+  }
+
+  .contacts-detail-stage {
+    padding: 32px 32px 40px;
+  }
+
+  .contact-detail {
+    margin-top: 20px;
+  }
+
+  .contact-detail-head {
+    gap: 24px;
+  }
+
+  .contact-avatar--large {
+    width: 88px;
+    height: 88px;
+    font-size: 36px;
+  }
+
+  .contact-detail-title h2 {
+    font-size: 36px;
+    line-height: 43px;
+  }
+
+  .contact-information-title {
+    margin: 24px 0 18px;
+  }
+
+  .contact-information {
+    gap: 14px;
+  }
+
+  .contact-information div {
+    gap: 8px;
+  }
+
+  .task-dialog-shell {
+    max-height: calc(100dvh - 24px);
+    padding: 32px 40px;
+  }
+
+  .task-dialog-shell > h2 {
+    margin-bottom: 20px;
+  }
+
+  .task-dialog-close {
+    top: 24px;
+    right: 24px;
+  }
+
+  .task-form--dialog .task-form-footer {
+    margin-top: 20px;
+  }
+
+  .task-detail-shell {
+    max-height: calc(100dvh - 24px);
+    padding: 28px 32px 24px;
+  }
+
+  .contact-dialog-card {
+    height: calc(100dvh - 24px);
+    max-height: none;
+  }
+
+  .contact-dialog-form-area {
+    padding-block: 32px;
+  }
+
+  .contact-dialog-close {
+    top: 24px;
+    right: 28px;
+  }
+
+  .contact-form .component-input {
+    margin-bottom: 16px;
+  }
+
+  .contact-form-actions {
+    margin-top: 20px;
+  }
+}
+
+@media (min-width: 992px) and (max-height: 600px) {
+  .app-content {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
+
+  .sidebar-logo-link {
+    padding: 16px 0 18px;
+  }
+
+  .sidebar-logo {
+    width: 64px;
+  }
+
+  .sidebar-nav {
+    gap: 2px;
+  }
+
+  .sidebar-footer {
+    padding-bottom: 8px;
+  }
+
+  .login-form {
+    padding-block: 18px;
+  }
+
+  .summary-card,
+  .summary-card--urgent,
+  .summary-card--third {
+    height: 88px;
+  }
+
+  .task-subtask-list {
+    height: 80px;
+    min-height: 80px;
+    max-height: 80px;
+  }
+}
