@@ -230,6 +230,68 @@ function formatPhoneField() {
 }
 
 /**
+ * DE: Prüft das Namensfeld beim Verlassen.
+ * EN: Validates the name field on blur.
+ */
+function handleContactNameBlur() {
+  revalidateContactField(contactName, validateContactName);
+}
+
+/**
+ * DE: Prüft das markierte Namensfeld während der Eingabe.
+ * EN: Revalidates the marked name field while typing.
+ */
+function handleContactNameInput() {
+  revalidateMarkedContactField(contactName, validateContactName);
+}
+
+/**
+ * DE: Prüft das E-Mail-Feld beim Verlassen.
+ * EN: Validates the email field on blur.
+ */
+function handleContactEmailBlur() {
+  revalidateContactField(contactEmail, validateContactEmail);
+}
+
+/**
+ * DE: Prüft das markierte E-Mail-Feld während der Eingabe.
+ * EN: Revalidates the marked email field while typing.
+ */
+function handleContactEmailInput() {
+  revalidateMarkedContactField(contactEmail, validateContactEmail);
+}
+
+/**
+ * DE: Formatiert und prüft die Rufnummer beim Verlassen des Feldes.
+ * EN: Formats and validates the phone number on blur.
+ */
+function handleContactPhoneBlur() {
+  formatPhoneField();
+  revalidateContactField(contactPhone, validateContactPhone);
+}
+
+/**
+ * DE: Prüft das markierte Telefonfeld während der Eingabe.
+ * EN: Revalidates the marked phone field while typing.
+ */
+function handleContactPhoneInput() {
+  revalidateMarkedContactField(contactPhone, validateContactPhone);
+}
+
+/**
+ * DE: Verbindet die Eingabefelder mit der Live-Validierung.
+ * EN: Connects the input fields with the live validation.
+ */
+function initializeContactLiveValidation() {
+  contactName.addEventListener("blur", handleContactNameBlur);
+  contactName.addEventListener("input", handleContactNameInput);
+  contactEmail.addEventListener("blur", handleContactEmailBlur);
+  contactEmail.addEventListener("input", handleContactEmailInput);
+  contactPhone.addEventListener("blur", handleContactPhoneBlur);
+  contactPhone.addEventListener("input", handleContactPhoneInput);
+}
+
+/**
  * DE: Verarbeitet den zweiten Dialogbutton für Abbrechen oder Löschen.
  * EN: Handles the secondary dialog button for cancel or delete.
  */
@@ -285,5 +347,5 @@ function initializeContactFormEvents() {
   secondaryButton.addEventListener("mouseenter", showDialogSecondaryHover);
   secondaryButton.addEventListener("mouseleave", hideDialogSecondaryHover);
   contactForm.addEventListener("submit", handleContactSubmit);
-  contactPhone.addEventListener("blur", formatPhoneField);
+  initializeContactLiveValidation();
 }

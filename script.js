@@ -74,7 +74,9 @@ function startLandingAnimation() {
  * @returns {boolean} DE: Gültigkeit. EN: Validity.
  */
 function isEmailValid(email) {
-  return /^[^\s@]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+$/i.test(email.trim());
+  return /^[A-Za-z0-9._%+-]+@[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,4}$/i.test(
+    email.trim()
+  );
 }
 
 
@@ -103,14 +105,91 @@ function clearLoginError() {
 
 
 /**
- * DE: Prüft die Login-Felder.
- * EN: Validates the login fields.
+ * DE: Gibt den Fehlertext für die Login-E-Mail zurück.
+ * EN: Returns the validation message for the login email.
+ * @returns {string} DE: Fehlermeldung. EN: Error message.
+ */
+function getLoginEmailError() {
+  if (!emailInput.value.trim()) return "Please enter your email address.";
+  if (!isEmailValid(emailInput.value))
+    return "Please enter a valid email address.";
+  return "";
+}
+
+/**
+ * DE: Gibt den Fehlertext für das Login-Passwort zurück.
+ * EN: Returns the validation message for the login password.
+ * @returns {string} DE: Fehlermeldung. EN: Error message.
+ */
+function getLoginPasswordError() {
+  return passwordInput.value ? "" : "Please enter your password.";
+}
+
+
+/**
+ * DE: Markiert ein Login-Feld und zeigt seine Meldung an.
+ * EN: Marks a login field and shows its message.
+ * @param {HTMLInputElement} input - DE: Eingabefeld. EN: Input field.
+ * @param {string} message - DE: Fehlermeldung. EN: Error message.
+ */
+function showLoginFieldError(input, message) {
+  input.classList.add("input-error");
+  loginMessage.classList.remove("form-message--success");
+  loginMessage.textContent = message;
+}
+
+
+/**
+ * DE: Leert die Login-Meldung, sobald kein Feld mehr markiert ist.
+ * EN: Clears the login message once no field is marked any more.
+ */
+function clearLoginMessageWhenValid() {
+  if (loginForm.querySelector(".input-error")) return;
+  loginMessage.classList.remove("form-message--success");
+  loginMessage.textContent = "";
+}
+
+
+/**
+ * DE: Prüft ein einzelnes Login-Feld neu.
+ * EN: Revalidates a single login field.
+ * @param {HTMLInputElement} input - DE: Eingabefeld. EN: Input field.
+ * @param {Function} getMessage - DE: Fehlerfunktion. EN: Error function.
+ */
+function validateLoginField(input, getMessage) {
+  const message = getMessage();
+  input.classList.remove("input-error");
+  if (!message) return clearLoginMessageWhenValid();
+  showLoginFieldError(input, message);
+}
+
+
+/**
+ * DE: Prüft ein bereits markiertes Login-Feld während der Eingabe erneut.
+ * EN: Revalidates an already marked login field while typing.
+ * @param {HTMLInputElement} input - DE: Eingabefeld. EN: Input field.
+ * @param {Function} getMessage - DE: Fehlerfunktion. EN: Error function.
+ */
+function revalidateMarkedLoginField(input, getMessage) {
+  if (!input.classList.contains("input-error")) return;
+  validateLoginField(input, getMessage);
+}
+
+
+/**
+ * DE: Prüft die Login-Felder und zeigt den ersten Fehler an.
+ * EN: Validates the login fields and shows the first error.
  * @returns {boolean} DE: Formularstatus. EN: Form state.
  */
 function validateLoginForm() {
-  const valid = isEmailValid(emailInput.value) && Boolean(passwordInput.value);
-  if (!valid) showLoginError();
-  return valid;
+  const emailError = getLoginEmailError();
+  const passwordError = getLoginPasswordError();
+  if (emailError) emailInput.classList.add("input-error");
+  if (passwordError) passwordInput.classList.add("input-error");
+  if (!emailError && !passwordError) return true;
+  loginMessage.classList.remove("form-message--success");
+  loginMessage.textContent = emailError || passwordError;
+  return false;
 }
 
 
@@ -214,6 +293,54 @@ function restoreRegistration() {
 
 
 /**
+ * DE: Prüft das E-Mail-Feld beim Verlassen.
+ * EN: Validates the email field on blur.
+ */
+function handleLoginEmailBlur() {
+  validateLoginField(emailInput, getLoginEmailError);
+}
+
+
+/**
+ * DE: Prüft das markierte E-Mail-Feld während der Eingabe.
+ * EN: Revalidates the marked email field while typing.
+ */
+function handleLoginEmailInput() {
+  revalidateMarkedLoginField(emailInput, getLoginEmailError);
+}
+
+
+/**
+ * DE: Prüft das Passwortfeld beim Verlassen.
+ * EN: Validates the password field on blur.
+ */
+function handleLoginPasswordBlur() {
+  validateLoginField(passwordInput, getLoginPasswordError);
+}
+
+
+/**
+ * DE: Prüft das markierte Passwortfeld während der Eingabe.
+ * EN: Revalidates the marked password field while typing.
+ */
+function handleLoginPasswordInput() {
+  revalidateMarkedLoginField(passwordInput, getLoginPasswordError);
+}
+
+
+/**
+ * DE: Verbindet die Login-Felder mit der Live-Validierung.
+ * EN: Connects the login fields with the live validation.
+ */
+function initializeLoginValidation() {
+  emailInput.addEventListener("blur", handleLoginEmailBlur);
+  emailInput.addEventListener("input", handleLoginEmailInput);
+  passwordInput.addEventListener("blur", handleLoginPasswordBlur);
+  passwordInput.addEventListener("input", handleLoginPasswordInput);
+}
+
+
+/**
  * DE: Initialisiert die Landingpage.
  * EN: Initializes the landing page.
  */
@@ -222,6 +349,7 @@ function initializeLandingPage() {
   if (!restoreRegistration()) startLandingAnimation();
   loginForm.addEventListener("submit", handleLoginSubmit);
   guestLoginButton.addEventListener("click", openGuestSummary);
+  initializeLoginValidation();
 }
 
 

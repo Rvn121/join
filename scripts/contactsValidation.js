@@ -12,6 +12,8 @@ function createContactInitials(name) {
 }
 
 const CONTACT_NAME_PART_PATTERN = /^[A-Za-zÀ-ÖØ-öø-ÿ'-]+$/;
+const CONTACT_EMAIL_PATTERN =
+  /^[A-Za-z0-9._%+-]+@[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,4}$/i;
 
 /**
  * DE: Prüft, ob ein Namensteil nur aus Buchstaben besteht.
@@ -21,6 +23,16 @@ const CONTACT_NAME_PART_PATTERN = /^[A-Za-zÀ-ÖØ-öø-ÿ'-]+$/;
  */
 function isContactNamePartValid(part) {
   return CONTACT_NAME_PART_PATTERN.test(part);
+}
+
+/**
+ * DE: Prüft, ob ein Namensteil aus mindestens zwei Zeichen besteht.
+ * EN: Checks whether one name part has at least two characters.
+ * @param {string} part - DE: Namensteil. EN: Name part.
+ * @returns {boolean} DE: Gültigkeit. EN: Validity.
+ */
+function isContactNamePartLongEnough(part) {
+  return part.length >= 2;
 }
 
 /**
@@ -34,15 +46,13 @@ function getContactNameParts(name) {
 }
 
 /**
- * DE: Prüft, ob Vor- und Nachname ohne Zahlen eingegeben wurden.
- * EN: Checks whether first and last name were entered without digits.
+ * DE: Prüft, ob Vor- und Nachname gültig eingegeben wurden.
+ * EN: Checks whether first and last name were entered correctly.
  * @param {string} name - DE: Name. EN: Name.
  * @returns {boolean} DE: Gültigkeit. EN: Validity.
  */
 function isContactNameValid(name) {
-  const names = getContactNameParts(name);
-  if (names.length < 2) return false;
-  return names.every(isContactNamePartValid);
+  return !getContactNameError(name);
 }
 
 /**
@@ -52,9 +62,7 @@ function isContactNameValid(name) {
  * @returns {boolean} DE: Gültigkeit. EN: Validity.
  */
 function isContactEmailValid(email) {
-  return /^[^\s@]+@[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,4}$/i.test(
-    email.trim()
-  );
+  return CONTACT_EMAIL_PATTERN.test(email.trim());
 }
 
 /**
@@ -168,6 +176,8 @@ function getContactNameError(name) {
   if (names.length < 2) return "Please enter a first and last name.";
   if (!names.every(isContactNamePartValid))
     return "Please use letters only in the name.";
+  if (!names.every(isContactNamePartLongEnough))
+    return "Please use at least two letters per name.";
   return "";
 }
 
@@ -206,6 +216,28 @@ function validateContactPhone() {
   if (!contactPhone.value.trim() && !isPhoneRequired()) return;
   if (isContactPhoneValid(contactPhone.value)) return;
   showPhoneError();
+}
+
+/**
+ * DE: Prüft ein einzelnes Feld neu und entfernt zuerst den alten Fehler.
+ * EN: Revalidates one field and clears its previous error first.
+ * @param {HTMLInputElement} input - DE: Eingabefeld. EN: Input field.
+ * @param {Function} validate - DE: Prüffunktion. EN: Validation function.
+ */
+function revalidateContactField(input, validate) {
+  clearContactFieldError(input);
+  validate();
+}
+
+/**
+ * DE: Prüft ein bereits markiertes Feld während der Eingabe erneut.
+ * EN: Revalidates an already marked field while typing.
+ * @param {HTMLInputElement} input - DE: Eingabefeld. EN: Input field.
+ * @param {Function} validate - DE: Prüffunktion. EN: Validation function.
+ */
+function revalidateMarkedContactField(input, validate) {
+  if (!input.classList.contains("input-error")) return;
+  revalidateContactField(input, validate);
 }
 
 /**
