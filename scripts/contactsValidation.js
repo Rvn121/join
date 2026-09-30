@@ -11,25 +11,50 @@ function createContactInitials(name) {
   return (firstLetter + lastLetter).toUpperCase();
 }
 
+const CONTACT_NAME_PART_PATTERN = /^[A-Za-zÀ-ÖØ-öø-ÿ'-]+$/;
+
 /**
- * DE: Prüft, ob Vor- und Nachname eingegeben wurden.
- * EN: Checks whether first and last name were entered.
+ * DE: Prüft, ob ein Namensteil nur aus Buchstaben besteht.
+ * EN: Checks whether one name part contains letters only.
+ * @param {string} part - DE: Namensteil. EN: Name part.
+ * @returns {boolean} DE: Gültigkeit. EN: Validity.
+ */
+function isContactNamePartValid(part) {
+  return CONTACT_NAME_PART_PATTERN.test(part);
+}
+
+/**
+ * DE: Zerlegt einen Namen in seine einzelnen Namensteile.
+ * EN: Splits a name into its single name parts.
+ * @param {string} name - DE: Name. EN: Name.
+ * @returns {string[]} DE: Namensteile. EN: Name parts.
+ */
+function getContactNameParts(name) {
+  return name.trim().split(/\s+/);
+}
+
+/**
+ * DE: Prüft, ob Vor- und Nachname ohne Zahlen eingegeben wurden.
+ * EN: Checks whether first and last name were entered without digits.
  * @param {string} name - DE: Name. EN: Name.
  * @returns {boolean} DE: Gültigkeit. EN: Validity.
  */
 function isContactNameValid(name) {
-  const names = name.trim().split(/\s+/);
-  return names.length >= 2;
+  const names = getContactNameParts(name);
+  if (names.length < 2) return false;
+  return names.every(isContactNamePartValid);
 }
 
 /**
- * DE: Prüft eine E-Mail-Adresse.
- * EN: Checks an email address.
+ * DE: Prüft eine E-Mail-Adresse mit 2 bis 4 Buchstaben nach dem letzten Punkt.
+ * EN: Checks an email address with 2 to 4 letters after the last dot.
  * @param {string} email - DE: E-Mail-Adresse. EN: Email address.
  * @returns {boolean} DE: Gültigkeit. EN: Validity.
  */
 function isContactEmailValid(email) {
-  return /^[^\s@]+@[a-z0-9-]+(?:\.[a-z0-9-]+)+$/i.test(email.trim());
+  return /^[^\s@]+@[a-z0-9-]+(?:\.[a-z0-9-]+)*\.[a-z]{2,4}$/i.test(
+    email.trim()
+  );
 }
 
 /**
@@ -133,12 +158,27 @@ function isPhoneRequired() {
 }
 
 /**
+ * DE: Ermittelt die Fehlermeldung für das Namensfeld.
+ * EN: Determines the error message for the name field.
+ * @param {string} name - DE: Name. EN: Name.
+ * @returns {string} DE: Fehlermeldung. EN: Error message.
+ */
+function getContactNameError(name) {
+  const names = getContactNameParts(name);
+  if (names.length < 2) return "Please enter a first and last name.";
+  if (!names.every(isContactNamePartValid))
+    return "Please use letters only in the name.";
+  return "";
+}
+
+/**
  * DE: Prüft das Namensfeld und zeigt bei Bedarf einen Fehler.
  * EN: Checks the name field and shows an error when needed.
  */
 function validateContactName() {
-  if (isContactNameValid(contactName.value)) return;
-  showContactFieldError(contactName, "Please enter a first and last name.");
+  const message = getContactNameError(contactName.value);
+  if (!message) return;
+  showContactFieldError(contactName, message);
 }
 
 /**
