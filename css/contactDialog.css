@@ -147,14 +147,13 @@
 }
 
 .contact-form .component-input {
-  margin-bottom: 32px;
+  margin-bottom: 12px;
 }
 
 .contact-form .component-input:nth-of-type(3) {
   margin-bottom: 0;
 }
 
-.contact-form .field-error:empty,
 .contact-form-message:empty {
   display: none;
 }
@@ -174,11 +173,13 @@ body[data-page="contacts"] .component-toast {
   left: calc(656px + (100vw - 656px) / 2);
 }
 
-.contact-form .field-error {
+.contact-form .field-error,
+.contact-form .field-error:empty {
   display: block;
-  min-height: 16px;
+  min-height: 2.4em;
   margin-top: 4px;
   font-size: var(--fs-label);
+  line-height: 1.2;
 }
 
 @media (max-width: 1225px) {

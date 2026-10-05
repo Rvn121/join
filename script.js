@@ -255,6 +255,7 @@ async function handleLoginSubmit(event) {
  * EN: Opens the summary in guest mode.
  */
 function openGuestSummary() {
+  clearLoginError();
   sessionStorage.setItem(SUMMARY_GREETING_PENDING_KEY, "true");
   sessionStorage.setItem(USER_MODE_KEY, "guest");
   sessionStorage.removeItem(CURRENT_USER_KEY);
@@ -295,8 +296,10 @@ function restoreRegistration() {
 /**
  * DE: Prüft das E-Mail-Feld beim Verlassen.
  * EN: Validates the email field on blur.
+ * @param {FocusEvent} event - DE: Fokuswechsel. EN: Focus change.
  */
-function handleLoginEmailBlur() {
+function handleLoginEmailBlur(event) {
+  if (event.relatedTarget === guestLoginButton) return;
   validateLoginField(emailInput, getLoginEmailError);
 }
 
@@ -313,8 +316,10 @@ function handleLoginEmailInput() {
 /**
  * DE: Prüft das Passwortfeld beim Verlassen.
  * EN: Validates the password field on blur.
+ * @param {FocusEvent} event - DE: Fokuswechsel. EN: Focus change.
  */
-function handleLoginPasswordBlur() {
+function handleLoginPasswordBlur(event) {
+  if (event.relatedTarget === guestLoginButton) return;
   validateLoginField(passwordInput, getLoginPasswordError);
 }
 
